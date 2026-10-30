@@ -1,11 +1,11 @@
-# filename  unsplash-id  photographer
-cn-tower-dusk.jpg FExWAjWGkA8 Nathan Baessi
-cn-tower-golden.jpg bTMH1cJ6_jY Mitul Grover
-skyline-aurora.jpg 5A6F1Rtkx4c Rishabh Malhotra
-streetcar-night.jpg aFVksk8RfKo Venrick Azcueta
-ttc-street.jpg syzj5GeThTE Brad Killen
-subway-platform.jpg Ob1Y51xHLUw Lianhao Qu
-subway-train-night.jpg Tptp2SnEhN4 Vaskar Sam
-bluffs-cliff.jpg jNr4iXo-_XQ Maksym Dashko
-bluffs-water.jpg RIPMghVg0W0 Adriano Silva
-kensington-fruit.jpg i_EfnS7aMNw Marquise Kamanke
+# filename  image-url  (photographer credits in CREDITS.md)
+cn-tower-dusk.jpg https://images.unsplash.com/photo-1786831877992-108be520acf7
+cn-tower-golden.jpg https://images.unsplash.com/photo-1761836049151-828ec6496e8b
+skyline-aurora.jpg https://images.unsplash.com/photo-1634780065319-d7118fc53800
+streetcar-night.jpg https://images.unsplash.com/photo-1628114094114-5483211bd306
+ttc-street.jpg https://images.unsplash.com/photo-1609302359617-9c9bdd216914
+subway-platform.jpg https://images.unsplash.com/photo-1579743921772-3c5a34084595
+subway-train-night.jpg https://images.unsplash.com/photo-1704644246328-8ffe8d75885a
+bluffs-cliff.jpg https://images.unsplash.com/photo-1704594253672-b678d8b2ea60
+bluffs-water.jpg https://images.unsplash.com/photo-1555246393-6f0f40fe6526
+kensington-fruit.jpg https://images.unsplash.com/photo-1565481710128-a1f96b16ac98
