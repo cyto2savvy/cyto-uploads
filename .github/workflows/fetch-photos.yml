@@ -1,0 +1,28 @@
+name: fetch-photos
+on:
+  workflow_dispatch:
+  push:
+    paths: ["photos/list.txt"]
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download + resize
+        run: |
+          pip install -q pillow
+          grep -v '^#' photos/list.txt | while read -r name id rest; do
+            [ -z "$name" ] && continue
+            [ -f "photos/$name" ] && continue
+            curl -sSL --fail "https://unsplash.com/photos/$id/download?force=true" -o "/tmp/$name" || { echo "FAIL $id"; continue; }
+            python3 -c "from PIL import Image;import sys;im=Image.open(sys.argv[1]).convert('RGB');im.thumbnail((1600,2400));im.save(sys.argv[2],quality=88)" "/tmp/$name" "photos/$name"
+            echo "OK $name"
+          done
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add photos/*.jpg || true
+          git diff --cached --quiet || git commit -m "Fetch Unsplash photos" && git push
