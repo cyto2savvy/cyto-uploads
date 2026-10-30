@@ -1,0 +1,33 @@
+{
+ "canvas": 1200,
+ "body_center": [
+  600,
+  640
+ ],
+ "radius": 300,
+ "shoulder_left": [
+  342.0,
+  670.0
+ ],
+ "hand_left": [
+  270.0,
+  874.0
+ ],
+ "shoulder_right": [
+  858.0,
+  670.0
+ ],
+ "hand_right": [
+  930.0,
+  874.0
+ ],
+ "mouth": [
+  591.0,
+  730.0
+ ],
+ "cup_size": [
+  216,
+  291
+ ],
+ "cup_anchor": "cup centre x = hand_left.x + 0.22*cup_w; cup top = hand_left.y - 0.80*cup_h"
+}
