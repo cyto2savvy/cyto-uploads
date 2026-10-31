@@ -1,0 +1,1 @@
+{"theme": "base", "themeVariables": {"fontFamily": "Inter, sans-serif", "fontSize": "30px", "primaryColor": "#17304d", "primaryTextColor": "#FAF4E8", "primaryBorderColor": "#3CC4B0", "lineColor": "#FFD166", "edgeLabelBackground": "#0f2236", "background": "transparent"}, "flowchart": {"curve": "basis", "nodeSpacing": 40, "rankSpacing": 70, "padding": 24, "wrappingWidth": 600}}

@@ -1,0 +1,4 @@
+.node rect{rx:22px;ry:22px;stroke-width:5px;}
+.edgePath path,.flowchart-link{stroke-width:7px !important;}
+.nodeLabel{font-weight:900;}
+.node rect{filter:none !important;} .node{filter:none !important;}
