@@ -1,0 +1,3 @@
+# name  jsonUrl  (from LottieFiles MCP searchPublicAnimations; Lottie Simple License)
+heart-beat.json https://assets-v2.lottiefiles.com/a/431a544a-118a-11ee-afb0-8f7c271fddba/SspkGdZowA.json
+heart-beat2.json https://assets-v2.lottiefiles.com/a/ced0a67c-1164-11ee-9bae-b33b531a34f5/dqTH2CaDOV.json
