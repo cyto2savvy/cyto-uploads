@@ -16,6 +16,8 @@ for d in $S/episodes/ep0*; do
   n=$(basename $d | sed 's/ep0*//'); [ "$n" = "1" ] && continue
   mkdir -p $H/ep$n && cp -r $d/* $H/ep$n/
 done
+# finished episode videos (ep07/build.py reads its audio mix from the mp4)
+for d in $S/../ep[0-9][0-9]; do n=$(basename $d | sed "s/ep0*//"); if ls $d/*.mp4 >/dev/null 2>&1; then mkdir -p $H/ep$n && cp $d/*.mp4 $H/ep$n/; fi; done
 # hyperframes projects
 cp $S/hf/cytohf.py $S/hf/package.json $H/hf/
 cp -r $S/hf/ep07 $S/hf/rigtest $S/hf/v2 $S/hf/v2test $H/hf/
