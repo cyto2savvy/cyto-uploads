@@ -1,4 +1,4 @@
-"""v2 TEST — Ep 7's middle section (7.4s–20.03s) rebuilt with the proposed v2 changes.
+"""v2 TEMPLATE (from the approved v2 test) — Ep 7's middle section (7.4s–20.03s) rebuilt with the proposed v2 changes.
 Changes vs Ep 7: captions inside the Shorts safe zone, Cyto big (not a corner sticker),
 Cyto-themed Mermaid diagram that builds node-by-node, LottieFiles heart synced to the BPM.
 python3 build.py  ->  index.html"""
@@ -20,12 +20,10 @@ def wt(line, word):
     raise KeyError((line, word))
 
 # ---------- assets ----------
-C.copy_assets(P)
+C.copy_assets_v2(P, lotties=["heart-beat.json"])
 subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", str(OFF), "-t", str(T), "-i", "/root/cyto-uploads/ep07/cyto-ep7-leafs-overtime.mp4",
                 "-vn", "-c:a", "pcm_s16le", "assets/audio.wav"], check=True)
-FF_SVG = open("assets/ff.svg").read()
-FF_SVG = re.sub(r'style="max-width:[^"]*"', 'style="width:100%;height:100%"', FF_SVG, count=1).replace('width="100%"', '', 1)
-HEART = open("assets/heart-beat.json").read()
+FF_SVG = C.mermaid_svg(open("ff.mmd").read(), f"{P}/assets/ff.svg")
 
 O_WORDS = {"monitors", "about", "to", "your", "fight", "flight"}
 full = C.mouth_track("/home/claude/ep7/voice.wav", ALL, o_words=O_WORDS)
@@ -33,8 +31,8 @@ mouth = [[round(t - OFF, 3), s] for t, s in full if OFF <= t < END]
 mouth.insert(0, [0, "closed"])
 
 # ---------- v2 layout (Shorts safe zone: x 60–940, y 200–1480) ----------
-CYTO = C.place(300, 1300, 0.56)        # big, lower-left — never a corner sticker
-CAP_Y = 880                            # captions under the figure, above Cyto
+CYTO = C.CYTO_V2
+CAP_Y = C.CAP_Y_V2
 KEYS = {"60": "#5AE68C", "114": "#FF7A59", "fightorflight": "#FFD166", "vigorous": "#FF7A59", "habs": "#E2394B", "arena": "#FFD166"}
 cap_html, cap_js = C.captions(WORDS, KEYS, y=CAP_Y)
 
@@ -67,17 +65,10 @@ html, body {{ width:1080px; height:1920px; overflow:hidden; background:#0c1622; 
 .scene {{ position:absolute; inset:0; overflow:hidden; }}
 .navy {{ position:absolute; inset:0; background:radial-gradient(ellipse at 50% 30%, #17304d 0%, #0c1622 70%); }}
 .dots {{ position:absolute; left:-200px; top:-200px; width:1480px; height:2320px; background-image:radial-gradient(rgba(120,170,220,.10) 3px, transparent 4px); background-size:70px 70px; }}
-.panel {{ position:absolute; left:60px; top:200px; width:880px; height:650px; border-radius:36px; background:#0f2236; border:3px solid #24425f; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,.4); }}
-.ptitle {{ position:absolute; left:36px; top:28px; font:28px InterXB; color:#96b0c4; letter-spacing:.04em; }}
-.card {{ position:absolute; left:560px; top:1090px; width:380px; padding:24px 26px 24px 34px; border-radius:26px; background:#FAF4E8; border-left:14px solid #FF7A59; box-shadow:0 14px 30px rgba(0,0,0,.35); z-index:30; }}
-.card h3 {{ font:28px InterBlack; color:#FF7A59; letter-spacing:.03em; margin-bottom:8px; }}
-.card p {{ font:32px/1.25 InterSB; color:#0c1622; }}
 #pill {{ position:absolute; top:110px; left:50%; margin-left:-170px; width:340px; text-align:center; background:#FFD166; color:#0c1622; font:23px InterBlack; letter-spacing:.06em; padding:12px 0; border-radius:40px; z-index:60; }}
 .bpm {{ position:absolute; font:150px InterBlack; color:#FAF4E8; text-align:right; }}
 .unit {{ position:absolute; font:34px InterXB; color:#FAF4E8; }}
 #lot {{ position:absolute; left:20px; top:70px; width:330px; height:250px; }}
-#ffw {{ position:absolute; left:70px; top:90px; width:740px; height:540px; }}
-#ffw .nodeLabel, #ffw .nodeLabel p {{ font-family:InterBlack !important; }}
 .gauge {{ position:absolute; top:150px; width:340px; height:340px; }}
 .needle {{ position:absolute; left:167px; top:40px; width:8px; height:140px; border-radius:4px; background:#FAF4E8; transform-origin:4px 140px; }}
 .hub {{ position:absolute; left:155px; top:165px; width:32px; height:32px; border-radius:50%; background:#FAF4E8; }}
@@ -85,7 +76,7 @@ html, body {{ width:1080px; height:1920px; overflow:hidden; background:#0c1622; 
 .gsub {{ position:absolute; top:272px; width:340px; text-align:center; font:30px InterXB; }}
 {C.rig_css()}
 {C.CAP_CSS}
-.cap {{ left:60px; right:140px; }}   /* keep clear of the Shorts action buttons */
+{C.V2_CSS}
 {C.TR_CSS}
 #cytoLayer {{ position:absolute; inset:0; z-index:20; }}
 </style>
@@ -111,7 +102,7 @@ html, body {{ width:1080px; height:1920px; overflow:hidden; background:#0c1622; 
     <div class="navy"></div><div id="dots3" class="dots"></div>
     <div id="pn3" class="panel">
       <div class="ptitle">FIGHT-OR-FLIGHT</div>
-      <div id="ffw">{FF_SVG}</div>
+      <div id="ffw" class="mmd">{FF_SVG}</div>
       <div id="gz" style="position:absolute; inset:0; background:#0f2236; opacity:0">
         <div style="position:absolute; top:44px; width:880px; text-align:center; font:40px InterBlack; color:#FAF4E8">HOW HARD YOUR HEART WORKS</div>
         <div class="gauge" style="left:40px"><svg width="340" height="200"><path d="M30 180 A140 140 0 0 1 310 180" fill="none" stroke="#2a4866" stroke-width="30"/><path id="arcA" d="M30 180 A140 140 0 0 1 310 180" fill="none" stroke="#FFD166" stroke-width="30" stroke-dasharray="440" stroke-dashoffset="440"/></svg>
@@ -134,9 +125,7 @@ html, body {{ width:1080px; height:1920px; overflow:hidden; background:#0c1622; 
 const tl = gsap.timeline({{ paused: true }});
 const T = {T};
 // ---- Lottie heart (LottieFiles), driven frame-by-frame by the timeline so renders are deterministic
-const heart = lottie.loadAnimation({{container:document.getElementById("lot"), renderer:"svg", loop:false, autoplay:false, animationData:{HEART}}});
-const NF = heart.totalFrames, hb = {{f:0}};
-tl.fromTo(hb,{{f:0}},{{f:NF*14,duration:{CUT},ease:"power1.in",onUpdate:()=>heart.goToAndStop(hb.f % NF,true)}},0);
+{C.lottie_js("lot", f"{P}/assets/heart-beat.json", 0, CUT, loops=14, ease="power1.in")}
 // ---- camera
 tl.set("#shaker",{{x:0,y:0,scale:1}},0);
 [[0,{CUT}],[{CUT},T]].forEach(([a,b])=>tl.fromTo("#cam",{{scale:1}},{{scale:1.05,duration:b-a-0.05,ease:"none",immediateRender:false}},a+0.01));
@@ -154,12 +143,7 @@ tl.to("#bpm2",{{color:"#FF7A59",duration:0.3}},{wt(2,"114")-0.4});
 tl.fromTo("#bpm2",{{scale:1.35}},{{scale:1,duration:0.3,ease:"back.out(3)"}},{wt(2,"114")});
 tl.fromTo("#cd2",{{x:600}},{{x:0,duration:0.35,ease:"back.out(1.4)"}},{wt(2,"Scientists")+0.2});
 // ---- S3: themed Mermaid builds itself — nodes pop, arrows draw on
-const nodes=[...document.querySelectorAll("#ffw .node")], edges=[...document.querySelectorAll("#ffw .edgePaths path")];
-const NT=[{CUT+0.15},{wt(3,"fight")},{wt(3,"kicking")},{wt(3,"in")}];
-const nodeAt=(n)=>{{ const txt=n.textContent.toUpperCase(); return txt.includes("PLAY")?NT[0]:txt.includes("ADREN")?NT[1]:txt.includes("HEART")?NT[2]:NT[3]; }};
-nodes.forEach(n=>tl.fromTo(n,{{opacity:0,scale:0.3,transformOrigin:"50% 50%"}},{{opacity:1,scale:1,duration:0.3,ease:"back.out(2.4)",immediateRender:true}},nodeAt(n)));
-edges.forEach((e,i)=>{{ const L=e.getTotalLength(); e.style.strokeDasharray=L; const t=[NT[1],NT[2],NT[3]][Math.min(i,2)]-0.25;
-  tl.fromTo(e,{{strokeDashoffset:L,opacity:0}},{{strokeDashoffset:0,opacity:1,duration:0.3,ease:"power2.out",immediateRender:true}},t); }});
+{C.mermaid_js("#ffw", {"PLAY": CUT+0.15, "ADREN": wt(3,"fight"), "HEART": wt(3,"kicking"), "BREATH": wt(3,"in")}, [wt(3,"fight")-0.25, wt(3,"kicking")-0.25, wt(3,"in")-0.25])}
 tl.fromTo("#ffw",{{scale:1.08}},{{scale:1,duration:{wt(3,"arena")-CUT},ease:"none"}},{CUT});
 tl.fromTo("#cd3a",{{x:600}},{{x:0,duration:0.35,ease:"back.out(1.4)"}},{wt(3,"fight")});
 tl.to("#gz",{{opacity:1,duration:0.25}},{wt(3,"arena")-0.15});

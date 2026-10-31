@@ -12,10 +12,20 @@ The scripts expect the original paths (`/home/claude/cyto2`, `/home/claude/epN`,
 3. **Animation (current method, from Ep 7 on): HyperFrames + puppet rig.**
    - `cyto2/rig.py` exports the layered PNG rig to `cyto2/rig/`: body, toque, 2 eyes, 4 mouths, both arms and hands, cups (red, orange-pumpkin, blue) and the jersey outfit. `rig.json` holds the pivots.
    - `hf/cytohf.py` holds the shared helpers: `place()`, `mouth_track()`, `rig_html/css/js` (blinks, waves, points, tilts, shrugs, raises, sips), `cup_down()`, `captions()` and `transition()` (whip, membrane, doors, zoom).
-   - `hf/ep07/build.py` is the template episode. Copy it to `hf/epNN/`, edit the scenes and timings, run `python3 build.py`, then `npx hyperframes lint`, then `npx hyperframes snapshot --at ...` (look at the frames!), then `npx hyperframes render --output X.mp4 --fps 30 --workers 4`.
+   - **From Ep 8 on, every episode uses the v2 rules below.** `hf/ep07/build.py` is the full-episode structure (hook, scenes, outro); `hf/v2test/build.py` shows the v2 layout and helpers. Copy ep07 to `hf/epNN/` and switch it to the v2 helpers (`copy_assets_v2`, `CYTO_V2`, `CAP_Y_V2`, `V2_CSS`, `mermaid_svg`/`mermaid_js`, `lottie_js`), edit the scenes and timings, run `python3 build.py`, then `npx hyperframes lint`, then `npx hyperframes snapshot --at ...` (look at the frames!), then `npx hyperframes render --output X.mp4 --fps 30 --workers 4`.
    - Set `HYPERFRAMES_BROWSER_PATH` to the Playwright chrome-headless-shell (see restore.sh).
    - Episode audio: reuse an existing mix, or build voice + beat + SFX the way `cyto2/engine.py make_audio` does.
    - The old method (Eps 1–6) was a PIL frame renderer: `cyto2/render.py`, `engine.py`, `epN.py`. It's kept for reference.
+   - **Frame check (v2):** after `npx hyperframes snapshot --at ... -o snaps`, run `python3 -c "import sys;sys.path.insert(0,'/home/claude/hf');import cytohf as C;C.safe_sheet('snaps','safe.jpg')"` and look at `safe.jpg`. It overlays YouTube's Shorts UI (grey shapes); no caption, card, number or face may sit under them.
+
+### v2 rules (approved Oct 30, 2026 — Ep 8 onward)
+Why: in Eps 1–7 the captions sat under YouTube's title text, fact cards ran under the like/comment buttons, Cyto shrank to a corner sticker for ~18s, and the Mermaid diagram was default white boxes clipped off the edge. Before/after: `hf/v2test/compare.mp4`.
+1. **Safe zone:** everything readable inside x 60–940, y 200–1480 (`C.SAFE`). Bottom ~440px and right ~140px belong to YouTube's UI. Captions at `C.CAP_Y_V2` (880), just under the figure panel.
+2. **Cyto big, always on screen:** `C.CYTO_V2` (lower-left, scale 0.56) during science scenes; fact card to his right (`.card` in `V2_CSS`). He can go bigger for hook/joke/outro scenes, but never the old 0.40 corner placement.
+3. **Diagrams:** Mermaid in the Cyto theme via `C.mermaid_svg(src, out)` (navy boxes, teal borders, yellow arrows), inlined in a `.mmd` div and built box-by-box on the voice with `C.mermaid_js`. Max 3 levels / 5 boxes, short ALL-CAPS labels.
+4. **Lottie:** one LottieFiles animation per science scene where it fits. Find it with the LottieFiles MCP (`searchPublicAnimations`, use `jsonUrl`), add `name url` to `lottie/list.txt` (repo root) and push; the `fetch-lottie` workflow downloads it (check `lottie/status.txt`). Drive it with `C.lottie_js` (frame-locked to the timeline). Prefer animations close to the brand palette.
+5. **Length:** hard cap ~30s (`C.MAX_T_V2`). Ep 7 ran 34.9s.
+
 4. **Photos:** Unsplash search works, but direct downloads are blocked.
    - Add a line to `photos/list.txt` (repo root) (filename + images.unsplash.com URL) and push. The GitHub Action `fetch-photos` downloads it into `photos/`.
    - Always call Unsplash `download_asset` for each photo you use, and credit the photographer in the description.
@@ -47,3 +57,11 @@ The scripts expect the original paths (`/home/claude/cyto2`, `/home/claude/epN`,
 - Royal Winter Fair (Nov 6–15)
 - Remembrance Day (Nov 11)
 - First long-form (with vidIQ Boost): "Cyto vs the Flu", which debuts Neutro and Platelet Pete
+
+## Improvement log (one change per week, check it worked in the weekly report)
+| Date | Change | Expected effect | Result |
+|---|---|---|---|
+| Oct 30, 2026 | v2 layout from Ep 8: safe-zone captions, big Cyto, themed Mermaid, Lottie, ≤30s | Fewer swipe-aways; captions readable over YouTube's UI | check after Ep 8–10 |
+
+## Watch: vidIQ credits
+Oct 30, 2026: 40 credits left, 0 renewable until Nov 30 (~5 Liam voiceovers). Spend credits on voice only until Boost is active.

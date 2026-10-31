@@ -183,3 +183,80 @@ TR_CSS = """
 .trd .win { position:absolute; left:90px; right:90px; top:420px; height:520px; border-radius:24px; background:#1b2733; border:10px solid #5d6770; }
 .trz { position:absolute; inset:0; z-index:90; background:#FAF4E8; opacity:0; }
 """
+
+
+# =====================================================================================
+# v2 (Ep 8 onward) — approved Oct 30 2026 after the v2 test (studio/hf/v2test).
+#   1. Everything readable stays in the Shorts SAFE zone (YouTube's title/buttons cover the rest).
+#   2. Cyto is big (CYTO_V2) and on screen the whole time — never a corner sticker.
+#   3. Diagrams: Mermaid in the Cyto theme, inlined as SVG, built node-by-node (mermaid_svg + mermaid_js).
+#   4. One LottieFiles animation per science scene where it fits (lottie_js). Fetch JSON via lottie/list.txt.
+#   5. Hard cap ~30s.
+# =====================================================================================
+V2_DIR = "/home/claude/hf/v2"
+SAFE = dict(left=60, right=940, top=200, bottom=1480)       # 1080x1920 stage
+CYTO_V2 = place(300, 1300, 0.56)                            # Cyto lower-left, big
+CAP_Y_V2 = 880                                              # captions under the figure panel
+MAX_T_V2 = 30.5
+
+V2_CSS = """
+.panel { position:absolute; left:60px; top:200px; width:880px; height:650px; border-radius:36px; background:#0f2236; border:3px solid #24425f; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,.4); }
+.ptitle { position:absolute; left:36px; top:28px; font:28px InterXB; color:#96b0c4; letter-spacing:.04em; }
+.card { position:absolute; left:560px; top:1090px; width:380px; padding:24px 26px 24px 34px; border-radius:26px; background:#FAF4E8; border-left:14px solid #FF7A59; box-shadow:0 14px 30px rgba(0,0,0,.35); z-index:30; }
+.card h3 { font:28px InterBlack; color:#FF7A59; letter-spacing:.03em; margin-bottom:8px; }
+.card p { font:32px/1.25 InterSB; color:#0c1622; }
+.cap { left:60px; right:140px; }
+.mmd { position:absolute; left:70px; top:90px; width:740px; height:540px; }
+.mmd .nodeLabel, .mmd .nodeLabel p { font-family:InterBlack !important; }
+"""
+
+
+def copy_assets_v2(proj, extra=(), lotties=()):
+    """copy_assets + lottie player + any Lottie JSON from the repo's lottie/ folder."""
+    copy_assets(proj, extra)
+    a = os.path.join(proj, "assets")
+    shutil.copy("/home/claude/hf/node_modules/lottie-web/build/player/lottie_svg.min.js", a)
+    for n in lotties: shutil.copy(os.path.join("/home/claude/lottie", n), a)
+
+
+def mermaid_svg(mmd_src, out_svg):
+    """Render Mermaid source in the Cyto theme; returns SVG markup ready to inline in a .mmd div.
+    Keep it to 3 levels / <=5 boxes so it reads on a phone. Keep the svg id 'my-svg' (its styles depend on it)."""
+    src = out_svg.replace(".svg", ".mmd"); open(src, "w").write(mmd_src)
+    subprocess.run(["/home/claude/hf/node_modules/.bin/mmdc", "-i", src, "-o", out_svg, "-c", f"{V2_DIR}/mermaid_theme.json",
+                    "-C", f"{V2_DIR}/mermaid_style.css", "-p", f"{V2_DIR}/pup.json", "-b", "transparent"], check=True, capture_output=True)
+    svg = open(out_svg).read()
+    return re.sub(r'style="max-width:[^"]*"', 'style="width:100%;height:100%"', svg, count=1).replace('width="100%"', '', 1)
+
+
+def mermaid_js(container, node_times, edge_times):
+    """Build-on animation. node_times: {text_fragment: t} (matched on box text, case-insensitive).
+    edge_times: list of t, in the order Mermaid writes the edges."""
+    return (f'(()=>{{const NT={json.dumps({k.upper(): v for k, v in node_times.items()})}, ET={json.dumps(edge_times)};'
+            f'document.querySelectorAll("{container} .node").forEach(n=>{{const x=n.textContent.toUpperCase();const k=Object.keys(NT).find(k=>x.includes(k));if(k===undefined)return;'
+            f'tl.fromTo(n,{{opacity:0,scale:0.3,transformOrigin:"50% 50%"}},{{opacity:1,scale:1,duration:0.3,ease:"back.out(2.4)",immediateRender:true}},NT[k]);}});'
+            f'document.querySelectorAll("{container} .edgePaths path").forEach((e,i)=>{{const L=e.getTotalLength();e.style.strokeDasharray=L;const t=ET[Math.min(i,ET.length-1)];'
+            f'tl.fromTo(e,{{strokeDashoffset:L,opacity:0}},{{strokeDashoffset:0,opacity:1,duration:0.3,ease:"power2.out",immediateRender:true}},t);}});}})();')
+
+
+def lottie_js(container_id, json_file, t0, t1, loops=1, ease="none"):
+    """Drive a Lottie frame-by-frame from the GSAP timeline (deterministic renders).
+    Needs <script src="assets/lottie_svg.min.js"> in <head> and an empty <div id=container_id>.
+    ease="power1.in" makes it speed up (e.g. heart rate climbing)."""
+    data = open(json_file).read(); v = container_id.replace("-", "_")
+    return (f'const L_{v}=lottie.loadAnimation({{container:document.getElementById("{container_id}"),renderer:"svg",loop:false,autoplay:false,animationData:{data}}});'
+            f'const P_{v}={{f:0}};tl.fromTo(P_{v},{{f:0}},{{f:L_{v}.totalFrames*{loops}-0.01,duration:{t1 - t0:.3f},ease:"{ease}",'
+            f'onUpdate:()=>L_{v}.goToAndStop(P_{v}.f % L_{v}.totalFrames,true)}},{t0:.3f});')
+
+
+def safe_sheet(snap_dir, out_jpg):
+    """Frame check: composite the Shorts UI mock onto every snapshot so overlaps are obvious."""
+    from PIL import Image
+    import glob
+    ui = Image.open(f"{V2_DIR}/shorts_ui.png")
+    fs = sorted(glob.glob(os.path.join(snap_dir, "frame*.png")))
+    ims = [Image.alpha_composite(Image.open(f).convert("RGBA").resize((1080, 1920)), ui).convert("RGB").resize((360, 640)) for f in fs]
+    W = Image.new("RGB", (360 * len(ims), 640))
+    for i, im in enumerate(ims): W.paste(im, (i * 360, 0))
+    W.save(out_jpg, quality=85)
+    return out_jpg

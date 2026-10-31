@@ -18,8 +18,14 @@ for d in $S/episodes/ep0*; do
 done
 # hyperframes projects
 cp $S/hf/cytohf.py $S/hf/package.json $H/hf/
-cp -r $S/hf/ep07 $S/hf/rigtest $H/hf/
-cd $H/hf && npm i hyperframes@0.8.222 gsap@3.13.0 >/dev/null 2>&1
+cp -r $S/hf/ep07 $S/hf/rigtest $S/hf/v2 $S/hf/v2test $H/hf/
+for d in $S/hf/ep[0-9][0-9]; do if [ -d "$d" ]; then cp -r "$d" $H/hf/; fi; done
+# v2: Lottie JSON (fetched by the fetch-lottie workflow) + Mermaid renderer config
+mkdir -p $H/lottie && cp $S/../lottie/*.json $H/lottie/ 2>/dev/null || true
+CH=$(ls /opt/pw-browsers/chromium_headless_shell-*/chrome-headless-shell-linux64/chrome-headless-shell 2>/dev/null | head -1)
+echo "{\"executablePath\":\"$CH\",\"args\":[\"--no-sandbox\"]}" > $H/hf/v2/pup.json
+cd $H/hf && npm i hyperframes@0.8.222 gsap@3.13.0 lottie-web@5 @mermaid-js/mermaid-cli >/dev/null 2>&1
+for d in $H/hf/*/; do if [ -f "$d/build.py" ]; then ln -sfn ../node_modules "$d/node_modules"; fi; done
 pip install --break-system-packages -q pillow numpy >/dev/null 2>&1 || true
 # rebuild voice.wav + timing from raw.mp3 + segs.json
 for n in 2 3 4 5 6 7; do [ -f $H/ep$n/segs.json ] && (cd $H/cyto2 && python3 build_voice2.py $H/ep$n >/dev/null) || true; done
