@@ -14,11 +14,18 @@ The scripts expect the original paths (`/home/claude/cyto2`, `/home/claude/epN`,
 3. **Animation (current method, from Ep 7 on): HyperFrames + puppet rig.**
    - `cyto2/rig.py` exports the layered PNG rig to `cyto2/rig/`: body, toque, 2 eyes, 4 mouths, both arms and hands, cups (red, orange-pumpkin, blue) and the jersey outfit. `rig.json` holds the pivots.
    - `hf/cytohf.py` holds the shared helpers: `place()`, `mouth_track()`, `rig_html/css/js` (blinks, waves, points, tilts, shrugs, raises, sips), `cup_down()`, `captions()` and `transition()` (whip, membrane, doors, zoom).
-   - **From Ep 8 on, every episode uses the v2 rules below.** `hf/ep07/build.py` is the full-episode structure (hook, scenes, outro); `hf/v2test/build.py` shows the v2 layout and helpers. Copy ep07 to `hf/epNN/` and switch it to the v2 helpers (`copy_assets_v2`, `CYTO_V2`, `CAP_Y_V2`, `V2_CSS`, `mermaid_svg`/`mermaid_js`, `lottie_js`), edit the scenes and timings, run `python3 build.py`, then `npx hyperframes lint`, then `npx hyperframes snapshot --at ...` (look at the frames!), then `npx hyperframes render --output X.mp4 --fps 30 --workers 4`.
+   - **From Ep 8 on, every episode = v2 layout + v3 rig.** Start from `hf/template/build.py` (the standard: layout, vector rig, lip sync, acting, sip sound). Use `hf/ep07/build.py` only for full-episode structure ideas (hook, outro). **Never use the old PNG rig (`C.rig_html`/`C.rig_js`) for new episodes.** Copy the template to `hf/epNN/`, edit the scenes and timings, run `python3 build.py`, then `npx hyperframes lint`, then `npx hyperframes snapshot --at ...` (look at the frames!), then `npx hyperframes render --output X.mp4 --fps 30 --workers 4`.
    - Set `HYPERFRAMES_BROWSER_PATH` to the Playwright chrome-headless-shell (see restore.sh).
    - Episode audio: reuse an existing mix, or build voice + beat + SFX the way `cyto2/engine.py make_audio` does.
    - The old method (Eps 1–6) was a PIL frame renderer: `cyto2/render.py`, `engine.py`, `epN.py`. It's kept for reference.
    - **Frame check (v2):** after `npx hyperframes snapshot --at ... -o snaps`, run `python3 -c "import sys;sys.path.insert(0,'/home/claude/hf');import cytohf as C;C.safe_sheet('snaps','safe.jpg')"` and look at `safe.jpg`. It overlays YouTube's Shorts UI (grey shapes); no caption, card, number or face may sit under them.
+
+### v3 rig (approved Oct 30, 2026 — Ep 8 onward) — `hf/cyto3.py`
+Vector Cyto on the same canvas/pivots/cup PNGs as the old rig (outfits and cup rules unchanged). Before/after: `hf/v3test/compare_v3.mp4`.
+- **Lip sync:** `R.viseme_track(voice.wav, words)` → 8 mouth shapes from the sounds (rest, M/B/P, small, A, E, O, U, F/V).
+- **Acting every episode:** at least one `expr` per scene (`shock` on "bro WHAT" beats, `hype` on punchlines, `skeptic` on myths/rivals, `squint`, `sad` for serious parts) and `looks` so he glances at the figure. Gestures snap in, hold, settle; the pom-pom follows through automatically.
+- **Organelles** (nucleus, nucleolus, mito, ER, golgi, ribosomes, vesicles) drift the whole time and pulse on his loud words — automatic. Outfits that cover the lower body hide some of them; prefer outfits that leave the middle visible.
+- **Sip sound:** every sip in `gest["sips"]` gets a slurp via `R.mix_sips(base.wav, sip_times, audio.wav)`; the music dips under it. Always run it.
 
 ### v2 rules (approved Oct 30, 2026 — Ep 8 onward)
 Why: in Eps 1–7 the captions sat under YouTube's title text, fact cards ran under the like/comment buttons, Cyto shrank to a corner sticker for ~18s, and the Mermaid diagram was default white boxes clipped off the edge. Before/after: `hf/v2test/compare.mp4`.
@@ -66,7 +73,7 @@ Why: in Eps 1–7 the captions sat under YouTube's title text, fact cards ran un
 | Oct 30, 2026 | v2 layout from Ep 8: safe-zone captions, big Cyto, themed Mermaid, Lottie, ≤30s | Fewer swipe-aways; captions readable over YouTube's UI | check after Ep 8–10 |
 
 | Oct 30, 2026 | Toronto voice guide (`VOICE.md`): ≥3 slang + 1 Toronto reference per script | More comments/shares from Toronto viewers | check after first episodes using it |
-| Oct 30, 2026 | **v3 rig TEST** (`hf/cyto3.py`, `hf/v3test/compare_v3.mp4`): vector Cyto, brows/lids/pupils, 8 mouth shapes from sounds, moving organelles, pom-pom, snappy pose-to-pose, sip SFX | Cyto feels alive; better retention | **awaiting Utsha's OK — not standard yet** |
+| Oct 30, 2026 | **v3 rig TEST** (`hf/cyto3.py`, `hf/v3test/compare_v3.mp4`): vector Cyto, brows/lids/pupils, 8 mouth shapes from sounds, moving organelles, pom-pom, snappy pose-to-pose, sip SFX | Cyto feels alive; better retention | approved Oct 30 — standard from Ep 8 |
 
 ## Watch: vidIQ credits
 Oct 30, 2026: 40 credits left, 0 renewable until Nov 30 (~5 Liam voiceovers). Spend credits on voice only until Boost is active.
