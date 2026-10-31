@@ -3,6 +3,8 @@
 **Restore:** `git clone https://github.com/cyto2savvy/cyto-uploads && bash cyto-uploads/studio/restore.sh`
 The scripts expect the original paths (`/home/claude/cyto2`, `/home/claude/epN`, `/home/claude/hf`), and restore.sh recreates them.
 
+**Scripts:** read `studio/VOICE.md` before writing any script (Toronto slang bank, references, body map, checklist). Required from Oct 30, 2026.
+
 ## Pipeline (all $0)
 1. **Research:** PubMed connector for the sources, and WebSearch for Toronto events and trends.
 2. **Voice:** vidIQ voiceover, voice **Liam** (about 14 credits per 1000 characters, so ask Utsha before spending). The cloud workspace can't download the vidIQ MP3 (S3 is blocked), so Utsha drags it into chat.
@@ -62,6 +64,9 @@ Why: in Eps 1–7 the captions sat under YouTube's title text, fact cards ran un
 | Date | Change | Expected effect | Result |
 |---|---|---|---|
 | Oct 30, 2026 | v2 layout from Ep 8: safe-zone captions, big Cyto, themed Mermaid, Lottie, ≤30s | Fewer swipe-aways; captions readable over YouTube's UI | check after Ep 8–10 |
+
+| Oct 30, 2026 | Toronto voice guide (`VOICE.md`): ≥3 slang + 1 Toronto reference per script | More comments/shares from Toronto viewers | check after first episodes using it |
+| Oct 30, 2026 | **v3 rig TEST** (`hf/cyto3.py`, `hf/v3test/compare_v3.mp4`): vector Cyto, brows/lids/pupils, 8 mouth shapes from sounds, moving organelles, pom-pom, snappy pose-to-pose, sip SFX | Cyto feels alive; better retention | **awaiting Utsha's OK — not standard yet** |
 
 ## Watch: vidIQ credits
 Oct 30, 2026: 40 credits left, 0 renewable until Nov 30 (~5 Liam voiceovers). Spend credits on voice only until Boost is active.

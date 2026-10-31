@@ -19,8 +19,8 @@ done
 # finished episode videos (ep07/build.py reads its audio mix from the mp4)
 for d in $S/../ep[0-9][0-9]; do n=$(basename $d | sed "s/ep0*//"); if ls $d/*.mp4 >/dev/null 2>&1; then mkdir -p $H/ep$n && cp $d/*.mp4 $H/ep$n/; fi; done
 # hyperframes projects
-cp $S/hf/cytohf.py $S/hf/package.json $H/hf/
-cp -r $S/hf/ep07 $S/hf/rigtest $S/hf/v2 $S/hf/v2test $H/hf/
+cp $S/hf/cytohf.py $S/hf/cyto3.py $S/hf/package.json $H/hf/
+cp -r $S/hf/ep07 $S/hf/rigtest $S/hf/v2 $S/hf/v2test $S/hf/v3test $H/hf/
 for d in $S/hf/ep[0-9][0-9]; do if [ -d "$d" ]; then cp -r "$d" $H/hf/; fi; done
 # v2: Lottie JSON (fetched by the fetch-lottie workflow) + Mermaid renderer config
 mkdir -p $H/lottie && cp $S/../lottie/*.json $H/lottie/ 2>/dev/null || true
