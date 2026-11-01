@@ -34,3 +34,5 @@ pip install --break-system-packages -q pillow numpy >/dev/null 2>&1 || true
 for n in 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do [ -f $H/ep$n/segs.json ] && (cd $H/cyto2 && python3 build_voice2.py $H/ep$n >/dev/null) || true; done
 echo "Restored. Before rendering with HyperFrames run:"
 echo '  export HYPERFRAMES_BROWSER_PATH=$(ls /opt/pw-browsers/chromium_headless_shell-*/chrome-headless-shell-linux64/chrome-headless-shell | head -1)'
+
+pip install --break-system-packages -q pyworld pedalboard 2>/dev/null; cp studio/pipeline/cyto_voice.py /home/claude/cyto2/ 2>/dev/null

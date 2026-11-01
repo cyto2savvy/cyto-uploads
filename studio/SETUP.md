@@ -7,6 +7,11 @@ The scripts expect the original paths (`/home/claude/cyto2`, `/home/claude/epN`,
 
 **Scripts:** read `studio/VOICE.md` before writing any script (Toronto slang bank, references, body map, checklist). Required from Oct 30, 2026.
 
+### Cyto's voice = Utsha, disguised (Nov 1, 2026 — replaces vidIQ Liam once approved)
+- Utsha records each script on his phone and drops the file in chat → save as `/home/claude/epN/rec.m4a`.
+- `python3 cyto2/cyto_voice.py epN/rec.m4a epN/raw.wav [cyto|cartoon|gruff]` (source: `studio/pipeline/cyto_voice.py`; needs `pip install --break-system-packages pyworld pedalboard`). WORLD vocoder shifts pitch AND formants so it doesn't sound like him, then a character EQ/comp/grit chain.
+- Then the usual: silencedetect → segs.json → build_voice2.py → timing.json. $0, no vidIQ credits.
+
 ## Pipeline (all $0)
 1. **Research:** PubMed connector for the sources, and WebSearch for Toronto events and trends.
 2. **Voice:** vidIQ voiceover, voice **Liam** (`voiceId TX3LPaxmHKxFdv7VOQHJ`). **Charged 14 credits per started 1,000 characters** — a 600-char script costs the full 14. Ask Utsha before spending. Spell for the ear: "three A M", "six" (captions come from `segs.json`, so they can still say 3AM / 6ix). The cloud workspace can't download the vidIQ MP3 (S3 is blocked), so Utsha drags it into chat.
