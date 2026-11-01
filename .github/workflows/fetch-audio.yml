@@ -1,0 +1,28 @@
+name: fetch-audio
+on:
+  workflow_dispatch:
+  push:
+    paths: ["audio/list.txt"]
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download audio (vidIQ voiceovers etc. — the cloud workspace can't reach S3)
+        run: |
+          : > audio/status.txt
+          grep -v '^#' audio/list.txt | while read -r name url rest; do
+            [ -z "$name" ] && continue
+            [ -f "audio/$name" ] && { echo "HAVE $name" >> audio/status.txt; continue; }
+            code=$(curl -sSL -w '%{http_code}' "$url" -o "audio/$name" || true)
+            if [ "$code" = "200" ] && [ -s "audio/$name" ]; then echo "OK $name" >> audio/status.txt
+            else rm -f "audio/$name"; echo "FAIL $name http=$code" >> audio/status.txt; fi
+          done
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add audio/ || true
+          git diff --cached --quiet || git commit -m "Fetch audio" && git push
