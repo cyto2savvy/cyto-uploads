@@ -1,3 +1,6 @@
 # name  jsonUrl  (from LottieFiles MCP searchPublicAnimations; Lottie Simple License)
 heart-beat.json https://assets-v2.lottiefiles.com/a/431a544a-118a-11ee-afb0-8f7c271fddba/SspkGdZowA.json
 heart-beat2.json https://assets-v2.lottiefiles.com/a/ced0a67c-1164-11ee-9bae-b33b531a34f5/dqTH2CaDOV.json
+zzz-a.json https://assets-v2.lottiefiles.com/a/031f006c-117f-11ee-8448-27cfb16ac6e4/KfqAPV45Yl.json
+zzz-b.json https://assets-v2.lottiefiles.com/a/0999cde8-118c-11ee-a59b-67a6a02c929a/fChuVlQpoD.json
+siren.json https://assets-v2.lottiefiles.com/a/e91338b8-1184-11ee-8f04-cfddb56e2eec/ketcMCtTzw.json
