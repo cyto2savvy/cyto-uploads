@@ -91,6 +91,23 @@
    "youtube_id": "Sd47GFmiTFg",
    "tiktok_queued": true,
    "sources": []
+  },
+  {
+   "ep": 8,
+   "publish_date": "2026-11-05",
+   "publish_time": "18:00",
+   "series": "6ix Seconds of Science",
+   "topic": "Why you wake up at 3am",
+   "outfit": "PJ hoodie",
+   "status": "scripted",
+   "title": "Why You Wake Up at 3AM",
+   "youtube_id": null,
+   "tiktok_queued": false,
+   "sources": [
+    "10.1210/jc.2004-1056",
+    "10.1016/j.beem.2017.10.011",
+    "10.1111/jsr.14252"
+   ]
   }
  ],
  "backlog": [
@@ -101,13 +118,6 @@
    "sources": [
     "Mantantzis 2019, doi:10.1016/j.neubiorev.2019.03.016"
    ]
-  },
-  {
-   "topic": "Why do you wake up at 3am",
-   "target_date": null,
-   "status": "idea",
-   "sources": [],
-   "note": "~19.7k searches/mo, needs a source"
   },
   {
    "topic": "Royal Winter Fair tie-in",
