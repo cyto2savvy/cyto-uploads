@@ -67,7 +67,14 @@ def check(m):
 
     # ---- tags + settings
     if kw and (not tags or tags[0] != kw): F(f"first tag must be the exact keyword '{kw}'")
-    if len(tags) > 15: W(f"{len(tags)} tags (keep 5–12 relevant ones)")
+    if len(tags) > 15: W(f"{len(tags)} tags (keep 8–12 relevant ones)")
+    if 0 < len(tags) < 6: W(f"only {len(tags)} tags (aim 8–12: keyword, variations, topic, context, brand, series)")
+    tchars = sum(len(x) + (2 if " " in x else 0) for x in tags) + max(0, len(tags) - 1)
+    if tchars > 500: F(f"tags total {tchars} chars — YouTube's limit is 500")
+    if any("#" in x for x in tags): F("no '#' in tags (hashtags go in the description)")
+    gen = [x for x in tags if x in {"science", "biology", "shorts", "video", "viral", "fyp", "trending", "health"}]
+    if gen: W(f"single generic tags do nothing: {gen}")
+    if not m.get("captions_srt"): W("captions_srt not set — run make_srt.py and upload it (auto-captions mangle slang)")
     for k in ("cyto the cell", "the body is the 6ix"):
         if k not in tags: W(f"tag '{k}' missing")
     if m.get("category_id") != 27: F("category_id must be 27 (Science & Technology)")

@@ -10,13 +10,51 @@ Sources for these rules (re-check quarterly): vidIQ "How the Shorts algorithm wo
 - **Never put `#shorts` (or any hashtag) in the title.** It wastes the visible characters. Hashtags live at the end of the description.
 - **Say the keyword out loud in the first 3 seconds.** YouTube transcribes the audio and uses it for search.
 - **Description line 1 = the hook + keyword**, inside the first ~150 characters (what shows before "more").
-- **Tags:** first tag = the exact primary keyword, then 4–10 relevant ones (topic, `cyto the cell`, `the body is the 6ix`, `toronto`). No irrelevant tags (spam signal).
+- **Tags:** see the Tags section below.
 - **Settings:** category **27 Science & Technology**, made for kids **NO**, altered/synthetic content **YES** (check it actually saved — see the audit below), language English.
 - **Sources** (PubMed links), **"Not medical advice."** on health topics, Unsplash photo credits.
 - **Pinned comment** (post right after it goes live): a question that's easy to answer + "sources in the description". Comments in the first hour are a signal.
 - **Reply to comments in Cyto's voice** during the first hour after it goes live. Every reply is another comment.
 - **Novelty rule:** YouTube suppresses repetitive/mass-produced content, and AI channels get checked hardest (YPP "inauthentic content" policy). Every episode needs a new angle, a new hook pattern versus the last 3 episodes, and real human direction (Utsha picks topics and approves). Never upload near-identical videos.
 - **Never delete and re-upload a flop** (looks like spam). Learn from it and move on.
+
+---
+## Tags (both formats)
+Tags are a **small** signal now (YouTube reads the title, description and spoken words far more). They still help YouTube match the video to searches and tell it apart from similar videos. Five minutes, not fifty.
+
+**Recipe: 8–12 tags, in this order, ≤ 500 characters total (YouTube's limit)**
+1. **Exact primary keyword**: the same phrase as `keyword` in meta.json (the checker fails if it isn't first).
+2. **2–3 variations people actually type**: from YouTube's search autocomplete (type the topic into YouTube search and copy the suggestions). Free; vidIQ keyword research costs credits.
+3. **2–3 broader topic tags**: the body system or field (`sleep science`, `circadian rhythm`, `immune system`).
+4. **1–2 context tags** when real: the event or season (`daylight saving time`, `halloween`).
+5. **Brand tags, always**: `cyto the cell`, `the body is the 6ix`, `toronto`.
+6. **Series tag**: `6ix seconds of science`, `cyto vs disease`, etc.
+
+**Don't:** tag other creators or channels, unrelated trending words, misspellings (YouTube handles those now), `#` symbols, single generic words (`science` alone does nothing), or more than ~15 tags.
+
+**Hashtags are not tags.** Hashtags go at the end of the description and show up as clickable links (Shorts: next to the title; long-form: the first 3 show above the title). Tags are hidden and go in the tags field.
+
+**Example (Ep 8):** `why do i wake up at 3am`, `waking up at 3am every night`, `why do i wake up in the middle of the night`, `sleep cycles`, `cortisol`, `circadian rhythm`, `daylight saving time`, `cyto the cell`, `the body is the 6ix`, `toronto`, `6ix seconds of science`
+
+---
+## Every other upload setting
+| Setting | Value | Why |
+|---|---|---|
+| **Subtitles** | Upload `captions.srt` (made by `make_srt.py` from timing.json): Studio → Subtitles → English → Upload file → With timing | Auto-captions mangle slang and names ("styll", "ahlie", "Habs", "Blue Night"). The caption text is indexed for search and shown to muted viewers. |
+| Video language + caption language | English | Language matching for recommendations |
+| Category | 27 Science & Technology | Groups us with the right audience |
+| Made for kids | No | Legal flag; "yes" kills comments and personalized ads |
+| Altered or synthetic content | Yes | Required for AI-made video; skipping it risks penalties |
+| Paid promotion | Only on sponsored episodes | Legal |
+| **Shorts remixing** | Allow (video + audio) | Other creators remixing/greenscreening the clip = free reach |
+| Comments | On, sort by Top; "Hold potentially inappropriate" | Comments are a signal; keeps spam out |
+| Publish to subscriptions feed and notify | On | |
+| Embedding | Allowed | Lets people share the video on other sites |
+| Automatic chapters / Featured places | Off for Shorts; long-form uses our own chapters | Our chapters are keyword-named |
+| Playlist | Series playlist (+ "All Shorts") | Keeps viewers watching the next one (session time) |
+| Related video (Shorts) | Next episode in the series | Turns a viewer into a binge |
+| Cards + end screen (long-form) | Card at the first mention of a related video; end screen last 20s | Session time |
+| Thumbnail | Always (see the thumbnail system `hf/thumbs/thumb.py`) | Shows in search, channel page and browse |
 
 ---
 ## SHORTS (≤ 60s vertical; our target ~30s)

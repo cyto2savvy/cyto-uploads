@@ -44,6 +44,7 @@ Why: in Eps 1–7 the captions sat under YouTube's title text, fact cards ran un
    - Blur or avoid readable real company signs.
 5. **Hosting:** commit the final mp4 and thumbnails to `epNN/` in this repo. Public raw URL: `https://raw.githubusercontent.com/cyto2savvy/cyto-uploads/main/epNN/<file>`.
 6. **Upload (Zapier, YouTube app `YouTubeV4CLIAPI`).** Only after `check_meta.py` passes. Title/description/tags come straight from `meta.json`.
+   - Before upload: `python3 /home/claude/cyto2/make_srt.py /home/claude/epN` → `captions.srt` (exact captions from timing.json; add the intro offset if the voice doesn't start at 0s). Set `captions_srt` in meta.json. Utsha uploads it in Studio → Subtitles (the API route needs file upload, which Zapier can't do).
    - After it goes live: pinned comment + related video (Studio, manual) and reply to comments in the first hour.
    Always pass `connection_id` `02a2f56e-1e01-8a41-9364-13e401f8bd6b`.
    - `upload_video` with `privacy_status: private` and `publish_at` (UTC), `category_id: 27`, `made_for_kids: false` and PubMed links in the description.
@@ -98,7 +99,7 @@ Outfits/accessories: `rig3_html(outfit, cup, acc)` — `acc` is an optional laye
 | Oct 30, 2026 | **v3 rig TEST** (`hf/cyto3.py`, `hf/v3test/compare_v3.mp4`): vector Cyto, brows/lids/pupils, 8 mouth shapes from sounds, moving organelles, pom-pom, snappy pose-to-pose, sip SFX | Cyto feels alive; better retention | approved Oct 30 — standard from Ep 8 |
 
 | Nov 1, 2026 | Thumbnail system (`hf/thumbs/thumb.py`): fixed headline / hero / big reacting Cyto structure, feed-crop safe | Higher CTR from the Shorts feed | compare Ep 8+ CTR vs Eps 2–7 in the weekly report |
-| Nov 1, 2026 | Publishing rules (`PUBLISHING.md`) + `check_meta.py`: titles ≤ 60 (Shorts) / 50–60 (long), keyword first, no #shorts in titles, pinned comment + related video, separate long-form rules | Better search reach; titles not cut off | compare search traffic share before/after in the weekly report |
+| Nov 1, 2026 | Publishing rules (`PUBLISHING.md`) + `check_meta.py`: titles ≤ 60 (Shorts) / 50–60 (long), keyword first, no #shorts in titles, pinned comment + related video, separate long-form rules; tag recipe; exact captions file (`make_srt.py`) | Better search reach; titles not cut off | compare search traffic share before/after in the weekly report |
 
 ## Watch: vidIQ credits
 Nov 1, 2026: 26 credits left after Ep 8 (14), 0 renewable until Nov 30 → only ~1 more Liam voiceover. Boost is needed for daily episodes. Spend credits on voice only until Boost is active.
