@@ -111,3 +111,5 @@ Tags are a **small** signal now (YouTube reads the title, description and spoken
 | 7 Leafs overtime | 35s (over the 30s target) | Fine to post; future eps use the template's 30s cap |
 | All | Altered/synthetic flag not visible in the API response | Check each in Studio → Details → "Altered content" |
 | All | No pinned comment / related video yet | Add in Studio when each goes live |
+
+**Nov 1, 2026 update:** Eps 5, 6, 7 metadata rewritten to these rules (titles, descriptions, 12 tags, hashtags) and pushed via API; `containsSyntheticMedia: true` confirmed in the API response for all three. meta.json + captions.srt saved in `studio/episodes/ep05–07/`. Still manual in Studio: upload captions.srt, related video, playlist, pinned comment after go-live. Eps 3 and 4 (already live) not yet updated.
