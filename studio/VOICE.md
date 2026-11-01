@@ -11,6 +11,19 @@ The science stays exact; only the delivery is Toronto.
 - **Never:** slurs; slang about women ("ting" for a girl, "gyal"); drug, drinking or getting-high slang (cup rule); crime/violence slang ("opp", "smoke", "ching"); real brand names; real people's fake quotes; politics.
 - Don't stack every word into one line ("wagwan mandem, ahlie bare styll fam") — that's cringe. Natural > dense.
 
+## Delivery (how Cyto SOUNDS — Utsha records it himself from Nov 2026)
+Reference: "Story Time with Bucks" (BlockTalk, youtube.com/shorts/KDzzcQ_ZP-0) — a Toronto mans telling a story to his boys. **Borrow the cadence, never the content, lines or his actual voice** (no cloning a real person).
+- **Story-time energy, not a lecture.** Talk like you're telling the mandem what happened: "So boom —", "bro said…", "and I'm like…". Science = the story.
+- **Present tense for the action:** "Cortisol pulls up at 3am and starts banging on the door."
+- **Tags at the end of lines, said quick and low:** "…ahlie." "…styll." "…you dun know." Don't punch them; throw them away.
+- **Drag the reaction words:** "bruuuh", "naaah", "it's bare deep, styll."
+- **Laugh at your own line sometimes.** A small laugh before the punchline reads as real.
+- **Pauses before the twist:** "And the worst part? … (beat) … it's your own hormones."
+- **Speed:** fast through setup, slow down on the one fact that matters.
+- **Never forced.** If a slang word doesn't come out natural in your mouth, swap it.
+
+**Record:** phone voice memo, quiet room, a hand's length from the mic, ~20% more hype than normal (the disguise flattens energy). One take per line is fine; I cut them together.
+
 ## Slang bank
 | Word | Means | Cyto line |
 |---|---|---|
