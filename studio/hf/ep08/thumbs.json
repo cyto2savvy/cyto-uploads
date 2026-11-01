@@ -1,0 +1,64 @@
+{
+ "thumb-ep8-A": {
+  "series": "6IX SECONDS OF SCIENCE",
+  "headline": [
+   "IT'S NOT",
+   "RANDOM"
+  ],
+  "hot": "RANDOM",
+  "hero_svg": "<svg width=\"1080\" height=\"1920\" style=\"position:absolute;left:0;top:0;overflow:visible\">\n<defs><linearGradient id=\"scr\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#1d3f8f\"/><stop offset=\"1\" stop-color=\"#0b1838\"/></linearGradient>\n<filter id=\"pg\" x=\"-50%\" y=\"-50%\" width=\"200%\" height=\"200%\"><feGaussianBlur stdDeviation=\"38\"/></filter></defs>\n<g transform=\"rotate(9 690 900)\">\n <rect x=\"470\" y=\"500\" width=\"440\" height=\"800\" rx=\"70\" fill=\"#7fb0ff\" opacity=\".75\" filter=\"url(#pg)\"/>\n <rect x=\"470\" y=\"500\" width=\"440\" height=\"800\" rx=\"70\" fill=\"#1a1f2b\" stroke=\"#0c1622\" stroke-width=\"12\"/>\n <rect x=\"494\" y=\"524\" width=\"392\" height=\"752\" rx=\"50\" fill=\"url(#scr)\"/>\n <rect x=\"640\" y=\"546\" width=\"100\" height=\"26\" rx=\"13\" fill=\"#05070c\"/>\n <text x=\"690\" y=\"640\" text-anchor=\"middle\" font-family=\"IX\" font-size=\"30\" fill=\"#cfe0ff\" letter-spacing=\"2\">THURSDAY</text>\n <text x=\"690\" y=\"800\" text-anchor=\"middle\" font-family=\"IB\" font-size=\"196\" fill=\"#fff\" letter-spacing=\"-6\">3:00</text>\n <text x=\"690\" y=\"868\" text-anchor=\"middle\" font-family=\"IB\" font-size=\"58\" fill=\"#FFD166\">AM</text>\n <rect x=\"520\" y=\"1020\" width=\"340\" height=\"150\" rx=\"30\" fill=\"#fff\" opacity=\".93\"/>\n <circle cx=\"572\" cy=\"1070\" r=\"28\" fill=\"#3fc1b0\" stroke=\"#0c1622\" stroke-width=\"4\"/>\n <text x=\"614\" y=\"1066\" font-family=\"IB\" font-size=\"26\" fill=\"#0c1622\">YOUR BODY</text>\n <text x=\"614\" y=\"1102\" font-family=\"IX\" font-size=\"24\" fill=\"#334\">wake up. rn.</text>\n <text x=\"540\" y=\"1148\" font-family=\"IX\" font-size=\"20\" fill=\"#667\">every. single. night.</text>\n <rect x=\"630\" y=\"1238\" width=\"120\" height=\"10\" rx=\"5\" fill=\"#cfe0ff\" opacity=\".7\"/>\n</g>\n<g stroke=\"#FFD166\" stroke-width=\"14\" stroke-linecap=\"round\" fill=\"none\">\n <path d=\"M930 600 q40 -30 70 -10\"/><path d=\"M948 680 q50 -10 80 20\"/><path d=\"M445 560 q-40 -40 -80 -20\"/>\n</g></svg>",
+  "hero_xy": [
+   690,
+   960
+  ],
+  "glow": "#4f86ff",
+  "bg1": "#0e1a2e",
+  "bg2": "#15284a",
+  "cyto": [
+   400,
+   1375,
+   0.88
+  ],
+  "face": "shock",
+  "arm": "point",
+  "look": [
+   16,
+   -14
+  ],
+  "tilt": -5,
+  "pom": -16,
+  "outfit": "outfit_pj",
+  "acc": "acc_sleepmask"
+ },
+ "thumb-ep8-B": {
+  "series": "6IX SECONDS OF SCIENCE",
+  "headline": [
+   "WHY AM I",
+   "AWAKE?!"
+  ],
+  "hot": "AWAKE?!",
+  "hero_svg": "<svg width=\"1080\" height=\"1920\" style=\"position:absolute;left:0;top:0;overflow:visible\">\n<defs><filter id=\"lg\" x=\"-30%\" y=\"-60%\" width=\"160%\" height=\"220%\"><feGaussianBlur stdDeviation=\"14\"/></filter></defs>\n<g transform=\"rotate(-6 640 860)\">\n <rect x=\"280\" y=\"640\" width=\"720\" height=\"400\" rx=\"80\" fill=\"#262b3a\" stroke=\"#0c1622\" stroke-width=\"14\"/>\n <rect x=\"330\" y=\"690\" width=\"620\" height=\"300\" rx=\"40\" fill=\"#0a0708\" stroke=\"#3a3f52\" stroke-width=\"6\"/>\n <text x=\"640\" y=\"930\" text-anchor=\"middle\" font-family=\"IB\" font-size=\"250\" fill=\"#ff2e2e\" filter=\"url(#lg)\" letter-spacing=\"4\">3:00</text>\n <text x=\"640\" y=\"930\" text-anchor=\"middle\" font-family=\"IB\" font-size=\"250\" fill=\"#ff5a4d\" letter-spacing=\"4\">3:00</text>\n <circle cx=\"372\" cy=\"730\" r=\"10\" fill=\"#ff5a4d\"/><text x=\"392\" y=\"740\" font-family=\"IB\" font-size=\"30\" fill=\"#ff5a4d\">AM</text>\n <rect x=\"360\" y=\"1040\" width=\"90\" height=\"40\" rx=\"12\" fill=\"#262b3a\" stroke=\"#0c1622\" stroke-width=\"10\"/>\n <rect x=\"830\" y=\"1040\" width=\"90\" height=\"40\" rx=\"12\" fill=\"#262b3a\" stroke=\"#0c1622\" stroke-width=\"10\"/>\n</g>\n<g stroke=\"#FFD166\" stroke-width=\"16\" stroke-linecap=\"round\" fill=\"none\">\n <path d=\"M240 700 l-60 -30\"/><path d=\"M230 820 l-70 0\"/><path d=\"M1040 650 l60 -40\"/><path d=\"M1050 780 l70 -10\"/>\n</g></svg>",
+  "hero_xy": [
+   640,
+   920
+  ],
+  "glow": "#ff4d4d",
+  "bg1": "#170f1c",
+  "bg2": "#24162b",
+  "cyto": [
+   560,
+   1400,
+   0.88
+  ],
+  "face": "tired",
+  "arm": "none",
+  "look": [
+   0,
+   -16
+  ],
+  "tilt": 4,
+  "pom": 10,
+  "outfit": "outfit_pj",
+  "acc": "acc_sleepmask"
+ }
+}

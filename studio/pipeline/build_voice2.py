@@ -6,7 +6,7 @@ SEG, TEMPO = cfg["segs"], cfg.get("tempo", 1.0)
 raw = subprocess.run(["ffmpeg","-v","error","-i",os.path.join(D,"raw.mp3"),"-ac","1","-ar",str(SR),"-f","s16le","-"],capture_output=True,check=True).stdout
 x = np.frombuffer(raw, np.int16).astype(np.float32)/32768
 dur = len(x)/SR
-PRE, POST, LINE_GAP, IN_GAP, LEAD = 0.03, 0.06, 0.26, 0.11, 0.12
+PRE, POST, LINE_GAP, IN_GAP, LEAD = 0.03, 0.06, cfg.get("line_gap", 0.26), cfg.get("in_gap", 0.11), 0.12
 def syl(w):
     w = re.sub(r"[^a-z0-9]", "", w.lower().replace("pov","peeohvee"))
     if w.isdigit(): return {"2": 1, "23": 4}.get(w, len(w))

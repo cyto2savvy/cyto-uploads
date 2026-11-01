@@ -87,7 +87,7 @@ def _organelles():
      <g id="nucleolus"><circle cx="{nx+12:.0f}" cy="{ny-16:.0f}" r="15" fill="#c4b0ff" stroke="#5a3fa8" stroke-width="4"/></g></g>"""
 
 
-def rig3_html(outfit=None, cup="cup_red"):
+def rig3_html(outfit=None, cup="cup_red", acc=None):
     """Same element IDs the v2 JS expects (#cytoPos, #cyto, #armL, #armR, #cup, #cupTable) plus new ones."""
     of = f'<image href="assets/{outfit}.png" x="0" y="0" width="1200" height="1200"/>' if outfit else ""
     pr = R * .18
@@ -120,6 +120,7 @@ def rig3_html(outfit=None, cup="cup_red"):
   <rect x="{CX - R * 1.01:.0f}" y="{CY - R * .43:.0f}" width="{R * 2.02:.0f}" height="{R * .08:.0f}" fill="#f6f6f0"/>{ticks}
   <g id="pom"><circle cx="{CX}" cy="{CY - R * 1.27:.0f}" r="{pr:.0f}" fill="#f6f6f0" stroke="{INK}" stroke-width="7"/>{pom_dots}</g>
  </g>
+ {f'<image id="acc" href="assets/{acc}.png" x="0" y="0" width="1200" height="1200"/>' if acc else ""}
  <image id="cupTable" href="assets/{cup}.png" x="140" y="{975 - CH}" width="{CW}" height="{CH}" opacity="0"/>
  <g id="armL">{_arm(SH_L, HAND_L, -1)}<image id="cup" href="assets/{cup}.png" x="{CUP_LEFT:.1f}" y="{CUP_TOP:.1f}" width="{CW}" height="{CH}"/>{_hand(HAND_L, "handL")}</g>
 </svg></div></div></div>"""

@@ -7,7 +7,8 @@ The scripts expect the original paths (`/home/claude/cyto2`, `/home/claude/epN`,
 
 ## Pipeline (all $0)
 1. **Research:** PubMed connector for the sources, and WebSearch for Toronto events and trends.
-2. **Voice:** vidIQ voiceover, voice **Liam** (about 14 credits per 1000 characters, so ask Utsha before spending). The cloud workspace can't download the vidIQ MP3 (S3 is blocked), so Utsha drags it into chat.
+2. **Voice:** vidIQ voiceover, voice **Liam** (`voiceId TX3LPaxmHKxFdv7VOQHJ`). **Charged 14 credits per started 1,000 characters** — a 600-char script costs the full 14. Ask Utsha before spending. Spell for the ear: "three A M", "six" (captions come from `segs.json`, so they can still say 3AM / 6ix). The cloud workspace can't download the vidIQ MP3 (S3 is blocked), so Utsha drags it into chat.
+   - Neither this workspace nor Utsha's Mac (`~/Claude/cyto-voice`, connected) can reach the S3 link — send Utsha the link and he saves it to `~/Claude/cyto-voice/` or drags it into chat.
    - Save it as `/home/claude/epN/raw.mp3`.
    - Find the speech segments with ffmpeg `silencedetect`, then write `segs.json`: `{"tempo":x,"segs":[[start,end,line,"phrase"],...]}`.
    - Run `python3 cyto2/build_voice2.py /home/claude/epN`. It writes `voice.wav` and `timing.json` (per-word times).
@@ -49,6 +50,23 @@ Why: in Eps 1–7 the captions sat under YouTube's title text, fact cards ran un
    - **Thumbnails:** they fail with a 429 until the channel is phone-verified (youtube.com/verify). Until then Utsha sets them in Studio.
 7. **TikTok:** add the approved episode to `tiktok/queue.json`. Utsha's friend's Claude posts from it (see `tiktok/INSTRUCTIONS.md`).
 
+### Thumbnails (Nov 1, 2026 — Ep 8 onward) — `hf/thumbs/thumb.py`
+Old thumbnails were paused mid-video frames (tiny Cyto, fact cards, unreadable charts). Every thumbnail now uses ONE structure:
+- **Series pill** (same spot every time) → **headline** max 4 words / 2 lines, white + ONE gold word, must ADD to the title (never repeat it) → **one hero object** that asks the question (phone at 3:00, a heart at 114 BPM…) → **huge reacting Cyto** (shock/skeptic/hype/tired face, looking at the hero, cup visible, white rim light).
+- Bottom ~280px is YouTube's title overlay: background only. Everything that matters sits in the centre 1080x1350 so the 4:5 feed crop still shows headline + hero + face.
+- Flat brand gradient + light rays from the hero. Never a photo, never a fact card.
+- Make 2 options as a JSON spec (`hf/ep08/thumbs.json` is the example) → `python3 hf/thumbs/thumb.py spec.json outdir`. It also writes `feed_check.jpg` (full / 4:5 crop / phone-grid size) — look at it before showing Utsha.
+
+### Art library — `hf/art.py`
+Flat cutout set pieces in the rig's style: `skyline()`, `city_hall()`, `night_bus()`, `phone()`, `body_clock()`, `hypnogram()`, `moon()`, `stars()`. Add new Toronto pieces here (not inside an episode) so every episode can reuse them.
+Outfits/accessories: `rig3_html(outfit, cup, acc)` — `acc` is an optional layer drawn ON TOP of the toque (e.g. `acc_sleepmask`). Drawn as SVG in `hf/outfits/`, exported to `rig/*.png`.
+
+### Build gotchas (learned on Ep 8)
+- HyperFrames renders by **seeking**, and GSAP skips `tl.call()` on seek. Never swap text with callbacks: put both versions on screen and swap opacity with `tl.set`.
+- Lottie files often start on blank frames: drive them from a frame offset (see Ep 8's Zzz) if they're on screen at t=0.
+- Loop: the last frame should match frame 1 (same background, same Cyto pose/eyes).
+- `segs.json` takes optional `line_gap` / `in_gap` (default 0.26 / 0.11) — tighten gaps before raising the tempo above ~1.2.
+
 ## Posted so far (YouTube times are Eastern)
 | Ep | Topic | YouTube ID | Go-live |
 |---|---|---|---|
@@ -59,6 +77,7 @@ Why: in Eps 1–7 the captions sat under YouTube's title text, fact cards ran un
 | 5 | Cold season | Y8pJ4GNJ60s | Nov 2, 6 PM |
 | 6 | Procrastination | OO9AceZh2tc | Nov 3, 6 PM |
 | 7 | Leafs overtime (first rig episode) | Sd47GFmiTFg | Nov 4, 7 PM |
+| 8 | Why you wake up at 3am (first v2+v3 episode, new thumbnail system) | — | built, awaiting OK (Nov 5, 6 PM) |
 
 ## Next ideas already researched
 - Diwali (Nov 8): mithai and the sugar crash, with Mito (Mantantzis 2019, doi 10.1016/j.neubiorev.2019.03.016)
@@ -75,5 +94,7 @@ Why: in Eps 1–7 the captions sat under YouTube's title text, fact cards ran un
 | Oct 30, 2026 | Toronto voice guide (`VOICE.md`): ≥3 slang + 1 Toronto reference per script | More comments/shares from Toronto viewers | check after first episodes using it |
 | Oct 30, 2026 | **v3 rig TEST** (`hf/cyto3.py`, `hf/v3test/compare_v3.mp4`): vector Cyto, brows/lids/pupils, 8 mouth shapes from sounds, moving organelles, pom-pom, snappy pose-to-pose, sip SFX | Cyto feels alive; better retention | approved Oct 30 — standard from Ep 8 |
 
+| Nov 1, 2026 | Thumbnail system (`hf/thumbs/thumb.py`): fixed headline / hero / big reacting Cyto structure, feed-crop safe | Higher CTR from the Shorts feed | compare Ep 8+ CTR vs Eps 2–7 in the weekly report |
+
 ## Watch: vidIQ credits
-Oct 30, 2026: 40 credits left, 0 renewable until Nov 30 (~5 Liam voiceovers). Spend credits on voice only until Boost is active.
+Nov 1, 2026: 26 credits left after Ep 8 (14), 0 renewable until Nov 30 → only ~1 more Liam voiceover. Boost is needed for daily episodes. Spend credits on voice only until Boost is active.
