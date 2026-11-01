@@ -20,6 +20,7 @@ Reference: "Story Time with Bucks" (BlockTalk, youtube.com/shorts/KDzzcQ_ZP-0) �
 - **Laugh at your own line sometimes.** A small laugh before the punchline reads as real.
 - **Pauses before the twist:** "And the worst part? … (beat) … it's your own hormones."
 - **Speed:** fast through setup, slow down on the one fact that matters.
+- **From the Bucks transcript (cadence only — his story is about violence, never use content):** opens cold with "Yo, one time I was…"; one long run-on chained with "and… and…"; flat, understated reactions ("after that I can't even relax"); "**though**" thrown on the end of a line as a tag ("I thought I was gonna die though"). Cyto version: "So boom, one time it's 3am…", "Can't even relax after that, though."
 - **Never forced.** If a slang word doesn't come out natural in your mouth, swap it.
 
 **Record:** phone voice memo, quiet room, a hand's length from the mic, ~20% more hype than normal (the disguise flattens energy). One take per line is fine; I cut them together.
