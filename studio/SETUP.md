@@ -3,6 +3,8 @@
 **Restore:** `git clone https://github.com/cyto2savvy/cyto-uploads && bash cyto-uploads/studio/restore.sh`
 The scripts expect the original paths (`/home/claude/cyto2`, `/home/claude/epN`, `/home/claude/hf`), and restore.sh recreates them.
 
+**Publishing:** read `studio/PUBLISHING.md` (separate Shorts vs long-form rules: titles ≤ 60 / hard 70 chars, keyword in first 40, no hashtags in titles, chapters for long-form…). Every episode gets `epNN/meta.json`; run `python3 /home/claude/cyto2/check_meta.py epNN/meta.json` and fix all FAILs **before** showing Utsha the final package and before uploading. Required from Nov 1, 2026.
+
 **Scripts:** read `studio/VOICE.md` before writing any script (Toronto slang bank, references, body map, checklist). Required from Oct 30, 2026.
 
 ## Pipeline (all $0)
@@ -41,7 +43,9 @@ Why: in Eps 1–7 the captions sat under YouTube's title text, fact cards ran un
    - Always call Unsplash `download_asset` for each photo you use, and credit the photographer in the description.
    - Blur or avoid readable real company signs.
 5. **Hosting:** commit the final mp4 and thumbnails to `epNN/` in this repo. Public raw URL: `https://raw.githubusercontent.com/cyto2savvy/cyto-uploads/main/epNN/<file>`.
-6. **Upload (Zapier, YouTube app `YouTubeV4CLIAPI`).** Always pass `connection_id` `02a2f56e-1e01-8a41-9364-13e401f8bd6b`.
+6. **Upload (Zapier, YouTube app `YouTubeV4CLIAPI`).** Only after `check_meta.py` passes. Title/description/tags come straight from `meta.json`.
+   - After it goes live: pinned comment + related video (Studio, manual) and reply to comments in the first hour.
+   Always pass `connection_id` `02a2f56e-1e01-8a41-9364-13e401f8bd6b`.
    - `upload_video` with `privacy_status: private` and `publish_at` (UTC), `category_id: 27`, `made_for_kids: false` and PubMed links in the description.
    - Then `_zap_raw_request` (tool `youtube_make_api_mutating_request`): PUT `videos?part=status` with `containsSyntheticMedia: true`, and keep `publishAt` + `privacyStatus: private`.
    - GET requests use `execute_zapier_read_action` with tool `youtube_make_api_get_request`.
@@ -90,11 +94,11 @@ Outfits/accessories: `rig3_html(outfit, cup, acc)` — `acc` is an optional laye
 | Date | Change | Expected effect | Result |
 |---|---|---|---|
 | Oct 30, 2026 | v2 layout from Ep 8: safe-zone captions, big Cyto, themed Mermaid, Lottie, ≤30s | Fewer swipe-aways; captions readable over YouTube's UI | check after Ep 8–10 |
-
 | Oct 30, 2026 | Toronto voice guide (`VOICE.md`): ≥3 slang + 1 Toronto reference per script | More comments/shares from Toronto viewers | check after first episodes using it |
 | Oct 30, 2026 | **v3 rig TEST** (`hf/cyto3.py`, `hf/v3test/compare_v3.mp4`): vector Cyto, brows/lids/pupils, 8 mouth shapes from sounds, moving organelles, pom-pom, snappy pose-to-pose, sip SFX | Cyto feels alive; better retention | approved Oct 30 — standard from Ep 8 |
 
 | Nov 1, 2026 | Thumbnail system (`hf/thumbs/thumb.py`): fixed headline / hero / big reacting Cyto structure, feed-crop safe | Higher CTR from the Shorts feed | compare Ep 8+ CTR vs Eps 2–7 in the weekly report |
+| Nov 1, 2026 | Publishing rules (`PUBLISHING.md`) + `check_meta.py`: titles ≤ 60 (Shorts) / 50–60 (long), keyword first, no #shorts in titles, pinned comment + related video, separate long-form rules | Better search reach; titles not cut off | compare search traffic share before/after in the weekly report |
 
 ## Watch: vidIQ credits
 Nov 1, 2026: 26 credits left after Ep 8 (14), 0 renewable until Nov 30 → only ~1 more Liam voiceover. Boost is needed for daily episodes. Spend credits on voice only until Boost is active.
