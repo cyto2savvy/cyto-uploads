@@ -30,3 +30,9 @@ Hook: diya + dim city skyline; feast table animation. Figure: 3 equal 'meal' bar
 Outfit: kurta-style festive outfit swap layer (diya colours: orange/gold), red cup. Respectful, no real logos, no religious figures.
 Lottie search terms (LottieFiles MCP -> `lottie/list.txt`): diya lamp flame, fireworks, rangoli, sleeping zzz, sweets plate
 Quality gate: eyes centred, one big text at a time, 1-fps frame check, safe-area sheet, loop frame = hook frame.
+
+## Toronto background plan (Nov 2 rule: no generic backgrounds)
+- Hook couch/feast: Gerrard India Bazaar street at night (Little India, string lights, generic shop-front shapes, NO real store logos), TTC streetcar 506 Carlton passing.
+- 'Mithai' table: generic sweets plate + Scarborough/Brampton condo-balcony diya row (balcony window behind Cyto).
+- Sleep-lab scene: lab figure, but window shows the CN Tower and a streetcar stop.
+- IL-1 / couch payoff: Cyto on a couch in a GTA basement living room: rangoli rug, Leafs-blue throw blanket (no logo), snow starting outside the window.

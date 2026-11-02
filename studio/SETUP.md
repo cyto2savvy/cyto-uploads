@@ -133,3 +133,6 @@ Nov 1, 2026: 26 credits left after Ep 8 (14), 0 renewable until Nov 30 → only 
 
 ### SOURCE RULE (Nov 2, 2026): never reuse a PubMed source across Shorts
 Each Short needs its own NEW source(s) from PubMed (ideally 2+ substantive ones). Check `studio/sources_used.md` and run `python3 studio/check_sources.py` before scripting. If a topic overlaps an earlier episode, pick a different angle with different papers. Long-form may cite earlier sources.
+
+### TORONTO BACKGROUND RULE (Nov 2, 2026, from Utsha after Ep 10)
+Every scene's background/props must be Toronto-specific or topic-specific, never random filler. Use niche local detail: TTC streetcars and Line 1 platforms (Bloor-Yonge, Union), Union Station, the CN Tower silhouette, Nathan Phillips Square rink, the Toronto Island ferry, Gerrard India Bazaar, Queen's Park, Kensington, raccoons, condo cranes, snow/slush. Use generic shapes only: no real logos, store names, brands or people. Each brief has a "Toronto background plan" section: follow it scene by scene, and add one extra small Toronto Easter egg per scene if it doesn't clutter the frame (still max ONE big text at a time).

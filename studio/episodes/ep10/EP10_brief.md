@@ -31,3 +31,6 @@ Hook: arena silhouette (no logos), shake on 'hormones'. Figure: animated testost
 Outfit: Leafs-blue/white toque+scarf colours only (NO logos), red cup (team-colour cup allowed on game night).
 Lottie search terms: hockey puck, goal light, stadium crowd, hormone/molecule, spit sample tube (or lab test tube), clock.
 Quality gate: eyes centred, one big text at a time, 1-fps frame check, safe-area sheet, loop frame = hook frame.
+
+## Toronto background plan
+BUILT already in another chat (Utsha approved). Not required to redo.

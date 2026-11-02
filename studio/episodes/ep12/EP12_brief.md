@@ -30,3 +30,9 @@ Calm palette (navy/teal), no gore, no anatomy graphics. Hook: moustache sticker 
 Outfit: toque + cartoon moustache sticker (Movember colour = blue ribbon; NO Movember logo), red cup set down for the serious beat.
 Lottie search terms (LottieFiles MCP -> `lottie/list.txt`): ribbon, moustache, doctor stethoscope, shield check, heartbeat
 Quality gate: eyes centred, one big text at a time, 1-fps frame check, safe-area sheet, loop frame = hook frame.
+
+## Toronto background plan (Nov 2 rule: no generic backgrounds)
+- Calm palette. Hook: University Ave 'hospital row' skyline silhouette at dawn (generic, no signage) + Queen's Park dome outline.
+- 95% ring scene: Bloor-Yonge subway platform (Line 1/2 interchange), TTC-style 'Next train 2 min' board (generic, no logo).
+- 'See a doctor' scene: walk-in clinic storefront on a Danforth/Bloor-style street, streetcar rolling by, light snow.
+- Payoff: moustache on the CN Tower silhouette + a Toronto skyline from the Island ferry.

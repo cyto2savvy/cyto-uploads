@@ -30,3 +30,8 @@ Muted navy palette, slow push-ins only, no shake/whip (use soft cross-fades), no
 Outfit: toque + dark coat, plain red felt-poppy shape pin (generic flower, NO Legion logo/text). Cup set down the WHOLE episode. No jokes, no hype expressions, slower pacing. Utsha to OK this framing.
 Lottie search terms (LottieFiles MCP -> `lottie/list.txt`): poppy, candle, quiet/sound wave flatline, clock 11:00
 Quality gate: eyes centred, one big text at a time, 1-fps frame check, safe-area sheet, loop frame = hook frame.
+
+## Toronto background plan (Nov 2 rule: no generic backgrounds)
+- RESPECTFUL: slow, no jokes. Hook: quiet Toronto morning, Old City Hall clock tower / cenotaph silhouette (verify the Toronto service location before naming it on screen), poppies as generic flower shapes.
+- Lab scene: figure on a calm navy background, no gags; subtle snow.
+- Payoff: Union Station Great Hall hush, then the skyline at 11:00 with a still clock. NO TTC jokes, NO raccoons, no humour beyond the script.

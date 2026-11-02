@@ -31,3 +31,9 @@ Neutro intro (needs new rig asset: draw once as vector in cyto3 style, 1 pose se
 Outfit: toque + hoodie (cold-weather match), red cup. Introduces NEUTRO (neutrophil security guard): blue-and-white-toque-free design, high-vis vest, earpiece, arms crossed, same flat-ink style, NOT Cyto-shaped (multi-lobed nucleus visible). New cast member: design once, store in `studio/rig/neutro/`.
 Lottie search terms (LottieFiles MCP -> `lottie/list.txt`): shield, virus particle, security guard, sneeze, syringe/vaccine
 Quality gate: eyes centred, one big text at a time, 1-fps frame check, safe-area sheet, loop frame = hook frame.
+
+## Toronto background plan (Nov 2 rule: no generic backgrounds)
+- Hook: Union Station Great Hall / front doors as the 'airway entrance' (Neutro stands at the door like security).
+- Flu spreading: packed Line 1 train at rush hour, sneeze cloud passing from rider to rider, a raccoon on a TTC bench.
+- 'Thin line' scene: slider drawn over a snowy Queen streetcar track; GO train in the background.
+- Payoff: pharmacy window with flu-shot sign (generic, no brand), Nathan Phillips Square rink in the background. Neutro design: high-vis vest + earpiece, TTC-inspector energy.
