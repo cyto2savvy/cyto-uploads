@@ -132,14 +132,15 @@
    "publish_date": "2026-11-07",
    "publish_time": "16:00",
    "series": "6ix Seconds of Science",
-   "topic": "Leafs vs Habs: your heart",
+   "topic": "Leafs vs Habs: your hormones",
    "outfit": "Leafs-blue jersey/toque colours only (NO logos), red cup. Ga",
    "status": "scripted",
-   "title": "Leafs vs Habs: Your Heart Is Working Out",
+   "title": "Leafs vs Habs: Your Hormones Are Playing Too",
    "youtube_id": null,
    "tiktok_queued": false,
    "sources": [
-    "10.1016/j.cjca.2017.08.002"
+    "10.1016/j.physbeh.2019.112596",
+    "10.1007/s12110-021-09407-7"
    ]
   },
   {
@@ -203,7 +204,8 @@
    "youtube_id": null,
    "tiktok_queued": false,
    "sources": [
-    "10.1136/hrt.2005.064600"
+    "10.1136/hrt.2005.064600",
+    "10.1007/s00429-013-0679-3"
    ]
   }
  ],

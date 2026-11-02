@@ -21,7 +21,8 @@ Chars: 556 · est ~631 credits/take (Ep 9 read: ~560 chars = 636 cr; run `estima
 
 ## Claims / sources (every claim traced; links go on screen, in description and pinned comment)
 1. Bernardi, Porta, Sleight, Heart 2006 (online 2005): 12 musicians + 12 controls; music of different tempos with randomly inserted 2-min pauses; the pause reduced heart rate, blood pressure and minute ventilation, even below baseline; authors: relaxation 'particularly evident during a pause'. https://doi.org/10.1136/hrt.2005.064600
-2. Caveats (say on screen/description): study used MUSIC with pauses in a lab, n=24; it did not test Remembrance Day ceremonies. Script says 'may'. Don't claim the ceremony lowers blood pressure.
+2. Optional nuance for the PINNED COMMENT only (mouse study, not in script): Kirste et al., Brain Struct Funct 2013: mice exposed to silence had more new neurons after 7 days than controls. https://doi.org/10.1007/s00429-013-0679-3
+3. Caveats (say on screen/description): study used MUSIC with pauses in a lab, n=24; it did not test Remembrance Day ceremonies. Script says 'may'. Don't claim the ceremony lowers blood pressure.
 Attribution line for description: "Sources via PubMed." + the DOI links above. Add "Not medical advice" line.
 
 ## Scene plan
