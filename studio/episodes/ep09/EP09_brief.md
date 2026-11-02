@@ -11,16 +11,16 @@ Series: 6ix Seconds of Science · Length target 38-45s (hard cap 45s, `C.MAX_T_V
 ## The idea (one idea only)
 Myth: "winter crashes your vitamin D." Truth: in Canadian studies the summer-vs-winter swing was small; supplements and ancestry mattered more. But the dark CAN hit mood (seasonal affective disorder), and bright white light is what the evidence supports.
 
-## Script (~112 words ≈ 40s). Slang: ahlie, styll, bare, dun know, say less. Toronto refs: TTC, 4:50-ish dark.
+## Script (~108 words ≈ 38-40s at ~2.8 w/s; recount after edits). Slang: ahlie, styll, bare, dun know, say less. Toronto refs: TTC, 4:50-ish dark.
 [HOOK 0-3s, shock face] Bro. It's dark before five. Is winter actually killing your vitamin D?
 [3-6s, catchphrase, cup raise] Yo, it's ya boy Cyto, live from the 6ix… inside your body.
-[6-12s, skeptic] Everybody says the sun clocks out, so your D crashes. Sounds right, ahlie?
-[12-22s, figure: bar chart, the twist] Nah. Canadian studies found the summer-to-winter swing was small. Like twelve points in Vancouver, a few in Ottawa. What mattered way more? Supplements. And ancestry. South Asian Canadians ran low all year, styll.
+[6-12s, skeptic] Sun clocks out, so your D crashes, ahlie?
+[12-22s, figure: bar chart, the twist] Nah. Canadian studies found the winter dip was small. What mattered way more? Supplements, and ancestry. South Asian Canadians ran low all year, styll.
 [22-32s, sad then hype] But the dark can still hit your mood. For some people it's real seasonal depression. And a 2025 review of seventeen trials? Bright white light came out on top.
 [32-40s, Toronto payoff, cup down on "serious"] So before you blame the TTC for your vibe… check your D, get some light, say less. Not medical advice.
-[40-45s outro, sources on screen, loops to hook] Like and subscribe, and I'll see you back at five. (cut back to "Bro. It's dark before five.")
+[40-45s outro, sources on screen, loops to hook] Like, subscribe, see you at five. (cut back to "Bro. It's dark before five.")
 
-Trim rule: if over 45s, cut the Ottawa half of the twist beat first; never cut the hook or payoff.
+Trim rule: if over 45s, drop the 'ahlie' myth line first; never cut the hook or payoff.
 
 ## Claims / sources (every claim traced; link in description + pinned comment + on-screen)
 1. Summer-to-winter vitamin D swing was small in Canadian studies.
