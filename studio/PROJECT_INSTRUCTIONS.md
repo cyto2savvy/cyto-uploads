@@ -34,7 +34,7 @@
 - 22–27s: Toronto payoff.
 - 27–30s: like/subscribe outro plus sources on screen.
 - The end loops into the start.
-- Series: "Wagwan with your…", "Cyto Reacts", "6ix Seconds of Science", "What happens to your body when…", "Cyto vs Disease", holiday specials.
+- Series: "Wagwan with your…", "Cyto Reacts", "6ixty Seconds of Science", "What happens to your body when…", "Cyto vs Disease", holiday specials.
 - Outfit: web-search Toronto events that week and dress Cyto for them, otherwise match the topic. No real logos; politics stay neutral.
 
 ## Science rules

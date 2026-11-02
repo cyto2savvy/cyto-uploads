@@ -1,6 +1,6 @@
 # Ep 9 build brief — "Dark at 5" / vitamin D myth (publish Fri Nov 6, 6 PM ET)
 Status: SCRIPTED, waiting for Utsha's OK (steps 4-5 of the workflow). Do NOT build until approved.
-Series: 6ix Seconds of Science · Length target 38-45s (hard cap 45s, `C.MAX_T_V2`) · Template: `hf/template/build.py` (v2 layout + v3 rig)
+Series: 6ixty Seconds of Science · Length target 38-45s (hard cap 45s, `C.MAX_T_V2`) · Template: `hf/template/build.py` (v2 layout + v3 rig)
 
 ## Why this one / trend fit
 - First full week after the clocks fell back: sun is gone just before 5 PM in Toronto. Peak "why am I tired/sad at 5pm" feeling (VERIFY exact sunset for Nov 6 on timeanddate before locking an on-screen time; script says "before five").
@@ -71,5 +71,5 @@ Current standing plan: Utsha records, `cyto_voice.py` disguises ($0). ElevenLabs
 - "Is Winter Really Killing Your Vitamin D?" (40 chars) <- recommended (myth question)
 - "Why It's Dark at 5PM Hits Different 🌑"
 - Keyword: "winter vitamin d" (not volume-checked; vidIQ credits ~1 left, so don't spend)
-- Hashtags: #vitamind #winter #science #toronto #6ix #shorts. Series playlist: 6ix Seconds of Science. Related video: Ep 8 (3AM).
+- Hashtags: #vitamind #winter #science #toronto #6ix #shorts. Series playlist: 6ixty Seconds of Science. Related video: Ep 8 (3AM).
 - Pinned comment: "Do you take a D supplement in winter? Be honest 👇 Toddlers swing more in winter (Wiedeman 2026), link in description."

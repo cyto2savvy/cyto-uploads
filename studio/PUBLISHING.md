@@ -28,13 +28,13 @@ Tags are a **small** signal now (YouTube reads the title, description and spoken
 3. **2–3 broader topic tags**: the body system or field (`sleep science`, `circadian rhythm`, `immune system`).
 4. **1–2 context tags** when real: the event or season (`daylight saving time`, `halloween`).
 5. **Brand tags, always**: `cyto the cell`, `the body is the 6ix`, `toronto`.
-6. **Series tag**: `6ix seconds of science`, `cyto vs disease`, etc.
+6. **Series tag**: `6ixty seconds of science`, `cyto vs disease`, etc.
 
 **Don't:** tag other creators or channels, unrelated trending words, misspellings (YouTube handles those now), `#` symbols, single generic words (`science` alone does nothing), or more than ~15 tags.
 
 **Hashtags are not tags.** Hashtags go at the end of the description and show up as clickable links (Shorts: next to the title; long-form: the first 3 show above the title). Tags are hidden and go in the tags field.
 
-**Example (Ep 8):** `why do i wake up at 3am`, `waking up at 3am every night`, `why do i wake up in the middle of the night`, `sleep cycles`, `cortisol`, `circadian rhythm`, `daylight saving time`, `cyto the cell`, `the body is the 6ix`, `toronto`, `6ix seconds of science`
+**Example (Ep 8):** `why do i wake up at 3am`, `waking up at 3am every night`, `why do i wake up in the middle of the night`, `sleep cycles`, `cortisol`, `circadian rhythm`, `daylight saving time`, `cyto the cell`, `the body is the 6ix`, `toronto`, `6ixty seconds of science`
 
 ---
 ## Every other upload setting
@@ -67,7 +67,7 @@ Tags are a **small** signal now (YouTube reads the title, description and spoken
 | Emoji in title | max 1, at the end |
 | Hashtags | end of description: 1–3 topic tags **first**, then `#science #toronto #6ix #shorts`; total ≤ 8 (YouTube ignores all of them past 15) |
 | Description | 60–200 words: hook line, 1–2 sentences of context with the keyword, sources, disclaimer, credits, hashtags |
-| Length | **35-45s** target (as long as the idea needs, no rushing), 50s warn, 60s max. Loosened from 30s on Nov 1, 2026 |
+| Length | up to **60s** (as long as the idea needs, never padded; Eps 10-14 are 36-43s). Series name: 6ixty Seconds of Science. Loosened Nov 1 and Nov 2, 2026 |
 | Thumbnail | still upload one (it shows in search, channel page, browse); first frame must also work as a thumbnail |
 | Related video | set in Studio to the next episode in the same series (manual: Studio → video → Related video) |
 | Playlist | series playlist |

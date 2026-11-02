@@ -197,7 +197,7 @@ V2_DIR = "/home/claude/hf/v2"
 SAFE = dict(left=60, right=940, top=200, bottom=1480)       # 1080x1920 stage
 CYTO_V2 = place(300, 1300, 0.56)                            # Cyto lower-left, big
 CAP_Y_V2 = 880                                              # captions under the figure panel
-MAX_T_V2 = 45.0  # was 30.5; Nov 1 2026: length follows the idea, target 35-45s
+MAX_T_V2 = 60.0  # was 45 (Nov 2 2026, Utsha: shorts up to 60s, series = '6ixty Seconds of Science'); 30.5 before Nov 1
 
 V2_CSS = """
 .panel { position:absolute; left:60px; top:200px; width:880px; height:650px; border-radius:36px; background:#0f2236; border:3px solid #24425f; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,.4); }

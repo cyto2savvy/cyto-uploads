@@ -13,7 +13,7 @@ The scripts expect the original paths (`/home/claude/cyto2`, `/home/claude/epN`,
 - Spell for the ear in the TTS text only (captions keep the real word): "ah-lie", "stiiill", "the six". Full table: `studio/VOICE.md` > "TTS pronunciation".
 - Flow: ElevenLabs connector `creative_generate_speech` (poll `creative_get_flow_run_status`) -> Utsha downloads the mp3 from the ElevenLabs link and drags it into the chat (the sandbox cannot download elevenlabsusercontent.com) -> save `epN/raw.mp3` -> silencedetect -> `segs.json` -> `build_voice2.py`. Do NOT use vidIQ voice (costs credits) and do not use `cyto_voice.py` unless Utsha records his own voice.
 - Ask Utsha before spending credits; `estimate_only` first; never re-call a generation to retry (double charge).
-- Length: aim 38-45s read (Ep 9 read = ~41.5s).
+- Length: let the idea set it, up to 60s for scripts written from Nov 2 on (Ep 9 read = ~41.5s; Eps 10-14 reads are 36-43s and stay as is).
 
 ### Cyto's voice = Utsha, disguised (Nov 1, 2026 — replaces vidIQ Liam once approved)
 - Utsha records each script on his phone and drops the file in chat → save as `/home/claude/epN/rec.m4a`.
@@ -49,7 +49,7 @@ Why: in Eps 1–7 the captions sat under YouTube's title text, fact cards ran un
 2. **Cyto big, always on screen:** `C.CYTO_V2` (lower-left, scale 0.56) during science scenes; fact card to his right (`.card` in `V2_CSS`). He can go bigger for hook/joke/outro scenes, but never the old 0.40 corner placement.
 3. **Diagrams:** Mermaid in the Cyto theme via `C.mermaid_svg(src, out)` (navy boxes, teal borders, yellow arrows), inlined in a `.mmd` div and built box-by-box on the voice with `C.mermaid_js`. Max 3 levels / 5 boxes, short ALL-CAPS labels.
 4. **Lottie:** one LottieFiles animation per science scene where it fits. Find it with the LottieFiles MCP (`searchPublicAnimations`, use `jsonUrl`), add `name url` to `lottie/list.txt` (repo root) and push; the `fetch-lottie` workflow downloads it (check `lottie/status.txt`). Drive it with `C.lottie_js` (frame-locked to the timeline). Prefer animations close to the brand palette.
-5. **Length (changed Nov 1, 2026):** no fixed 30s. Let the idea set it: target 35-45s (~95-125 words at ~2.8 words/s), hard cap 45s (`C.MAX_T_V2`), absolute max 50s. Never cut a beat just to hit 30s; a rushed Short loses more than extra seconds cost. Must still loop into the start. A/B check: Ep 9-12 vs Eps 3-8, compare engaged views + avg % viewed.
+5. **Length (changed Nov 2, 2026):** series is now "6ixty Seconds of Science"; Shorts may run up to 60s (`C.MAX_T_V2` = 60, ~140-165 words at ~2.8 w/s). Only fill the time with real content (a new visual every 2-3s, one idea + payoff); never pad, because completion rate is what Shorts distribution rewards. Must still loop into the start. The pill label on every frame reads `6IXTY SECONDS OF SCIENCE`. Eps 10-14 are already scripted/voiced at 36-43s and stay that way.
 
 4. **Photos:** Unsplash search works, but direct downloads are blocked.
    - Add a line to `photos/list.txt` (repo root) (filename + images.unsplash.com URL) and push. The GitHub Action `fetch-photos` downloads it into `photos/`.

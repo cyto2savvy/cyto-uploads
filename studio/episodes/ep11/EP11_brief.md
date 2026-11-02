@@ -1,7 +1,7 @@
 # Ep 11 build brief — Diwali food coma (publish 2026-11-08 15:00 ET)
 Status: SCRIPTED, waiting for Utsha's OK (workflow steps 4-5). Do NOT build until approved.
-Series: 6ix Seconds of Science · Length target 38-45s (hard cap 45s) · ~107 words ≈ 38s at 2.8 w/s · Template: `hf/template/build.py` (v2 layout + v3 rig) · follow SETUP.md "Ep 9 lessons".
-Title (≤60): Is Your Diwali Food Coma Actually the Sweets? (45 chars) · Tags: #diwali #foodcoma #scarborough #science #toronto #6ix #shorts · NOT made for kids · Altered/synthetic = YES · Category Science & Technology · Playlist: 6ix Seconds of Science
+Series: 6ixty Seconds of Science · Length target 38-45s (hard cap 45s) · ~107 words ≈ 38s at 2.8 w/s · Template: `hf/template/build.py` (v2 layout + v3 rig) · follow SETUP.md "Ep 9 lessons".
+Title (≤60): Is Your Diwali Food Coma Actually the Sweets? (45 chars) · Tags: #diwali #foodcoma #scarborough #science #toronto #6ix #shorts · NOT made for kids · Altered/synthetic = YES · Category Science & Technology · Playlist: 6ixty Seconds of Science
 
 ## Why this one / timing
 Diwali main day is Sun Nov 8 (Lakshmi Puja 5:17-7:03 PM in Toronto per hindutone; confirm). Publish 3 PM ET, before the evening feast. Big South Asian audience in the 6ix. SCARBOROUGH-LED episode: Scarborough is the home base, other City of Toronto neighbourhoods are fine (Gerrard India Bazaar / Little India, Etobicoke). NOTHING outside Toronto: no Brampton, Mississauga or other GTA cities.

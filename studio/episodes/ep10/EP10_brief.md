@@ -1,7 +1,7 @@
 # Ep 10 build brief — Leafs vs Habs: your hormones (publish 2026-11-07 16:00 ET)
 Status: SCRIPTED v2 (sources swapped Nov 2 to avoid reusing Ep 7's), waiting for Utsha's OK. Do NOT build until approved.
-Series: 6ix Seconds of Science · Length target 38-45s (hard cap 45s) · ~111 words ≈ 40s at 2.8 w/s · Template: `hf/template/build.py` (v2 layout + v3 rig) · follow SETUP.md "Ep 9 lessons".
-Title (≤60): Leafs vs Habs: Your Hormones Are Playing Too (44 chars) · Tags: #hockey #leafs #habs #science #toronto #6ix #shorts · NOT made for kids · Altered/synthetic = YES · Category Science & Technology · Playlist: 6ix Seconds of Science
+Series: 6ixty Seconds of Science · Length target 38-45s (hard cap 45s) · ~111 words ≈ 40s at 2.8 w/s · Template: `hf/template/build.py` (v2 layout + v3 rig) · follow SETUP.md "Ep 9 lessons".
+Title (≤60): Leafs vs Habs: Your Hormones Are Playing Too (44 chars) · Tags: #hockey #leafs #habs #science #toronto #6ix #shorts · NOT made for kids · Altered/synthetic = YES · Category Science & Technology · Playlist: 6ixty Seconds of Science
 
 ## Why this one / timing
 Leafs vs Canadiens, Sat Nov 7, 7:00 PM puck drop at Scotiabank Arena (ticket listing; re-check the morning of). Publish 4 PM ET, pre-game. Neutral on teams, no logos. NEW angle vs Ep 7 (heart rate/cardiac events): hormones during close games.

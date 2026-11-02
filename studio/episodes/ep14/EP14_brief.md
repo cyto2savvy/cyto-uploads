@@ -1,7 +1,7 @@
 # Ep 14 build brief — Remembrance Day silence (publish 2026-11-11 09:00 ET)
 Status: SCRIPTED, waiting for Utsha's OK (workflow steps 4-5). Do NOT build until approved.
-Series: 6ix Seconds of Science · Length target 38-45s (hard cap 45s) · ~97 words ≈ 35s at 2.8 w/s · Template: `hf/template/build.py` (v2 layout + v3 rig) · follow SETUP.md "Ep 9 lessons".
-Title (≤60): What Two Minutes of Silence Does to Your Body (45 chars) · Tags: #remembranceday #silence #science #toronto #6ix #shorts · NOT made for kids · Altered/synthetic = YES · Category Science & Technology · Playlist: 6ix Seconds of Science
+Series: 6ixty Seconds of Science · Length target 38-45s (hard cap 45s) · ~97 words ≈ 35s at 2.8 w/s · Template: `hf/template/build.py` (v2 layout + v3 rig) · follow SETUP.md "Ep 9 lessons".
+Title (≤60): What Two Minutes of Silence Does to Your Body (45 chars) · Tags: #remembranceday #silence #science #toronto #6ix #shorts · NOT made for kids · Altered/synthetic = YES · Category Science & Technology · Playlist: 6ixty Seconds of Science
 
 ## Why this one / timing
 Remembrance Day Wed Nov 11, silence at 11 AM. Publish 9 AM ET, before. Respectful: no joking, no slang stacking, no claims about the ceremony itself, no politics. Utsha decides whether to run this slot or swap it for a lighter topic.
