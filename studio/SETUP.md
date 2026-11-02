@@ -125,3 +125,8 @@ Outfits/accessories: `rig3_html(outfit, cup, acc)` — `acc` is an optional laye
 
 ## Watch: vidIQ credits
 Nov 1, 2026: 26 credits left after Ep 8 (14), 0 renewable until Nov 30 → only ~1 more Liam voiceover. Boost is needed for daily episodes. Spend credits on voice only until Boost is active.
+
+### Ep 9 lessons (Nov 2, 2026 — apply to every build)
+- **Eyes looked "off":** glances were +-12..18px, pushing the pupils out of the eye and never recentring. Fixed in `cyto3.py` (glances are now clamped to ~+-7px / -6px and ease back to centre after ~1s). Don't pass big look values; use `looks` sparingly (1 per scene max).
+- **Text and animations colliding:** give each scene three fixed zones and keep them apart: (1) top = figure/Lottie/3D, (2) middle = ONE headline or stamp at a time, (3) bottom = captions (C.CAP_Y_V2) + Cyto. Rules: max ONE big text element on screen at once (fade the previous one out before the next lands, >=0.15s gap); chips/cards must not overlap a stamp or the 3D label; Lottie sits beside text, never under it; no element within 40px of the caption band.
+- **Check at 1 fps, not just key frames:** `npx hyperframes snapshot --at 0.5,1.5,2.5,...` for EVERY second (a 40s short = ~40 frames), build a contact sheet, and fix any frame where two text/graphic elements touch or Cyto's pupils leave the eye. Show Utsha only after this pass.

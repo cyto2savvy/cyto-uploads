@@ -211,8 +211,10 @@ def rig3_js(mouth, T, blinks=(), sips=(), raises=(), points=(), waves=(), tilts=
     # ---- eyes
     for t, d in blinks:
         E.append(f'tl.set(["#eyeL","#eyeR"],{{opacity:0}},{t});tl.set(["#ecL","#ecR"],{{opacity:1}},{t});tl.set(["#eyeL","#eyeR"],{{opacity:1}},{t + d});tl.set(["#ecL","#ecR"],{{opacity:0}},{t + d});')
-    for t, dx, dy in looks:
-        E.append(f'tl.to(["#pupL","#pupR"],{{x:{dx},y:{dy},duration:0.08,ease:"power3.out"}},{t});')
+    for t, dx, dy in looks:   # Nov 2: clamp glances (old +-12..18px pushed pupils out of the eye = "off" look) and always return to centre
+        dx, dy = max(-7, min(7, dx * .5)), max(-6, min(4, dy * .35))
+        E.append(f'tl.to(["#pupL","#pupR"],{{x:{dx:.1f},y:{dy:.1f},duration:0.08,ease:"power3.out"}},{t});'
+                 f'tl.to(["#pupL","#pupR"],{{x:0,y:0,duration:0.15,ease:"power2.inOut"}},{t + 1.1:.2f});')
     pom = lambda t, a: E.append(f'tl.fromTo("#pom",{{rotation:{a}}},{{rotation:0,duration:0.9,ease:"elastic.out(1.2,0.25)",immediateRender:false}},{t:.3f});')
     for t, d, kind in expr:
         if kind == "shock":
@@ -226,7 +228,7 @@ def rig3_js(mouth, T, blinks=(), sips=(), raises=(), points=(), waves=(), tilts=
             pom(t + 0.1, 18)
         elif kind == "skeptic":
             E.append(f'tl.to("#browL",{{y:-14,rotation:-10,duration:0.07}},{t});tl.to("#browR",{{y:6,rotation:8,duration:0.07}},{t});'
-                     f'tl.to("#lidR",{{y:{LID_SQUINT},duration:0.07}},{t});tl.to(["#pupL","#pupR"],{{x:-9,duration:0.07}},{t});')
+                     f'tl.to("#lidR",{{y:{LID_SQUINT},duration:0.07}},{t});tl.to(["#pupL","#pupR"],{{x:-6,duration:0.07}},{t});')
         elif kind == "squint":
             E.append(f'tl.to(["#lidL","#lidR"],{{y:{LID_SQUINT},duration:0.07}},{t});tl.to(["#browL","#browR"],{{y:6,duration:0.07}},{t});')
         elif kind == "sad":
