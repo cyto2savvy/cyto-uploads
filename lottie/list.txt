@@ -23,3 +23,12 @@ fireworks-2.json https://assets-v2.lottiefiles.com/a/3eff795e-1161-11ee-995f-837
 rangoli-1.json https://assets-v2.lottiefiles.com/a/d5bf69a2-1180-11ee-a541-ffaf8439d59e/YnfvE7waP7.json
 stomach-1.json https://assets-v2.lottiefiles.com/a/ea253710-6c1a-4060-b2e6-7746afdbe647/DMzRE7bOWf.json
 dessert-1.json https://assets-v2.lottiefiles.com/a/a72a307e-1179-11ee-8396-a7575b2b5ef9/7MKCUjVM1l.json
+steth-1.json https://assets-v2.lottiefiles.com/a/5d8cc14e-116e-11ee-b5cc-b76a51fe88d7/ZI8aHtkQyi.json
+doctor-1.json https://assets-v2.lottiefiles.com/a/30383f7e-f768-4c51-8e0a-12226c1a11e3/RtPVvWCDuY.json
+shield-1.json https://assets-v2.lottiefiles.com/a/38455507-8ddc-4698-bd45-0ef000586634/m2rFZjq7ru.json
+shield-2.json https://assets-v2.lottiefiles.com/a/99c7c226-1173-11ee-b7f6-ffb71fba3fb6/8xkQy9fUbt.json
+stache-1.json https://assets-v2.lottiefiles.com/a/ecbdfb52-1174-11ee-8388-3b1c1d70f7ca/7VkK6nyvfQ.json
+stache-2.json https://assets-v2.lottiefiles.com/a/c4d985a3-0f8d-4171-9b3a-e96a30bb6b3c/zU6leddCjb.json
+ribbon-1.json https://assets-v2.lottiefiles.com/a/db0fd298-118a-11ee-8fc8-872f96d68f2e/2LUPw0Mywi.json
+ribbon-2.json https://assets-v2.lottiefiles.com/a/2cb65176-1181-11ee-a302-3f322f964c17/86CMhFAizl.json
+calendar-1.json https://assets-v2.lottiefiles.com/a/80df35a2-13b9-4e91-bf0e-2bcb216496c4/dfAztOS6XR.json
