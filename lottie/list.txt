@@ -15,3 +15,11 @@ snow-1.json https://assets-v2.lottiefiles.com/a/631176b2-a3c8-11ef-95e5-db63b70b
 snow-2.json https://assets-v2.lottiefiles.com/a/f4b3c454-9289-11ee-9adc-6f02fb92e879/8sGQxg14zK.json
 trophy-1.json https://assets-v2.lottiefiles.com/a/935570a1-150f-4b2a-aa68-d5a7e32d5550/80zPcPyqAC.json
 trophy-2.json https://assets-v2.lottiefiles.com/a/c91264f0-c116-4547-90fa-328b7e2a0c0a/1mo3C04OXC.json
+diya-1.json https://assets-v2.lottiefiles.com/a/7e0f806c-1166-11ee-a0ba-4f96bb556717/j8Hulj30WL.json
+diya-2.json https://assets-v2.lottiefiles.com/a/573cb306-1166-11ee-96d9-0763202daa5f/Z8mnGNOAqI.json
+diya-3.json https://assets-v2.lottiefiles.com/a/3a532aaa-8e46-11ef-be1b-df9ad2ac47d5/EK7zCoPzHd.json
+fireworks-1.json https://assets-v2.lottiefiles.com/a/736bd464-117d-11ee-80b6-077af2e670f9/6XR4ouHrob.json
+fireworks-2.json https://assets-v2.lottiefiles.com/a/3eff795e-1161-11ee-995f-837eb1f83345/0MEGnVIc70.json
+rangoli-1.json https://assets-v2.lottiefiles.com/a/d5bf69a2-1180-11ee-a541-ffaf8439d59e/YnfvE7waP7.json
+stomach-1.json https://assets-v2.lottiefiles.com/a/ea253710-6c1a-4060-b2e6-7746afdbe647/DMzRE7bOWf.json
+dessert-1.json https://assets-v2.lottiefiles.com/a/a72a307e-1179-11ee-8396-a7575b2b5ef9/7MKCUjVM1l.json
