@@ -1,1 +1,2 @@
-OK voicetest_bucks_chris.mp3
+HAVE voicetest_bucks_chris.mp3
+OK ep12_raw.mp3
