@@ -22,3 +22,12 @@ HAVE fireworks-2.json
 HAVE rangoli-1.json
 HAVE stomach-1.json
 HAVE dessert-1.json
+OK steth-1.json
+OK doctor-1.json
+OK shield-1.json
+OK shield-2.json
+OK stache-1.json
+OK stache-2.json
+OK ribbon-1.json
+OK ribbon-2.json
+OK calendar-1.json
