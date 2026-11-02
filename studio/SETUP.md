@@ -148,3 +148,13 @@ After `python3 epNN/build.py`, run from /home/claude/hf: `python3 layout_check.p
 - **GSAP x/y on an SVG `<g transform="translate(...)">` replaces the translate.** Wrap it: outer `<g transform>` for placement, inner `<g id>` for the animation.
 - New art.py pieces: `scarb_skyline`, `balcony` (+raccoon), `diya`, `bluffs_view`, `platform_view`, `hallway`, `il1_cell`, `mithai_plate`, `couch`, `rangoli`, `string_lights`, `stomach`. Outfit `outfit_kurta`. `three3d.js` bars take `floorW` for 3 bars.
 - Python Playwright for `layout_check.py`: `pip install --break-system-packages playwright==1.63.0` (must match the preinstalled browser build).
+
+### Ep 11 review: rules for Eps 12+ (manager review, Nov 2, 2026)
+Ep 11 passed layout_check but a human review of the 1-fps sheet still found these. They are now hard rules:
+- **Nothing within 40px of any screen edge**, including meters, labels, stamps and bars (Ep 11's "TIRED" meter label sat on the left edge and looked clipped). Treat every layout_check safe-zone WARN as a FAIL unless it is a deliberate slide-in/out of a moving object (e.g. a bus entering).
+- **On-screen sources card: text at least 34px tall at 1080 wide**, max 2 sources, short form ("Orr 1997 · Lehrskov 2018"). Full citations live in the description and pinned comment. Small unreadable text defeats the point of crediting.
+- **Hook (0-3s): at most 3 moving things** (e.g. background, one caption, Cyto). No bus + diyas + raccoon + caption pile-up. The first caption is the hook.
+- **Use the space.** Cyto sits low-left; put the science figure/card in the upper-middle (y 300-1100) at full size. Do not leave the bottom third empty AND the figure tiny. Figures should fill their card.
+- Check Lotties in the REAL rendered mp4 (ffmpeg frame grabs), never just in the preview. Blank Lotties: replace with native SVG + GSAP.
+- No captioning tool is available: match the audio to the script line by line using segs.json pauses, then listen once and fix drift over 0.3s.
+- Say in the final post: layout_check result (FAIL/WARN counts and what each WARN is), and the three things you are least sure about.

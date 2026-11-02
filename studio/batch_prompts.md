@@ -18,7 +18,7 @@ You're building ONE Cyto The Cell YouTube Short: Ep 11 ("Is Your Diwali Food Com
 
 SETUP
 1. git clone https://github.com/cyto2savvy/cyto-uploads && bash cyto-uploads/studio/restore.sh
-2. Read: studio/SETUP.md (incl. "Ep 9 lessons", "SOURCE RULE", "TORONTO BACKGROUND RULE"), studio/VOICE.md, studio/PUBLISHING.md, studio/BATCH.md, studio/episodes/ep11/EP11_brief.md. The script, sources and Toronto background plan in the brief are APPROVED. Don't rewrite the script or swap sources.
+2. Read: studio/SETUP.md (incl. "Ep 9 lessons", "Ep 11 lessons", "Ep 11 review: rules for Eps 12+", "SOURCE RULE", "TORONTO BACKGROUND RULE"), studio/VOICE.md, studio/PUBLISHING.md, studio/BATCH.md, studio/episodes/ep11/EP11_brief.md. The script, sources and Toronto background plan in the brief are APPROVED. Don't rewrite the script or swap sources.
 
 AUDIO
 3. Utsha attaches the approved voice mp3 ("Cyto - Toronto (A)"). Save it as epN/raw.mp3 -> silencedetect -> segs.json -> build_voice2.py -> voice.wav + timing.json. Captions use the real spellings (ahlie/styll/6ix); the TTS spellings are only for the voice.
@@ -31,6 +31,8 @@ BUILD
 QUALITY GATE (before showing anything)
 6b. Run `cd /home/claude/hf && python3 layout_check.py ep11 --brief studio/episodes/ep11/EP11_brief.md` (see SETUP.md). 0 FAIL required, and no invented scores/numbers on screen (a scoreboard for a future game says TONIGHT 7:00, never a score).
 7. Pupils never leave the eyes; ONE big text element on screen at a time; nothing overlapping; snapshot EVERY second and review a contact sheet; run the safe-area sheet (C.safe_sheet); loop frame = hook frame; cup visible; Cyto on model.
+
+7b. Ep 11 review rules (SETUP.md): nothing within 40px of a screen edge; every layout_check safe-zone WARN fixed unless it is a moving slide-in; on-screen sources card text >=34px; hook has at most 3 moving things; figures fill their card (use the upper-middle of the frame, don't leave the bottom third empty with a tiny figure); verify Lotties in the real mp4 and swap blank ones for SVG+GSAP.
 
 PACKAGE
 8. 2 thumbnails (say which is stronger), meta.json (title <=60 chars, hashtags/tags from the brief, description with PubMed DOI links + "Not medical advice"), captions.srt, `python3 cyto2/check_meta.py` = 0 FAIL, `python3 studio/check_sources.py` = OK.
@@ -46,7 +48,7 @@ You're building ONE Cyto The Cell YouTube Short: Ep 12 ("Movember: Does Checking
 
 SETUP
 1. git clone https://github.com/cyto2savvy/cyto-uploads && bash cyto-uploads/studio/restore.sh
-2. Read: studio/SETUP.md (incl. "Ep 9 lessons", "SOURCE RULE", "TORONTO BACKGROUND RULE"), studio/VOICE.md, studio/PUBLISHING.md, studio/BATCH.md, studio/episodes/ep12/EP12_brief.md. The script, sources and Toronto background plan in the brief are APPROVED. Don't rewrite the script or swap sources.
+2. Read: studio/SETUP.md (incl. "Ep 9 lessons", "Ep 11 lessons", "Ep 11 review: rules for Eps 12+", "SOURCE RULE", "TORONTO BACKGROUND RULE"), studio/VOICE.md, studio/PUBLISHING.md, studio/BATCH.md, studio/episodes/ep12/EP12_brief.md. The script, sources and Toronto background plan in the brief are APPROVED. Don't rewrite the script or swap sources.
 
 AUDIO
 3. Utsha attaches the approved voice mp3 ("Cyto - Toronto (A)"). Save it as epN/raw.mp3 -> silencedetect -> segs.json -> build_voice2.py -> voice.wav + timing.json. Captions use the real spellings (ahlie/styll/6ix); the TTS spellings are only for the voice.
@@ -59,6 +61,8 @@ BUILD
 QUALITY GATE (before showing anything)
 6b. Run `cd /home/claude/hf && python3 layout_check.py ep12 --brief studio/episodes/ep12/EP12_brief.md` (see SETUP.md). 0 FAIL required, and no invented scores/numbers on screen (a scoreboard for a future game says TONIGHT 7:00, never a score).
 7. Pupils never leave the eyes; ONE big text element on screen at a time; nothing overlapping; snapshot EVERY second and review a contact sheet; run the safe-area sheet (C.safe_sheet); loop frame = hook frame; cup visible; Cyto on model.
+
+7b. Ep 11 review rules (SETUP.md): nothing within 40px of a screen edge; every layout_check safe-zone WARN fixed unless it is a moving slide-in; on-screen sources card text >=34px; hook has at most 3 moving things; figures fill their card (use the upper-middle of the frame, don't leave the bottom third empty with a tiny figure); verify Lotties in the real mp4 and swap blank ones for SVG+GSAP.
 
 PACKAGE
 8. 2 thumbnails (say which is stronger), meta.json (title <=60 chars, hashtags/tags from the brief, description with PubMed DOI links + "Not medical advice"), captions.srt, `python3 cyto2/check_meta.py` = 0 FAIL, `python3 studio/check_sources.py` = OK.
@@ -73,7 +77,7 @@ You're building ONE Cyto The Cell YouTube Short: Ep 13 ("Meet Neutro: Your Flu S
 
 SETUP
 1. git clone https://github.com/cyto2savvy/cyto-uploads && bash cyto-uploads/studio/restore.sh
-2. Read: studio/SETUP.md (incl. "Ep 9 lessons", "SOURCE RULE", "TORONTO BACKGROUND RULE"), studio/VOICE.md, studio/PUBLISHING.md, studio/BATCH.md, studio/episodes/ep13/EP13_brief.md. The script, sources and Toronto background plan in the brief are APPROVED. Don't rewrite the script or swap sources.
+2. Read: studio/SETUP.md (incl. "Ep 9 lessons", "Ep 11 lessons", "Ep 11 review: rules for Eps 12+", "SOURCE RULE", "TORONTO BACKGROUND RULE"), studio/VOICE.md, studio/PUBLISHING.md, studio/BATCH.md, studio/episodes/ep13/EP13_brief.md. The script, sources and Toronto background plan in the brief are APPROVED. Don't rewrite the script or swap sources.
 
 AUDIO
 3. Utsha attaches the approved voice mp3 ("Cyto - Toronto (A)"). Save it as epN/raw.mp3 -> silencedetect -> segs.json -> build_voice2.py -> voice.wav + timing.json. Captions use the real spellings (ahlie/styll/6ix); the TTS spellings are only for the voice.
@@ -86,6 +90,8 @@ BUILD
 QUALITY GATE (before showing anything)
 6b. Run `cd /home/claude/hf && python3 layout_check.py ep13 --brief studio/episodes/ep13/EP13_brief.md` (see SETUP.md). 0 FAIL required, and no invented scores/numbers on screen (a scoreboard for a future game says TONIGHT 7:00, never a score).
 7. Pupils never leave the eyes; ONE big text element on screen at a time; nothing overlapping; snapshot EVERY second and review a contact sheet; run the safe-area sheet (C.safe_sheet); loop frame = hook frame; cup visible; Cyto on model.
+
+7b. Ep 11 review rules (SETUP.md): nothing within 40px of a screen edge; every layout_check safe-zone WARN fixed unless it is a moving slide-in; on-screen sources card text >=34px; hook has at most 3 moving things; figures fill their card (use the upper-middle of the frame, don't leave the bottom third empty with a tiny figure); verify Lotties in the real mp4 and swap blank ones for SVG+GSAP.
 
 PACKAGE
 8. 2 thumbnails (say which is stronger), meta.json (title <=60 chars, hashtags/tags from the brief, description with PubMed DOI links + "Not medical advice"), captions.srt, `python3 cyto2/check_meta.py` = 0 FAIL, `python3 studio/check_sources.py` = OK.
@@ -101,7 +107,7 @@ You're building ONE Cyto The Cell YouTube Short: Ep 14 ("What Two Minutes of Sil
 
 SETUP
 1. git clone https://github.com/cyto2savvy/cyto-uploads && bash cyto-uploads/studio/restore.sh
-2. Read: studio/SETUP.md (incl. "Ep 9 lessons", "SOURCE RULE", "TORONTO BACKGROUND RULE"), studio/VOICE.md, studio/PUBLISHING.md, studio/BATCH.md, studio/episodes/ep14/EP14_brief.md. The script, sources and Toronto background plan in the brief are APPROVED. Don't rewrite the script or swap sources.
+2. Read: studio/SETUP.md (incl. "Ep 9 lessons", "Ep 11 lessons", "Ep 11 review: rules for Eps 12+", "SOURCE RULE", "TORONTO BACKGROUND RULE"), studio/VOICE.md, studio/PUBLISHING.md, studio/BATCH.md, studio/episodes/ep14/EP14_brief.md. The script, sources and Toronto background plan in the brief are APPROVED. Don't rewrite the script or swap sources.
 
 AUDIO
 3. Utsha attaches the approved voice mp3 ("Cyto - Toronto (A)"). Save it as epN/raw.mp3 -> silencedetect -> segs.json -> build_voice2.py -> voice.wav + timing.json. Captions use the real spellings (ahlie/styll/6ix); the TTS spellings are only for the voice.
@@ -114,6 +120,8 @@ BUILD
 QUALITY GATE (before showing anything)
 6b. Run `cd /home/claude/hf && python3 layout_check.py ep14 --brief studio/episodes/ep14/EP14_brief.md` (see SETUP.md). 0 FAIL required, and no invented scores/numbers on screen (a scoreboard for a future game says TONIGHT 7:00, never a score).
 7. Pupils never leave the eyes; ONE big text element on screen at a time; nothing overlapping; snapshot EVERY second and review a contact sheet; run the safe-area sheet (C.safe_sheet); loop frame = hook frame; cup visible; Cyto on model.
+
+7b. Ep 11 review rules (SETUP.md): nothing within 40px of a screen edge; every layout_check safe-zone WARN fixed unless it is a moving slide-in; on-screen sources card text >=34px; hook has at most 3 moving things; figures fill their card (use the upper-middle of the frame, don't leave the bottom third empty with a tiny figure); verify Lotties in the real mp4 and swap blank ones for SVG+GSAP.
 
 PACKAGE
 8. 2 thumbnails (say which is stronger), meta.json (title <=60 chars, hashtags/tags from the brief, description with PubMed DOI links + "Not medical advice"), captions.srt, `python3 cyto2/check_meta.py` = 0 FAIL, `python3 studio/check_sources.py` = OK.

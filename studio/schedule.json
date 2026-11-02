@@ -1,246 +1,246 @@
 {
- "_note": "Content calendar = source of truth. Times Eastern. Status: idea>pitched>picked>scripted>plan_approved>built>final_approved>scheduled>live>tiktok_queued",
- "episodes": [
-  {
-   "ep": 1,
-   "publish_date": "live",
-   "publish_time": "",
-   "series": null,
-   "topic": "Goosebumps",
-   "outfit": null,
-   "status": "live",
-   "title": null,
-   "youtube_id": "gm4Jgs3vvT4",
-   "tiktok_queued": true,
-   "sources": []
-  },
-  {
-   "ep": 2,
-   "publish_date": "2026-10-30",
-   "publish_time": "",
-   "series": null,
-   "topic": "Scared to death (Halloween)",
-   "outfit": null,
-   "status": "live",
-   "title": null,
-   "youtube_id": "qy5GwZ3PMeo",
-   "tiktok_queued": true,
-   "sources": []
-  },
-  {
-   "ep": 4,
-   "publish_date": "2026-10-31",
-   "publish_time": "19:00",
-   "series": null,
-   "topic": "Clocks fall back",
-   "outfit": null,
-   "status": "scheduled",
-   "title": null,
-   "youtube_id": "etwgExzRMW8",
-   "tiktok_queued": true,
-   "sources": []
-  },
-  {
-   "ep": 3,
-   "publish_date": "2026-11-01",
-   "publish_time": "11:00",
-   "series": null,
-   "topic": "Sugar rush myth",
-   "outfit": null,
-   "status": "scheduled",
-   "title": null,
-   "youtube_id": "M1_ZMi-Dceg",
-   "tiktok_queued": true,
-   "sources": []
-  },
-  {
-   "ep": 5,
-   "publish_date": "2026-11-02",
-   "publish_time": "18:00",
-   "series": null,
-   "topic": "Cold season",
-   "outfit": null,
-   "status": "scheduled",
-   "title": null,
-   "youtube_id": "Y8pJ4GNJ60s",
-   "tiktok_queued": true,
-   "sources": []
-  },
-  {
-   "ep": 6,
-   "publish_date": "2026-11-03",
-   "publish_time": "18:00",
-   "series": null,
-   "topic": "Procrastination",
-   "outfit": null,
-   "status": "scheduled",
-   "title": null,
-   "youtube_id": "OO9AceZh2tc",
-   "tiktok_queued": true,
-   "sources": []
-  },
-  {
-   "ep": 7,
-   "publish_date": "2026-11-04",
-   "publish_time": "19:00",
-   "series": null,
-   "topic": "Leafs overtime",
-   "outfit": null,
-   "status": "scheduled",
-   "title": null,
-   "youtube_id": "Sd47GFmiTFg",
-   "tiktok_queued": true,
-   "sources": []
-  },
-  {
-   "ep": 8,
-   "publish_date": "2026-11-05",
-   "publish_time": "18:00",
-   "series": "6ixty Seconds of Science",
-   "topic": "Why you wake up at 3am",
-   "outfit": "PJ top + sleep mask (red cup)",
-   "status": "scheduled",
-   "title": "Why You Wake Up at 3AM",
-   "youtube_id": "kcKDLS1b-tE",
-   "tiktok_queued": true,
-   "sources": [
-    "10.1210/jc.2004-1056",
-    "10.1016/j.beem.2017.10.011",
-    "10.1111/jsr.14252"
-   ],
-   "thumbnail": "B"
-  },
-  {
-   "ep": 9,
-   "publish_date": "2026-11-06",
-   "publish_time": "18:00",
-   "series": "6ixty Seconds of Science",
-   "topic": "Is winter killing your vitamin D?",
-   "outfit": "puffer vest (red cup)",
-   "status": "built",
-   "title": "Is Winter Really Killing Your Vitamin D?",
-   "youtube_id": null,
-   "tiktok_queued": false,
-   "sources": [
-    "10.1007/BF03404056",
-    "10.1371/journal.pone.0207429",
-    "10.1097/MD.0000000000043107"
-   ]
-  },
-  {
-   "ep": 10,
-   "publish_date": "2026-11-07",
-   "publish_time": "16:00",
-   "series": "6ixty Seconds of Science",
-   "topic": "Leafs vs Habs: your hormones",
-   "outfit": "Leafs-blue jersey/toque colours only (NO logos), red cup. Ga",
-   "status": "built",
-   "title": "Does Watching Leafs vs Habs Change Your Hormones?",
-   "youtube_id": null,
-   "tiktok_queued": false,
-   "sources": [
-    "10.1016/j.physbeh.2019.112596",
-    "10.1007/s12110-021-09407-7"
-   ]
-  },
-  {
-   "ep": 11,
-   "publish_date": "2026-11-08",
-   "publish_time": "15:00",
-   "series": "6ixty Seconds of Science",
-   "topic": "Diwali food coma",
-   "outfit": "kurta-style festive outfit swap layer (diya colours: orange/",
-   "status": "scripted",
-   "title": "Is Your Diwali Food Coma Actually the Sweets?",
-   "youtube_id": null,
-   "tiktok_queued": false,
-   "sources": [
-    "10.1016/s0031-9384(97)00012-7",
-    "10.1016/j.molmet.2018.04.001"
-   ]
-  },
-  {
-   "ep": 12,
-   "publish_date": "2026-11-09",
-   "publish_time": "18:00",
-   "series": "Cyto vs Disease",
-   "topic": "Movember self-checks",
-   "outfit": "toque + cartoon moustache sticker (Movember colour = blue ri",
-   "status": "scripted",
-   "title": "Movember: Does Checking Yourself Save Lives?",
-   "youtube_id": null,
-   "tiktok_queued": false,
-   "sources": [
-    "10.1158/1940-6207.CAPR-26-0125",
-    "10.1016/j.jpurol.2026.106295"
-   ]
-  },
-  {
-   "ep": 13,
-   "publish_date": "2026-11-10",
-   "publish_time": "18:00",
-   "series": "Cyto vs Disease",
-   "topic": "Neutro vs the flu",
-   "outfit": "toque + hoodie (cold-weather match), red cup. Introduces NEU",
-   "status": "scripted",
-   "title": "Meet Neutro: Your Flu Season Bouncer",
-   "youtube_id": null,
-   "tiktok_queued": false,
-   "sources": [
-    "10.3390/vaccines9060597",
-    "10.1155/2019/8028725",
-    "10.1186/s12931-017-0630-x"
-   ]
-  },
-  {
-   "ep": 14,
-   "publish_date": "2026-11-11",
-   "publish_time": "09:00",
-   "series": "6ixty Seconds of Science",
-   "topic": "Remembrance Day silence",
-   "outfit": "toque + dark coat, plain red felt-poppy shape pin (generic f",
-   "status": "scripted",
-   "title": "What Two Minutes of Silence Does to Your Body",
-   "youtube_id": null,
-   "tiktok_queued": false,
-   "sources": [
-    "10.1136/hrt.2005.064600",
-    "10.1007/s00429-013-0679-3"
-   ]
+  "_note": "Content calendar = source of truth. Times Eastern. Status: idea>pitched>picked>scripted>plan_approved>built>final_approved>scheduled>live>tiktok_queued",
+  "episodes": [
+    {
+      "ep": 1,
+      "publish_date": "live",
+      "publish_time": "",
+      "series": null,
+      "topic": "Goosebumps",
+      "outfit": null,
+      "status": "live",
+      "title": null,
+      "youtube_id": "gm4Jgs3vvT4",
+      "tiktok_queued": true,
+      "sources": []
+    },
+    {
+      "ep": 2,
+      "publish_date": "2026-10-30",
+      "publish_time": "",
+      "series": null,
+      "topic": "Scared to death (Halloween)",
+      "outfit": null,
+      "status": "live",
+      "title": null,
+      "youtube_id": "qy5GwZ3PMeo",
+      "tiktok_queued": true,
+      "sources": []
+    },
+    {
+      "ep": 4,
+      "publish_date": "2026-10-31",
+      "publish_time": "19:00",
+      "series": null,
+      "topic": "Clocks fall back",
+      "outfit": null,
+      "status": "scheduled",
+      "title": null,
+      "youtube_id": "etwgExzRMW8",
+      "tiktok_queued": true,
+      "sources": []
+    },
+    {
+      "ep": 3,
+      "publish_date": "2026-11-01",
+      "publish_time": "11:00",
+      "series": null,
+      "topic": "Sugar rush myth",
+      "outfit": null,
+      "status": "scheduled",
+      "title": null,
+      "youtube_id": "M1_ZMi-Dceg",
+      "tiktok_queued": true,
+      "sources": []
+    },
+    {
+      "ep": 5,
+      "publish_date": "2026-11-02",
+      "publish_time": "18:00",
+      "series": null,
+      "topic": "Cold season",
+      "outfit": null,
+      "status": "scheduled",
+      "title": null,
+      "youtube_id": "Y8pJ4GNJ60s",
+      "tiktok_queued": true,
+      "sources": []
+    },
+    {
+      "ep": 6,
+      "publish_date": "2026-11-03",
+      "publish_time": "18:00",
+      "series": null,
+      "topic": "Procrastination",
+      "outfit": null,
+      "status": "scheduled",
+      "title": null,
+      "youtube_id": "OO9AceZh2tc",
+      "tiktok_queued": true,
+      "sources": []
+    },
+    {
+      "ep": 7,
+      "publish_date": "2026-11-04",
+      "publish_time": "19:00",
+      "series": null,
+      "topic": "Leafs overtime",
+      "outfit": null,
+      "status": "scheduled",
+      "title": null,
+      "youtube_id": "Sd47GFmiTFg",
+      "tiktok_queued": true,
+      "sources": []
+    },
+    {
+      "ep": 8,
+      "publish_date": "2026-11-05",
+      "publish_time": "18:00",
+      "series": "6ixty Seconds of Science",
+      "topic": "Why you wake up at 3am",
+      "outfit": "PJ top + sleep mask (red cup)",
+      "status": "scheduled",
+      "title": "Why You Wake Up at 3AM",
+      "youtube_id": "kcKDLS1b-tE",
+      "tiktok_queued": true,
+      "sources": [
+        "10.1210/jc.2004-1056",
+        "10.1016/j.beem.2017.10.011",
+        "10.1111/jsr.14252"
+      ],
+      "thumbnail": "B"
+    },
+    {
+      "ep": 9,
+      "publish_date": "2026-11-06",
+      "publish_time": "18:00",
+      "series": "6ixty Seconds of Science",
+      "topic": "Is winter killing your vitamin D?",
+      "outfit": "puffer vest (red cup)",
+      "status": "built",
+      "title": "Is Winter Really Killing Your Vitamin D?",
+      "youtube_id": null,
+      "tiktok_queued": false,
+      "sources": [
+        "10.1007/BF03404056",
+        "10.1371/journal.pone.0207429",
+        "10.1097/MD.0000000000043107"
+      ]
+    },
+    {
+      "ep": 10,
+      "publish_date": "2026-11-07",
+      "publish_time": "16:00",
+      "series": "6ixty Seconds of Science",
+      "topic": "Leafs vs Habs: your hormones",
+      "outfit": "Leafs-blue jersey/toque colours only (NO logos), red cup. Ga",
+      "status": "scheduled",
+      "title": "Does Watching Leafs vs Habs Change Your Hormones?",
+      "youtube_id": "-CEltZRO09A",
+      "tiktok_queued": true,
+      "sources": [
+        "10.1016/j.physbeh.2019.112596",
+        "10.1007/s12110-021-09407-7"
+      ]
+    },
+    {
+      "ep": 11,
+      "publish_date": "2026-11-08",
+      "publish_time": "10:00",
+      "series": "6ixty Seconds of Science",
+      "topic": "Diwali food coma",
+      "outfit": "kurta-style festive outfit swap layer (diya colours: orange/",
+      "status": "scheduled",
+      "title": "Is Your Diwali Food Coma Actually the Sweets?",
+      "youtube_id": "7Xdk-SvGqBY",
+      "tiktok_queued": true,
+      "sources": [
+        "10.1016/s0031-9384(97)00012-7",
+        "10.1016/j.molmet.2018.04.001"
+      ]
+    },
+    {
+      "ep": 12,
+      "publish_date": "2026-11-09",
+      "publish_time": "18:00",
+      "series": "Cyto vs Disease",
+      "topic": "Movember self-checks",
+      "outfit": "toque + cartoon moustache sticker (Movember colour = blue ri",
+      "status": "scripted",
+      "title": "Movember: Does Checking Yourself Save Lives?",
+      "youtube_id": null,
+      "tiktok_queued": false,
+      "sources": [
+        "10.1158/1940-6207.CAPR-26-0125",
+        "10.1016/j.jpurol.2026.106295"
+      ]
+    },
+    {
+      "ep": 13,
+      "publish_date": "2026-11-10",
+      "publish_time": "18:00",
+      "series": "Cyto vs Disease",
+      "topic": "Neutro vs the flu",
+      "outfit": "toque + hoodie (cold-weather match), red cup. Introduces NEU",
+      "status": "scripted",
+      "title": "Meet Neutro: Your Flu Season Bouncer",
+      "youtube_id": null,
+      "tiktok_queued": false,
+      "sources": [
+        "10.3390/vaccines9060597",
+        "10.1155/2019/8028725",
+        "10.1186/s12931-017-0630-x"
+      ]
+    },
+    {
+      "ep": 14,
+      "publish_date": "2026-11-11",
+      "publish_time": "09:00",
+      "series": "6ixty Seconds of Science",
+      "topic": "Remembrance Day silence",
+      "outfit": "toque + dark coat, plain red felt-poppy shape pin (generic f",
+      "status": "scripted",
+      "title": "What Two Minutes of Silence Does to Your Body",
+      "youtube_id": null,
+      "tiktok_queued": false,
+      "sources": [
+        "10.1136/hrt.2005.064600",
+        "10.1007/s00429-013-0679-3"
+      ]
+    }
+  ],
+  "backlog": [
+    {
+      "topic": "Diwali: mithai and the sugar crash (with Mito)",
+      "target_date": "2026-11-08",
+      "status": "idea",
+      "sources": [
+        "Mantantzis 2019, doi:10.1016/j.neubiorev.2019.03.016"
+      ]
+    },
+    {
+      "topic": "Royal Winter Fair tie-in",
+      "target_date": "2026-11-06..15",
+      "status": "idea",
+      "sources": []
+    },
+    {
+      "topic": "Remembrance Day",
+      "target_date": "2026-11-11",
+      "status": "idea",
+      "sources": []
+    },
+    {
+      "topic": "Long-form: Cyto vs the Flu (debuts Neutro + Platelet Pete)",
+      "target_date": null,
+      "status": "idea",
+      "sources": [],
+      "note": "needs vidIQ Boost"
+    }
+  ],
+  "cast_appearances": {
+    "Mito": [],
+    "Neutro": [],
+    "Platelet Pete": []
   }
- ],
- "backlog": [
-  {
-   "topic": "Diwali: mithai and the sugar crash (with Mito)",
-   "target_date": "2026-11-08",
-   "status": "idea",
-   "sources": [
-    "Mantantzis 2019, doi:10.1016/j.neubiorev.2019.03.016"
-   ]
-  },
-  {
-   "topic": "Royal Winter Fair tie-in",
-   "target_date": "2026-11-06..15",
-   "status": "idea",
-   "sources": []
-  },
-  {
-   "topic": "Remembrance Day",
-   "target_date": "2026-11-11",
-   "status": "idea",
-   "sources": []
-  },
-  {
-   "topic": "Long-form: Cyto vs the Flu (debuts Neutro + Platelet Pete)",
-   "target_date": null,
-   "status": "idea",
-   "sources": [],
-   "note": "needs vidIQ Boost"
-  }
- ],
- "cast_appearances": {
-  "Mito": [],
-  "Neutro": [],
-  "Platelet Pete": []
- }
 }
