@@ -15,7 +15,7 @@ AUDIO
 
 BUILD
 5. Copy hf/template/build.py to hf/ep10/ (v2 layout + v3 rig, never the old PNG rig). Hard cap 45s. Outfit/cup per the brief (double-stacked red party cup with Cyto's face logo, nothing inside shown). Lottie via lottie/list.txt as SETUP.md says (push, read lottie/status.txt). New animated science figure per scene, word-by-word captions with key words bigger/coloured, a transition on every cut, nothing still for more than 1s.
-6. Backgrounds: follow the brief's "Toronto background plan" scene by scene. Toronto-specific or topic-specific only, never random filler. Toronto proper only (no Brampton/Mississauga/GTA suburbs). Generic shapes: no real logos, store names, brands or people.
+6. Backgrounds: follow the brief's "Toronto background plan" scene by scene. Toronto-specific or topic-specific only, never random filler. City of Toronto only (Scarborough, Etobicoke, North York, East York, York and old Toronto all count; NO Brampton, Mississauga or other GTA cities). Generic shapes: no real logos, store names, brands or people.
 
 QUALITY GATE (before showing anything)
 7. Pupils never leave the eyes; ONE big text element on screen at a time; nothing overlapping; snapshot EVERY second and review a contact sheet; run the safe-area sheet (C.safe_sheet); loop frame = hook frame; cup visible; Cyto on model.
@@ -41,7 +41,7 @@ AUDIO
 
 BUILD
 5. Copy hf/template/build.py to hf/ep11/ (v2 layout + v3 rig, never the old PNG rig). Hard cap 45s. Outfit/cup per the brief (double-stacked red party cup with Cyto's face logo, nothing inside shown). Lottie via lottie/list.txt as SETUP.md says (push, read lottie/status.txt). New animated science figure per scene, word-by-word captions with key words bigger/coloured, a transition on every cut, nothing still for more than 1s.
-6. Backgrounds: follow the brief's "Toronto background plan" scene by scene. Toronto-specific or topic-specific only, never random filler. Toronto proper only (no Brampton/Mississauga/GTA suburbs). Generic shapes: no real logos, store names, brands or people.
+6. Backgrounds: follow the brief's "Toronto background plan" scene by scene. Toronto-specific or topic-specific only, never random filler. City of Toronto only (Scarborough, Etobicoke, North York, East York, York and old Toronto all count; NO Brampton, Mississauga or other GTA cities). Generic shapes: no real logos, store names, brands or people.
 
 QUALITY GATE (before showing anything)
 7. Pupils never leave the eyes; ONE big text element on screen at a time; nothing overlapping; snapshot EVERY second and review a contact sheet; run the safe-area sheet (C.safe_sheet); loop frame = hook frame; cup visible; Cyto on model.
@@ -51,7 +51,7 @@ PACKAGE
 9. Commit studio/episodes/ep11/ + the final mp4 + thumbnails + hf/ep11/ and push to the repo. Then STOP and post: final video, title, description, both thumbnails, outfit. Do NOT upload to YouTube or schedule anything; the manager chat does that after Utsha approves.
 
 Publish target for reference: Sun Nov 8 3:00 PM ET (UTC 2026-11-08T20:00:00Z).
-EP 11 EXTRA: SCARBOROUGH ONLY. Nothing outside Toronto, and no Gerrard India Bazaar, Brampton, Mississauga or Etobicoke places.
+EP 11 EXTRA: SCARBOROUGH-LED. Scarborough is home base; other City of Toronto neighbourhoods (Gerrard India Bazaar, Etobicoke) are fine as cutaways. Nothing outside Toronto: no Brampton, Mississauga or other GTA cities.
 ```
 
 ## Ep 12
@@ -68,7 +68,7 @@ AUDIO
 
 BUILD
 5. Copy hf/template/build.py to hf/ep12/ (v2 layout + v3 rig, never the old PNG rig). Hard cap 45s. Outfit/cup per the brief (double-stacked red party cup with Cyto's face logo, nothing inside shown). Lottie via lottie/list.txt as SETUP.md says (push, read lottie/status.txt). New animated science figure per scene, word-by-word captions with key words bigger/coloured, a transition on every cut, nothing still for more than 1s.
-6. Backgrounds: follow the brief's "Toronto background plan" scene by scene. Toronto-specific or topic-specific only, never random filler. Toronto proper only (no Brampton/Mississauga/GTA suburbs). Generic shapes: no real logos, store names, brands or people.
+6. Backgrounds: follow the brief's "Toronto background plan" scene by scene. Toronto-specific or topic-specific only, never random filler. City of Toronto only (Scarborough, Etobicoke, North York, East York, York and old Toronto all count; NO Brampton, Mississauga or other GTA cities). Generic shapes: no real logos, store names, brands or people.
 
 QUALITY GATE (before showing anything)
 7. Pupils never leave the eyes; ONE big text element on screen at a time; nothing overlapping; snapshot EVERY second and review a contact sheet; run the safe-area sheet (C.safe_sheet); loop frame = hook frame; cup visible; Cyto on model.
@@ -94,7 +94,7 @@ AUDIO
 
 BUILD
 5. Copy hf/template/build.py to hf/ep13/ (v2 layout + v3 rig, never the old PNG rig). Hard cap 45s. Outfit/cup per the brief (double-stacked red party cup with Cyto's face logo, nothing inside shown). Lottie via lottie/list.txt as SETUP.md says (push, read lottie/status.txt). New animated science figure per scene, word-by-word captions with key words bigger/coloured, a transition on every cut, nothing still for more than 1s.
-6. Backgrounds: follow the brief's "Toronto background plan" scene by scene. Toronto-specific or topic-specific only, never random filler. Toronto proper only (no Brampton/Mississauga/GTA suburbs). Generic shapes: no real logos, store names, brands or people.
+6. Backgrounds: follow the brief's "Toronto background plan" scene by scene. Toronto-specific or topic-specific only, never random filler. City of Toronto only (Scarborough, Etobicoke, North York, East York, York and old Toronto all count; NO Brampton, Mississauga or other GTA cities). Generic shapes: no real logos, store names, brands or people.
 
 QUALITY GATE (before showing anything)
 7. Pupils never leave the eyes; ONE big text element on screen at a time; nothing overlapping; snapshot EVERY second and review a contact sheet; run the safe-area sheet (C.safe_sheet); loop frame = hook frame; cup visible; Cyto on model.
@@ -121,7 +121,7 @@ AUDIO
 
 BUILD
 5. Copy hf/template/build.py to hf/ep14/ (v2 layout + v3 rig, never the old PNG rig). Hard cap 45s. Outfit/cup per the brief (double-stacked red party cup with Cyto's face logo, nothing inside shown). Lottie via lottie/list.txt as SETUP.md says (push, read lottie/status.txt). New animated science figure per scene, word-by-word captions with key words bigger/coloured, a transition on every cut, nothing still for more than 1s.
-6. Backgrounds: follow the brief's "Toronto background plan" scene by scene. Toronto-specific or topic-specific only, never random filler. Toronto proper only (no Brampton/Mississauga/GTA suburbs). Generic shapes: no real logos, store names, brands or people.
+6. Backgrounds: follow the brief's "Toronto background plan" scene by scene. Toronto-specific or topic-specific only, never random filler. City of Toronto only (Scarborough, Etobicoke, North York, East York, York and old Toronto all count; NO Brampton, Mississauga or other GTA cities). Generic shapes: no real logos, store names, brands or people.
 
 QUALITY GATE (before showing anything)
 7. Pupils never leave the eyes; ONE big text element on screen at a time; nothing overlapping; snapshot EVERY second and review a contact sheet; run the safe-area sheet (C.safe_sheet); loop frame = hook frame; cup visible; Cyto on model.

@@ -4,7 +4,7 @@ Series: 6ix Seconds of Science · Length target 38-45s (hard cap 45s) · ~107 wo
 Title (≤60): Is Your Diwali Food Coma Actually the Sweets? (45 chars) · Tags: #diwali #foodcoma #scarborough #science #toronto #6ix #shorts · NOT made for kids · Altered/synthetic = YES · Category Science & Technology · Playlist: 6ix Seconds of Science
 
 ## Why this one / timing
-Diwali main day is Sun Nov 8 (Lakshmi Puja 5:17-7:03 PM in Toronto per hindutone; confirm). Publish 3 PM ET, before the evening feast. Big South Asian audience in the 6ix. SCARBOROUGH-ONLY episode: every location is in Scarborough, nothing outside Toronto (no Brampton, Mississauga, Etobicoke temples, GTA suburbs).
+Diwali main day is Sun Nov 8 (Lakshmi Puja 5:17-7:03 PM in Toronto per hindutone; confirm). Publish 3 PM ET, before the evening feast. Big South Asian audience in the 6ix. SCARBOROUGH-LED episode: Scarborough is the home base, other City of Toronto neighbourhoods are fine (Gerrard India Bazaar / Little India, Etobicoke). NOTHING outside Toronto: no Brampton, Mississauga or other GTA cities.
 
 ## Script (107 words; captions keep real spelling)
 [HOOK 0-3s, shock] Diwali feast, then you're dead on the couch. Blame the mithai? Nah.
@@ -31,11 +31,11 @@ Outfit: kurta-style festive outfit swap layer (diya colours: orange/gold), red c
 Lottie search terms (LottieFiles MCP -> `lottie/list.txt`): diya lamp flame, fireworks, rangoli, sleeping zzz, sweets plate
 Quality gate: eyes centred, one big text at a time, 1-fps frame check, safe-area sheet, loop frame = hook frame.
 
-## Toronto background plan: SCARBOROUGH ONLY (Utsha, Nov 2). Nothing outside Toronto proper.
+## Toronto background plan: SCARBOROUGH-LED (Utsha, Nov 2). Any City of Toronto neighbourhood is OK; nothing in the GTA outside Toronto.
 Use generic shapes, no real store names/logos/signage text.
 - Hook (feast then couch): Scarborough condo-tower skyline at dusk (McCowan/Sheppard and Scarborough Town Centre area), a TTC bus on a Scarborough arterial (Kennedy Rd / Lawrence East), rows of diyas on a balcony.
 - 'Mithai' / meal scene: Scarborough living room window showing the Scarborough Bluffs cliffs and a lake glow in the distance, sweets plate on the table.
 - Sleep-lab / figure scenes: calm lab-style graphics, but the window shows a Kennedy Station-style subway platform / Line 2 end-of-the-line vibe and a TTC bus.
 - IL-1 messenger scene: cartoon cells in a Scarborough apartment hallway; mail slot and elevator typical of a Scarborough high-rise.
 - Payoff couch: Cyto flopped on a couch, rangoli rug, Leafs-blue throw blanket (no logo), first snow outside, Scarborough tower lights through the window. Zzz Lottie.
-- Easter eggs (one per scene max): Scarborough Bluffs, STC mall exterior silhouette, a McCowan bus stop, a raccoon on a balcony. Do NOT show Gerrard India Bazaar, Brampton, Mississauga, Etobicoke or BAPS Mandir.
+- Easter eggs (one per scene max): Scarborough Bluffs, STC mall exterior silhouette, a McCowan bus stop, a raccoon on a balcony. Optional Toronto-proper cutaways (generic shapes, no real signage/logos): Gerrard India Bazaar string-lit street, an Etobicoke temple silhouette with diya glow. Do NOT show Brampton, Mississauga or any other GTA city.
