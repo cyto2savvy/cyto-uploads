@@ -67,7 +67,7 @@ Tags are a **small** signal now (YouTube reads the title, description and spoken
 | Emoji in title | max 1, at the end |
 | Hashtags | end of description: 1–3 topic tags **first**, then `#science #toronto #6ix #shorts`; total ≤ 8 (YouTube ignores all of them past 15) |
 | Description | 60–200 words: hook line, 1–2 sentences of context with the keyword, sources, disclaimer, credits, hashtags |
-| Length | **≤ 30s** target (complete idea, shortest version), 35s warn, 60s max |
+| Length | **35-45s** target (as long as the idea needs, no rushing), 50s warn, 60s max. Loosened from 30s on Nov 1, 2026 |
 | Thumbnail | still upload one (it shows in search, channel page, browse); first frame must also work as a thumbnail |
 | Related video | set in Studio to the next episode in the same series (manual: Studio → video → Related video) |
 | Playlist | series playlist |

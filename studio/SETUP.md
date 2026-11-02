@@ -41,7 +41,7 @@ Why: in Eps 1–7 the captions sat under YouTube's title text, fact cards ran un
 2. **Cyto big, always on screen:** `C.CYTO_V2` (lower-left, scale 0.56) during science scenes; fact card to his right (`.card` in `V2_CSS`). He can go bigger for hook/joke/outro scenes, but never the old 0.40 corner placement.
 3. **Diagrams:** Mermaid in the Cyto theme via `C.mermaid_svg(src, out)` (navy boxes, teal borders, yellow arrows), inlined in a `.mmd` div and built box-by-box on the voice with `C.mermaid_js`. Max 3 levels / 5 boxes, short ALL-CAPS labels.
 4. **Lottie:** one LottieFiles animation per science scene where it fits. Find it with the LottieFiles MCP (`searchPublicAnimations`, use `jsonUrl`), add `name url` to `lottie/list.txt` (repo root) and push; the `fetch-lottie` workflow downloads it (check `lottie/status.txt`). Drive it with `C.lottie_js` (frame-locked to the timeline). Prefer animations close to the brand palette.
-5. **Length:** hard cap ~30s (`C.MAX_T_V2`). Ep 7 ran 34.9s.
+5. **Length (changed Nov 1, 2026):** no fixed 30s. Let the idea set it: target 35-45s (~95-125 words at ~2.8 words/s), hard cap 45s (`C.MAX_T_V2`), absolute max 50s. Never cut a beat just to hit 30s; a rushed Short loses more than extra seconds cost. Must still loop into the start. A/B check: Ep 9-12 vs Eps 3-8, compare engaged views + avg % viewed.
 
 4. **Photos:** Unsplash search works, but direct downloads are blocked.
    - Add a line to `photos/list.txt` (repo root) (filename + images.unsplash.com URL) and push. The GitHub Action `fetch-photos` downloads it into `photos/`.
