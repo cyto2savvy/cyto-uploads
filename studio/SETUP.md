@@ -87,6 +87,7 @@ Outfits/accessories: `rig3_html(outfit, cup, acc)` — `acc` is an optional laye
 | 5 | Cold season | Y8pJ4GNJ60s | Nov 2, 6 PM |
 | 6 | Procrastination | OO9AceZh2tc | Nov 3, 6 PM |
 | 7 | Leafs overtime (first rig episode) | Sd47GFmiTFg | Nov 4, 7 PM |
+| 8 | Why you wake up at 3AM | kcKDLS1b-tE | Nov 5, 6 PM |
 | 8 | Why you wake up at 3am (first v2+v3 episode, new thumbnail system) | — | built, awaiting OK (Nov 5, 6 PM) |
 
 ## Next ideas already researched
