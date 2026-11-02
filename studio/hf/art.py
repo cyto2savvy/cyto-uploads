@@ -228,3 +228,169 @@ def lamp(x, base, idp="lamp"):
  <rect id="{idp}Panel" x="{x - 120}" y="{base - 420}" width="240" height="230" rx="22" fill="#4a5568" stroke="{INK}" stroke-width="8"/>
  <path d="M{x - 90} {base - 390} h180 M{x - 90} {base - 350} h180 M{x - 90} {base - 310} h180 M{x - 90} {base - 270} h180 M{x - 90} {base - 230} h180" stroke="{INK}" stroke-width="3" opacity=".25"/>
 </g>'''
+
+
+# ---- Ep 11 (Diwali, Scarborough-led) pieces — generic shapes, no real names/logos -------------------------
+SAFFRON, MAGENTA, LEAFS = "#f57c1f", "#e0457b", "#1f4fa3"
+
+
+def scarb_skyline(W, base, s=1.0, seed=11, lit=.4, ground=NAVY, mall=True):
+    """Scarborough Town Centre area at dusk: clusters of tall condo towers (some with crowns), low flat mall
+    silhouette in front, hydro corridor pylon. Windows class 'win'. No CN Tower (that's downtown)."""
+    rnd = random.Random(seed); out = []
+    x = -30
+    while x < W:   # far towers
+        w = rnd.uniform(60, 110) * s; h = rnd.uniform(260, 520) * s
+        out.append(f'<rect x="{x:.0f}" y="{base - h:.0f}" width="{w:.0f}" height="{h:.0f}" fill="#1b2c48"/>'); x += w + rnd.uniform(30, 80) * s
+    x = -10
+    while x < W:   # near condo towers
+        w = rnd.uniform(90, 140) * s; h = rnd.uniform(300, 620) * s
+        out.append(f'<rect x="{x:.0f}" y="{base - h:.0f}" width="{w:.0f}" height="{h + 4:.0f}" fill="#22385a" stroke="{INK}" stroke-width="{5 * s:.0f}"/>')
+        if rnd.random() < .5:
+            out.append(f'<rect x="{x + w * .2:.0f}" y="{base - h - 26 * s:.0f}" width="{w * .6:.0f}" height="{26 * s:.0f}" fill="#2c4670" stroke="{INK}" stroke-width="{4 * s:.0f}"/>')
+        for wy in range(int(base - h + 16 * s), int(base - 10 * s), int(24 * s)):
+            out.append(f'<rect x="{x + 6 * s:.0f}" y="{wy + 14 * s:.0f}" width="{w - 12 * s:.0f}" height="{3 * s:.0f}" fill="#30507c"/>')   # balcony lines
+            for wx in range(int(x + 12 * s), int(x + w - 14 * s), int(22 * s)):
+                if rnd.random() < lit:
+                    out.append(f'<rect class="win" x="{wx}" y="{wy}" width="{11 * s:.0f}" height="{12 * s:.0f}" fill="{GOLD}" opacity="{rnd.uniform(.55, .95):.2f}"/>')
+        x += w + rnd.uniform(40, 120) * s
+    if mall:   # long low mall box with a flat roof band (generic, no signage)
+        out.append(f'<rect id="mall" x="{W * .05:.0f}" y="{base - 90 * s:.0f}" width="{W * .6:.0f}" height="{94 * s:.0f}" fill="#2a3c5c" stroke="{INK}" stroke-width="{6 * s:.0f}"/>'
+                   f'<rect x="{W * .05:.0f}" y="{base - 90 * s:.0f}" width="{W * .6:.0f}" height="{18 * s:.0f}" fill="#3a5482"/>'
+                   + "".join(f'<rect x="{W * .08 + k * 70 * s:.0f}" y="{base - 52 * s:.0f}" width="{40 * s:.0f}" height="{30 * s:.0f}" fill="#ffe7a3" opacity=".7"/>' for k in range(int(W * .55 / (70 * s)))))
+    out.append(f'<rect x="-50" y="{base}" width="{W + 100}" height="1200" fill="{ground}"/>')
+    return "".join(out)
+
+
+def diya(x, y, s=1.0, cls="diyaF"):
+    """Small clay oil lamp with a flame (flame class `cls` for flicker)."""
+    return (f'<g transform="translate({x},{y}) scale({s})"><ellipse cx="0" cy="-30" rx="40" ry="34" fill="{GOLD}" opacity=".18"/>'
+            f'<path class="{cls}" d="M0 -58 Q12 -38 0 -24 Q-12 -38 0 -58Z" fill="{GOLD}" stroke="{CORAL}" stroke-width="3" style="transform-box:fill-box;transform-origin:50% 100%"/>'
+            f'<path d="M-34 -20 Q0 -14 34 -20 Q28 6 0 8 Q-28 6 -34 -20Z" fill="#c4542a" stroke="{INK}" stroke-width="5"/>'
+            f'<path d="M-24 -10 h48" stroke="{GOLD}" stroke-width="4" stroke-dasharray="4 6"/></g>')
+
+
+def balcony(x, y, w, n_diya=5, raccoon=False):
+    """Condo balcony railing with a row of diyas on the ledge (+ optional raccoon easter egg)."""
+    rails = "".join(f'<rect x="{x + k * 34}" y="{y + 10}" width="10" height="120" fill="#9aa3ab"/>' for k in range(int(w / 34)))
+    ds = "".join(diya(x + 40 + k * (w - 80) / max(1, n_diya - 1), y, .9) for k in range(n_diya))
+    rc = ""
+    if raccoon:
+        rx, ry = x + w - 120, y + 4
+        rc = (f'<g id="raccoon"><ellipse cx="{rx}" cy="{ry - 40}" rx="46" ry="36" fill="#7d8590" stroke="{INK}" stroke-width="6"/>'
+              f'<path d="M{rx - 40} {ry - 44} q40 -18 80 0 v16 q-40 -14 -80 0z" fill="{INK}"/>'
+              f'<circle cx="{rx - 18}" cy="{ry - 38}" r="6" fill="#fff"/><circle cx="{rx + 18}" cy="{ry - 38}" r="6" fill="#fff"/>'
+              f'<path d="M{rx - 40} {ry - 66} l8 -22 l14 16z M{rx + 40} {ry - 66} l-8 -22 l-14 16z" fill="#7d8590" stroke="{INK}" stroke-width="5"/>'
+              f'<circle cx="{rx}" cy="{ry - 22}" r="6" fill="{INK}"/></g>')
+    return (f'<g id="balcony">{rc}{ds}<rect x="{x}" y="{y}" width="{w}" height="16" rx="6" fill="#cfd5dc" stroke="{INK}" stroke-width="5"/>{rails}'
+            f'<rect x="{x}" y="{y + 126}" width="{w}" height="14" fill="#cfd5dc" stroke="{INK}" stroke-width="5"/></g>')
+
+
+def bluffs_view(x, y, w, h, idp="bv"):
+    """What a Scarborough window sees at dusk: lake glow + the pale Bluffs cliffs dropping to the water."""
+    return (f'<g id="{idp}"><rect x="{x}" y="{y}" width="{w}" height="{h}" fill="#2b3f6b"/>'
+            f'<rect x="{x}" y="{y + h * .45:.0f}" width="{w}" height="{h * .2:.0f}" fill="#f2a76a" opacity=".55"/>'
+            f'<rect x="{x}" y="{y + h * .58:.0f}" width="{w}" height="{h * .42:.0f}" fill="#22508a"/>'
+            f'<path d="M{x + w * .55:.0f} {y + h * .58:.0f} h{w * .4:.0f}" stroke="#ffd9a8" stroke-width="5" opacity=".7"/>'
+            f'<path d="M{x} {y + h * .32:.0f} L{x + w * .18:.0f} {y + h * .3:.0f} L{x + w * .3:.0f} {y + h * .44:.0f} L{x + w * .42:.0f} {y + h * .4:.0f} L{x + w * .52:.0f} {y + h * .66:.0f} L{x} {y + h * .7:.0f}Z" fill="#e8dcc0" stroke="{INK}" stroke-width="5"/>'
+            f'<path d="M{x + w * .1:.0f} {y + h * .36:.0f} l18 60 M{x + w * .24:.0f} {y + h * .36:.0f} l14 70 M{x + w * .36:.0f} {y + h * .45:.0f} l12 60" stroke="#c9b892" stroke-width="5"/>'
+            f'<path d="M{x} {y + h * .32:.0f} L{x + w * .18:.0f} {y + h * .3:.0f} L{x + w * .3:.0f} {y + h * .44:.0f}" stroke="#3d6b3a" stroke-width="12" fill="none"/></g>')
+
+
+def platform_view(x, y, w, h, idp="pv"):
+    """Kennedy-style end-of-line subway platform seen through a window: yellow edge strip, train with doors, bus bay behind."""
+    return (f'<g id="{idp}"><rect x="{x}" y="{y}" width="{w}" height="{h}" fill="#1c2a40"/>'
+            f'<rect x="{x}" y="{y + h * .12:.0f}" width="{w}" height="{h * .08:.0f}" fill="#2a3a55"/>'
+            + "".join(f'<rect x="{x + 20 + k * 90}" y="{y + h * .14:.0f}" width="60" height="10" fill="#fff8d0" opacity=".8"/>' for k in range(int(w / 90)))
+            + f'<g id="{idp}Train"><rect x="{x - 20}" y="{y + h * .3:.0f}" width="{w * 1.4:.0f}" height="{h * .36:.0f}" rx="16" fill="#cfd5dc" stroke="{INK}" stroke-width="6"/>'
+            f'<rect x="{x - 20}" y="{y + h * .5:.0f}" width="{w * 1.4:.0f}" height="{h * .05:.0f}" fill="#d7262e"/>'
+            + "".join(f'<rect x="{x + k * 150}" y="{y + h * .35:.0f}" width="90" height="{h * .12:.0f}" rx="8" fill="#ffe7a3" stroke="{INK}" stroke-width="4"/>' for k in range(int(w * 1.4 / 150)))
+            + f'</g><rect x="{x}" y="{y + h * .7:.0f}" width="{w}" height="{h * .06:.0f}" fill="{GOLD}"/>'
+            f'<rect x="{x}" y="{y + h * .76:.0f}" width="{w}" height="{h * .24:.0f}" fill="#5b6472"/></g>')
+
+
+def hallway(W, H, idp="hw"):
+    """Scarborough high-rise hallway: patterned carpet, elevator doors (ids {idp}DL/{idp}DR), apartment door with mail slot."""
+    carpet = "".join(f'<path d="M{-200 + k * 120} 1920 L{420 + k * 40} 980" stroke="#7a2f3a" stroke-width="18" opacity=".5"/>' for k in range(14))
+    return f'''<g id="{idp}">
+ <rect x="0" y="0" width="{W}" height="{H}" fill="#c9b99a"/>
+ <rect x="0" y="0" width="{W}" height="140" fill="#e8e0cc"/>{"".join(f'<rect x="{80 + k * 260}" y="40" width="140" height="40" rx="10" fill="#fffbe8"/>' for k in range(4))}
+ <rect x="0" y="960" width="{W}" height="{H - 960}" fill="#8e3c48"/>{carpet}
+ <rect x="0" y="940" width="{W}" height="26" fill="#6b5a44"/>
+ <g id="{idp}Elev"><rect x="80" y="330" width="420" height="612" fill="#7b8592" stroke="{INK}" stroke-width="8"/>
+  <rect x="96" y="346" width="388" height="596" fill="#2a3346"/>
+  <rect id="{idp}DL" x="96" y="346" width="194" height="596" fill="#b9c1ca" stroke="{INK}" stroke-width="5"/>
+  <rect id="{idp}DR" x="290" y="346" width="194" height="596" fill="#b9c1ca" stroke="{INK}" stroke-width="5"/>
+  <rect x="200" y="270" width="180" height="44" rx="8" fill="#111"/><path id="{idp}Arrow" d="M290 280 l16 22 h-32z" fill="{GOLD}"/>
+  <circle cx="540" cy="620" r="16" fill="#e8e0cc" stroke="{INK}" stroke-width="5"/><circle cx="540" cy="670" r="16" fill="#e8e0cc" stroke="{INK}" stroke-width="5"/></g>
+ <g id="{idp}Door"><rect x="680" y="380" width="300" height="562" fill="#6e4a2e" stroke="{INK}" stroke-width="8"/>
+  <rect x="700" y="400" width="260" height="240" fill="#80583a" stroke="{INK}" stroke-width="4"/>
+  <rect id="{idp}Slot" x="760" y="700" width="140" height="28" rx="6" fill="#d9c27a" stroke="{INK}" stroke-width="5"/>
+  <circle cx="940" cy="760" r="14" fill="{GOLD}" stroke="{INK}" stroke-width="4"/>
+  <rect x="800" y="440" width="60" height="60" rx="30" fill="#2a3346" stroke="#d9c27a" stroke-width="6"/></g>
+</g>'''
+
+
+def il1_cell(x, y, s=1.0, idp="m1"):
+    """IL-1 messenger: tiny round immune-messenger cartoon holding a 'zzz' flag. Groups {idp} / {idp}Flag."""
+    return (f'<g id="{idp}" transform="translate({x},{y}) scale({s})"><g class="bob">'
+            f'<g id="{idp}Flag"><path d="M34 -10 V-120" stroke="{INK}" stroke-width="7" stroke-linecap="round"/>'
+            f'<path d="M34 -120 h86 l-16 26 l16 26 h-86z" fill="#c4b0ff" stroke="{INK}" stroke-width="5"/>'
+            f'<text x="74" y="-84" text-anchor="middle" font-family="InterBlack" font-size="30" fill="{INK}">zzz</text></g>'
+            f'<circle cx="0" cy="0" r="46" fill="{CORAL}" stroke="{INK}" stroke-width="7"/>'
+            + "".join(f'<circle cx="{46 * math.cos(a):.0f}" cy="{46 * math.sin(a):.0f}" r="9" fill="{CORAL}" stroke="{INK}" stroke-width="5"/>' for a in [k * math.pi / 4 for k in range(8)])
+            + f'<circle cx="-14" cy="-8" r="9" fill="#fff" stroke="{INK}" stroke-width="3"/><circle cx="14" cy="-8" r="9" fill="#fff" stroke="{INK}" stroke-width="3"/>'
+            f'<circle cx="-14" cy="-6" r="4" fill="{INK}"/><circle cx="14" cy="-6" r="4" fill="{INK}"/>'
+            f'<path d="M-12 14 q12 10 24 0" stroke="{INK}" stroke-width="5" fill="none" stroke-linecap="round"/></g></g>')
+
+
+def mithai_plate(cx, cy, s=1.0, idp="mp"):
+    """Steel thali with mithai: ladoos (orange balls), barfi diamonds (silver leaf), jalebi spirals. Pieces class 'sweet'."""
+    lad = "".join(f'<g class="sweet"><circle cx="{cx + dx * s:.0f}" cy="{cy + dy * s:.0f}" r="{34 * s:.0f}" fill="#f5a524" stroke="{INK}" stroke-width="5"/>'
+                  + "".join(f'<circle cx="{cx + (dx + ex) * s:.0f}" cy="{cy + (dy + ey) * s:.0f}" r="{4 * s:.0f}" fill="#e07b10"/>' for ex, ey in ((-12, -8), (10, -12), (0, 8), (14, 10), (-14, 12)))
+                  + '</g>' for dx, dy in ((-120, -20), (-60, -50), (-80, 20)))
+    bar = "".join(f'<g class="sweet"><path d="M{cx + dx * s:.0f} {cy + (dy - 34) * s:.0f} l{34 * s:.0f} {34 * s:.0f} l{-34 * s:.0f} {34 * s:.0f} l{-34 * s:.0f} {-34 * s:.0f}z" fill="#f4ecd8" stroke="{INK}" stroke-width="5"/>'
+                  f'<path d="M{cx + (dx - 14) * s:.0f} {cy + dy * s:.0f} l{14 * s:.0f} {-14 * s:.0f} l{14 * s:.0f} {14 * s:.0f}" stroke="#b9c1ca" stroke-width="{5 * s:.0f}" fill="none"/></g>' for dx, dy in ((40, -40), (100, -10), (50, 30)))
+    jal = "".join(f'<g class="sweet"><path d="M{cx + dx * s:.0f} {cy + dy * s:.0f} m-30 0 a30 30 0 1 1 60 0 a22 22 0 1 1 -44 0 a14 14 0 1 1 28 0 a6 6 0 1 1 -12 0" fill="none" stroke="#f08a1c" stroke-width="{11 * s:.0f}" stroke-linecap="round"/></g>' for dx, dy in ((150, 50), (-20, 60)))
+    return (f'<g id="{idp}"><ellipse cx="{cx}" cy="{cy + 30 * s:.0f}" rx="{230 * s:.0f}" ry="{70 * s:.0f}" fill="#000" opacity=".25"/>'
+            f'<ellipse cx="{cx}" cy="{cy + 6 * s:.0f}" rx="{230 * s:.0f}" ry="{120 * s:.0f}" fill="#c7cdd4" stroke="{INK}" stroke-width="7"/>'
+            f'<ellipse cx="{cx}" cy="{cy + 6 * s:.0f}" rx="{190 * s:.0f}" ry="{96 * s:.0f}" fill="#e2e6ea"/>{lad}{bar}{jal}</g>')
+
+
+def couch(x, y, w=760, idp="couch"):
+    """Living-room couch with a Leafs-blue throw blanket (no logo). Top-left (x,y)."""
+    return (f'<g id="{idp}"><rect x="{x}" y="{y}" width="{w}" height="200" rx="40" fill="#7a5a8c" stroke="{INK}" stroke-width="8"/>'
+            f'<rect x="{x + 30}" y="{y + 150}" width="{w - 60}" height="140" rx="30" fill="#8d6aa0" stroke="{INK}" stroke-width="8"/>'
+            f'<rect x="{x - 30}" y="{y + 100}" width="90" height="210" rx="34" fill="#6b4c7c" stroke="{INK}" stroke-width="8"/>'
+            f'<rect x="{x + w - 60}" y="{y + 100}" width="90" height="210" rx="34" fill="#6b4c7c" stroke="{INK}" stroke-width="8"/>'
+            f'<path id="{idp}Blanket" d="M{x + w * .62:.0f} {y + 30} q{w * .15:.0f} -26 {w * .3:.0f} 6 l-6 230 q{-w * .16:.0f} 34 {-w * .3:.0f} 4 q20 -110 6 -240z" fill="{LEAFS}" stroke="{INK}" stroke-width="7"/>'
+            f'<path d="M{x + w * .66:.0f} {y + 120} q{w * .12:.0f} 10 {w * .24:.0f} 0 M{x + w * .66:.0f} {y + 150} q{w * .12:.0f} 10 {w * .24:.0f} 0" stroke="#fff" stroke-width="9" fill="none"/></g>')
+
+
+def rangoli(cx, cy, r=180, idp="rg"):
+    """Flat rangoli rug: concentric petal rings in saffron/magenta/teal/gold. Rings class 'rring' (spin them)."""
+    rings = []
+    for k, (n, rr, col) in enumerate(((16, r, SAFFRON), (12, r * .72, MAGENTA), (8, r * .46, TEAL), (6, r * .24, GOLD))):
+        pet = "".join(f'<ellipse cx="{cx + rr * .78 * math.cos(2 * math.pi * i / n):.0f}" cy="{cy + rr * .78 * math.sin(2 * math.pi * i / n):.0f}" rx="{rr * .26:.0f}" ry="{rr * .12:.0f}" '
+                      f'transform="rotate({360 * i / n:.0f} {cx + rr * .78 * math.cos(2 * math.pi * i / n):.0f} {cy + rr * .78 * math.sin(2 * math.pi * i / n):.0f})" fill="{col}" stroke="{INK}" stroke-width="4"/>' for i in range(n))
+        rings.append(f'<g class="rring" style="transform-origin:{cx}px {cy}px">{pet}</g>')
+    return f'<g id="{idp}" transform="translate(0,0)"><circle cx="{cx}" cy="{cy}" r="{r * 1.08:.0f}" fill="#f4ecd8" stroke="{INK}" stroke-width="6"/>{"".join(rings)}<circle cx="{cx}" cy="{cy}" r="{r * .1:.0f}" fill="{MAGENTA}" stroke="{INK}" stroke-width="4"/></g>'
+
+
+def string_lights(W, y, n=18, sag=40, idp="sl", seed=5):
+    """Festive string lights across a street (bulbs class 'bulb')."""
+    rnd = random.Random(seed); cols = (GOLD, SAFFRON, MAGENTA, TEAL, "#c4b0ff")
+    pts = [(W * i / (n - 1), y + sag * math.sin(math.pi * i / (n - 1))) for i in range(n)]
+    path = "M" + " L".join(f"{x:.0f} {yy:.0f}" for x, yy in pts)
+    bulbs = "".join(f'<circle class="bulb" cx="{x:.0f}" cy="{yy + 14:.0f}" r="11" fill="{rnd.choice(cols)}" stroke="{INK}" stroke-width="3"/>' for x, yy in pts)
+    return f'<g id="{idp}"><path d="{path}" stroke="{INK}" stroke-width="4" fill="none"/>{bulbs}</g>'
+
+
+def stomach(cx, cy, s=1.0, idp="st"):
+    """Cartoon stomach (J-shape) that can fill up: fill rect id {idp}Fill clipped to the stomach."""
+    d = (f"M{cx - 40 * s:.0f} {cy - 150 * s:.0f} q0 60 30 80 q120 -40 140 60 q20 130 -120 150 q-90 10 -130 -40 "
+         f"q-20 -30 10 -40 q40 30 90 10 q60 -30 30 -90 q-20 -40 -60 -10 q-40 -20 -40 -120z")
+    return (f'<g id="{idp}"><clipPath id="{idp}Clip"><path d="{d}"/></clipPath>'
+            f'<path d="{d}" fill="#f2b8b8" stroke="{INK}" stroke-width="8" stroke-linejoin="round"/>'
+            f'<g clip-path="url(#{idp}Clip)"><rect id="{idp}Fill" x="{cx - 200 * s:.0f}" y="{cy - 160 * s:.0f}" width="{420 * s:.0f}" height="{340 * s:.0f}" fill="#e07b5a"/></g>'
+            f'<path d="{d}" fill="none" stroke="{INK}" stroke-width="8" stroke-linejoin="round"/></g>')

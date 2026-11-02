@@ -105,6 +105,7 @@ Outfits/accessories: `rig3_html(outfit, cup, acc)` — `acc` is an optional laye
 | 8 | Why you wake up at 3AM | kcKDLS1b-tE | Nov 5, 6 PM |
 | 9 | Is winter killing your vitamin D? (first 3D episode, ElevenLabs voice) | — | built, awaiting OK (Nov 6, 6 PM) |
 | 8 | Why you wake up at 3am (first v2+v3 episode, new thumbnail system) | — | built, awaiting OK (Nov 5, 6 PM) |
+| 11 | Diwali food coma (Scarborough-led, kurta outfit) | — | built, awaiting OK (Nov 8, 3 PM) |
 
 ## Next ideas already researched
 - Diwali (Nov 8): mithai and the sugar crash, with Mito (Mantantzis 2019, doi 10.1016/j.neubiorev.2019.03.016)
@@ -140,3 +141,10 @@ Every scene's background/props must be Toronto-specific or topic-specific, never
 ### MANDATORY AUTOMATIC CHECK: `layout_check.py` (added Nov 2, 2026 after Ep 10's overlaps and fake score)
 After `python3 epNN/build.py`, run from /home/claude/hf: `python3 layout_check.py epNN --brief <path to studio/episodes/epNN/EPNN_brief.md>`. It loads the page, seeks the timeline every 0.25s and FAILS on: text overlapping text or captions, text cut off by the screen edge, text covered by a Lottie animation, pupils off-centre (>8px), and on-screen score-like text or numbers that are not in the brief. **0 FAIL is required before you show Utsha anything**; read every WARN and fix or justify it. Fix, rebuild, re-run. It does NOT replace the 1-fps visual contact-sheet review, which is still required (it can't see graphics-vs-graphics clashes or a stat chart that looks wrong).
 **Content rule:** never put an invented number, score, quote or record on screen. A scoreboard for a game that hasn't happened shows "TONIGHT 7:00", never a score. Every figure on screen must come from the brief's sources or script.
+
+### Ep 11 lessons (Nov 2, 2026)
+- **Some Lotties render blank in the final HyperFrames video** even though they show in a plain browser: `zzz-a` (PNG image layers) and the thin-stroke `fireworks-1/2`. Check the real mp4 (ffmpeg frame grabs), not just `snapshot`. For Zzz and fireworks use native SVG + GSAP instead (`zzz()` / `burst()` in `hf/ep11/build.py`); vector Lotties like `diya-1` and `rangoli-1` render fine.
+- **`wt()` matches by prefix**: `wt("say")` hit "says", `wt("So")` hit "solid", `wt("Yo")` hit "you're". Always pass the `after=` time for short words.
+- **GSAP x/y on an SVG `<g transform="translate(...)">` replaces the translate.** Wrap it: outer `<g transform>` for placement, inner `<g id>` for the animation.
+- New art.py pieces: `scarb_skyline`, `balcony` (+raccoon), `diya`, `bluffs_view`, `platform_view`, `hallway`, `il1_cell`, `mithai_plate`, `couch`, `rangoli`, `string_lights`, `stomach`. Outfit `outfit_kurta`. `three3d.js` bars take `floorW` for 3 bars.
+- Python Playwright for `layout_check.py`: `pip install --break-system-packages playwright==1.63.0` (must match the preinstalled browser build).

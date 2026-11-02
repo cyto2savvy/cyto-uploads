@@ -95,7 +95,7 @@
   function bars(canvas, o = {}) {
     const { r, sc, cam } = setup(canvas, 30);
     sc.add(new THREE.AmbientLight(0x6b84a8, 0.35)); const L = new THREE.DirectionalLight(0xffffff, 1.05); L.position.set(3, 6, 5); sc.add(L);
-    const floor = outlined(new THREE.BoxGeometry(5.2, 0.18, 2.4), toon(0x24425f), 0.02); floor.position.y = -0.09; sc.add(floor);
+    const floor = outlined(new THREE.BoxGeometry(o.floorW || 5.2, 0.18, 2.4), toon(0x24425f), 0.02); floor.position.y = -0.09; sc.add(floor);
     const BS = (o.bars || []).map((b, i, a) => { const g = outlined(new THREE.BoxGeometry(1.2, 1, 1.2), toon(b.color), 0.04);
       g.position.x = (i - (a.length - 1) / 2) * 2.1; sc.add(g); return g; });
     const H = o.height || 2.5; const v = new THREE.Vector3();
