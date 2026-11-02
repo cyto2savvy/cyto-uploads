@@ -18,6 +18,7 @@ BUILD
 6. Backgrounds: follow the brief's "Toronto background plan" scene by scene. Toronto-specific or topic-specific only, never random filler. City of Toronto only (Scarborough, Etobicoke, North York, East York, York and old Toronto all count; NO Brampton, Mississauga or other GTA cities). Generic shapes: no real logos, store names, brands or people.
 
 QUALITY GATE (before showing anything)
+6b. Run `cd /home/claude/hf && python3 layout_check.py ep10 --brief studio/episodes/ep10/EP10_brief.md` (see SETUP.md). 0 FAIL required, and no invented scores/numbers on screen (a scoreboard for a future game says TONIGHT 7:00, never a score).
 7. Pupils never leave the eyes; ONE big text element on screen at a time; nothing overlapping; snapshot EVERY second and review a contact sheet; run the safe-area sheet (C.safe_sheet); loop frame = hook frame; cup visible; Cyto on model.
 
 PACKAGE
@@ -44,6 +45,7 @@ BUILD
 6. Backgrounds: follow the brief's "Toronto background plan" scene by scene. Toronto-specific or topic-specific only, never random filler. City of Toronto only (Scarborough, Etobicoke, North York, East York, York and old Toronto all count; NO Brampton, Mississauga or other GTA cities). Generic shapes: no real logos, store names, brands or people.
 
 QUALITY GATE (before showing anything)
+6b. Run `cd /home/claude/hf && python3 layout_check.py ep11 --brief studio/episodes/ep11/EP11_brief.md` (see SETUP.md). 0 FAIL required, and no invented scores/numbers on screen (a scoreboard for a future game says TONIGHT 7:00, never a score).
 7. Pupils never leave the eyes; ONE big text element on screen at a time; nothing overlapping; snapshot EVERY second and review a contact sheet; run the safe-area sheet (C.safe_sheet); loop frame = hook frame; cup visible; Cyto on model.
 
 PACKAGE
@@ -71,6 +73,7 @@ BUILD
 6. Backgrounds: follow the brief's "Toronto background plan" scene by scene. Toronto-specific or topic-specific only, never random filler. City of Toronto only (Scarborough, Etobicoke, North York, East York, York and old Toronto all count; NO Brampton, Mississauga or other GTA cities). Generic shapes: no real logos, store names, brands or people.
 
 QUALITY GATE (before showing anything)
+6b. Run `cd /home/claude/hf && python3 layout_check.py ep12 --brief studio/episodes/ep12/EP12_brief.md` (see SETUP.md). 0 FAIL required, and no invented scores/numbers on screen (a scoreboard for a future game says TONIGHT 7:00, never a score).
 7. Pupils never leave the eyes; ONE big text element on screen at a time; nothing overlapping; snapshot EVERY second and review a contact sheet; run the safe-area sheet (C.safe_sheet); loop frame = hook frame; cup visible; Cyto on model.
 
 PACKAGE
@@ -97,6 +100,7 @@ BUILD
 6. Backgrounds: follow the brief's "Toronto background plan" scene by scene. Toronto-specific or topic-specific only, never random filler. City of Toronto only (Scarborough, Etobicoke, North York, East York, York and old Toronto all count; NO Brampton, Mississauga or other GTA cities). Generic shapes: no real logos, store names, brands or people.
 
 QUALITY GATE (before showing anything)
+6b. Run `cd /home/claude/hf && python3 layout_check.py ep13 --brief studio/episodes/ep13/EP13_brief.md` (see SETUP.md). 0 FAIL required, and no invented scores/numbers on screen (a scoreboard for a future game says TONIGHT 7:00, never a score).
 7. Pupils never leave the eyes; ONE big text element on screen at a time; nothing overlapping; snapshot EVERY second and review a contact sheet; run the safe-area sheet (C.safe_sheet); loop frame = hook frame; cup visible; Cyto on model.
 
 PACKAGE
@@ -124,6 +128,7 @@ BUILD
 6. Backgrounds: follow the brief's "Toronto background plan" scene by scene. Toronto-specific or topic-specific only, never random filler. City of Toronto only (Scarborough, Etobicoke, North York, East York, York and old Toronto all count; NO Brampton, Mississauga or other GTA cities). Generic shapes: no real logos, store names, brands or people.
 
 QUALITY GATE (before showing anything)
+6b. Run `cd /home/claude/hf && python3 layout_check.py ep14 --brief studio/episodes/ep14/EP14_brief.md` (see SETUP.md). 0 FAIL required, and no invented scores/numbers on screen (a scoreboard for a future game says TONIGHT 7:00, never a score).
 7. Pupils never leave the eyes; ONE big text element on screen at a time; nothing overlapping; snapshot EVERY second and review a contact sheet; run the safe-area sheet (C.safe_sheet); loop frame = hook frame; cup visible; Cyto on model.
 
 PACKAGE
