@@ -64,6 +64,13 @@ QUALITY GATE (before showing anything)
 
 7b. Ep 11 review rules (SETUP.md): nothing within 40px of a screen edge; every layout_check safe-zone WARN fixed unless it is a moving slide-in; on-screen sources card text >=34px; hook has at most 3 moving things; figures fill their card (use the upper-middle of the frame, don't leave the bottom third empty with a tiny figure); verify Lotties in the real mp4 and swap blank ones for SVG+GSAP.
 
+TEST UPGRADES (Ep 12 is the quality test; do these on top of the normal build, in order)
+U1. Word timing: if an ElevenLabs transcription tool is available (creative_transcribe_audio, needs the mp3 on a flow via creative_create_asset_upload + finalize), transcribe epN/raw.mp3 and use the word timestamps for captions and mouth shapes. If the tool or upload isn't available, fall back to segs.json pause matching and say so. Transcription is cheap; log any credits in studio/costs.md.
+U2. Lip-sync + acting: mouth shape per syllable from the word times; head tilt / arm gesture / cup raise on the stressed words and punchlines (cup down for serious lines); blink every 2-4s; idle bounce.
+U3. Sound design: add short SFX on transitions (whoosh), pops on label/card appearances and a soft hit on punchlines, mixed ~-18 dB under the voice. Try ElevenLabs sound effects via creative_generate_in_flow ONLY if estimate_only shows a small cost (budget max ~300 credits total for all SFX, generate each effect once, never retry). If unavailable or too costly, synthesize simple SFX with ffmpeg/sox. Optional: a very quiet synthesized music bed (no copyrighted music, no real brands). Keep the voice clear.
+U4. Polish pass AFTER layout_check passes: ease curves with slight overshoot on pops, secondary motion (cup sloshes? NO, never show what's in it; hat pom bounces, arms follow-through), camera push-ins, a transition on every cut, figures filling their cards and fully animated (arrows draw on, labels pop). Then re-run layout_check and a 1-fps review.
+U5. In your final post, add a short "what the upgrades did / what failed" note so the manager chat can roll good steps into later prompts.
+
 PACKAGE
 8. 2 thumbnails (say which is stronger), meta.json (title <=60 chars, hashtags/tags from the brief, description with PubMed DOI links + "Not medical advice"), captions.srt, `python3 cyto2/check_meta.py` = 0 FAIL, `python3 studio/check_sources.py` = OK.
 9. Commit studio/episodes/ep12/ + the final mp4 + thumbnails + hf/ep12/ and push to the repo. Then STOP and post: final video, title, description, both thumbnails, outfit. Do NOT upload to YouTube or schedule anything; the manager chat does that after Utsha approves.
