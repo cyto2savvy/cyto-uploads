@@ -10,7 +10,7 @@ The scripts expect the original paths (`/home/claude/cyto2`, `/home/claude/epN`,
 ### CYTO'S VOICE NOW = ELEVENLABS (Nov 2, 2026, Ep 9 onward) — replaces vidIQ Liam
 - Plan: ElevenLabs **Starter** (renews Dec 2; 30,000 credits/mo; commercial license, ONLY for audio generated while subscribed). Never publish audio made on the free tier.
 - Voice: **"Cyto - Toronto (A)"**, voice_id `MDpsT9lfiqWEMyN3A1bk` (designed: young Toronto male, chill, slightly raspy). Model `eleven_v4` (supports tags like [pause], [laughs softly], [whispering]). Cost ~636 credits per 40s read per take; use 2 takes and pick.
-- Spell for the ear in the TTS text only (captions keep the real word): "ah-lie", "stiiiill", "the six". Full table: `studio/VOICE.md` > "TTS pronunciation".
+- Spell for the ear in the TTS text only (captions keep the real word): "ah-lie", "stiiill", "the six". Full table: `studio/VOICE.md` > "TTS pronunciation".
 - Flow: ElevenLabs connector `creative_generate_speech` (poll `creative_get_flow_run_status`) -> Utsha downloads the mp3 from the ElevenLabs link and drags it into the chat (the sandbox cannot download elevenlabsusercontent.com) -> save `epN/raw.mp3` -> silencedetect -> `segs.json` -> `build_voice2.py`. Do NOT use vidIQ voice (costs credits) and do not use `cyto_voice.py` unless Utsha records his own voice.
 - Ask Utsha before spending credits; `estimate_only` first; never re-call a generation to retry (double charge).
 - Length: aim 38-45s read (Ep 9 read = ~41.5s).

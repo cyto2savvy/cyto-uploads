@@ -93,5 +93,5 @@ Captions stay as written (they come from `segs.json`); only the text SENT to the
 | Caption word | Send to TTS | Goal |
 |---|---|---|
 | ahlie | `ah-lie` (stress the "lie": "ah-LIE") | rhymes with "pie", not "ally" |
-| styll | `stiiiill` (first test), fallbacks `styyyyll`, `sty-yull` | long, dragged "yll" at the end, like "stiiiill" |
+| styll | `stiiill` (3 i's, TESTED + APPROVED Nov 2, voice "Cyto - Toronto (A)"); fallbacks `stilllllll`, `sti-iiill` | long, dragged "stiill". Avoid `steeyull` and 4+ i's |
 Rules: respell per take and listen once; if a respelling reads wrong, move to the next fallback and record which one won here. Elongated spellings can add a stray "ee" sound, so keep the vowel run short (3-4 letters). Put the word at the END of a sentence/phrase so the drag has room (tags like "styll." work best last).
