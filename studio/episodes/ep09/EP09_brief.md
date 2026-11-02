@@ -11,6 +11,8 @@ Series: 6ix Seconds of Science · Length target 38-45s (hard cap 45s, `C.MAX_T_V
 ## The idea (one idea only)
 Myth: "winter crashes your vitamin D." Truth: in Canadian studies the summer-vs-winter swing was small; supplements and ancestry mattered more. But the dark CAN hit mood (seasonal affective disorder), and bright white light is what the evidence supports.
 
+## TTS spelling: send "ah-lie" and "stiiiill" to the voice (captions keep ahlie / styll). See VOICE.md.
+
 ## Script (~108 words ≈ 38-40s at ~2.8 w/s; recount after edits). Slang: ahlie, styll, bare, dun know, say less. Toronto refs: TTC, 4:50-ish dark.
 [HOOK 0-3s, shock face] Bro. It's dark before five. Is winter actually killing your vitamin D?
 [3-6s, catchphrase, cup raise] Yo, it's ya boy Cyto, live from the 6ix… inside your body.
