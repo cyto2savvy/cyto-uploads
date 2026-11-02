@@ -4,3 +4,14 @@ heart-beat2.json https://assets-v2.lottiefiles.com/a/ced0a67c-1164-11ee-9bae-b33
 zzz-a.json https://assets-v2.lottiefiles.com/a/031f006c-117f-11ee-8448-27cfb16ac6e4/KfqAPV45Yl.json
 zzz-b.json https://assets-v2.lottiefiles.com/a/0999cde8-118c-11ee-a59b-67a6a02c929a/fChuVlQpoD.json
 siren.json https://assets-v2.lottiefiles.com/a/e91338b8-1184-11ee-8f04-cfddb56e2eec/ketcMCtTzw.json
+sunset-1.json https://assets-v2.lottiefiles.com/a/a9019ed8-1536-11f0-bfcd-133b1ace4881/1HYfDb6Vht.json
+sunset-2.json https://assets-v2.lottiefiles.com/a/fb70b032-1808-11ee-921c-c3dd040c8202/Devfr4KIfv.json
+sunset-3.json https://assets-v2.lottiefiles.com/a/e2aa50da-117d-11ee-b9cc-1f332fa9756c/53thY9BXR5.json
+bulb-1.json https://assets-v2.lottiefiles.com/a/1b03da50-1165-11ee-824b-3f02928e3c14/D7gwzaUYk2.json
+bulb-2.json https://assets-v2.lottiefiles.com/a/6a804d02-1188-11ee-beca-838b7c9b75e6/IkjiDhtySK.json
+capsule-1.json https://assets-v2.lottiefiles.com/a/5d89fd2e-116e-11ee-b5c9-23be96f6eef4/IlOnb5L9Qd.json
+capsule-2.json https://assets-v2.lottiefiles.com/a/91f206b2-e984-43c5-9904-6f3dcdceae02/oQXZKxzYmU.json
+snow-1.json https://assets-v2.lottiefiles.com/a/631176b2-a3c8-11ef-95e5-db63b70bff50/FkPsvxyqEb.json
+snow-2.json https://assets-v2.lottiefiles.com/a/f4b3c454-9289-11ee-9adc-6f02fb92e879/8sGQxg14zK.json
+trophy-1.json https://assets-v2.lottiefiles.com/a/935570a1-150f-4b2a-aa68-d5a7e32d5550/80zPcPyqAC.json
+trophy-2.json https://assets-v2.lottiefiles.com/a/c91264f0-c116-4547-90fa-328b7e2a0c0a/1mo3C04OXC.json
