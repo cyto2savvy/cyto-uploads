@@ -67,8 +67,15 @@ Old thumbnails were paused mid-video frames (tiny Cyto, fact cards, unreadable c
 - Flat brand gradient + light rays from the hero. Never a photo, never a fact card.
 - Make 2 options as a JSON spec (`hf/ep08/thumbs.json` is the example) → `python3 hf/thumbs/thumb.py spec.json outdir`. It also writes `feed_check.jpg` (full / 4:5 crop / phone-grid size) — look at it before showing Utsha.
 
+### 3D (Nov 2, 2026 — Ep 9 onward) — `hf/three3d.js` (three.js r149, `assets/three.min.js`)
+Real 3D renders inside HyperFrames (WebGL via the headless shell). Style = cel-shaded ("toon") + ink outlines so it matches the cutout rig.
+- Factories: `C3D.earth()` (winter-tilted Earth, sun, Toronto pin label), `C3D.bars()` (growing 3D bar chart, labels projected onto bar tops), `C3D.capsulesDna()` (vitamin capsules bounce, DNA helix rises). Each returns `render(t)`.
+- Drive from the timeline with the `three()` helper in `hf/ep09/build.py` (onUpdate → render(t)) so seeks are frame-exact. Canvas needs `preserveDrawingBuffer:true` (the factories do it).
+- Add new 3D pieces to `three3d.js`, not inside an episode. Keep lighting low (ambient ≤ 0.35) or toon colours wash out.
+- Target mix per Short: ~3 × 3D shots, the rest 2D cutout + Lottie; max one chart, everything else is action (things moving, changing, reacting).
+
 ### Art library — `hf/art.py`
-Flat cutout set pieces in the rig's style: `skyline()`, `city_hall()`, `night_bus()`, `phone()`, `body_clock()`, `hypnogram()`, `moon()`, `stars()`. Add new Toronto pieces here (not inside an episode) so every episode can reuse them.
+Flat cutout set pieces in the rig's style: `skyline()`, `city_hall()`, `night_bus()`, `streetcar()`, `stop_pole()`, `window()`, `lamp()`, `phone()`, `body_clock()`, `hypnogram()`, `moon()`, `stars()`. Outfits so far: jersey, PJ + sleep mask, puffer vest. Add new Toronto pieces here (not inside an episode) so every episode can reuse them.
 Outfits/accessories: `rig3_html(outfit, cup, acc)` — `acc` is an optional layer drawn ON TOP of the toque (e.g. `acc_sleepmask`). Drawn as SVG in `hf/outfits/`, exported to `rig/*.png`.
 
 ### Build gotchas (learned on Ep 8)
@@ -88,6 +95,7 @@ Outfits/accessories: `rig3_html(outfit, cup, acc)` — `acc` is an optional laye
 | 6 | Procrastination | OO9AceZh2tc | Nov 3, 6 PM |
 | 7 | Leafs overtime (first rig episode) | Sd47GFmiTFg | Nov 4, 7 PM |
 | 8 | Why you wake up at 3AM | kcKDLS1b-tE | Nov 5, 6 PM |
+| 9 | Is winter killing your vitamin D? (first 3D episode, ElevenLabs voice) | — | built, awaiting OK (Nov 6, 6 PM) |
 | 8 | Why you wake up at 3am (first v2+v3 episode, new thumbnail system) | — | built, awaiting OK (Nov 5, 6 PM) |
 
 ## Next ideas already researched

@@ -1,148 +1,165 @@
 {
-  "_note": "Content calendar = source of truth. Times Eastern. Status: idea>pitched>picked>scripted>plan_approved>built>final_approved>scheduled>live>tiktok_queued",
-  "episodes": [
-    {
-      "ep": 1,
-      "publish_date": "live",
-      "publish_time": "",
-      "series": null,
-      "topic": "Goosebumps",
-      "outfit": null,
-      "status": "live",
-      "title": null,
-      "youtube_id": "gm4Jgs3vvT4",
-      "tiktok_queued": true,
-      "sources": []
-    },
-    {
-      "ep": 2,
-      "publish_date": "2026-10-30",
-      "publish_time": "",
-      "series": null,
-      "topic": "Scared to death (Halloween)",
-      "outfit": null,
-      "status": "live",
-      "title": null,
-      "youtube_id": "qy5GwZ3PMeo",
-      "tiktok_queued": true,
-      "sources": []
-    },
-    {
-      "ep": 4,
-      "publish_date": "2026-10-31",
-      "publish_time": "19:00",
-      "series": null,
-      "topic": "Clocks fall back",
-      "outfit": null,
-      "status": "scheduled",
-      "title": null,
-      "youtube_id": "etwgExzRMW8",
-      "tiktok_queued": true,
-      "sources": []
-    },
-    {
-      "ep": 3,
-      "publish_date": "2026-11-01",
-      "publish_time": "11:00",
-      "series": null,
-      "topic": "Sugar rush myth",
-      "outfit": null,
-      "status": "scheduled",
-      "title": null,
-      "youtube_id": "M1_ZMi-Dceg",
-      "tiktok_queued": true,
-      "sources": []
-    },
-    {
-      "ep": 5,
-      "publish_date": "2026-11-02",
-      "publish_time": "18:00",
-      "series": null,
-      "topic": "Cold season",
-      "outfit": null,
-      "status": "scheduled",
-      "title": null,
-      "youtube_id": "Y8pJ4GNJ60s",
-      "tiktok_queued": true,
-      "sources": []
-    },
-    {
-      "ep": 6,
-      "publish_date": "2026-11-03",
-      "publish_time": "18:00",
-      "series": null,
-      "topic": "Procrastination",
-      "outfit": null,
-      "status": "scheduled",
-      "title": null,
-      "youtube_id": "OO9AceZh2tc",
-      "tiktok_queued": true,
-      "sources": []
-    },
-    {
-      "ep": 7,
-      "publish_date": "2026-11-04",
-      "publish_time": "19:00",
-      "series": null,
-      "topic": "Leafs overtime",
-      "outfit": null,
-      "status": "scheduled",
-      "title": null,
-      "youtube_id": "Sd47GFmiTFg",
-      "tiktok_queued": true,
-      "sources": []
-    },
-    {
-      "ep": 8,
-      "publish_date": "2026-11-05",
-      "publish_time": "18:00",
-      "series": "6ix Seconds of Science",
-      "topic": "Why you wake up at 3am",
-      "outfit": "PJ top + sleep mask (red cup)",
-      "status": "scheduled",
-      "title": "Why You Wake Up at 3AM",
-      "youtube_id": "kcKDLS1b-tE",
-      "tiktok_queued": true,
-      "sources": [
-        "10.1210/jc.2004-1056",
-        "10.1016/j.beem.2017.10.011",
-        "10.1111/jsr.14252"
-      ],
-      "thumbnail": "B"
-    }
-  ],
-  "backlog": [
-    {
-      "topic": "Diwali: mithai and the sugar crash (with Mito)",
-      "target_date": "2026-11-08",
-      "status": "idea",
-      "sources": [
-        "Mantantzis 2019, doi:10.1016/j.neubiorev.2019.03.016"
-      ]
-    },
-    {
-      "topic": "Royal Winter Fair tie-in",
-      "target_date": "2026-11-06..15",
-      "status": "idea",
-      "sources": []
-    },
-    {
-      "topic": "Remembrance Day",
-      "target_date": "2026-11-11",
-      "status": "idea",
-      "sources": []
-    },
-    {
-      "topic": "Long-form: Cyto vs the Flu (debuts Neutro + Platelet Pete)",
-      "target_date": null,
-      "status": "idea",
-      "sources": [],
-      "note": "needs vidIQ Boost"
-    }
-  ],
-  "cast_appearances": {
-    "Mito": [],
-    "Neutro": [],
-    "Platelet Pete": []
+ "_note": "Content calendar = source of truth. Times Eastern. Status: idea>pitched>picked>scripted>plan_approved>built>final_approved>scheduled>live>tiktok_queued",
+ "episodes": [
+  {
+   "ep": 1,
+   "publish_date": "live",
+   "publish_time": "",
+   "series": null,
+   "topic": "Goosebumps",
+   "outfit": null,
+   "status": "live",
+   "title": null,
+   "youtube_id": "gm4Jgs3vvT4",
+   "tiktok_queued": true,
+   "sources": []
+  },
+  {
+   "ep": 2,
+   "publish_date": "2026-10-30",
+   "publish_time": "",
+   "series": null,
+   "topic": "Scared to death (Halloween)",
+   "outfit": null,
+   "status": "live",
+   "title": null,
+   "youtube_id": "qy5GwZ3PMeo",
+   "tiktok_queued": true,
+   "sources": []
+  },
+  {
+   "ep": 4,
+   "publish_date": "2026-10-31",
+   "publish_time": "19:00",
+   "series": null,
+   "topic": "Clocks fall back",
+   "outfit": null,
+   "status": "scheduled",
+   "title": null,
+   "youtube_id": "etwgExzRMW8",
+   "tiktok_queued": true,
+   "sources": []
+  },
+  {
+   "ep": 3,
+   "publish_date": "2026-11-01",
+   "publish_time": "11:00",
+   "series": null,
+   "topic": "Sugar rush myth",
+   "outfit": null,
+   "status": "scheduled",
+   "title": null,
+   "youtube_id": "M1_ZMi-Dceg",
+   "tiktok_queued": true,
+   "sources": []
+  },
+  {
+   "ep": 5,
+   "publish_date": "2026-11-02",
+   "publish_time": "18:00",
+   "series": null,
+   "topic": "Cold season",
+   "outfit": null,
+   "status": "scheduled",
+   "title": null,
+   "youtube_id": "Y8pJ4GNJ60s",
+   "tiktok_queued": true,
+   "sources": []
+  },
+  {
+   "ep": 6,
+   "publish_date": "2026-11-03",
+   "publish_time": "18:00",
+   "series": null,
+   "topic": "Procrastination",
+   "outfit": null,
+   "status": "scheduled",
+   "title": null,
+   "youtube_id": "OO9AceZh2tc",
+   "tiktok_queued": true,
+   "sources": []
+  },
+  {
+   "ep": 7,
+   "publish_date": "2026-11-04",
+   "publish_time": "19:00",
+   "series": null,
+   "topic": "Leafs overtime",
+   "outfit": null,
+   "status": "scheduled",
+   "title": null,
+   "youtube_id": "Sd47GFmiTFg",
+   "tiktok_queued": true,
+   "sources": []
+  },
+  {
+   "ep": 8,
+   "publish_date": "2026-11-05",
+   "publish_time": "18:00",
+   "series": "6ix Seconds of Science",
+   "topic": "Why you wake up at 3am",
+   "outfit": "PJ top + sleep mask (red cup)",
+   "status": "scheduled",
+   "title": "Why You Wake Up at 3AM",
+   "youtube_id": "kcKDLS1b-tE",
+   "tiktok_queued": true,
+   "sources": [
+    "10.1210/jc.2004-1056",
+    "10.1016/j.beem.2017.10.011",
+    "10.1111/jsr.14252"
+   ],
+   "thumbnail": "B"
+  },
+  {
+   "ep": 9,
+   "publish_date": "2026-11-06",
+   "publish_time": "18:00",
+   "series": "6ix Seconds of Science",
+   "topic": "Is winter killing your vitamin D?",
+   "outfit": "puffer vest (red cup)",
+   "status": "built",
+   "title": "Is Winter Really Killing Your Vitamin D?",
+   "youtube_id": null,
+   "tiktok_queued": false,
+   "sources": [
+    "10.1007/BF03404056",
+    "10.1371/journal.pone.0207429",
+    "10.1097/MD.0000000000043107"
+   ]
   }
+ ],
+ "backlog": [
+  {
+   "topic": "Diwali: mithai and the sugar crash (with Mito)",
+   "target_date": "2026-11-08",
+   "status": "idea",
+   "sources": [
+    "Mantantzis 2019, doi:10.1016/j.neubiorev.2019.03.016"
+   ]
+  },
+  {
+   "topic": "Royal Winter Fair tie-in",
+   "target_date": "2026-11-06..15",
+   "status": "idea",
+   "sources": []
+  },
+  {
+   "topic": "Remembrance Day",
+   "target_date": "2026-11-11",
+   "status": "idea",
+   "sources": []
+  },
+  {
+   "topic": "Long-form: Cyto vs the Flu (debuts Neutro + Platelet Pete)",
+   "target_date": null,
+   "status": "idea",
+   "sources": [],
+   "note": "needs vidIQ Boost"
+  }
+ ],
+ "cast_appearances": {
+  "Mito": [],
+  "Neutro": [],
+  "Platelet Pete": []
+ }
 }

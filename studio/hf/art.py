@@ -173,3 +173,58 @@ def hypnogram(x0, y0, w, h, idp="hy"):
  <polyline id="{idp}Line" points="{pts}" fill="none" stroke="#FAF4E8" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"/>
  <polyline id="{idp}Cort" points="{cpts}" fill="none" stroke="{CORAL}" stroke-width="11" stroke-linejoin="round" stroke-linecap="round"/>'''
     return svg, dict(x_of=x_of, y_of=y_of)
+
+
+def streetcar(x, y, s=1.0, sign="501 QUEEN"):
+    """Generic Toronto-style red/white streetcar, side view, top-left (x,y), ~860x300 at s=1. No logos.
+    ids: tram (group), tramWin (windows, class 'tw'), wheels class 'wheel', pole 'tramPole'."""
+    W_, H_ = 860 * s, 250 * s
+    win = "".join(f'<rect class="tw" x="{x + (70 + k * 128) * s:.0f}" y="{y + 52 * s:.0f}" width="{104 * s:.0f}" height="{92 * s:.0f}" rx="{12 * s:.0f}" fill="#ffe7a3" stroke="{INK}" stroke-width="{5 * s:.0f}"/>' for k in range(6))
+    def wheel(wx): return (f'<g class="wheel"><circle cx="{wx:.0f}" cy="{y + H_ + 6 * s:.0f}" r="{30 * s:.0f}" fill="#20242e" stroke="{INK}" stroke-width="{6 * s:.0f}"/>'
+                           f'<path d="M{wx - 18 * s:.0f} {y + H_ + 6 * s:.0f} H{wx + 18 * s:.0f}" stroke="#9aa3ab" stroke-width="{6 * s:.0f}"/></g>')
+    return f'''<g id="tram">
+ <path id="tramPole" d="M{x + 300 * s:.0f} {y} L{x + 420 * s:.0f} {y - 150 * s:.0f}" stroke="{INK}" stroke-width="{8 * s:.0f}" stroke-linecap="round"/>
+ <path d="M{x + 400 * s:.0f} {y - 150 * s:.0f} H{x + 470 * s:.0f}" stroke="{INK}" stroke-width="{10 * s:.0f}" stroke-linecap="round"/>
+ <ellipse cx="{x + W_ / 2:.0f}" cy="{y + H_ + 34 * s:.0f}" rx="{W_ * .55:.0f}" ry="{16 * s:.0f}" fill="#000" opacity=".35"/>
+ <path d="M{x + 40 * s:.0f} {y} H{x + W_ - 40 * s:.0f} Q{x + W_:.0f} {y} {x + W_:.0f} {y + 60 * s:.0f} V{y + H_:.0f} H{x:.0f} V{y + 60 * s:.0f} Q{x:.0f} {y} {x + 40 * s:.0f} {y}Z" fill="#d7262e" stroke="{INK}" stroke-width="{8 * s:.0f}"/>
+ <rect x="{x}" y="{y + 160 * s:.0f}" width="{W_:.0f}" height="{36 * s:.0f}" fill="#f4f4ef"/>
+ <rect x="{x}" y="{y + 196 * s:.0f}" width="{W_:.0f}" height="{12 * s:.0f}" fill="{INK}" opacity=".85"/>
+ <rect x="{x + W_ - 230 * s:.0f}" y="{y + 12 * s:.0f}" width="{190 * s:.0f}" height="{30 * s:.0f}" rx="{6 * s:.0f}" fill="#111"/>
+ <text x="{x + W_ - 135 * s:.0f}" y="{y + 35 * s:.0f}" text-anchor="middle" font-family="InterBlack" font-size="{20 * s:.0f}" fill="#ff9a2e" letter-spacing="1">{sign}</text>
+ {win}
+ <rect x="{x + 20 * s:.0f}" y="{y + 52 * s:.0f}" width="{40 * s:.0f}" height="{140 * s:.0f}" rx="{8 * s:.0f}" fill="#9fc3e8" stroke="{INK}" stroke-width="{5 * s:.0f}"/>
+ <circle cx="{x + W_ - 14 * s:.0f}" cy="{y + 214 * s:.0f}" r="{10 * s:.0f}" fill="{GOLD}"/>
+ {wheel(x + 130 * s)}{wheel(x + 230 * s)}{wheel(x + W_ - 230 * s)}{wheel(x + W_ - 130 * s)}
+</g>'''
+
+
+def stop_pole(x, base, h=420, label="STOP"):
+    """Streetcar stop pole with a red-and-white sign (generic)."""
+    return (f'<g id="stopPole"><rect x="{x - 9}" y="{base - h}" width="18" height="{h}" fill="#9aa3ab" stroke="{INK}" stroke-width="5"/>'
+            f'<rect x="{x - 70}" y="{base - h - 70}" width="140" height="120" rx="14" fill="#f4f4ef" stroke="{INK}" stroke-width="7"/>'
+            f'<rect x="{x - 70}" y="{base - h - 70}" width="140" height="40" rx="14" fill="#d7262e" stroke="{INK}" stroke-width="7"/>'
+            f'<text x="{x}" y="{base - h - 40}" text-anchor="middle" font-family="InterBlack" font-size="26" fill="#fff">{label}</text>'
+            f'<path d="M{x - 40} {base - h + 6} h80 M{x - 40} {base - h + 26} h60" stroke="{INK}" stroke-width="8" stroke-linecap="round"/></g>')
+
+
+def window(x, y, w=420, h=520, idp="win"):
+    """Bedroom window at night: frame, panes, sill. ids: {idp}Sky (rect behind the panes, recolour it), {idp}Glass."""
+    return f'''<g id="{idp}">
+ <rect id="{idp}Sky" x="{x}" y="{y}" width="{w}" height="{h}" fill="#0b1630"/>
+ <rect id="{idp}Glass" x="{x}" y="{y}" width="{w}" height="{h}" fill="#9fc3e8" opacity=".08"/>
+ <rect x="{x}" y="{y}" width="{w}" height="{h}" fill="none" stroke="#f4f4ef" stroke-width="22"/>
+ <path d="M{x + w / 2} {y} V{y + h} M{x} {y + h / 2} H{x + w}" stroke="#f4f4ef" stroke-width="16"/>
+ <rect x="{x - 30}" y="{y + h}" width="{w + 60}" height="26" rx="8" fill="#e7e2d6" stroke="{INK}" stroke-width="6"/>
+ <rect x="{x}" y="{y}" width="{w}" height="{h}" fill="none" stroke="{INK}" stroke-width="6"/>
+</g>'''
+
+
+def lamp(x, base, idp="lamp"):
+    """Desk light-therapy lamp (flat white panel on a stand). ids: {idp}Panel (fill it bright when on), {idp}Beam."""
+    return f'''<g id="{idp}">
+ <path id="{idp}Beam" d="M{x - 90} {base - 330} L{x - 700} {base + 120} L{x + 500} {base + 120} L{x + 90} {base - 330}Z" fill="#fffbe8" opacity="0"/>
+ <rect x="{x - 110}" y="{base - 26}" width="220" height="26" rx="10" fill="#cfd5dc" stroke="{INK}" stroke-width="6"/>
+ <rect x="{x - 10}" y="{base - 200}" width="20" height="180" fill="#cfd5dc" stroke="{INK}" stroke-width="5"/>
+ <rect id="{idp}Panel" x="{x - 120}" y="{base - 420}" width="240" height="230" rx="22" fill="#4a5568" stroke="{INK}" stroke-width="8"/>
+ <path d="M{x - 90} {base - 390} h180 M{x - 90} {base - 350} h180 M{x - 90} {base - 310} h180 M{x - 90} {base - 270} h180 M{x - 90} {base - 230} h180" stroke="{INK}" stroke-width="3" opacity=".25"/>
+</g>'''

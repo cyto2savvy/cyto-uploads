@@ -19,7 +19,7 @@ done
 # finished episode videos (ep07/build.py reads its audio mix from the mp4)
 for d in $S/../ep[0-9][0-9]; do n=$(basename $d | sed "s/ep0*//"); if ls $d/*.mp4 >/dev/null 2>&1; then mkdir -p $H/ep$n && cp $d/*.mp4 $H/ep$n/; fi; done
 # hyperframes projects
-cp $S/hf/cytohf.py $S/hf/cyto3.py $S/hf/art.py $S/hf/package.json $H/hf/
+cp $S/hf/cytohf.py $S/hf/cyto3.py $S/hf/art.py $S/hf/three3d.js $S/hf/package.json $H/hf/
 cp -r $S/hf/thumbs $S/hf/outfits $H/hf/
 cp -r $S/hf/ep07 $S/hf/rigtest $S/hf/v2 $S/hf/v2test $S/hf/v3test $S/hf/template $H/hf/
 for d in $S/hf/ep[0-9][0-9]; do if [ -d "$d" ]; then cp -r "$d" $H/hf/; fi; done
@@ -27,7 +27,7 @@ for d in $S/hf/ep[0-9][0-9]; do if [ -d "$d" ]; then cp -r "$d" $H/hf/; fi; done
 mkdir -p $H/lottie && cp $S/../lottie/*.json $H/lottie/ 2>/dev/null || true
 CH=$(ls /opt/pw-browsers/chromium_headless_shell-*/chrome-headless-shell-linux64/chrome-headless-shell 2>/dev/null | head -1)
 echo "{\"executablePath\":\"$CH\",\"args\":[\"--no-sandbox\"]}" > $H/hf/v2/pup.json
-cd $H/hf && npm i hyperframes@0.8.222 gsap@3.13.0 lottie-web@5 @mermaid-js/mermaid-cli >/dev/null 2>&1
+cd $H/hf && npm i hyperframes@0.8.222 gsap@3.13.0 lottie-web@5 three@0.149.0 @mermaid-js/mermaid-cli >/dev/null 2>&1
 for d in $H/hf/*/; do if [ -f "$d/build.py" ]; then ln -sfn ../node_modules "$d/node_modules"; fi; done
 pip install --break-system-packages -q pillow numpy >/dev/null 2>&1 || true
 # rebuild voice.wav + timing from raw.mp3 + segs.json

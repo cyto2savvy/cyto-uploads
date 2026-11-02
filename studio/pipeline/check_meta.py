@@ -87,7 +87,7 @@ def check(m):
     if fmt == "short":
         if dur is None: W("duration_s not set")
         elif dur > 60: F(f"{dur}s — over 60s is not our Short format")
-        elif dur > 35: W(f"{dur}s — target ≤ 30s")
+        elif dur > 45: W(f"{dur}s — target 35-45s (hard cap 45s, absolute max 50s)")
         if len(thumbs) < 1: W("no thumbnail (still shows in search/browse)")
     else:
         if dur is not None and not 480 <= dur <= 900: W(f"{dur/60:.1f} min — 8–15 min only if retention holds")
