@@ -5,6 +5,10 @@ HAVE ep12_sfx_pop.mp3
 HAVE ep12_sfx_hit.mp3
 HAVE ep12_sfx_chime.mp3
 HAVE ep13_raw.mp3
+HAVE photo_queens_park.jpg
+HAVE photo_nathan_phillips.jpg
+HAVE photo_distillery_bw.jpg
+HAVE photo_skyline_dusk.jpg
 HAVE lf02_cyto1.mp3
 HAVE lf02_cyto2.mp3
 HAVE lf02_neutro.mp3
@@ -13,9 +17,9 @@ HAVE lf02_words_cyto1.json
 HAVE lf02_words_cyto2.json
 HAVE lf02_words_neutro.json
 HAVE lf02_words_mito.json
-OK lf02_sfx_siren.mp3
-OK lf02_sfx_crowd.mp3
-OK lf02_sfx_shatter.mp3
-OK lf02_sfx_sax.mp3
-OK lf02_sfx_achoo.mp3
-OK lf02_sfx_chirp.mp3
+HAVE lf02_sfx_siren.mp3
+HAVE lf02_sfx_crowd.mp3
+HAVE lf02_sfx_shatter.mp3
+HAVE lf02_sfx_sax.mp3
+HAVE lf02_sfx_achoo.mp3
+HAVE lf02_sfx_chirp.mp3
