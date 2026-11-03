@@ -13,7 +13,7 @@ Chapters (YouTube): 0:00 The Countdown | 0:45 What's in the smoke | 1:50 First h
 - Length: ~7:15 on purpose (no padding). >8:00 would allow mid-roll ads but costs retention; ad suitability of tobacco/cannabis content is uncertain anyway. Benchmarks to beat: ~45%+ avg viewed (5-10 min band), 60%+ past 0:30 (community rules of thumb, not official).
 
 ## SCRIPT
-[0:00 HOOK] Twenty minutes. That's how long after your last smoke your heart rate starts dropping. Stick with me seven minutes and I'll walk you through hour twelve, day three, week four, and year one. Plus the one trigger that makes people slip.
+[0:00 HOOK] Twenty minutes. That's how long after your last smoke your heart rate starts dropping. Stick with me seven minutes and I'll walk you through hour twelve, week four, year one, and year fifteen. Plus the one trigger that makes people slip.
 [0:12] Yo, it's ya boy Cyto, live from the 6ix… inside your body. Today's countdown: what happens when the smoke stops. Cigarettes, weed, and grabba. No judgment, fam. Also, one month on the channel today. Big love. Not medical advice, talk to your doctor.
 
 [CH1 0:45 WHAT'S IN THE SMOKE] Quick biology. Any smoke means heat plus tiny particles hitting your lungs. That's Neutro's turf, my security guard, patrolling the airways in the Don Valley of the body. All that smoke wears him out.
@@ -22,11 +22,11 @@ But tobacco-leaf wraps, like blunts and grabba? That's tobacco. Research on blun
 And this isn't niche. About one in four Canadians used cannabis last year, per Health Canada.
 Keep watching for the number at the end: how many years you can get back.
 
-[CH2 1:50 THE FIRST HOURS] Okay, the countdown. Twenty minutes: heart rate starts dropping. Twelve hours: carbon monoxide in your blood is back to normal, so more oxygen reaches your muscles and brain. Twenty-four hours: taste and smell start coming back.
+[CH2 1:50 THE FIRST HOURS] Okay, the countdown. Twenty minutes: heart rate starts dropping. Twelve hours: carbon monoxide in your blood is back to normal, so more oxygen reaches your muscles and brain. Two weeks to three months: circulation and lung function start improving. One to nine months: coughing and breathlessness drop.
 Then the cravings. That's your nicotine receptors asking for a refill. Totally normal. They come in waves, and every wave passes.
 
-[CH3 2:50 DAY ONE TO WEEK ONE] Days one to three are the loud part. Irritable, restless, sleep gets weird. For weed, a review in Substance Abuse and Rehabilitation says regular users can get a real withdrawal. Mostly mood and sleep stuff, light to moderate. Your brain's cannabinoid receptors start resetting within two days.
-Not dangerous for most people, just annoying. Water, movement, your people. By day three, cough and breathing start easing.
+[CH3 2:50 THE FIRST WEEK] The first days are the loud part. Irritable, restless, sleep gets weird. For weed, a review in Substance Abuse and Rehabilitation says regular users can get a real withdrawal. Mostly mood and sleep stuff, light to moderate. Your brain's cannabinoid receptors start resetting within two days.
+Not dangerous for most people, just annoying. Water, movement, your people.
 
 [CH4 3:40 WEEK TWO TO FOUR] Week four is where it flips. Those cannabinoid receptors are back to normal functioning, per that same review. Cravings fade. Sleep comes back.
 In the Lungs, Neutro finally gets a break. The cilia, tiny sweepers, start moving again, so you might cough more at first. That's cleanup, not failure. Keep going.
