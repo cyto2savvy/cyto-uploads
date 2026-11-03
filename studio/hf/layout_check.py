@@ -22,6 +22,7 @@ ap.add_argument("ep")
 ap.add_argument("--brief")
 ap.add_argument("--step", type=float, default=0.25)
 ap.add_argument("--root", default="/home/claude/hf")
+ap.add_argument("--size", default="portrait", choices=["portrait", "landscape"])
 a = ap.parse_args()
 
 # ---- serve /home/claude/hf over http (file:// breaks ES modules / fetch)
@@ -106,6 +107,9 @@ JS_COLLECT = r"""
 
 W, Hh = 1080, 1920
 SAFE = dict(left=40, right=1010, top=120, bottom=1560)
+if a.size == "landscape":      # long-form 1920x1080: 40px margin all round (no Shorts UI)
+    W, Hh = 1920, 1080
+    SAFE = dict(left=40, right=1880, top=40, bottom=1040)
 fails, warns = {}, {}
 seen_text = {}
 def add(d, key, t, msg):
@@ -157,8 +161,8 @@ with sync_playwright() as p:
                 if frac > 0.25:
                     add(fails if G["type"] == "lottie" else warns, "gfx", t, f'text over {G["type"]} animation ({int(frac*100)}% covered): "{it["txt"]}"')
         px = res["pup"]
-        if any(abs(float(v)) > 8 for v in px):
-            add(fails, "eyes", t, f"pupils off-centre {[round(float(v),1) for v in px]}")
+        if any(abs(float(v or 0)) > 8 for v in px):
+            add(fails, "eyes", t, f"pupils off-centre {[round(float(v or 0),1) for v in px]}")
         t = round(t + a.step, 3)
     b.close()
 srv.shutdown()
