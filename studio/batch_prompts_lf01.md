@@ -1,14 +1,14 @@
-# LF01 build prompt (long-form, ~7:15, LANDSCAPE 16:9). ONE NEW cloud session. Budget: target $30-40 of the $75; HARD STOP at $45.
+# LF01 build prompt (long-form, ~5:24, LANDSCAPE 16:9). ONE NEW cloud session. Budget: target $30-40 of the $75; HARD STOP at $45.
 
 ```
-You're building ONE long-form Cyto The Cell YouTube video: LF01 "What Happens When You Quit Smoking Weed & Tobacco". Work autonomously, no questions unless truly blocked. Cloud credits expire Nov 5 2:59 AM ET: finish before then. This is NOT a Short. It is 1920x1080 landscape, about 7:15, and the quality bar is Ep 13.
+You're building ONE long-form Cyto The Cell YouTube video: LF01 "What Happens When You Quit Smoking Weed & Tobacco". Work autonomously, no questions unless truly blocked. Cloud credits expire Nov 5 2:59 AM ET: finish before then. This is NOT a Short. It is 1920x1080 landscape, about 5:24 (the voice is final and already generated), and the quality bar is Ep 13.
 
 SETUP
 1. git clone https://github.com/cyto2savvy/cyto-uploads && bash cyto-uploads/studio/restore.sh
 2. Read ONLY studio/SETUP.md sections "Ep 9 lessons", "Ep 11 lessons", "Ep 11 review", "Ep 12 lessons", "Ep 13 lessons", "Cup rule", "SOURCE RULE", "TORONTO BACKGROUND RULE", "MANDATORY AUTOMATIC CHECK", plus studio/episodes/lf01/script_v2_final_draft.md (the APPROVED script, chapters, retention design, sources; do not rewrite or swap). Don't read VOICE.md, PUBLISHING.md or BATCH.md.
 
 AUDIO (already generated; do NOT regenerate)
-3. Voice chunks (one per chapter) exist in ElevenLabs: see studio/episodes/lf01/audio_ids.md (manager fills this in before you start; if it's missing, STOP and tell Utsha). For each chunk, get the signed URL via creative_get_generations, add `name url` to audio/list.txt, push, wait for fetch-audio, read audio/status.txt. Then Scribe transcription (0 credits) -> word timing per chunk -> concatenate with 0.35s gaps -> voice.wav + timing.json. Captions use real spellings.
+3. Voice chunks (one per chapter) exist in ElevenLabs: see studio/episodes/lf01/audio_ids.md with chapter start times (use generation_id, not historyItemId). For each chunk, get the signed URL via creative_get_generations, add `name url` to audio/list.txt, push, wait for fetch-audio, read audio/status.txt. Then Scribe transcription (0 credits) -> word timing per chunk -> concatenate with 0.35s gaps -> voice.wav + timing.json. Captions use real spellings.
 
 LANDSCAPE ADAPTATION (the rig/template are 1080x1920 vertical; this is the main risk)
 4. Copy the Short template to hf/lf01/ and convert to 1920x1080: Cyto on the left third (large, on model, cup in FRONT of the hand), big content area on the right two-thirds for figures/diagrams/maps/charts. Keep the safe margin >=60px (nothing within 40px of any edge, as always). Re-run layout_check with the landscape size; if it assumes vertical, patch it (don't skip it). Do this as a SMALL test first: render 5s of the hook, view one frame, and only then build the rest.

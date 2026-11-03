@@ -1,7 +1,7 @@
-# LF01 v2 — retention-optimized (DRAFT FOR OK). Target ~7:15, ~1,200 words VO.
+# LF01 v2 — retention-optimized (DRAFT FOR OK). VOICE IS FINAL (Nov 2): actual runtime 5:24, not 7:15 (the tips chunk is 91s). Within the 5-10 min ask; no padding.
 Working title (<60): "What Happens When You Quit Smoking Weed & Tobacco" (49)  | alt: "I Quit Smoking: Hour-by-Hour (Weed, Grabba, Cigs)" 
 Thumb: Cyto + big countdown clock "20 MIN -> 1 YR", Neutro peeking; max 3 words on image. Make 2, pick stronger.
-Chapters (YouTube): 0:00 The Countdown | 0:45 What's in the smoke | 1:50 First hours | 2:50 Days 1-7 | 3:40 Weeks 2-4 | 4:20 Months to years | 5:20 Cyto's tips | 6:40 Outro
+Chapters (YouTube): 0:00 The Countdown | 0:37 What's in the smoke | 1:24 First hours | 1:52 The first week | 2:16 Weeks 2-4 | 2:36 Months to years | 3:21 Cyto's tips | 4:53 Outro
 
 ## RETENTION DESIGN (from vidIQ/Social Rails guidance: hook inside 15s, keep >=60% past 0:30, change visual every 20-30s, open loops, re-hooks, chapters)
 - Cold open mid-action: 1 line hook + promise in first 10s; catchphrase lands at ~0:12, no logo/"welcome back".
@@ -13,7 +13,7 @@ Chapters (YouTube): 0:00 The Countdown | 0:45 What's in the smoke | 1:50 First h
 - Length: ~7:15 on purpose (no padding). >8:00 would allow mid-roll ads but costs retention; ad suitability of tobacco/cannabis content is uncertain anyway. Benchmarks to beat: ~45%+ avg viewed (5-10 min band), 60%+ past 0:30 (community rules of thumb, not official).
 
 ## SCRIPT
-[0:00 HOOK] Twenty minutes. That's how long after your last smoke your heart rate starts dropping. Stick with me seven minutes and I'll walk you through hour twelve, week four, year one, and year fifteen. Plus the one trigger that makes people slip.
+[0:00 HOOK] Twenty minutes. That's how long after your last smoke your heart rate starts dropping. Stick with me a few minutes and I'll walk you through hour twelve, week four, year one, and year fifteen. Plus the one trigger that makes people slip.
 [0:12] Yo, it's ya boy Cyto, live from the 6ix… inside your body. Today's countdown: what happens when the smoke stops. Cigarettes, weed, and grabba. No judgment, fam. And shout-out: today is the channel's one-month anniversary. One month of the 6ix, inside your body. Big love to everybody who's been watching. Not medical advice, talk to your doctor.
 
 [CH1 0:45 WHAT'S IN THE SMOKE] Quick biology. Any smoke means heat plus tiny particles hitting your lungs. That's Neutro's turf, my security guard, patrolling the airways in the Don Valley of the body. All that smoke wears him out.
