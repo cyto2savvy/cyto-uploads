@@ -13,7 +13,7 @@ Chapters (YouTube): 0:00 The Countdown | 0:45 What's in the smoke | 1:50 First h
 - Length: ~7:15 on purpose (no padding). >8:00 would allow mid-roll ads but costs retention; ad suitability of tobacco/cannabis content is uncertain anyway. Benchmarks to beat: ~45%+ avg viewed (5-10 min band), 60%+ past 0:30 (community rules of thumb, not official).
 
 ## SCRIPT
-[0:00 HOOK] Twenty minutes. That's how long after your last smoke your heart rate starts dropping. Stick with me seven minutes and I'll walk you through hour eight, day three, week four, and year one. Plus the one trigger that makes people slip.
+[0:00 HOOK] Twenty minutes. That's how long after your last smoke your heart rate starts dropping. Stick with me seven minutes and I'll walk you through hour twelve, day three, week four, and year one. Plus the one trigger that makes people slip.
 [0:12] Yo, it's ya boy Cyto, live from the 6ix… inside your body. Today's countdown: what happens when the smoke stops. Cigarettes, weed, and grabba. No judgment, fam. Also, one month on the channel today. Big love. Not medical advice, talk to your doctor.
 
 [CH1 0:45 WHAT'S IN THE SMOKE] Quick biology. Any smoke means heat plus tiny particles hitting your lungs. That's Neutro's turf, my security guard, patrolling the airways in the Don Valley of the body. All that smoke wears him out.
@@ -22,7 +22,7 @@ But tobacco-leaf wraps, like blunts and grabba? That's tobacco. Research on blun
 And this isn't niche. About one in four Canadians used cannabis last year, per Health Canada.
 Keep watching for the number at the end: how many years you can get back.
 
-[CH2 1:50 THE FIRST HOURS] Okay, the countdown. Twenty minutes: heart rate starts dropping. Eight hours: carbon monoxide in your blood is back to normal, so more oxygen reaches your muscles and brain. Twenty-four hours: taste and smell start coming back.
+[CH2 1:50 THE FIRST HOURS] Okay, the countdown. Twenty minutes: heart rate starts dropping. Twelve hours: carbon monoxide in your blood is back to normal, so more oxygen reaches your muscles and brain. Twenty-four hours: taste and smell start coming back.
 Then the cravings. That's your nicotine receptors asking for a refill. Totally normal. They come in waves, and every wave passes.
 
 [CH3 2:50 DAY ONE TO WEEK ONE] Days one to three are the loud part. Irritable, restless, sleep gets weird. For weed, a review in Substance Abuse and Rehabilitation says regular users can get a real withdrawal. Mostly mood and sleep stuff, light to moderate. Your brain's cannabinoid receptors start resetting within two days.
@@ -31,11 +31,11 @@ Not dangerous for most people, just annoying. Water, movement, your people. By d
 [CH4 3:40 WEEK TWO TO FOUR] Week four is where it flips. Those cannabinoid receptors are back to normal functioning, per that same review. Cravings fade. Sleep comes back.
 In the Lungs, Neutro finally gets a break. The cilia, tiny sweepers, start moving again, so you might cough more at first. That's cleanup, not failure. Keep going.
 
-[CH5 4:20 MONTHS TO YEARS] By one year, your heart disease risk is about half a smoker's. Airways keep healing too. One study of COPD patients found the airway lining looked better in ex-smokers, mostly after more than three and a half years of quitting. Real healing, just not overnight.
+[CH5 4:20 MONTHS TO YEARS] By one year, the extra heart disease risk from smoking is about half. By fifteen years, it matches someone who never smoked. Airways keep healing too. One study of COPD patients found the airway lining looked better in ex-smokers, mostly after more than three and a half years of quitting. Real healing, just not overnight.
 Now the number I promised. A study from Toronto's Centre for Global Health Research, in the New England Journal of Medicine, found smokers lose about a decade of life. Quit at 25 to 34, you get back about ten years. 35 to 44, about nine. 45 to 54, about six. Quit before 40, and you cut that extra risk by about 90 percent. Never too late, but sooner hits different.
 
 [CH6 5:20 CYTO'S TIPS, 6IX EDITION] Real talk: quitting isn't willpower, it's setup.
-Tip one: get a squad. A big Cochrane review of over 300 trials found counselling raises your odds of quitting by about 44 percent. Call Smokers' Helpline. Tell your group chat, your roommate. Text-message support looks helpful too. Don't solo this.
+Tip one: get a squad. A big Cochrane review of over 300 trials found counselling raises your odds of quitting by about 44 percent. Call or text Smokers' Helpline, it's free and open 24/7: one, eight seven seven, five one three, five three three three, or text iQuit to one two three four five six. Tell your group chat, your roommate. Text-message support looks helpful too. Don't solo this.
 Tip two: ask a pharmacist. If tobacco's in the mix, cigs or grabba, nicotine's the hook. Cochrane says a patch plus gum or lozenge beats just one. And a prescription called varenicline beats a single form of nicotine replacement. Any pharmacy can point you right. No shame.
 Tip three, the one I promised: know your trigger spots. A study of young adults found that on days they used cannabis, they were far more likely to smoke too, and drinking predicted smoking the next day. Small study, so it's a pattern, not a rule. But if the link-up, the patio, or the after-party is your trigger, plan for it. Bring gum. Leave early. Have your line ready: "nah, I'm good tonight."
 Tip four: replace the ritual. A craving lasts a few minutes, then it passes. Walk the Bluffs, hit Kensington for food, ride the 501 with headphones on. Beat the wave.
@@ -45,5 +45,5 @@ Tip five: slips happen. One slip isn't a relapse. Reset the clock and keep going
 Question for the comments: what's the hardest part, the habit or the craving? I read them all. If this helped, like and subscribe, sources are on screen and in the description. Not medical advice. And remember: twenty minutes. That's all it takes to start. Yo, it's ya boy Cyto, live from the 6ix…  [loops into hook]
 
 ## ON-SCREEN SOURCES (end card, 2 per screen, >=34px; full list in description + pinned comment)
-Jha NEJM 2013 10.1056/NEJMsa1211128 | Tashkin 2013 10.1513/AnnalsATS.201212-127FR | Bonnet 2017 10.2147/SAR.S109576 | Lapperre 2007 10.1186/1465-9921-8-85 | Fairman 2023 10.1016/j.drugalcdep.2023.109837 | Hartmann-Boyce Cochrane 2021 10.1002/14651858.CD013229.pub2 | Theodoulou Cochrane 2023 10.1002/14651858.CD013308.pub2 | Livingstone-Banks Cochrane 2023 10.1002/14651858.CD006103.pub8 | Walters 2023 10.1016/j.addbeh.2023.107902 | Health Canada CCS 2024 | UHN Princess Margaret timeline.
-## PRE-VOICE CHECKS: verify Smokers' Helpline number; primary source for hour timeline (Surgeon General/CDC); "half risk at 1 yr" is from UHN page only; no on-screen use of any product.
+Jha NEJM 2013 10.1056/NEJMsa1211128 | Tashkin 2013 10.1513/AnnalsATS.201212-127FR | Bonnet 2017 10.2147/SAR.S109576 | Lapperre 2007 10.1186/1465-9921-8-85 | Fairman 2023 10.1016/j.drugalcdep.2023.109837 | Hartmann-Boyce Cochrane 2021 10.1002/14651858.CD013229.pub2 | Theodoulou Cochrane 2023 10.1002/14651858.CD013308.pub2 | Livingstone-Banks Cochrane 2023 10.1002/14651858.CD006103.pub8 | Walters 2023 10.1016/j.addbeh.2023.107902 | Health Canada CCS 2024 | CDC Office on Smoking and Health, 'Within 20 Minutes of Quitting' (2004 Surgeon General's Report) https://archive.cdc.gov/www_cdc_gov/tobacco/sgr/2004/posters/20mins/index.htm | WHO Health benefits of smoking cessation https://www.who.int/news-room/q-a-detail/health-benefits-of-smoking-cessation (20 min HR; 12 h CO; 1 yr CHD risk half; 15 yr = nonsmoker). NOTE CO = 12 h (CDC/WHO), NOT 8 h (UHN page was wrong/older).
+## PRE-VOICE CHECKS: (helpline VERIFIED Nov 2 via Toronto Central Health Line: 416-488-2872 / 1-877-513-5333 / text iQuit to 123456, 24/7, free; re-verify at upload; timeline now backed by CDC/WHO, DONE); no on-screen use of any product.
