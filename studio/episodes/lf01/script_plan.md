@@ -1,0 +1,28 @@
+# LF01 — "What Happens When You Quit Smoking (Weed + Grabba + Cigs) — Hour by Hour"
+Long-form, target 7:30. Upload Fri Nov 20 2026 (channel 1-month anniversary: one-line shout-out in intro only).
+Tone: factual health ed, supportive, zero glamour, NO on-screen use, no stereotyping, Cyto never jokes about being high. Cup = "ATP smoothie" only.
+Cost gate: voice ~6,500-7,000 ElevenLabs chars/credits -> needs Utsha's OK before generation.
+
+## Script (VO) ~1,100 words
+[0:00 HOOK] Yo, it's ya boy Cyto, live from the six… inside your body. Quick question. What if you stopped lighting up… and your body started a countdown? Hour by hour. Let's go.
+[INTRO] Real talk: Toronto smokes a lot. Cigarettes, weed, and grabba, that tobacco leaf wrap. No judgment, fam. This is just what your body does when the smoke stops. Also, one month on the channel today, big love. Not medical advice, check with a doctor or Health Canada's quit line.
+[CH1 — WHAT'S IN THE SMOKE] Quick biology. Any smoke you breathe means heat plus tiny particles hitting your lungs. Neutro, my security guard, patrols the airways at the Lungs, aka the Don Valley of the body. He deals with the mess, and it wears him out. Here's the key part. Weed smoke and tobacco smoke aren't the same. A review in the Annals of the American Thoracic Society says regular weed smoking is linked to bronchitis symptoms that ease after stopping, and far lower lung risks than tobacco. But grabba is a tobacco leaf. So that wrap brings nicotine in, even if what's inside is something else. That's why lots of people end up hooked on the nicotine without realizing.
+[CH2 — FIRST HOURS] Within the first hours, your body starts clearing nicotine and your heart rate and blood pressure start easing back. (TIMELINE ITEMS: verify against Health Canada / US Surgeon General before voice.) Cravings hit, that's the nicotine receptors asking for a refill. Totally normal. They come in waves, and each wave passes.
+[CH3 — DAY 1 TO WEEK 1] Day one to three is the loud part. Irritable, restless, sleep gets weird. For weed, a review in Substance Abuse and Rehabilitation says regular users can get a real withdrawal: mood and sleep stuff, usually light to moderate. Your brain's cannabinoid receptors start resetting within the first two days. Not dangerous for most people, just annoying. Hydrate, move, lean on your people.
+[CH4 — WEEK 2 TO 4] By week four, those cannabinoid receptors are back to normal functioning, per that same review. Cravings fade, sleep comes back. Meanwhile in the Lungs, Neutro finally gets a break. The cilia, tiny sweepers, start moving again, so you cough more at first. That's cleanup, not failure.
+[CH5 — MONTHS TO YEARS] A study of COPD patients found the airway lining looked better in ex-smokers, mostly after more than three and a half years of quitting. Real healing, just not overnight. And the big one: the NEJM study from Toronto's Centre for Global Health Research found smokers lose about a decade of life, but quitting at 25 to 34 gains back about ten years, 35 to 44 about nine, 45 to 54 about six. Quit before 40 and you cut that extra risk by about 90 percent.
+[CH6 — TORONTO TOUR OUTRO] Quitting is a body tour: Lungs, the Don Valley, breathing easy. Heart, downtown, pumping smoother. Brain, U of T campus, sleeping right. If you're trying, tell someone, set a date, and slips don't mean you're done. Talk to your doctor or call Smokers' Helpline.
+[OUTRO] If this helped, like and subscribe. Sources are on screen and in the description. Not medical advice. Peace from the six.
+
+## Scene plan (chapters, one new visual every 2-3s, Neutro in Lungs, nothing 1s still)
+Hook: countdown clock punch-zoom | Intro: Toronto skyline whip | Ch1: lungs diagram, Neutro patrol, split card "tobacco leaf = nicotine" | Ch2: heart-rate line animates | Ch3: brain + receptor reset diagram | Ch4: calendar flipping to week 4, cilia sweeping | Ch5: bar chart 25-34 +10 / 35-44 +9 / 45-54 +6 yrs | Ch6: neighbourhood map tour | Outro: sources card (max 2 per screen, text >=34px).
+No smoke/joint/grabba shown being used. Wrap shown only as a flat icon on a label.
+
+## Claims -> sources (According to PubMed; DOI links)
+1. Smokers lose ~10 yrs; quitting 25-34/35-44/45-54 gains ~10/9/6 yrs; quit <40 cuts excess risk ~90% — Jha et al., NEJM 2013. https://doi.org/10.1056/NEJMsa1211128
+2. Regular marijuana smoking: bronchitis symptoms that subside after stopping; far lower pulmonary risk than tobacco — Tashkin, Ann Am Thorac Soc 2013. https://doi.org/10.1513/AnnalsATS.201212-127FR
+3. Cannabis withdrawal: mainly mood/behavioural symptoms, light-moderate; CB1 reversal starts in ~2 days, normal by ~4 weeks — Bonnet & Preuss, Subst Abuse Rehabil 2017. https://doi.org/10.2147/SAR.S109576
+4. Airway-lining remodelling is less in ex-smokers, only after >3.5 yrs — Lapperre et al., Respir Res 2007. https://doi.org/10.1186/1465-9921-8-85
+5. Cannabis withdrawal vs hyperemesis distinction (optional) — Razban et al., Int J Emerg Med 2022. https://doi.org/10.1186/s12245-022-00446-0
+GAPS (must source before voice): (a) hour/day timeline for heart rate/CO/cilia — use Health Canada or US Surgeon General 2020 cessation report; (b) "grabba/tobacco leaf wrap delivers nicotine" — find a PubMed blunt/cigarillo nicotine source or cite Health Canada; (c) Ontario prevalence of cannabis/tobacco use — Canadian Cannabis Survey / CTNS; do NOT state numbers until sourced.
+Ads note: tobacco/cannabis content may be limited-ads; keep language educational.
