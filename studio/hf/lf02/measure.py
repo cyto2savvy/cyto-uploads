@@ -28,7 +28,7 @@ def frame(mp4, t, w=640):
 def edge_density(im):
     a = np.asarray(im.convert("L")).astype(np.float32)
     gx = np.abs(np.diff(a, axis=1)).mean(); gy = np.abs(np.diff(a, axis=0)).mean()
-    return gx + gy
+    return float(gx + gy)
 
 
 def freeze(mp4):

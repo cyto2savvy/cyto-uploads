@@ -59,6 +59,8 @@ class Scene:
         self.talk_scale = 1.07
         self.ambience = None
         self.cutpoints = []
+        self.camk = []            # (t, scale) of the speaker camera
+        self.covers = []          # intervals where world/set text (.settxt) must be hidden (cards, cutaways, zooms)
         self.tr_kind_in = None
         if music: MUSIC.append((self.t0, self.t1, music))
 
@@ -69,6 +71,23 @@ class Scene:
     def b(self, name): return round(BEATS[name][0] - self.t0, 3), round(BEATS[name][1] - self.t0, 3)
     def words_of(self, who):
         return [w for l in TM["lines"] if l["who"] == who for w in l["words"] if self.t0 - .1 <= w["t0"] < self.t1]
+
+    def hide_txt(self, a, b): self.covers.append((a, b))
+
+    def settxt_rule(self):
+        """World text (wall plaque, signs, lever label...) is only shown in WIDE framing and when no card / cutaway covers it.
+        Replaces every hand-placed .settxt tween with one computed visibility track (layout: set text is never cropped or covered)."""
+        self.js = [re.sub(r'tl\.(?:to|set)\("\.settxt",\{[^}]*\},[^)]*\);', "", x) for x in self.js]
+        ks = sorted(self.camk); fps = 30; prev = None; J = []
+        for f in range(int(self.T * fps) + 1):
+            t = f / fps
+            sc = 1.0
+            for a, v in ks:
+                if a - .02 <= t: sc = v
+            vis = sc <= 1.03 and not any(a - .1 <= t <= b + .05 for a, b in self.covers)
+            if vis != prev:
+                J.append(f'tl.set(".settxt",{{opacity:{1 if vis else 0}}},{max(0, t - (.12 if not vis else 0)):.3f});'); prev = vis
+        self.j("".join(J))
 
     def lines_in(self, who):
         """(n, (local t0, local t1)) for this speaker's lines that start inside the scene."""
@@ -151,9 +170,11 @@ class Scene:
 
     # ---- camera
     def punch(self, t, sc=1.14, d=.45, ox=960, oy=540):
+        self.covers.append((t - .02, t + d))
         self.j(f'tl.set("#cam",{{transformOrigin:"{ox}px {oy}px"}},{t - .01:.3f});tl.fromTo("#cam",{{scale:{sc}}},{{scale:1,duration:{d},ease:"power3.out",immediateRender:false}},{t:.3f});')
 
     def snapzoom(self, t, sc, d, ox, oy, hold_out=.25):
+        self.covers.append((t - .02, t + d + hold_out))
         self.j(f'tl.set("#cam",{{transformOrigin:"{ox}px {oy}px"}},{t - .01:.3f});tl.to("#cam",{{scale:{sc},duration:.12,ease:"power4.out"}},{t:.3f});'
                f'tl.to("#cam",{{scale:1,duration:{hold_out},ease:"power2.inOut"}},{t + d:.3f});')
 
@@ -192,25 +213,25 @@ class Scene:
             c = self.cast[l["who"]]; p = (c["x"], c["y"])
             t0 = l["t0"] - self.t0; t1 = l["t1"] - self.t0
             if prev is not None and t0 - (prev["t1"] - self.t0) > 1.3:            # long action beat: back to the wide
-                J.append(f'tl.to("#tk",{{x:0,y:0,scale:1,duration:.5,ease:"power2.inOut"}},{prev["t1"] - self.t0 + .15:.3f});')
+                J.append(f'tl.to("#tk",{{x:0,y:0,scale:1,duration:.5,ease:"power2.inOut"}},{prev["t1"] - self.t0 + .15:.3f});'); self.camk.append((prev["t1"] - self.t0 + .65, 1.0))
                 prev = None
             if l["n"] in quick:
                 sc = 1.24; dx, dy = self._frame(p, sc)
                 tc = max(0, t0 - .05)
-                J.append(f'tl.set("#tk",{{x:{dx},y:{dy},scale:{sc}}},{tc:.3f});')
+                J.append(f'tl.set("#tk",{{x:{dx},y:{dy},scale:{sc}}},{tc:.3f});'); self.camk.append((tc, sc))
                 self.cutpoints.append(tc)
             else:
                 same = prev is not None and prev["who"] == l["who"]
                 sc = self.talk_scale + (.02 if same else 0); dx, dy = self._frame(p, sc)
                 ta = max(0, (min(t0, prev["t1"] - self.t0) if prev is not None else t0) - .15)
-                J.append(f'tl.to("#tk",{{x:{dx},y:{dy},scale:{sc},duration:.25,ease:"power2.inOut"}},{ta:.3f});')
+                J.append(f'tl.to("#tk",{{x:{dx},y:{dy},scale:{sc},duration:.25,ease:"power2.inOut"}},{ta:.3f});'); self.camk.append((ta, sc))
                 # long monologue: a new framing at sentence ends every >= 2.8 s (push <-> medium), so no shot holds > ~4 s
                 last, alt = t0, 0
                 for w in l["words"][:-1]:
                     tw = w["t1"] - self.t0
                     if re.search(r"[.?!:…]$", w["w"]) and tw - last >= 2.8 and t1 - tw > 1.2:
-                        alt ^= 1; sc2 = 1.16 if alt else self.talk_scale; dx2, dy2 = self._frame(p, sc2)
-                        J.append(f'tl.to("#tk",{{x:{dx2},y:{dy2},scale:{sc2},duration:.3,ease:"power2.inOut"}},{tw + .02:.3f});')
+                        alt ^= 1; sc2 = getattr(self, 'alt_scale', 1.16) if alt else self.talk_scale; dx2, dy2 = self._frame(p, sc2)
+                        J.append(f'tl.to("#tk",{{x:{dx2},y:{dy2},scale:{sc2},duration:.3,ease:"power2.inOut"}},{tw + .02:.3f});'); self.camk.append((tw + .02, sc2))
                         last = tw
             prev = l
         self.j("\n".join(J))
@@ -290,7 +311,7 @@ class Scene:
 
     # ---- page
     def build(self):
-        self.talk_camera(); self.listener_looks()
+        self.talk_camera(); self.listener_looks(); self.settxt_rule()
         # continuous slow drift so no shot is ever locked off (I1 / rule 9)
         if getattr(self, "drift", True):
             self.j(f'tl.fromTo("#drift",{{scale:1,x:0}},{{scale:1.025,x:-12,duration:{self.T:.3f},ease:"sine.inOut",immediateRender:false}},0);')
@@ -369,7 +390,7 @@ def _popup(self, id_, t0, t1, title, sub="", col="#FFD166", x=960, y=300, w=980,
         h = (f'<div id="{id_}" class="pop clip" data-start="{t0:.3f}" data-duration="{t1 - t0:.3f}" style="left:{x - w // 2}px;top:{y}px;width:{w}px;z-index:{z};text-align:center;'
              f'font:84px InterBlack;color:{col};-webkit-text-stroke:4px #0c1622;paint-order:stroke fill;transform:rotate(-4deg)">{title}</div>')
     self.over(h)
-    self.j(f'tl.to(".settxt",{{opacity:0,duration:.1}},{t0:.3f});tl.to(".settxt",{{opacity:1,duration:.15}},{t1:.3f});')
+    self.covers.append((t0, t1))
     self.j(f'tl.fromTo("#{id_}",{{scale:2.2,opacity:0,rotation:-8}},{{scale:1,opacity:1,rotation:{-4 if kind != "game" else 0},duration:.28,ease:"back.out(2.2)"}},{t0:.3f});'
            f'tl.to("#{id_}",{{scale:.6,opacity:0,duration:.18,ease:"power2.in"}},{t1 - .2:.3f});')
 

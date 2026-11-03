@@ -60,9 +60,10 @@ def card(S, id_, t0, t1, num, title, art, x=620, y=70, rot=-3):
            f'<div style="position:absolute;left:28px;top:14px;font:46px InterBlack;color:#FFD166">INCIDENT {num}</div>'
            f'<div style="position:absolute;left:28px;top:458px;right:20px;font:38px/1.1 InterBlack;color:#0c1622">{title}</div>'
            f'<svg style="position:absolute;left:20px;top:100px" width="620" height="360" viewBox="0 0 620 360">{art}</svg></div>')
-    S.j(f'tl.fromTo("#{id_}",{{x:-900,rotation:-30}},{{x:0,rotation:{rot},duration:.32,ease:"back.out(1.5)"}},{t0:.3f});'
+    S.j(f'tl.fromTo("#{id_}",{{scale:.3,rotation:-30,opacity:0}},{{scale:1,rotation:{rot},opacity:1,duration:.3,ease:"back.out(1.5)"}},{t0:.3f});'
         f'tl.to("#{id_}",{{rotation:{rot + 4},duration:.08,yoyo:true,repeat:1}},{t0 + .34:.3f});'
-        f'tl.to("#{id_}",{{x:1500,y:-260,rotation:28,duration:.25,ease:"power3.in"}},{t1 - .25:.3f});')
+        f'tl.to("#{id_}",{{scale:.2,rotation:{rot + 25},opacity:0,duration:.25,ease:"power3.in"}},{t1 - .25:.3f});')
+    S.covers.append((t0, t1))
     S.sfx(t0, "whoosh", -6); S.sfx(t0 + .25, "blip", -8); S.sfx(t1 - .25, "rip", -8)
 
 
@@ -109,8 +110,8 @@ def src_chip(S, id_, t0, t1, txt, x=40, y=36, right=False):
 def flipsign(S, id_, t, txt0, txt1, x=80, y=60, w=620):
     S.add(f'<div id="{id_}" style="position:absolute;left:{x}px;top:{y}px;width:{w}px;height:120px;z-index:9;perspective:800px">'
           f'<div style="position:absolute;left:{w // 2 - 4}px;top:-80px;width:8px;height:80px;background:#333"></div>'
-          f'<div id="{id_}a" style="position:absolute;inset:0;border-radius:14px;background:#151a24;border:6px solid #0c1622;font:50px/108px InterBlack;color:#FFD166;text-align:center">{txt0}</div>'
-          f'<div id="{id_}b" style="position:absolute;inset:0;border-radius:14px;background:#151a24;border:6px solid #0c1622;font:50px/108px InterBlack;color:#ff8a8a;text-align:center;opacity:0">{txt1}</div></div>')
+          f'<div id="{id_}a" style="position:absolute;inset:0;border-radius:14px;background:#151a24;border:6px solid #0c1622;font:50px/108px InterBlack;color:#FFD166;text-align:center"><span class="settxt">{txt0}</span></div>'
+          f'<div id="{id_}b" style="position:absolute;inset:0;border-radius:14px;background:#151a24;border:6px solid #0c1622;font:50px/108px InterBlack;color:#ff8a8a;text-align:center;opacity:0"><span class="settxt">{txt1}</span></div></div>')
     S.j(f'tl.to("#{id_}a",{{rotationX:90,duration:.15,ease:"power2.in"}},{t:.3f});tl.set("#{id_}a",{{opacity:0}},{t + .15:.3f});'
         f'tl.fromTo("#{id_}b",{{rotationX:-90,opacity:1}},{{rotationX:0,duration:.25,ease:"back.out(2)",immediateRender:false}},{t + .15:.3f});')
     S.sfx(t, "flip", -6)
@@ -269,7 +270,7 @@ def s01():
     S.over(f'<div id="title" class="clip" data-start="{tB:.3f}" data-duration="{S.T - tB:.3f}" style="position:absolute;left:780px;right:40px;top:110px;text-align:center;z-index:85">'
            '<div style="font:120px/1 InterBlack;color:#FAF4E8;-webkit-text-stroke:7px #0c1622;paint-order:stroke fill;text-shadow:0 12px 0 rgba(0,0,0,.45)">DECEMBER:</div>'
            '<div style="font:156px/1 InterBlack;color:#ff3b3b;-webkit-text-stroke:8px #0c1622;paint-order:stroke fill;text-shadow:0 14px 0 rgba(0,0,0,.45)">CODE RED</div></div>')
-    S.j(f'tl.to(".settxt",{{opacity:0,duration:.1}},{tB:.3f});tl.fromTo("#title",{{scale:2.6,opacity:0}},{{scale:1,opacity:1,duration:.2,ease:"power4.in"}},{tB:.3f});')
+    S.hide_txt(tB, S.T); S.j(f'tl.fromTo("#title",{{scale:2.6,opacity:0}},{{scale:1,opacity:1,duration:.2,ease:"power4.in"}},{tB:.3f});')
     S.shake(tB + .2, .4, 22); S.sfx(tB + .18, "hit", -2)
     S.tr_out("whip")
     S.captions({"red": "#ff6b6b", "december": "#ff6b6b", "him": "#FFD166"})
@@ -299,7 +300,7 @@ def s02():
     S.photo("phS", "skyline", 0, tQP + .2, (1.0, 1.1), z=50, ox="62%", oy="40%")
     S.photo("phQ", "queens_park", tQP, tR + .2, (1.03, 1.12), z=51, ox="50%", oy="55%")
     S.tr_in("whip")
-    S.j(f'tl.to("#title",{{y:-520,opacity:0,duration:.3,ease:"power3.in"}},.75);')
+    S.j(f'tl.to("#title",{{scale:.6,opacity:0,duration:.25,ease:"power3.in"}},.6);')
     S.over(f'<div id="title" class="clip" data-start="0" data-duration="1.1" style="position:absolute;left:780px;right:40px;top:110px;text-align:center;z-index:85">'
            '<div style="font:120px/1 InterBlack;color:#FAF4E8;-webkit-text-stroke:7px #0c1622;paint-order:stroke fill;text-shadow:0 12px 0 rgba(0,0,0,.45)">DECEMBER:</div>'
            '<div style="font:156px/1 InterBlack;color:#ff3b3b;-webkit-text-stroke:8px #0c1622;paint-order:stroke fill;text-shadow:0 14px 0 rgba(0,0,0,.45)">CODE RED</div></div>')
@@ -357,7 +358,6 @@ def s03():
     for i, (n, title, art, num) in enumerate(cards):
         a = max(.2, l[n][0] - .05); b = min(l[n][1] + .2, a + 3.0)
         card(S, f"ic{n}", a, b, num, title, art, x=640, y=60, rot=(-3, 2, -2, 3)[i]); flicks.append(b - .3)
-        S.j(f'tl.to(".settxt",{{opacity:0,duration:.1}},{a:.3f});tl.to(".settxt",{{opacity:1,duration:.1}},{b:.3f});')
     S.cyto(420, 660, .56, expr=[(l[8][0] + 1.2, 1.0, "skeptic"), (l[10][0] + 1.2, 1.2, "shock"), (l[11][0], 1.0, "skeptic")],
            x_expr=[(l[7][0] + .8, 1.0, "deadpan"), (l[9][0] + 1.0, 1.5, "exhausted"), (l[12][0], 1.0, "worried")],
            shrugs=[(l[11][0] + .1, .7)], tilts=[(l[10][0] + 2.0, .8, -8)], sips=[(l[9][1] - .8, 1.0)])
@@ -437,6 +437,7 @@ def s06():
     S.add(X.desk("dk")); S.over(X.scoreboard("sb"))
     S.tr_in("cut")
     S.talk_off = {18, 19}
+    S.alt_scale = 1.1           # three ALARM guys on the right: keep the monologue re-frames gentle so their labels stay in frame
     S.j(f'document.querySelectorAll(".ctfan").forEach((f,i)=>tl.to(f,{{y:-10-(i%3)*4,duration:.22+(i%4)*.04,yoyo:true,repeat:{int(S.T / .22)},ease:"sine.inOut"}},(i%9)*.04));')
     l = {n: S.l(n) for n in range(14, 26)}
     dk0, dk1 = S.b("dunk"); sb0, sb1 = S.b("subbed")
@@ -472,12 +473,12 @@ def s06():
     S.over(f'<div id="slomo" class="pop clip" data-start="{dk0 + .2:.3f}" data-duration="{land - dk0 - .4:.3f}" style="left:60px;top:40px;padding:8px 22px;border-radius:14px;background:rgba(12,22,34,.85);font:44px InterBlack;color:#FFD166;z-index:67">SLOW-MO</div>')
     S.sfx(dk0 + .05, "shatter", -2); S.sfx(dk0 + .1, "crowd", -3); S.sfx(dk0, "slam", -2)
     # THE ALARM + its subs
-    S.add(K.wrap(X.alarm_guy("al", "defend"), "alW", 1320, 300, .74, z=19))
-    S.add(K.wrap(X.alarm_guy("al2", "defend"), "al2W", 1520, 330, .7, z=18))
-    S.add(K.wrap(X.alarm_guy("al3", "flex"), "al3W", 1080, 340, .68, z=17))
+    S.add(K.wrap(X.alarm_guy("al", "defend"), "alW", 1260, 300, .74, z=19))
+    S.add(K.wrap(X.alarm_guy("al2", "defend"), "al2W", 1470, 330, .7, z=18))
+    S.add(K.wrap(X.alarm_guy("al3", "flex"), "al3W", 1000, 340, .68, z=17))
     S.j(f'tl.fromTo(["#alglow","#al2glow","#al3glow"],{{opacity:.2}},{{opacity:.9,duration:.25,yoyo:true,repeat:{int(S.T / .25)},immediateRender:false}},0);'
         f'tl.to("#alW",{{x:900,duration:.4,ease:"power2.in"}},{r0:.3f});tl.to("#alW",{{x:0,duration:.6,ease:"power3.out"}},{sb0:.3f});'
-        f'tl.set(["#al2W","#al3W"],{{x:300,opacity:0}},0);tl.to("#al2W",{{x:0,opacity:1,duration:.35,ease:"back.out(1.4)"}},{S.w(23, "Again") - .1:.3f});tl.to("#al3W",{{x:0,opacity:1,duration:.35,ease:"back.out(1.4)"}},{S.w(23, "again", after=S.w(23, "Again") + .1) - .1:.3f});')
+        f'tl.set(["#al2W","#al3W"],{{y:-120,opacity:0}},0);tl.to("#al2W",{{y:0,opacity:1,duration:.35,ease:"bounce.out"}},{S.w(23, "Again") - .1:.3f});tl.to("#al3W",{{y:0,opacity:1,duration:.35,ease:"bounce.out"}},{S.w(23, "again", after=S.w(23, "Again") + .1) - .1:.3f});')
     for t in (sb0, S.w(23, "Again") - .1, S.w(23, "again", after=S.w(23, "Again") + .1) - .1):
         S.sfx(t, "siren_short", -10); S.sfx(t, "buzzer", -12)
     for t in (S.w(23, "phone") - .1, S.w(23, "Again") - .3, S.w(23, "again", after=S.w(23, "Again") + .1) - .3):
@@ -487,7 +488,7 @@ def s06():
     # sugar pass
     S.add(f'<div id="sugar" class="clip" data-start="{S.w(17, "sugar") - .2:.3f}" data-duration="{l[17][1] - S.w(17, "sugar") + .2:.3f}" style="position:absolute;left:0;top:0;width:120px;height:120px;z-index:22">'
           '<svg width="120" height="120"><rect x="10" y="10" width="100" height="100" rx="18" fill="#fff" stroke="#0c1622" stroke-width="7"/><text x="60" y="72" text-anchor="middle" font-family="InterBlack" font-size="26" fill="#0c1622">SUGAR</text></svg></div>')
-    S.j(f'tl.fromTo("#sugar",{{x:400,y:120,rotation:0}},{{x:1100,y:330,rotation:540,duration:{S.w(17, "paint") - S.w(17, "sugar") + .1:.3f},ease:"power1.in"}},{S.w(17, "sugar") - .2:.3f});')
+    S.j(f'tl.fromTo("#sugar",{{x:620,y:470,rotation:0}},{{x:1100,y:330,rotation:540,duration:{S.w(17, "paint") - S.w(17, "sugar") + .1:.3f},ease:"power1.in"}},{S.w(17, "sugar") - .2:.3f});')
     S.sfx(S.w(17, "paint"), "catch", -6)
     bubble(S, "bear", S.w(19, "bear") - .1, l[21][1] + .2, BEAR, 520, 270)
     S.over(f'<div id="bearX" class="pop clip" data-start="{S.w(21, "no"):.3f}" data-duration="{l[21][1] - S.w(21, "no") + .2:.3f}" style="left:600px;top:310px;font:220px/1 InterBlack;color:#e63946;-webkit-text-stroke:6px #0c1622">X</div>')
@@ -506,6 +507,7 @@ def s07():
     S.add('<div class="fill" style="z-index:5;background:linear-gradient(rgba(20,10,60,.55),rgba(10,5,30,.65))"></div>')
     S.add(X.layer("bench", BENCH, 6))
     S.tr_in("whip")
+    S.j(f'document.querySelectorAll(".ctfan").forEach((f,i)=>tl.to(f,{{y:-6-(i%3)*3,duration:.3+(i%4)*.05,yoyo:true,repeat:{int(S.T / .3)},ease:"sine.inOut"}},(i%9)*.05));')
     flipsign(S, "cd", .5, "12 DAYS TILL BREAK", "10 DAYS TILL BREAK", 650, 70)
     S.prop_in("#cd", .02, "drop", origin="50% 0%", sfx="clunk", amp=.6)
     S.parallax([("ctL1", .2), ("ctL2", .4), ("bench", .5)], 0, S.T, dx=-60)
@@ -584,7 +586,7 @@ def s09():
         f'tl.fromTo("#nrlamp",{{opacity:1}},{{opacity:.6,duration:.06,yoyo:true,repeat:5,immediateRender:false}},.7);')
     S.sfx(.1, "clunk", -10); S.sfx(0, "sax", -5)
     S.over(f'<div id="cct" class="clip" data-start="{.05:.3f}" data-duration="{l[33][1] + .3:.3f}" style="position:absolute;left:0;right:0;top:28px;height:150px;z-index:70;background:linear-gradient(rgba(0,0,0,.9),rgba(0,0,0,.75));text-align:center;font:104px/150px InterBlack;color:#f0f0f0">COLD CASE: 1991</div>')
-    S.j(f'tl.fromTo("#cct",{{clipPath:"inset(0 100% 0 0)"}},{{clipPath:"inset(0 0% 0 0)",duration:.8,ease:"steps(15)"}},.05);tl.to("#cct",{{y:-200,duration:.25,ease:"power2.in"}},{l[33][1] + .05:.3f});')
+    S.j(f'tl.fromTo("#cct",{{clipPath:"inset(0 100% 0 0)"}},{{clipPath:"inset(0 0% 0 0)",duration:.8,ease:"steps(15)"}},.05);tl.to("#cct",{{opacity:0,duration:.2}},{l[33][1] + .05:.3f});')
     S.sfx(.05, "typewriter", -8)
     S.char("neutro", "nt", 760, 210, .78, pose="notepad", who="NEUTRO", z=20, trench=True,
            poses=[(l[34][0], "idle"), (l[38][0] - .2, "point"), (si0, "idle"), (l[41][0], "cross")],
@@ -601,10 +603,11 @@ def s09():
     drops = "".join(f'<circle class="drp" cx="{x + 122}" cy="390" r="12" fill="#444" stroke="#000" stroke-width="3"/>' for x in (340, 740, 1140, 1540))
     hops = "".join(f'<g class="trh" transform="translate({x - 160} 640)">{TINYRH}</g>' for x in (340, 740, 1140, 1540))
     sneeze = "".join(f'<text class="snz" x="{x + 60}" y="610" font-family="InterBlack" font-size="44" fill="#111" opacity="0">ACHOO</text>' for x in (340, 740, 1140, 1540))
+    S.hide_txt(ra, rb)
     S.over(f'<div id="reel" class="clip" data-start="{ra:.3f}" data-duration="{rb - ra:.3f}" style="position:absolute;inset:0;z-index:45">'
            + reel("".join(SCI(x) for x in (340, 740, 1140, 1540)) + vols + drops + hops + sneeze
                   + '<text x="1820" y="140" text-anchor="end" font-family="InterBlack" font-size="34" fill="#111">REENACTMENT</text>') + '</div>')
-    S.j(f'tl.fromTo("#reel",{{x:1920}},{{x:0,duration:.25,ease:"power3.out"}},{ra:.3f});tl.to("#reel",{{x:-1920,duration:.22,ease:"power3.in"}},{rb - .22:.3f});'
+    S.j(f'tl.fromTo("#reel",{{opacity:0,scale:1.04}},{{opacity:1,scale:1,duration:.18,ease:"power3.out"}},{ra:.3f});tl.to("#reel",{{opacity:0,scale:.96,duration:.2}},{rb - .2:.3f});'
         f'document.querySelectorAll("#reel .drp").forEach((e,i)=>tl.fromTo(e,{{y:0,opacity:1}},{{y:270,opacity:.3,duration:.45,ease:"power2.in",repeat:4,repeatDelay:.35,immediateRender:false}},{ra + .3:.3f}+i*.12));'
         f'document.querySelectorAll("#reel .trh").forEach((e,i)=>tl.fromTo(e,{{x:0,y:0,opacity:1,scale:1}},{{keyframes:[{{x:80,y:-120,duration:.25,ease:"power2.out"}},{{x:160,y:-40,scale:.4,duration:.25,ease:"power2.in"}},{{opacity:0,duration:.05}}],immediateRender:false}},{re0 + .1:.3f}+i*.2));'
         f'document.querySelectorAll("#reel .volB").forEach((e,i)=>tl.fromTo(e,{{scaleY:1,scaleX:1}},{{keyframes:[{{scaleY:.85,scaleX:1.12,duration:.1}},{{scaleY:1.1,scaleX:.92,duration:.1}},{{scaleY:1,scaleX:1,duration:.15}}],immediateRender:false}},{re1 + .2:.3f}+i*.25));'
@@ -681,7 +684,7 @@ def s10():
         S.over(f'<div id="bz{int(t * 10)}" class="pop clip" data-start="{t - .22:.3f}" data-duration=".4" style="left:{int(cx - 330)}px;top:400px;z-index:73;font:46px InterBlack;color:#e8ffe8;text-shadow:0 0 8px #000">BZZT</div>')
         S.sfx(t - .22, "buzz", -6)
     S.sfx(c0, "static", -12)
-    S.j(f'tl.to(".settxt",{{opacity:0,duration:.05}},{c0 - .05:.3f});tl.to(".settxt",{{opacity:1,duration:.1}},{c1:.3f});')
+    S.hide_txt(c0 - .05, c1)
     S.snapzoom(c1 + .05, 1.15, l[45][1] - c1, 560, 600, .2)
     S.snapzoom(l[46][0] + .02, 1.15, .8, 1530, 500, .2)
     S.sfx(l[47][0] + .2, "sting", -8)
@@ -787,7 +790,8 @@ def s13():
            f'<svg style="position:absolute;left:40px;top:80px" width="920" height="240"><g transform="translate(20 20)">{SNEAKER}</g><text x="240" y="90" font-family="InterBlack" font-size="80" fill="#e63946">=</text>'
            f'<g transform="translate(340 10)">{MEDIT}</g><text x="560" y="90" font-family="InterBlack" font-size="80" fill="#e63946">=</text><g transform="translate(660 20)">{WIND}</g>'
            f'<text x="90" y="200" text-anchor="middle" font-family="InterBlack" font-size="30" fill="#0c1622">EXERCISE</text><text x="420" y="200" text-anchor="middle" font-family="InterBlack" font-size="30" fill="#0c1622">MEDITATION</text><text x="740" y="200" text-anchor="middle" font-family="InterBlack" font-size="30" fill="#0c1622">SLOW BREATHING</text></svg></div>')
-    S.j(f'tl.fromTo("#tri",{{y:-60,opacity:0}},{{y:0,opacity:1,duration:.3,ease:"back.out(1.4)"}},{tc0:.3f});tl.to(".settxt",{{opacity:0,duration:.1}},{tc0:.3f});tl.to(".settxt",{{opacity:1,duration:.1}},{tc1:.3f});')
+    S.j(f'tl.fromTo("#tri",{{y:-60,opacity:0}},{{y:0,opacity:1,duration:.3,ease:"back.out(1.4)"}},{tc0:.3f});')
+    S.hide_txt(tc0, tc1)
     src_chip(S, "src5", tc0 + .3, tc1, "VAN DER ZWAN ET AL. 2015", 40, 36)
     S.popup("pk", tc1 + .05, l[53][1] + .3, "", "PICK WHAT YOU'LL ACTUALLY DO", "#8ce2d6", 1000, 110, 760)
     S.sfx(S.w(53, "Cheat") - .1, "levelup", -6); S.sfx(l[55][0], "coin", -6)
@@ -902,6 +906,7 @@ def s16():
     S.j(f'tl.fromTo("#tkt",{{scale:2.4,opacity:0}},{{scale:1,opacity:1,duration:.1,ease:"power4.in"}},{l[61][1] - .12:.3f});'
         f'tl.fromTo("#rh",{{scaleY:1,scaleX:1}},{{scaleY:.82,scaleX:1.14,duration:.06,yoyo:true,repeat:1,svgOrigin:"200 400",immediateRender:false}},{l[61][1] - .02:.3f});')
     S.sfx(l[61][1] - .02, "slap", 0)
+    S.hide_txt(ac0 - .05, t62 + .05)
     # ---- ACHOO cutaway (inside the camera so the shake / snap zoom hit it)
     nd = "".join(X.nose_door("nd"))
     S.add(f'<div id="ach" class="clip" data-start="{ac0:.3f}" data-duration="{t62 - ac0:.3f}" style="position:absolute;inset:0;z-index:60;overflow:hidden">{nd}'
@@ -972,7 +977,7 @@ def s17():
            poses=[(S.w(66, "sources") - .1, "point"), (S.w(66, "sources") + 1.0, "cross")])
     # sources band (right, own zone), NOT MEDICAL ADVICE, then the photo credit
     s0 = l[64][0]; items = SOURCES + [PHOTO_CREDIT]; per = (e0 - s0) / len(items)
-    S.j(f'tl.to(".settxt",{{opacity:0,duration:.1}},{s0 - .1:.3f});')
+    S.hide_txt(s0 - .2, S.T)
     S.over(f'<div id="srcband" class="clip" data-start="{s0 - .15:.3f}" data-duration="{e0 - s0 + .15:.3f}" style="position:absolute;left:1260px;top:150px;width:620px;height:720px;z-index:61;border-radius:26px;background:rgba(12,22,34,.9);border:6px solid #FAF4E8"></div>')
     S.j(f'tl.fromTo("#srcband",{{x:700}},{{x:0,duration:.3,ease:"back.out(1.4)"}},{s0 - .15:.3f});')
     for i, (a, b) in enumerate(items):

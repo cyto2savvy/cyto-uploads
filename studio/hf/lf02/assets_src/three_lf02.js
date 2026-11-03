@@ -108,7 +108,7 @@
       cam.position.set(-8.0 + 1.5 * k, 8.6, 37 - 4 * k); cam.lookAt(-7.4 + 1.2 * k, 7.6, 0);
       const ph = (t % per) / per;
       const b = Math.max(ph < 0.14 ? Math.sin(ph / 0.14 * Math.PI) : 0, ph > 0.2 && ph < 0.32 ? 0.6 * Math.sin((ph - 0.2) / 0.12 * Math.PI) : 0);
-      H.scale.set(1 + 0.13 * b, 1 - 0.09 * b + 0.03 * (1 - b), 1 + 0.13 * b);
+      H.scale.set(1 + 0.13 * b, 1 - 0.09 * b + 0.03 * (1 - b), 1 + 0.13 * b); H.rotation.y = 0.28 * Math.sin(t * 0.9); H.position.y = 6.2 + 0.25 * Math.sin(t * 1.3);
       r.render(sc, cam);
     } };
   }
