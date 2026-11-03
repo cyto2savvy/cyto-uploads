@@ -1,5 +1,5 @@
 # LF02 — "What Stress Does to Your Body (December Edition)"
-Publish: Sun Dec 6 2026, 6:00 PM ET. Target ~6:00-6:30. FORMAT v2: cartoon EPISODE (see studio/LF_FORMAT_V2.md + studio/episodes/lf02/characters.md).
+Publish: Sun Dec 6 2026, 6:00 PM ET. Target ~5:30. FORMAT v2: cartoon EPISODE (see studio/LF_FORMAT_V2.md + studio/episodes/lf02/characters.md).
 Title (<60): "What Stress Does to Your Body (December Edition)" (48)   alt: "Your Body Is Panicking This December. Here's Why" (48)
 Thumbnail: Cyto mid-panic pulling a giant red ALARM lever, Neutro (officer) facepalming, Rhino sneaking behind; text "CODE RED".
 
@@ -30,16 +30,25 @@ NEUTRO: Incident four. Your auntie asked what you're doing with your life.
 CYTO: Bro, that's personal.
 NEUTRO: It's in the report.
 
-[1:05 — the alarm signal zips from Queen's Park down to two glowing condos on top of the kidneys]
-CYTO: Here's what actually happens. Your brain sees stress and hits the alarm. The signal runs down to your adrenal glands, little condos sitting right on top of your kidneys. And they start pumping out stress hormones, like adrenaline and cortisol.
-CYTO: Heart rate goes up. Breathing speeds up. And sugar gets dumped into your blood for quick energy.
-[Mito bursts in dribbling a glowing sugar ball, red jersey, headband]
-MITO: WYS FAM! Sugar's flowing! I'm HIM! I'm HIM!
-[Mito dunks on a tiny hoop. The backboard shatters. Slow-mo.]
-CYTO: Your body's getting ready to fight or run. This system was built for running from a bear.
+[1:05 — SCENE: "MITO vs. THE ALARM". The alarm signal zips from Queen's Park down to two glowing 3D condos on top of the kidneys. Cut to a streetball court inside the body. Mito in his red #6 jersey vs THE ALARM: a big red siren-headed baller (no voice, only siren SFX). Cyto at a courtside desk with a headset, play-by-play announcer energy.]
+CYTO: Welcome to the pickup game nobody asked for! Your brain saw stress and hit the alarm. The signal runs down to your adrenal glands, these little condos sitting right on top of your kidneys. And they start pumping out stress hormones, like adrenaline and cortisol.
+[Adrenal condos fire hormone "basketballs" onto the court]
+MITO: Waaah you sayinnn, fam! Let's run it!
+CYTO: Adrenaline checks in! Heart rate going UP!
+[Heart icon on the scoreboard thumps faster]
+CYTO: Breathing going UP!
+[Mito's breathing meter jumps]
+CYTO: And sugar gets dumped into the blood for quick energy. Mito catches it in the paint…
+MITO: I'm HIM! I'm HIM!
+[Mito dunks. Backboard shatters. Slow-mo. Crowd SFX.]
+CYTO: Your whole body is getting ready to fight or run. This system was built for running from a bear.
 MITO: Where's the bear?
 CYTO: There's no bear. It's a group chat.
 MITO: …Then why am I warming up?
+[The Alarm checks in again. And again. Mito keeps sprinting back on defence.]
+CYTO: And every time the phone buzzes, the alarm checks back in. Again. And again.
+MITO: Bro, who keeps subbing him in?!
+CYTO: Hold that thought.
 
 [ACT 2 — IT DRAGS ON 2:00 — countdown sign flips: "10 DAYS TILL BREAK". Lighting goes moodier, the alarm keeps looping.]
 CYTO: Now, a little stress? Normal. Useful, even. But days and days of it? That's where it gets weird.
@@ -53,14 +62,22 @@ NEUTRO: Suspicious crumb.
 CYTO: See? Security's distracted. And you know who loves a distracted officer?
 [Rhino at the front door (the nose), sunglasses, black hoodie, ducks under laser beams like a heist movie]
 
-[2:45 — "BRO WHAT" BEAT: silence, then screen shake + snap zoom on Cyto]
-CYTO: Peep this. Back in 1991, scientists did something wild. They dripped cold viruses into almost four hundred people's noses. On purpose. Then they watched who got sick.
-CYTO: The more stressed people were, the more of them got infected. About seventy-four percent at the low end, about ninety at the top. And actual colds went from about twenty-seven percent to forty-seven.
+[3:00 — SCENE: "COLD CASE: 1991". Film-noir mode: black-and-white, rain on the window, sax sting. Neutro in a trench coat over his uniform, at a desk with a case file. Rhino appears in old grainy case photos.]
+NEUTRO: Case file. Nineteen ninety-one.
+NEUTRO: Scientists took almost four hundred volunteers. Measured how stressed they were. Then they dripped cold viruses into their noses.
+CYTO: On PURPOSE?
+NEUTRO: On purpose.
+[Reenactment: cartoon scientists with eye-droppers, volunteers in a row, viruses (tiny Rhinos) dropping in]
+NEUTRO: Then they waited. Watched who got sick.
+NEUTRO: Low stress. About seventy-four percent infected. High stress. About ninety.
+NEUTRO: Actual colds. Twenty-seven percent… up to forty-seven.
+[Silence. Screen shake + snap zoom on Cyto]
 CYTO: Bro, WHAT.
-NEUTRO: Tracks.
-CYTO: So you know how you finally get a break and then you get sick right away? Yeah. That might be why.
+NEUTRO: Case closed.
+CYTO: So you know how you finally get a break and then you get sick right away? Yeah. Stress might be the reason.
+[Colour snaps back. Rhino in the present, peeking from behind a pillar, smirks.]
 
-[3:25 — THE TWIST. The alarm is STILL going.]
+[3:50 — THE TWIST. The alarm is STILL going.]
 NEUTRO: Alarm's still going. Somebody keeps pulling it.
 CYTO: Who?
 [Security-cam footage, grainy: Cyto on his phone, every notification he yanks the alarm lever without noticing]
