@@ -14,7 +14,7 @@ Chapters (YouTube): 0:00 The Countdown | 0:45 What's in the smoke | 1:50 First h
 
 ## SCRIPT
 [0:00 HOOK] Twenty minutes. That's how long after your last smoke your heart rate starts dropping. Stick with me seven minutes and I'll walk you through hour twelve, week four, year one, and year fifteen. Plus the one trigger that makes people slip.
-[0:12] Yo, it's ya boy Cyto, live from the 6ix… inside your body. Today's countdown: what happens when the smoke stops. Cigarettes, weed, and grabba. No judgment, fam. Also, one month on the channel today. Big love. Not medical advice, talk to your doctor.
+[0:12] Yo, it's ya boy Cyto, live from the 6ix… inside your body. Today's countdown: what happens when the smoke stops. Cigarettes, weed, and grabba. No judgment, fam. And shout-out: today is the channel's one-month anniversary. One month of the 6ix, inside your body. Big love to everybody who's been watching. Not medical advice, talk to your doctor.
 
 [CH1 0:45 WHAT'S IN THE SMOKE] Quick biology. Any smoke means heat plus tiny particles hitting your lungs. That's Neutro's turf, my security guard, patrolling the airways in the Don Valley of the body. All that smoke wears him out.
 Weed smoke and tobacco smoke aren't the same. A review in the Annals of the American Thoracic Society says regular weed smoking is linked to bronchitis symptoms that ease after you stop, with far lower lung risk than tobacco.
