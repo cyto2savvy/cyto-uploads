@@ -9,7 +9,13 @@ HAVE lf02_cyto1.mp3
 HAVE lf02_cyto2.mp3
 HAVE lf02_neutro.mp3
 HAVE lf02_mito.mp3
-OK lf02_words_cyto1.json
-OK lf02_words_cyto2.json
-OK lf02_words_neutro.json
-OK lf02_words_mito.json
+HAVE lf02_words_cyto1.json
+HAVE lf02_words_cyto2.json
+HAVE lf02_words_neutro.json
+HAVE lf02_words_mito.json
+OK lf02_sfx_siren.mp3
+OK lf02_sfx_crowd.mp3
+OK lf02_sfx_shatter.mp3
+OK lf02_sfx_sax.mp3
+OK lf02_sfx_achoo.mp3
+OK lf02_sfx_chirp.mp3
