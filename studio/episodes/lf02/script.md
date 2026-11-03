@@ -1,11 +1,11 @@
-# LF02 — "7 Days Till Christmas: What Holiday Stress Does to Your Body" (Part 1 of 2)
-Publish: Fri Dec 18 2026. Target ~6:30. FORMAT: cartoon EPISODE with a plot, not narration over diagrams.
-Title (<60): "What Holiday Stress Does to Your Body (7 Days to Xmas)" (53)  alt: "Your Body Is Panicking Before Christmas. Here's Why" (51)
-Thumbnail idea: Cyto mid-panic, brain alarm flashing red, countdown "7 DAYS", Rhino the cold virus sneaking behind him. 3 words max: "CODE RED".
+# LF02 — "What Stress Does to Your Body (December Edition)"
+Publish: Sun Dec 6 2026 (exam season + holiday rush). Christmas episode parked for later. Target ~6:30. FORMAT: cartoon EPISODE with a plot, not narration over diagrams.
+Title (<60): "What Stress Does to Your Body (December Edition)" (48)  alt: "Your Body Is Panicking This December. Here's Why" (48)
+Thumbnail idea: Cyto mid-panic, brain alarm flashing red, countdown "2 WEEKS TILL BREAK", Rhino the cold virus sneaking behind him. 3 words max: "CODE RED".
 Cast: CYTO (narrator/lead, Toronto slang), NEUTRO (neutrophil bouncer, deadpan, few words), MITO (tired mitochondria, gym energy; cameo at end). RHINO = cold-virus villain, NEVER speaks (mime + SFX, sneaky cartoon energy).
 Body = Toronto: Brain = Queen's Park (alarm HQ). Adrenal glands = condos on top of the kidneys. Heart = downtown/Union. Lungs = Don Valley. Nose = the front door.
-Plot: The stress alarm won't stop. Cyto has 7 days to calm the body before Christmas, while Rhino tries to sneak in during the chaos.
-Running gags: countdown clock "DAYS TILL XMAS"; Rhino sneaking in the background of every act; Neutro's one-word answers.
+Plot: The stress alarm won't stop. Cyto has to calm the body before the break, while Rhino tries to sneak in during the chaos.
+Running gags: countdown clock "DAYS TILL BREAK"; Rhino sneaking in the background of every act; Neutro's one-word answers.
 
 ## SCRIPT (speaker tags = voice; [ ] = visual/SFX direction for the builder)
 
@@ -13,12 +13,12 @@ Running gags: countdown clock "DAYS TILL XMAS"; Rhino sneaking in the background
 CYTO: Bro, WHAT is that noise?
 NEUTRO: Code red.
 CYTO: Code red for what? Nobody's even sick!
-NEUTRO: Seven days till Christmas.
+NEUTRO: December.
 CYTO: …Oh. Oh no.
-[Rhino tiptoes behind them, waves at camera, ducks out. Title card slams: "7 DAYS TILL CHRISTMAS"]
+[Rhino tiptoes behind them, waves at camera, ducks out. Title card slams: "DECEMBER: CODE RED"]
 
 [INTRO 0:15]
-CYTO: Yo, it's ya boy Cyto, live from the six… inside your body. And right now, your body is lowkey panicking. Today we find out why, what it's doing to you, and the cheat codes to shut that alarm off before Christmas. Not medical advice, just your boy and some science.
+CYTO: Yo, it's ya boy Cyto, live from the six… inside your body. And right now, your body is lowkey panicking. Today we find out why, what it's doing to you, and the cheat codes to shut that alarm off before the break. Not medical advice, just your boy and some science.
 
 [ACT 1 — THE TRIGGERS 0:40 — rapid-fire montage, each trigger slams in with a whoosh + alarm blip]
 CYTO: So what pulled the alarm? Let's see. Exams. Secret Santa group chat with forty people and a twenty-dollar limit. The mall, packed like the Line 1 at rush hour. Your auntie asking "so what are you doing with your life?" Your bank account seeing the receipts.
@@ -34,7 +34,7 @@ CYTO: A group chat, bro.
 NEUTRO: …
 CYTO: Yeah. This system was built for running from a bear, not for picking a gift for someone you've talked to twice.
 
-[ACT 2 — THE TWIST 1:50 — countdown flips: 5 DAYS. Lighting gets moodier.]
+[ACT 2 — THE TWIST 1:50 — countdown flips: 10 DAYS TILL BREAK. Lighting gets moodier.]
 CYTO: Now, a little stress? That's normal. It's actually useful. But a full week of it? That's where it gets weird.
 CYTO: Cortisol is supposed to tell your immune system, "aight, calm down." But researchers at Carnegie Mellon found that when stress drags on, immune cells can stop listening to that signal. So inflammation doesn't get shut down properly.
 [Neutro twitching, jumping at every noise, overreacting to a crumb]
@@ -51,7 +51,7 @@ CYTO: Bro, WHAT.
 NEUTRO: That tracks.
 CYTO: So ever notice how you finally get a break and then you get sick right away? Yeah. No wonder.
 
-[3:25 — Heart / downtown. Countdown: 3 DAYS.]
+[3:25 — Heart / downtown. Countdown: 5 DAYS TILL BREAK.]
 CYTO: And it's not just your nose. Some studies have even found more heart attacks around Christmas and New Year's. Not every study, to be fair. But scientists think holiday stress, giant meals, salt, alcohol, and people waiting too long to get help could all play a part.
 CYTO: So real talk: if somebody has chest pain over the holidays, don't wait till after dinner. Call nine one one.
 NEUTRO: Facts.
@@ -72,14 +72,14 @@ CYTO: Exactly. Alarm's off. Security's focused.
 [Neutro spots Rhino mid-sneak. Rhino freezes. Neutro cracks knuckles.]
 NEUTRO: Not on my watch.
 [Neutro tosses Rhino out the front door (sneeze SFX: "ACHOO"). Cyto raises cup.]
-CYTO: And THAT'S how you stay healthy for Christmas.
+CYTO: And THAT'S how you make it to the break healthy.
 
-[OUTRO / CLIFFHANGER 5:35 — countdown: 1 DAY. Mito stumbles in, sniffing the air.]
-MITO: Yo… yo… is that… turkey?
-CYTO: Oh no. Mito, chill.
+[OUTRO / CLIFFHANGER 5:35 — countdown: BREAK STARTS. Mito stumbles in, sniffing the air.]
+MITO: Yo… yo… is that… holiday food?
+CYTO: Oh no. Mito, chill. That's a Christmas problem.
 MITO: Fuel. FUEL!
-CYTO: Next week on the channel: Christmas dinner, hour by hour. What one giant plate does to your body. Your body is NOT ready.
-CYTO: Comment what's stressing you out the most this December, I read them all. Like, subscribe, sources on screen and in the description. Not medical advice. Seven days till Christmas, fam… breathe.
+CYTO: We'll deal with that one later. Your body is NOT ready.
+CYTO: Comment what's stressing you out the most this December, I read them all. Like, subscribe, sources on screen and in the description. Not medical advice. December's a lot, fam… breathe.
 [Freeze on the countdown clock = loop back to the cold open alarm]
 
 ## CLAIMS -> SOURCES (According to PubMed; DOI links)
