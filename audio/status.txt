@@ -4,4 +4,4 @@ HAVE ep12_sfx_whoosh.mp3
 HAVE ep12_sfx_pop.mp3
 HAVE ep12_sfx_hit.mp3
 HAVE ep12_sfx_chime.mp3
-OK ep13_raw.mp3
+HAVE ep13_raw.mp3
