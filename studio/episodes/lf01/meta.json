@@ -23,10 +23,11 @@
  "health": true,
  "duration_s": 328.4,
  "thumbnails": [
+  "thumb-lf01-C.png",
   "thumb-lf01-A.png",
   "thumb-lf01-B.png"
  ],
- "thumbnail_pick": "thumb-lf01-A.png",
+ "thumbnail_pick": "thumb-lf01-C.png",
  "captions_srt": "captions.srt",
  "playlist": "Cyto Long-Form",
  "related_video": "Ep 13: Meet Neutro: Your Flu Season Bouncer",
@@ -46,5 +47,6 @@
   "3:21": "Cyto's tips",
   "4:53": "The 6ix tour + sources"
  },
- "resolution": "1920x1080"
+ "resolution": "1920x1080",
+ "thumbnail_note": "C = before/after split (DAY 1 damaged lungs -> 1 YEAR healthy lungs), shocked Cyto, Neutro flexing. Use C, A, B in Test & Compare."
 }
