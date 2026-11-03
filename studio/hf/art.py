@@ -516,3 +516,122 @@ def awareness_ribbon(cx, cy, s=1.0, fill="#4f86ff", hole="#1e56ac"):
     """Generic awareness ribbon (loop + two tails). No logo."""
     return (f'<g transform="translate({cx},{cy}) scale({s})"><path d="M0 -34 C-28 -34 -26 0 -2 20 L-22 50 L-8 56 L4 34 L16 56 L30 50 L10 20 C26 0 28 -34 0 -34Z" '
             f'fill="{fill}" stroke="{INK}" stroke-width="5" stroke-linejoin="round"/><path d="M0 -20 C-10 -20 -10 -4 2 6 C12 -4 10 -20 0 -20Z" fill="{hole}"/></g>')
+
+
+# ---------------------------------------------------------------- Ep 13 (Neutro vs the flu)
+def union_station(W, base, idp="us"):
+    """Union Station front, flat: long colonnade of tall columns under a heavy cornice, three arched entry doors
+    (the 'airway entrance'), steps, Front St sidewalk. Carved band reads UNION (place name, no logo). ids: {idp}Doors."""
+    top = base - 760
+    cols = "".join(f'<rect x="{x}" y="{top + 190}" width="46" height="460" fill="#d9cdb2" stroke="{INK}" stroke-width="5"/>'
+                   f'<rect x="{x - 8}" y="{top + 176}" width="62" height="22" fill="#cbbd9e" stroke="{INK}" stroke-width="4"/>'
+                   f'<rect x="{x - 8}" y="{top + 642}" width="62" height="20" fill="#cbbd9e" stroke="{INK}" stroke-width="4"/>' for x in range(40, W, 108))
+    doors = "".join(f'<path d="M{x} {base - 40} V{base - 230} Q{x + 60} {base - 300} {x + 120} {base - 230} V{base - 40}Z" fill="#ffd98a" stroke="{INK}" stroke-width="6"/>'
+                    f'<path d="M{x + 60} {base - 40} V{base - 262}" stroke="{INK}" stroke-width="5"/>' for x in (250, 480, 710))
+    return f'''<g id="{idp}">
+ <rect x="0" y="{top}" width="{W}" height="{base - top}" fill="#c9b994" stroke="{INK}" stroke-width="6"/>
+ <rect x="-10" y="{top}" width="{W + 20}" height="120" fill="#bfae86" stroke="{INK}" stroke-width="6"/>
+ <rect x="-10" y="{top + 120}" width="{W + 20}" height="56" fill="#d9cdb2" stroke="{INK}" stroke-width="5"/>
+ <text x="{W / 2:.0f}" y="{top + 86}" text-anchor="middle" font-family="InterBlack" font-size="64" fill="#8a7a58" letter-spacing="22">UNION</text>
+ <rect x="0" y="{top + 196}" width="{W}" height="{base - top - 236}" fill="#3a3326"/>
+ <g id="{idp}Doors">{doors}</g>{cols}
+ <rect x="-10" y="{base - 40}" width="{W + 20}" height="22" fill="#b3a582" stroke="{INK}" stroke-width="5"/>
+ <rect x="-10" y="{base - 18}" width="{W + 20}" height="22" fill="#a49572" stroke="{INK}" stroke-width="5"/>
+ <rect x="-10" y="{base + 4}" width="{W + 20}" height="600" fill="#6b7383"/>
+</g>'''
+
+
+def raccoon(x, y, s=1.0, idp="rc"):
+    """Little Toronto raccoon, sitting, facing right. (x,y) = bottom centre. Tail id {idp}Tail."""
+    return f'''<g transform="translate({x},{y}) scale({s})"><g id="{idp}">
+ <g id="{idp}Tail"><path d="M-40 -20 Q-110 -30 -100 -90 Q-70 -60 -36 -48Z" fill="#8a8f99" stroke="{INK}" stroke-width="5"/>
+  <path d="M-92 -70 L-74 -56 M-84 -40 L-64 -40" stroke="{INK}" stroke-width="8"/></g>
+ <ellipse cx="0" cy="-50" rx="48" ry="52" fill="#9aa0aa" stroke="{INK}" stroke-width="5"/>
+ <circle cx="18" cy="-118" r="40" fill="#a8aeb8" stroke="{INK}" stroke-width="5"/>
+ <path d="M-8 -150 L-2 -176 L14 -156Z M30 -156 L44 -174 L48 -148Z" fill="#7d838d" stroke="{INK}" stroke-width="4"/>
+ <path d="M-14 -126 Q18 -142 54 -124 Q52 -106 18 -110 Q-12 -106 -14 -126Z" fill="{INK}"/>
+ <circle cx="6" cy="-122" r="6" fill="#fff"/><circle cx="36" cy="-122" r="6" fill="#fff"/>
+ <ellipse cx="52" cy="-102" rx="9" ry="7" fill="{INK}"/>
+</g></g>'''
+
+
+def go_train(x, y, s=1.0, cars=4, idp="go"):
+    """Generic GO-style bi-level commuter train, side view (white with green band, no logo), top-left (x,y)."""
+    out = []
+    for k in range(cars):
+        cx = x + k * 520 * s
+        out.append(f'<path d="M{cx} {y + 40 * s:.0f} Q{cx} {y} {cx + 40 * s:.0f} {y} H{cx + 470 * s:.0f} Q{cx + 510 * s:.0f} {y} {cx + 510 * s:.0f} {y + 40 * s:.0f} V{y + 200 * s:.0f} H{cx}Z" fill="#f2f2ec" stroke="{INK}" stroke-width="{6 * s:.0f}"/>'
+                   f'<rect x="{cx}" y="{y + 150 * s:.0f}" width="{510 * s:.0f}" height="{30 * s:.0f}" fill="#2f8f4e"/>'
+                   + "".join(f'<rect x="{cx + (30 + j * 80) * s:.0f}" y="{y + r * s:.0f}" width="{56 * s:.0f}" height="{40 * s:.0f}" rx="{6 * s:.0f}" fill="#33415a" stroke="{INK}" stroke-width="{3 * s:.0f}"/>' for j in range(6) for r in (30, 92)))
+    return f'<g id="{idp}">{"".join(out)}</g>'
+
+
+def queen_snow(W, H, idp="qs"):
+    """Snowy Queen St East, flat: grey sky, low-rise brick shops, a raised rail corridor with a GO train
+    ({idp}Go) crossing behind, snowbanks, road with streetcar tracks (the 'thin line'). Snow drift id {idp}Banks."""
+    rnd = random.Random(31)
+    shops = "".join(f'<rect x="{x}" y="{560 - h}" width="{w}" height="{h + 300}" fill="{c}" stroke="{INK}" stroke-width="5"/>'
+                    f'<rect x="{x + 18}" y="{660}" width="{w - 36}" height="110" fill="#ffe7a3" stroke="{INK}" stroke-width="4"/>'
+                    + "".join(f'<rect x="{x + 22 + k * 52}" y="{590 - h + 40}" width="34" height="46" fill="#fff4c8" stroke="{INK}" stroke-width="3"/>' for k in range(max(1, (w - 30) // 52)))
+                    for x, w, h, c in [(-20, 220, 120, "#9a4f3c"), (200, 180, 160, "#b5674a"), (380, 240, 100, "#7e4a3a"), (620, 200, 150, "#a3593f"), (820, 280, 130, "#8c4e3c")])
+    flakes = "".join(f'<circle cx="{rnd.uniform(0, W):.0f}" cy="{rnd.uniform(260, 1500):.0f}" r="{rnd.uniform(3, 7):.0f}" fill="#fff" opacity=".7"/>' for _ in range(40))
+    return f'''<g id="{idp}">
+ <rect x="0" y="0" width="{W}" height="{H}" fill="#aab4c4"/>
+ <rect x="-10" y="300" width="{W + 20}" height="120" fill="#7a8292" stroke="{INK}" stroke-width="5"/>
+ <g id="{idp}Go">{go_train(0, 190, .55, 5)}</g>
+ <path d="M-10 404 H{W + 10}" stroke="{INK}" stroke-width="8"/>
+ {shops}
+ <rect x="-10" y="860" width="{W + 20}" height="{H - 860}" fill="#5d6574"/>
+ <path id="{idp}Banks" d="M-10 880 Q120 840 260 878 Q420 846 560 880 Q740 842 900 878 Q1000 852 1090 870 V900 H-10Z" fill="#f4f6fa" stroke="{INK}" stroke-width="5"/>
+ <path d="M-10 1180 H{W + 10} M-10 1240 H{W + 10}" stroke="#2c323e" stroke-width="10"/>
+ <path d="M-10 1180 H{W + 10} M-10 1240 H{W + 10}" stroke="#a7afbd" stroke-width="4"/>
+ {flakes}
+</g>'''
+
+
+def pharmacy_nps(W, H, idp="ph", py=0, shop=True):
+    """Nathan Phillips Square at dusk (city_hall + rink with skaters + arches) seen past a generic corner pharmacy
+    window: green cross, 'FLU SHOTS' sign in the glass (no brand). ids: {idp}Sign, {idp}Skaters (class 'sk')."""
+    sk = "".join(f'<g class="sk" transform="translate({x},{1000})"><circle cx="0" cy="-58" r="14" fill="{c}" stroke="{INK}" stroke-width="4"/>'
+                 f'<path d="M0 -44 V-14 M0 -14 L-12 6 M0 -14 L14 4 M0 -36 L-16 -24 M0 -36 L18 -28" stroke="{INK}" stroke-width="7" stroke-linecap="round"/></g>'
+                 for x, c in ((470, "#FF7A59"), (640, "#4f86ff"), (820, "#FFD166"), (960, "#5AE68C")))
+    return f'''<g id="{idp}">
+ <rect x="0" y="0" width="{W}" height="{H}" fill="url(#{idp}Sky)"/>
+ <defs><linearGradient id="{idp}Sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b3566"/><stop offset=".5" stroke-color="#6a5a8a" stop-color="#7a6a96"/><stop offset="1" stop-color="#e3a07a"/></linearGradient></defs>
+ <g transform="translate(160,0)">{city_hall(560, 900, .78)}</g>
+ <rect x="380" y="900" width="{W - 380}" height="140" fill="#cfe6f2" stroke="{INK}" stroke-width="5"/>
+ <g id="{idp}Skaters">{sk}</g>
+ <rect x="-10" y="1040" width="{W + 20}" height="{H - 1040}" fill="#4d5566"/>
+ <g transform="translate(0,{py})" display="{'inline' if shop else 'none'}"><rect x="0" y="180" width="400" height="1100" fill="#e8e2d2" stroke="{INK}" stroke-width="6"/>
+ <rect x="30" y="300" width="340" height="560" rx="10" fill="#bfe0ee" stroke="{INK}" stroke-width="6"/>
+ <path d="M30 300 L370 600 M120 300 L370 520" stroke="#fff" stroke-width="10" opacity=".35"/>
+ <g transform="translate(200,240)"><rect x="-90" y="-40" width="180" height="70" rx="12" fill="#fff" stroke="{INK}" stroke-width="5"/>
+  <path d="M-14 -30 H14 V-12 H32 V16 H14 V34 H-14 V16 H-32 V-12 H-14Z" transform="scale(.8)" fill="#2fa36b" stroke="{INK}" stroke-width="4"/></g>
+ <g id="{idp}Sign"><rect x="66" y="380" width="268" height="150" rx="14" fill="#FAF4E8" stroke="#2fa36b" stroke-width="8"/>
+  <text x="200" y="448" text-anchor="middle" font-family="InterBlack" font-size="44" fill="#2fa36b">FLU</text>
+  <text x="200" y="500" text-anchor="middle" font-family="InterBlack" font-size="44" fill="#2fa36b">SHOTS</text></g>
+ <rect x="30" y="860" width="340" height="40" fill="#2fa36b" stroke="{INK}" stroke-width="5"/></g>
+</g>'''
+
+
+def virus(cx, cy, r=26, fill="#7fd36b", cls="vir"):
+    """Flu virus: green ball with spikes (class cls for animation). Origin = centre."""
+    spikes = "".join(f'<path d="M{math.cos(a) * r:.1f} {math.sin(a) * r:.1f} L{math.cos(a) * r * 1.45:.1f} {math.sin(a) * r * 1.45:.1f}" stroke="{INK}" stroke-width="{max(3, r * .16):.0f}" stroke-linecap="round"/>'
+                     f'<circle cx="{math.cos(a) * r * 1.5:.1f}" cy="{math.sin(a) * r * 1.5:.1f}" r="{r * .16:.1f}" fill="#FF7A59" stroke="{INK}" stroke-width="2"/>' for a in [k * math.pi / 4 for k in range(8)])
+    return (f'<g transform="translate({cx},{cy})"><g class="{cls}">{spikes}<circle r="{r}" fill="{fill}" stroke="{INK}" stroke-width="{max(3, r * .15):.0f}"/>'
+            f'<circle cx="{-r * .3:.1f}" cy="{-r * .3:.1f}" r="{r * .25:.1f}" fill="#fff" opacity=".5"/></g></g>')
+
+
+def lungs(cx, cy, s=1.0, idp="lg"):
+    """Pair of flat lungs + trachea. Lobes {idp}L / {idp}R (fill can be animated), damage cracks {idp}Hurt (class 'crk')."""
+    L = "M-30 -120 Q-150 -140 -190 40 Q-210 190 -110 200 Q-40 205 -30 120Z"
+    R = "M30 -120 Q150 -140 190 40 Q210 190 110 200 Q40 205 30 120Z"
+    cr = "".join(f'<path class="crk" d="{d}" fill="none" stroke="#b3142a" stroke-width="7" stroke-linecap="round" stroke-dasharray="200" stroke-dashoffset="200"/>'
+                 for d in ("M-150 20 L-120 50 L-140 90 L-100 120", "M-90 -40 L-70 0 L-96 30", "M150 30 L120 60 L140 100 L104 130", "M96 -30 L74 6 L100 40"))
+    return f'''<g transform="translate({cx},{cy}) scale({s})"><g id="{idp}">
+ <path d="M0 -230 V-110 M0 -110 Q-20 -100 -40 -80 M0 -110 Q20 -100 40 -80" fill="none" stroke="{INK}" stroke-width="30" stroke-linecap="round"/>
+ <path d="M0 -230 V-110 M0 -110 Q-20 -100 -40 -80 M0 -110 Q20 -100 40 -80" fill="none" stroke="#e8c0c8" stroke-width="18" stroke-linecap="round"/>
+ <path id="{idp}L" d="{L}" fill="#f29aa8" stroke="{INK}" stroke-width="8"/><path id="{idp}R" d="{R}" fill="#f29aa8" stroke="{INK}" stroke-width="8"/>
+ <path d="M-60 -60 Q-110 0 -90 80 M60 -60 Q110 0 90 80" fill="none" stroke="#c46a7a" stroke-width="6" stroke-linecap="round"/>
+ <g id="{idp}Hurt">{cr}</g>
+</g></g>'''

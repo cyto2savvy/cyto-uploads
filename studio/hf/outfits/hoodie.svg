@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+<defs><clipPath id="c"><circle cx="600" cy="640" r="296"/></clipPath></defs>
+<g clip-path="url(#c)">
+<path d="M280 800 Q600 770 920 800 L920 960 L280 960Z" fill="#7d879b"/>
+<path d="M280 800 Q600 770 920 800" fill="none" stroke="#0c1622" stroke-width="10"/>
+<path d="M330 790 Q600 840 870 790 Q860 830 600 852 Q340 830 330 790Z" fill="#5f687c" stroke="#0c1622" stroke-width="8" stroke-linejoin="round"/>
+<path d="M548 840 Q544 880 552 912 M652 840 Q656 880 648 912" fill="none" stroke="#f6f6f0" stroke-width="9" stroke-linecap="round"/>
+<circle cx="552" cy="916" r="8" fill="#c9ccd2" stroke="#0c1622" stroke-width="3"/><circle cx="648" cy="916" r="8" fill="#c9ccd2" stroke="#0c1622" stroke-width="3"/>
+<path d="M440 960 L470 892 Q600 878 730 892 L760 960Z" fill="#6b7487" stroke="#0c1622" stroke-width="7" stroke-linejoin="round"/>
+<path d="M300 870 Q330 905 320 960 M900 870 Q870 905 880 960" fill="none" stroke="#5f687c" stroke-width="6"/>
+</g></svg>

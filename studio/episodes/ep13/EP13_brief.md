@@ -1,5 +1,5 @@
 # Ep 13 build brief — Neutro vs the flu (publish 2026-11-10 18:00 ET)
-Status: SCRIPTED, waiting for Utsha's OK (workflow steps 4-5). Do NOT build until approved.
+Status: BUILT Nov 3 (hf/ep13/build.py, final mp4 in ep13/). Not uploaded.
 Series: Cyto vs Disease · Length target 38-45s (hard cap 45s) · ~103 words ≈ 37s at 2.8 w/s · Template: `hf/template/build.py` (v2 layout + v3 rig) · follow SETUP.md "Ep 9 lessons".
 Title (≤60): Meet Neutro: Your Flu Season Bouncer (36 chars) · Tags: #flu #immunesystem #neutrophil #science #toronto #6ix #shorts · NOT made for kids · Altered/synthetic = YES · Category Science & Technology · Playlist: Cyto vs Disease
 

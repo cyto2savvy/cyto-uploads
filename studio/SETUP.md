@@ -172,3 +172,11 @@ Ep 11 passed layout_check but a human review of the 1-fps sheet still found thes
 
 ### Cup rule (Nov 2, 2026, from Utsha)
 The red cup is ALWAYS drawn IN FRONT of Cyto's hand and body, never behind the hand. `cyto3.py` now draws the hand first and the cup on top. In every build, check frames where the cup is held, raised and tipped: the cup must be fully visible and the hand must not sit on top of it.
+
+### Ep 13 lessons (Nov 3, 2026)
+- **Neutro** (neutrophil bouncer) is a vector rig: `hf/neutro.py` (source `studio/rig/neutro/neutro.py`, design frame `neutro_design.png`). `neutro_html(idp, pose)` + `neutro_js(idp, poses, mouths, brows, nods, looks, blinks)`; poses idle/cross/flex. Wrap him in an outer div for placement (CSS scale); never `pop()` that wrapper (GSAP scale overrides the CSS scale) — tween to the wrapper's own scale instead.
+- New outfit `outfit_hoodie` (hf/outfits/hoodie.svg -> studio/rig/outfit_hoodie.png). New art: `union_station`, `raccoon`, `go_train`, `queen_snow`, `pharmacy_nps(py=, shop=)`, `virus`, `lungs`.
+- **Playwright gotcha:** `page.evaluate("window.__timelines.main.seek(t)")` HANGS (it tries to serialise the timeline). Use `void (...)`. In a plain browser all `.clip` scenes are visible; toggle visibility from data-start/duration for contact sheets.
+- **Frame 0:** the last zoom/whip transition's fromTo rendered its from-values at t=0 (1.5x zoom) and `#cytoPos` wasn't placed until the playhead moved. Fix: `immediateRender:false` on transition fromTo + `gsap.set("#cytoPos", POS_HOOK)` at build time.
+- Cards slide in from x:90 with a fade (the old x:600 slide was flagged as cut off). Big headlines: left 60 / width 880 to stay inside the safe zone (right edge 940).
+- Hidden art still counts in layout_check (off-screen svg text = safe-zone WARN); use `display:none`, not a translate.
