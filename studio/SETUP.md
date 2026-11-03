@@ -169,3 +169,6 @@ Ep 11 passed layout_check but a human review of the 1-fps sheet still found thes
 - layout_check gotchas: an en-dash range like "15–45" is read as a score, so write "15 TO 45". Wall text hidden behind a semi-opaque panel still counts as overlapping text; move it, don't hide it.
 - Lotties that came out blank even in a plain browser: ribbon-1/2, calendar-1; stache-2 was blank in the HyperFrames frames → used SVG + GSAP. Fine in the real mp4: shield-2, steth-1, heart-beat.
 - `thumb.py` needs an ABSOLUTE out_dir (a relative path gives blank white PNGs).
+
+### Cup rule (Nov 2, 2026, from Utsha)
+The red cup is ALWAYS drawn IN FRONT of Cyto's hand and body, never behind the hand. `cyto3.py` now draws the hand first and the cup on top. In every build, check frames where the cup is held, raised and tipped: the cup must be fully visible and the hand must not sit on top of it.

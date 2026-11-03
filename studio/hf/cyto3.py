@@ -124,7 +124,7 @@ def rig3_html(outfit=None, cup="cup_red", acc=None, face_extra="", toque_extra="
  </g>
  {f'<image id="acc" href="assets/{acc}.png" x="0" y="0" width="1200" height="1200"/>' if acc else ""}
  <image id="cupTable" href="assets/{cup}.png" x="140" y="{975 - CH}" width="{CW}" height="{CH}" opacity="0"/>
- <g id="armL">{_arm(SH_L, HAND_L, -1)}<image id="cup" href="assets/{cup}.png" x="{CUP_LEFT:.1f}" y="{CUP_TOP:.1f}" width="{CW}" height="{CH}"/>{_hand(HAND_L, "handL")}</g>
+ <g id="armL">{_arm(SH_L, HAND_L, -1)}{_hand(HAND_L, "handL")}<image id="cup" href="assets/{cup}.png" x="{CUP_LEFT:.1f}" y="{CUP_TOP:.1f}" width="{CW}" height="{CH}"/></g>
 </svg></div></div></div>"""
 
 
