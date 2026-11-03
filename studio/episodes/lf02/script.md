@@ -1,86 +1,105 @@
 # LF02 — "What Stress Does to Your Body (December Edition)"
-Publish: Sun Dec 6 2026 (exam season + holiday rush). Christmas episode parked for later. Target ~6:30. FORMAT: cartoon EPISODE with a plot, not narration over diagrams.
-Title (<60): "What Stress Does to Your Body (December Edition)" (48)  alt: "Your Body Is Panicking This December. Here's Why" (48)
-Thumbnail idea: Cyto mid-panic, brain alarm flashing red, countdown "2 WEEKS TILL BREAK", Rhino the cold virus sneaking behind him. 3 words max: "CODE RED".
-Cast: CYTO (narrator/lead, Toronto slang), NEUTRO (neutrophil bouncer, deadpan, few words), MITO (tired mitochondria, gym energy; cameo at end). RHINO = cold-virus villain, NEVER speaks (mime + SFX, sneaky cartoon energy).
-Body = Toronto: Brain = Queen's Park (alarm HQ). Adrenal glands = condos on top of the kidneys. Heart = downtown/Union. Lungs = Don Valley. Nose = the front door.
-Plot: The stress alarm won't stop. Cyto has to calm the body before the break, while Rhino tries to sneak in during the chaos.
-Running gags: countdown clock "DAYS TILL BREAK"; Rhino sneaking in the background of every act; Neutro's one-word answers.
+Publish: Sun Dec 6 2026, 6:00 PM ET. Target ~6:00-6:30. FORMAT v2: cartoon EPISODE (see studio/LF_FORMAT_V2.md + studio/episodes/lf02/characters.md).
+Title (<60): "What Stress Does to Your Body (December Edition)" (48)   alt: "Your Body Is Panicking This December. Here's Why" (48)
+Thumbnail: Cyto mid-panic pulling a giant red ALARM lever, Neutro (officer) facepalming, Rhino sneaking behind; text "CODE RED".
 
-## SCRIPT (speaker tags = voice; [ ] = visual/SFX direction for the builder)
+STORY IN ONE LINE: Cyto swears he's "too chill to get stressed", but the body's stress alarm won't stop, Mito burns himself out, Neutro gets jumpy, and Rhino the cold virus plans a heist through the nose. Twist: the one pulling the alarm is Cyto himself, doom-scrolling the group chat. He fixes it with cheat codes, the alarm goes quiet, Neutro books Rhino.
+CAST: CYTO (lead, chill, Toronto); NEUTRO (neutrophil, Toronto-police-style officer, deadpan, reads "incident reports" off a notepad, radio on shoulder); MITO (mitochondria, Raptors-style hooper, hype then gassed); RHINO (cold virus, silent heist villain).
+Body = Toronto: Brain = Queen's Park (alarm HQ). Adrenal glands = condos on top of the kidneys. Heart = downtown. Nose = the front door. Lungs = Don Valley.
+Slang used naturally (don't add more): wys fam, I'm him, nyeahh, ahlie, it's brick outside, mans are cooked, mans are marved, bet, say less.
 
-[COLD OPEN 0:00 — red alarm light spinning, siren SFX, Cyto runs in holding his cup]
-CYTO: Bro, WHAT is that noise?
+## SCRIPT  (TAG = who speaks; [ ] = visual / SFX for the builder)
+
+[COLD OPEN 0:00 — Queen's Park HQ, cozy. Cyto on a beanbag, cup in hand, phone buzzing nonstop.]
+CYTO: Exams? Group chat? Holiday shopping? Nah. I don't get stressed. I'm him.
+[Phone buzzes again. A HUGE red alarm blares, lights spin. Neutro kicks the door open, hand on his radio.]
 NEUTRO: Code red.
-CYTO: Code red for what? Nobody's even sick!
+CYTO: Code red for what?
 NEUTRO: December.
-CYTO: …Oh. Oh no.
-[Rhino tiptoes behind them, waves at camera, ducks out. Title card slams: "DECEMBER: CODE RED"]
+CYTO: …nyeahh.
+[Rhino the cold virus is pressed against the window outside, waves at camera, ducks. Title slam: "DECEMBER: CODE RED"]
 
-[INTRO 0:15]
-CYTO: Yo, it's ya boy Cyto, live from the six… inside your body. And right now, your body is lowkey panicking. Today we find out why, what it's doing to you, and the cheat codes to shut that alarm off before the break. Not medical advice, just your boy and some science.
+[INTRO 0:14 — 3D fly-through of the body-city into Queen's Park]
+CYTO: Yo, it's ya boy Cyto, live from the six… inside your body. And right now your body is lowkey panicking. Today we find out why, what it's doing to you, plus one study that had me going "bro, what." And the cheat codes to shut this alarm off before the break. Not medical advice, just your boy and some science.
 
-[ACT 1 — THE TRIGGERS 0:40 — rapid-fire montage, each trigger slams in with a whoosh + alarm blip]
-CYTO: So what pulled the alarm? Let's see. Exams. Secret Santa group chat with forty people and a twenty-dollar limit. The mall, packed like the Line 1 at rush hour. Your auntie asking "so what are you doing with your life?" Your bank account seeing the receipts.
-NEUTRO: That's a lot.
-CYTO: That's December, fam.
+[ACT 1 — THE INCIDENT REPORT 0:40 — Neutro flips open a notepad. Each incident slams in as a cartoon card with a whoosh + alarm blip.]
+NEUTRO: Incident one. Exams.
+NEUTRO: Incident two. Secret Santa group chat. Forty-three members. Twenty dollar limit.
+NEUTRO: Incident three. The mall. Packed like Line 1 at rush hour.
+NEUTRO: Incident four. Your auntie asked what you're doing with your life.
+CYTO: Bro, that's personal.
+NEUTRO: It's in the report.
 
-[0:65 — Queen's Park HQ. A big red lever labeled ALARM. Cyto points.]
-CYTO: Here's what actually happens. Your brain sees stress and hits the alarm. The signal shoots down to your adrenal glands, these little condos sitting on top of your kidneys. And they start pumping out stress hormones, like adrenaline and cortisol.
-[Adrenal condos light up, hormone "delivery trucks" speed out]
-CYTO: Heart rate goes up. Breathing speeds up. Sugar gets dumped into your blood for quick energy. Your whole body gets ready to fight or run.
-NEUTRO: From what?
-CYTO: A group chat, bro.
-NEUTRO: …
-CYTO: Yeah. This system was built for running from a bear, not for picking a gift for someone you've talked to twice.
+[1:05 — the alarm signal zips from Queen's Park down to two glowing condos on top of the kidneys]
+CYTO: Here's what actually happens. Your brain sees stress and hits the alarm. The signal runs down to your adrenal glands, little condos sitting right on top of your kidneys. And they start pumping out stress hormones, like adrenaline and cortisol.
+CYTO: Heart rate goes up. Breathing speeds up. And sugar gets dumped into your blood for quick energy.
+[Mito bursts in dribbling a glowing sugar ball, red jersey, headband]
+MITO: WYS FAM! Sugar's flowing! I'm HIM! I'm HIM!
+[Mito dunks on a tiny hoop. The backboard shatters. Slow-mo.]
+CYTO: Your body's getting ready to fight or run. This system was built for running from a bear.
+MITO: Where's the bear?
+CYTO: There's no bear. It's a group chat.
+MITO: …Then why am I warming up?
 
-[ACT 2 — THE TWIST 1:50 — countdown flips: 10 DAYS TILL BREAK. Lighting gets moodier.]
-CYTO: Now, a little stress? That's normal. It's actually useful. But a full week of it? That's where it gets weird.
-CYTO: Cortisol is supposed to tell your immune system, "aight, calm down." But researchers at Carnegie Mellon found that when stress drags on, immune cells can stop listening to that signal. So inflammation doesn't get shut down properly.
-[Neutro twitching, jumping at every noise, overreacting to a crumb]
-NEUTRO: WHO'S THERE.
+[ACT 2 — IT DRAGS ON 2:00 — countdown sign flips: "10 DAYS TILL BREAK". Lighting goes moodier, the alarm keeps looping.]
+CYTO: Now, a little stress? Normal. Useful, even. But days and days of it? That's where it gets weird.
+[Mito slumped on the bench, towel on his head]
+MITO: Mans are cooked.
+CYTO: Cortisol is supposed to tell your immune system "aight, calm down." But researchers at Carnegie Mellon found that when stress drags on, immune cells can stop listening. So inflammation doesn't shut off properly.
+[Neutro, jittery, spins around at a tiny crumb on the floor, grabs his radio]
+NEUTRO: Requesting backup.
 CYTO: Bro, that's a crumb.
 NEUTRO: Suspicious crumb.
-CYTO: See? Security's distracted. And you know who loves a distracted bouncer?
-[Rhino slides in through the front door (nose) like a heist movie, sunglasses on]
+CYTO: See? Security's distracted. And you know who loves a distracted officer?
+[Rhino at the front door (the nose), sunglasses, black hoodie, ducks under laser beams like a heist movie]
 
-[2:35 — "bro WHAT" beat: screen shake, zoom on Cyto]
-CYTO: Here's the part that got me. Back in 1991, scientists did something wild. They literally dripped cold viruses into almost four hundred people's noses, on purpose. Then they checked who got sick.
-CYTO: The more stressed people were, the more likely they got infected. Infection rates went from about seventy-four percent to about ninety. And actual colds jumped from about twenty-seven percent to forty-seven.
+[2:45 — "BRO WHAT" BEAT: silence, then screen shake + snap zoom on Cyto]
+CYTO: Peep this. Back in 1991, scientists did something wild. They dripped cold viruses into almost four hundred people's noses. On purpose. Then they watched who got sick.
+CYTO: The more stressed people were, the more of them got infected. About seventy-four percent at the low end, about ninety at the top. And actual colds went from about twenty-seven percent to forty-seven.
 CYTO: Bro, WHAT.
-NEUTRO: That tracks.
-CYTO: So ever notice how you finally get a break and then you get sick right away? Yeah. No wonder.
+NEUTRO: Tracks.
+CYTO: So you know how you finally get a break and then you get sick right away? Yeah. That might be why.
 
-[3:25 — Heart / downtown. Countdown: 5 DAYS TILL BREAK.]
-CYTO: And it's not just your nose. Some studies have even found more heart attacks around Christmas and New Year's. Not every study, to be fair. But scientists think holiday stress, giant meals, salt, alcohol, and people waiting too long to get help could all play a part.
-CYTO: So real talk: if somebody has chest pain over the holidays, don't wait till after dinner. Call nine one one.
-NEUTRO: Facts.
+[3:25 — THE TWIST. The alarm is STILL going.]
+NEUTRO: Alarm's still going. Somebody keeps pulling it.
+CYTO: Who?
+[Security-cam footage, grainy: Cyto on his phone, every notification he yanks the alarm lever without noticing]
+CYTO: …
+NEUTRO: …
+CYTO: Nyeahh. That's me, ahlie.
 
-[ACT 3 — CHEAT CODES 3:55 — video-game "CHEAT CODE UNLOCKED" pop-up for each]
-CYTO: Aight, enough doom. Time for cheat codes.
-CYTO: Cheat code one: slow your breathing. A randomized trial had people practise slow breathing for twelve weeks, and their anxiety scores dropped. Plot twist: making the exhale longer than the inhale didn't matter much. The slow part did. So in through the nose… and slow out.
-[Cyto breathes; the alarm siren slows down with him. Neutro breathes too, very seriously.]
-CYTO: Cheat code two: pick your side quest. Another trial compared exercise, mindfulness meditation, and slow-breathing training for five weeks. All three lowered stress about the same. So pick whatever you'll actually do.
-CYTO: Go skate at Nathan Phillips Square under the lights. Walk the Distillery Winter Village, it's free before four p.m. Or just walk the block with your headphones in. Side quest complete.
-[SIDE QUEST COMPLETE badge pops]
-CYTO: Cheat code three: say no to one thing. You don't need to be at every link-up. Protect your sleep, fam.
+[3:40 — serious beat. Downtown (heart). Cup set down. Calm music.]
+CYTO: Real quick, serious. Some studies have even found more heart attacks around Christmas and New Year's. Not every study, to be fair. But scientists think stress, giant meals, salt, alcohol, and people waiting too long to get help could all play a part.
+CYTO: So if somebody has chest pain over the holidays, don't wait it out. Call nine one one.
+NEUTRO: No waiting.
 
-[CLIMAX 5:05 — alarm finally clicks off. Silence. Birds chirp SFX.]
+[ACT 3 — CHEAT CODES 4:10 — video-game "CHEAT CODE UNLOCKED" pop-up for each]
+CYTO: Aight. I made this mess, I'm fixing it. Cheat codes.
+CYTO: Cheat code one: slow your breathing. A randomized trial had people practise slow breathing for twelve weeks, and their anxiety scores dropped. Plot twist: making the exhale longer than the inhale didn't really matter. The slow part did. So, in through the nose… and slow out.
+[Cyto breathes; the siren slows down with each breath. Neutro breathes too, extremely seriously. Mito tries and yawns.]
+CYTO: Cheat code two: pick your side quest. Another trial compared exercise, meditation, and slow-breathing training for five weeks. All three lowered stress about the same. So pick whatever you'll actually do.
+MITO: Run some hoops?
+CYTO: Bet.
+CYTO: It's brick outside, so bundle up. Skate at Nathan Phillips Square under the lights, walk the Distillery Winter Village, it's free before four p.m., or just walk the block with your headphones in.
+[SIDE QUEST COMPLETE badge]
+CYTO: Cheat code three: mute the group chat for a bit. Say no to one thing. Protect your sleep, fam.
+[Cyto mutes his phone. The alarm lever finally stays up.]
+
+[CLIMAX 5:10 — silence. A bird chirps.]
 CYTO: …You hear that?
 NEUTRO: Nothing.
-CYTO: Exactly. Alarm's off. Security's focused.
-[Neutro spots Rhino mid-sneak. Rhino freezes. Neutro cracks knuckles.]
-NEUTRO: Not on my watch.
-[Neutro tosses Rhino out the front door (sneeze SFX: "ACHOO"). Cyto raises cup.]
-CYTO: And THAT'S how you make it to the break healthy.
+CYTO: Exactly.
+[Neutro turns, spots Rhino frozen mid-sneak. Neutro flips open the notepad.]
+NEUTRO: Loitering in a nasal passage.
+[Rips off a ticket, slaps it on Rhino. Rhino is launched out the front door — huge "ACHOO" SFX.]
+MITO: He got BOOKED!
+CYTO: Say less.
 
-[OUTRO / CLIFFHANGER 5:35 — countdown: BREAK STARTS. Mito stumbles in, sniffing the air.]
-MITO: Yo… yo… is that… holiday food?
-CYTO: Oh no. Mito, chill. That's a Christmas problem.
-MITO: Fuel. FUEL!
-CYTO: We'll deal with that one later. Your body is NOT ready.
+[OUTRO 5:35 — countdown flips: "BREAK STARTS". Mito sniffs the air.]
+MITO: Yo… mans are marved. Is that… holiday food?
+CYTO: Mito, chill. That's a Christmas problem.
 CYTO: Comment what's stressing you out the most this December, I read them all. Like, subscribe, sources on screen and in the description. Not medical advice. December's a lot, fam… breathe.
-[Freeze on the countdown clock = loop back to the cold open alarm]
+[Phone buzzes once. The alarm light flickers. Cyto looks at camera. Hard cut to the cold open = loop.]
 
 ## CLAIMS -> SOURCES (According to PubMed; DOI links)
 1. Stress -> brain -> adrenal glands -> adrenaline & cortisol; heart rate, breathing, glucose up (fight-or-flight) — standard physiology textbook.
