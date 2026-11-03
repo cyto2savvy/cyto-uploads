@@ -12,3 +12,4 @@
 - 2026-11-02: ElevenLabs Starter, Eps 10-14 reads (1 take each, voice A): ep10 643, ep11 613, ep12 676, ep13 592, ep14 556 = 3,080 cr. Durations 40.96/39.2/42.72/36.72/35.76s. Running total ~5,236 of 30,000 this cycle (renews Dec 2).
 - 2026-11-02: Ep 11 build used the attached approved read ("Cyto - Toronto (A)", 39.2s, already counted above). No regeneration: 0 new ElevenLabs credits, 0 vidIQ credits.
 - Nov 2: Ep 11 built from attached read, 0 ElevenLabs/vidIQ credits.
+- 2026-11-03: Ep 12 build. Voice = the approved read already generated Nov 2 (node X0Nkq..., 676 cr, counted above); NOT regenerated. Fetched it via the fetch-audio GitHub Action (audio/list.txt) instead of a drag-and-drop. ElevenLabs Scribe transcription (word timestamps) 0 cr. SFX via eleven_text_to_sound_v2: whoosh, pop, hit, chime, 1 generation each, estimate said 50 cr each but billed ~16.7 cr each = ~67 cr. 0 vidIQ credits.

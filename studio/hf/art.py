@@ -394,3 +394,125 @@ def stomach(cx, cy, s=1.0, idp="st"):
             f'<path d="{d}" fill="#f2b8b8" stroke="{INK}" stroke-width="8" stroke-linejoin="round"/>'
             f'<g clip-path="url(#{idp}Clip)"><rect id="{idp}Fill" x="{cx - 200 * s:.0f}" y="{cy - 160 * s:.0f}" width="{420 * s:.0f}" height="{340 * s:.0f}" fill="#e07b5a"/></g>'
             f'<path d="{d}" fill="none" stroke="{INK}" stroke-width="8" stroke-linejoin="round"/></g>')
+
+
+# ---- Ep 12 (Movember) Toronto pieces ---------------------------------------------------------------------
+def univ_ave(W, base, idp="ua"):
+    """University Ave 'hospital row' at dawn (generic boxy towers, rooftop helipad 'H', no signage) with the
+    Queen's Park legislature outline (central tower + small dome) closing the avenue, median planters with trees.
+    Windows class 'win'. ids: {idp}QP (legislature), {idp}Trees."""
+    rnd = random.Random(12); out = []
+    # far towers
+    x = -20
+    while x < W:
+        w = rnd.uniform(80, 150); h = rnd.uniform(260, 520)
+        out.append(f'<rect x="{x:.0f}" y="{base - 260 - h:.0f}" width="{w:.0f}" height="{h + 260:.0f}" fill="#6b5a86" opacity=".55"/>'); x += w + rnd.uniform(6, 20)
+    # Queen's Park, centre back
+    cx = W / 2; qb = base - 150
+    out.append(f'<g id="{idp}QP"><rect x="{cx - 230}" y="{qb - 120}" width="460" height="120" fill="#a0644e" stroke="{INK}" stroke-width="6"/>'
+               + "".join(f'<path d="M{cx - 210 + k * 46} {qb - 20} v-60 a14 14 0 0 1 28 0 v60z" fill="#5a3326"/>' for k in range(10))
+               + f'<rect x="{cx - 60}" y="{qb - 220}" width="120" height="110" fill="#b06f56" stroke="{INK}" stroke-width="6"/>'
+               f'<path d="M{cx - 40} {qb - 220} Q{cx} {qb - 300} {cx + 40} {qb - 220}Z" fill="#6f8f7e" stroke="{INK}" stroke-width="6"/>'
+               f'<rect x="{cx - 5}" y="{qb - 330}" width="10" height="40" fill="{INK}"/>'
+               f'<path d="M{cx - 240} {qb - 120} L{cx - 200} {qb - 160} L{cx - 150} {qb - 120}Z M{cx + 150} {qb - 120} L{cx + 200} {qb - 160} L{cx + 240} {qb - 120}Z" fill="#8a4f3d" stroke="{INK}" stroke-width="5"/></g>')
+    # hospital-row slabs, both sides of the avenue (perspective-ish: big on the edges)
+    for side in (-1, 1):
+        for k, (w, h) in enumerate(((300, 900), (220, 700), (160, 520))):
+            x0 = (0 - 40 + k * 150) if side < 0 else (W + 40 - k * 150 - w)
+            top = base - h
+            out.append(f'<rect x="{x0}" y="{top}" width="{w}" height="{h + 4}" fill="{["#3d4f6e", "#4a5d7d", "#576a8a"][k]}" stroke="{INK}" stroke-width="6"/>')
+            if k == 0:
+                hx = x0 + w / 2
+                out.append(f'<rect x="{hx - 70}" y="{top - 24}" width="140" height="24" fill="#2b3a55" stroke="{INK}" stroke-width="5"/>'
+                           f'<circle cx="{hx}" cy="{top - 24}" r="0"/><ellipse cx="{hx}" cy="{top - 26}" rx="62" ry="12" fill="#e8e0cc" stroke="{INK}" stroke-width="4"/>'
+                           f'<path d="M{hx - 12} {top - 32} v12 M{hx + 12} {top - 32} v12 M{hx - 12} {top - 26} h24" stroke="{INK}" stroke-width="4"/>')
+            for wy in range(int(top + 30), int(base - 20), 34):
+                for wx in range(int(x0 + 18), int(x0 + w - 24), 30):
+                    if rnd.random() < .42:
+                        out.append(f'<rect class="win" x="{wx}" y="{wy}" width="16" height="18" fill="{GOLD}" opacity="{rnd.uniform(.5, .95):.2f}"/>')
+    # avenue + median planters
+    out.append(f'<rect x="-50" y="{base}" width="{W + 100}" height="900" fill="#262c3c"/>'
+               f'<path d="M{W / 2 - 140} {base} L{W / 2 - 520} {base + 600} L{W / 2 + 520} {base + 600} L{W / 2 + 140} {base}Z" fill="#323a4f"/>'
+               f'<path d="M{W / 2} {base + 10} V{base + 600}" stroke="#e8e0cc" stroke-width="8" stroke-dasharray="40 34"/>')
+    trees = "".join(f'<g><rect x="{x - 40}" y="{base + 22 + d}" width="80" height="30" rx="6" fill="#8a8f99" stroke="{INK}" stroke-width="4"/>'
+                    f'<circle cx="{x}" cy="{base + 4 + d}" r="{30 + d * .2:.0f}" fill="#6b4a2a" stroke="{INK}" stroke-width="4"/></g>' for x, d in ((W / 2 - 300, 40), (W / 2 + 300, 40), (W / 2 - 170, 0), (W / 2 + 170, 0)))
+    out.append(f'<g id="{idp}Trees">{trees}</g>')
+    return "".join(out)
+
+
+def subway_platform(W, H, idp="bp"):
+    """Bloor-Yonge-style Line 1/2 platform: rounded wall tiles, station name band (place name only, generic font),
+    hanging 'NEXT TRAIN 2 MIN' board (generic), yellow tactile edge, a train ({idp}Train) that can slide in/out."""
+    tiles = "".join(f'<rect x="{x}" y="{y}" width="52" height="26" rx="6" fill="{c}" stroke="#9aa3ab" stroke-width="2"/>'
+                    for y in range(330, 1060, 30) for x in range(-20 + (15 if (y // 30) % 2 else 0), W, 56)
+                    for c in [("#e8e4d6" if (x // 56 + y // 30) % 7 else "#d7c9a2")])
+    return f'''<g id="{idp}">
+ <rect x="0" y="0" width="{W}" height="{H}" fill="#2a2f3a"/>
+ <rect x="0" y="0" width="{W}" height="330" fill="#3a404d"/>
+ {"".join(f'<rect x="{x}" y="250" width="110" height="16" rx="6" fill="#fff8d0" opacity=".85"/>' for x in range(30, W, 200))}
+ {tiles}
+ <rect x="-10" y="560" width="{W + 20}" height="40" fill="#d9c27a" stroke="{INK}" stroke-width="6"/>
+ <g id="{idp}Sign"><path d="M150 120 V180 M520 120 V180" stroke="{INK}" stroke-width="8"/>
+  <rect x="80" y="180" width="510" height="88" rx="12" fill="#d9c27a" stroke="{INK}" stroke-width="6"/>
+  <text x="335" y="240" text-anchor="middle" font-family="InterBlack" font-size="46" fill="{INK}" letter-spacing="4">BLOOR-YONGE</text></g>
+ <g id="{idp}Train"><rect x="-40" y="700" width="{W + 900}" height="330" rx="26" fill="#cfd5dc" stroke="{INK}" stroke-width="8"/>
+  <rect x="-40" y="900" width="{W + 900}" height="26" fill="#d7262e"/>
+  {"".join(f'<rect x="{30 + k * 230}" y="740" width="150" height="120" rx="12" fill="#ffe7a3" stroke="{INK}" stroke-width="6"/>' for k in range(int((W + 900) / 230)))}</g>
+ <rect x="-10" y="1060" width="{W + 20}" height="40" fill="{GOLD}" stroke="{INK}" stroke-width="5"/>
+ <rect x="-10" y="1100" width="{W + 20}" height="{H - 1100}" fill="#5b6472"/>
+ <g id="{idp}Board"><path d="M720 120 V170 M920 120 V170" stroke="{INK}" stroke-width="8"/>
+  <rect x="660" y="170" width="320" height="110" rx="12" fill="#111" stroke="{INK}" stroke-width="6"/>
+  <text x="820" y="215" text-anchor="middle" font-family="InterBlack" font-size="30" fill="#ff9a2e" letter-spacing="2">NEXT TRAIN</text>
+  <text id="{idp}Min" x="820" y="260" text-anchor="middle" font-family="InterBlack" font-size="38" fill="#ff9a2e" letter-spacing="2">2 MIN</text></g>
+</g>'''
+
+
+def clinic_street(W, H, idp="cs"):
+    """Danforth/Bloor-style low-rise main street: brick storefronts with awnings, one generic 'WALK-IN CLINIC'
+    (plain cross, no brand), lamp posts, sidewalk + road with streetcar tracks. Door: {idp}Door."""
+    shops = []
+    for x, w, c, aw in ((-30, 330, "#8a4b3b", "#3fc1b0"), (300, 480, "#6e7b8a", "#e2394b"), (780, 330, "#7a5a3b", "#FFD166")):
+        shops.append(f'<rect x="{x}" y="420" width="{w}" height="620" fill="{c}" stroke="{INK}" stroke-width="6"/>'
+                     + "".join(f'<rect x="{x + 30 + k * 90}" y="460" width="60" height="90" rx="6" fill="#ffe7a3" opacity=".7" stroke="{INK}" stroke-width="4"/>' for k in range(int((w - 40) / 90))))
+    clinic = (f'<rect x="300" y="640" width="480" height="70" fill="#f4f4ef" stroke="{INK}" stroke-width="6"/>'
+              f'<text x="560" y="690" text-anchor="middle" font-family="InterBlack" font-size="40" fill="{INK}" letter-spacing="2">WALK-IN CLINIC</text>'
+              f'<g transform="translate(340,675)"><rect x="-10" y="-26" width="20" height="52" fill="#e2394b"/><rect x="-26" y="-10" width="52" height="20" fill="#e2394b"/></g>'
+              f'<path d="M290 710 h500 l-30 60 h-440z" fill="#4f86ff" stroke="{INK}" stroke-width="5"/>'
+              f'<rect x="330" y="780" width="250" height="230" fill="#cfe6f5" opacity=".85" stroke="{INK}" stroke-width="6"/>'
+              f'<rect id="{idp}Door" x="610" y="780" width="140" height="260" fill="#2a4a6a" stroke="{INK}" stroke-width="6"/><circle cx="730" cy="910" r="8" fill="{GOLD}"/>')
+    awn = "".join(f'<path d="M{x} 760 h{w} l-20 50 h{-(w - 40)}z" fill="{aw}" stroke="{INK}" stroke-width="5"/>' for x, w, aw in ((-30, 330, "#3fc1b0"), (780, 330, "#FFD166")))
+    lamps = "".join(f'<rect x="{x - 7}" y="820" width="14" height="300" fill="#2b3340"/><circle cx="{x}" cy="815" r="22" fill="#ffe7a3" stroke="{INK}" stroke-width="5"/>' for x in (120, 960))
+    return f'''<g id="{idp}">{"".join(shops)}{clinic}{awn}
+ <rect x="-20" y="1040" width="{W + 40}" height="80" fill="#9aa0a8" stroke="{INK}" stroke-width="5"/>{lamps}
+ <rect x="-20" y="1120" width="{W + 40}" height="{H - 1120}" fill="#3a3f4a"/>
+ <path d="M-20 1300 H{W + 20} M-20 1340 H{W + 20}" stroke="#7d848e" stroke-width="7"/></g>'''
+
+
+def ferry_view(W, H, idp="fv"):
+    """Toronto skyline from the Island ferry: skyline (CN Tower at x=700), lake with ripples ({idp}Rip), ferry deck rail
+    in the foreground. Returns markup; the CN Tower pod sits at about (700, 560) at this scale."""
+    rip = "".join(f'<path class="rip" d="M{x} {y} q30 -10 60 0 t60 0" fill="none" stroke="#9fc3e8" stroke-width="5" opacity=".6"/>'
+                  for x, y in ((60, 1010), (380, 1040), (700, 1000), (200, 1090), (560, 1120), (860, 1070), (120, 1170), (760, 1180)))
+    return f'''<g id="{idp}">{skyline(W, H, 980, 1.0, seed=8, lit=.3, cn=700, ground="#2c5d86")}
+ <rect x="-20" y="980" width="{W + 40}" height="300" fill="#2c5d86"/><g id="{idp}Rip">{rip}</g>
+ <rect x="-20" y="1250" width="{W + 40}" height="{H - 1250}" fill="#c9cdd2"/>
+ <rect x="-20" y="1200" width="{W + 40}" height="22" rx="10" fill="#f4f4ef" stroke="{INK}" stroke-width="6"/>
+ {"".join(f'<rect x="{x}" y="1220" width="14" height="60" fill="#f4f4ef" stroke="{INK}" stroke-width="4"/>' for x in range(20, W, 110))}
+ <rect x="-20" y="1270" width="{W + 40}" height="16" fill="#9aa0a8"/></g>'''
+
+
+def handlebar(cx, cy, w=150, fill="#4a2c1a", sticker=True):
+    """Cartoon handlebar moustache centred at (cx,cy), width w. sticker=True adds a white die-cut border."""
+    k = w / 226
+    d = ("M0 -3 C-21 -19 -51 -19 -66 -3 C-79 11 -99 13 -113 -3 C-105 23 -71 27 -46 15 C-25 7 -11 9 0 13 "
+         "C11 9 25 7 46 15 C71 27 105 23 113 -3 C99 13 79 11 66 -3 C51 -19 21 -19 0 -3Z")
+    tr = f'transform="translate({cx},{cy}) scale({k:.3f})"'
+    return ((f'<path d="{d}" {tr} fill="#fff" stroke="#fff" stroke-width="{14 / k:.0f}" stroke-linejoin="round"/>' if sticker else "")
+            + f'<path d="{d}" {tr} fill="{fill}" stroke="{INK}" stroke-width="{5 / k:.0f}" stroke-linejoin="round"/>'
+            + f'<path d="M-50 -2 C-30 -10 -14 -8 -4 0 M50 -2 C30 -10 14 -8 4 0" {tr} fill="none" stroke="#7a4a2c" stroke-width="{3 / k:.0f}" stroke-linecap="round"/>')
+
+
+def awareness_ribbon(cx, cy, s=1.0, fill="#4f86ff", hole="#1e56ac"):
+    """Generic awareness ribbon (loop + two tails). No logo."""
+    return (f'<g transform="translate({cx},{cy}) scale({s})"><path d="M0 -34 C-28 -34 -26 0 -2 20 L-22 50 L-8 56 L4 34 L16 56 L30 50 L10 20 C26 0 28 -34 0 -34Z" '
+            f'fill="{fill}" stroke="{INK}" stroke-width="5" stroke-linejoin="round"/><path d="M0 -20 C-10 -20 -10 -4 2 6 C12 -4 10 -20 0 -20Z" fill="{hole}"/></g>')

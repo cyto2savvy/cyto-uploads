@@ -85,7 +85,7 @@ def page(spec, assets_rel="assets"):
   text-shadow:0 14px 0 {INK},0 22px 30px rgba(0,0,0,.5)}}
 .hero{{position:absolute;left:0;top:0;width:{W}px;height:{H}px}}
 </style></head><body><div id="stage">{bg}<div class="hero" style="transform:translateY({spec.get("hero_dy", 60)}px)">{spec["hero_svg"]}</div>
-{R.rig3_html(spec.get("outfit"), spec.get("cup", "cup_red"), spec.get("acc"))}{head}</div>
+{R.rig3_html(spec.get("outfit"), spec.get("cup", "cup_red"), spec.get("acc"), face_extra=spec.get("face_extra", ""), toque_extra=spec.get("toque_extra", ""))}{head}</div>
 <script>
 const VS=["rest","mbp","small","a","e","o","u","fv"];function show(k){{VS.forEach(v=>document.getElementById("v_"+v).setAttribute("opacity",v===k?1:0));}}
 gsap.set("#armL",{{svgOrigin:"{R.SH_L[0]} {R.SH_L[1]}"}});gsap.set("#armR",{{svgOrigin:"{R.SH_R[0]} {R.SH_R[1]}"}});

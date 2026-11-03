@@ -106,6 +106,7 @@ Outfits/accessories: `rig3_html(outfit, cup, acc)` — `acc` is an optional laye
 | 9 | Is winter killing your vitamin D? (first 3D episode, ElevenLabs voice) | — | built, awaiting OK (Nov 6, 6 PM) |
 | 8 | Why you wake up at 3am (first v2+v3 episode, new thumbnail system) | — | built, awaiting OK (Nov 5, 6 PM) |
 | 11 | Diwali food coma (Scarborough-led, kurta outfit) | — | built, awaiting OK (Nov 8, 3 PM) |
+| 12 | Movember: does checking yourself save lives? (first Scribe-timed + ElevenLabs-SFX episode) | — | built, awaiting OK (Nov 9, 6 PM) |
 
 ## Next ideas already researched
 - Diwali (Nov 8): mithai and the sugar crash, with Mito (Mantantzis 2019, doi 10.1016/j.neubiorev.2019.03.016)
@@ -158,3 +159,13 @@ Ep 11 passed layout_check but a human review of the 1-fps sheet still found thes
 - Check Lotties in the REAL rendered mp4 (ffmpeg frame grabs), never just in the preview. Blank Lotties: replace with native SVG + GSAP.
 - No captioning tool is available: match the audio to the script line by line using segs.json pauses, then listen once and fix drift over 0.3s.
 - Say in the final post: layout_check result (FAIL/WARN counts and what each WARN is), and the three things you are least sure about.
+
+### Ep 12 lessons (Nov 3, 2026): test upgrades that worked, roll into Eps 13+
+- **No drag-and-drop needed for ElevenLabs audio.** The sandbox can't reach elevenlabsusercontent.com, but GitHub Actions can: add `name url` (the signed `full_res_url` from `creative_get_generations`) to `audio/list.txt` and push. The `fetch-audio` workflow commits it within ~1 min (check `audio/status.txt`). Find an existing read with `creative_list_flows` → `creative_get_flow` → `creative_get_flow_node` (generations).
+- **Word timing = ElevenLabs Scribe, 0 credits.** `creative_add_flow_asset_node(generation_id)` returns the TTS node itself; pass it as `connect_from` to `creative_transcribe_audio` (eleven_scribe_v1). Save the words as `epN/words_scribe.json` (caption spellings: 6ix, styll, 95%) and use `epN/make_segs.py` (`segs` builds segs.json from silencedetect + words; `remap` shifts the Scribe times through build_voice2's re-spacing into timing.json). Captions and visemes then land on the real word onsets instead of syllable-split guesses.
+- **SFX via `creative_generate_in_flow` node_type `sfx`, model `eleven_text_to_sound_v2`, generations_count 1.** estimate_only said 50 cr, the real bill was ~16.7 cr each. Fetch them the same way (audio/list.txt). Mix each at unit RMS × voice RMS × -18 dB (hits -15) so they sit under the voice; music bed at -24 dB. Trim the 2s pop to 0.35s.
+- **rig3_html now takes `face_extra` / `toque_extra`** (inline SVG on the face/toque, moves with Cyto). Ep 12 uses `art.handlebar()` (moustache sticker) and `art.awareness_ribbon()`. `thumb.py` passes the same keys from the spec.
+- New art.py pieces: `univ_ave` (hospital row + Queen's Park), `subway_platform` (Bloor-Yonge hanging sign + NEXT TRAIN board, `{idp}Train`), `clinic_street` (Danforth-style walk-in clinic), `ferry_view` (skyline from the Island ferry), `handlebar`, `awareness_ribbon`.
+- layout_check gotchas: an en-dash range like "15–45" is read as a score, so write "15 TO 45". Wall text hidden behind a semi-opaque panel still counts as overlapping text; move it, don't hide it.
+- Lotties that came out blank even in a plain browser: ribbon-1/2, calendar-1; stache-2 was blank in the HyperFrames frames → used SVG + GSAP. Fine in the real mp4: shield-2, steth-1, heart-beat.
+- `thumb.py` needs an ABSOLUTE out_dir (a relative path gives blank white PNGs).

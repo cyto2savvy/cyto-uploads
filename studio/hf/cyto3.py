@@ -87,8 +87,9 @@ def _organelles():
      <g id="nucleolus"><circle cx="{nx+12:.0f}" cy="{ny-16:.0f}" r="15" fill="#c4b0ff" stroke="#5a3fa8" stroke-width="4"/></g></g>"""
 
 
-def rig3_html(outfit=None, cup="cup_red", acc=None):
-    """Same element IDs the v2 JS expects (#cytoPos, #cyto, #armL, #armR, #cup, #cupTable) plus new ones."""
+def rig3_html(outfit=None, cup="cup_red", acc=None, face_extra="", toque_extra=""):
+    """face_extra / toque_extra: inline SVG drawn on the face (e.g. a moustache sticker, id it to animate) / on the toque.
+    Same element IDs the v2 JS expects (#cytoPos, #cyto, #armL, #armR, #cup, #cupTable) plus new ones."""
     of = f'<image href="assets/{outfit}.png" x="0" y="0" width="1200" height="1200"/>' if outfit else ""
     pr = R * .18
     pom_dots = "".join(f'<circle cx="{CX + math.cos(math.radians(a)) * pr * .55:.0f}" cy="{CY - R * 1.27 + math.sin(math.radians(a)) * pr * .55:.0f}" r="7" fill="#e2e2da"/>' for a in range(0, 360, 45))
@@ -111,13 +112,14 @@ def rig3_html(outfit=None, cup="cup_red", acc=None):
   <ellipse cx="{CX - R * .50:.0f}" cy="{CY + R * .20:.0f}" rx="31" ry="19" fill="#ff8078" opacity=".55"/>
   <ellipse cx="{CX + R * .48:.0f}" cy="{CY + R * .20:.0f}" rx="31" ry="19" fill="#ff8078" opacity=".55"/>
   {of}
-  <g id="face">{"".join(_eye(i, ex, ey) for i, (ex, ey) in enumerate(EYES))}<g id="mouths">{_mouths()}</g></g>
+  <g id="face">{"".join(_eye(i, ex, ey) for i, (ex, ey) in enumerate(EYES))}<g id="mouths">{_mouths()}</g>{face_extra}</g>
  </g>
  <g id="toque">
   <ellipse cx="{CX}" cy="{CY - R * .77:.0f}" rx="{R * .97:.0f}" ry="{R * .47:.0f}" fill="#1e56ac" stroke="{INK}" stroke-width="8"/>
   {ribs}
   <rect x="{CX - R * 1.03:.0f}" y="{CY - R * .54:.0f}" width="{R * 2.06:.0f}" height="{R * .30:.0f}" rx="36" fill="#143a7c" stroke="{INK}" stroke-width="8"/>
   <rect x="{CX - R * 1.01:.0f}" y="{CY - R * .43:.0f}" width="{R * 2.02:.0f}" height="{R * .08:.0f}" fill="#f6f6f0"/>{ticks}
+  {toque_extra}
   <g id="pom"><circle cx="{CX}" cy="{CY - R * 1.27:.0f}" r="{pr:.0f}" fill="#f6f6f0" stroke="{INK}" stroke-width="7"/>{pom_dots}</g>
  </g>
  {f'<image id="acc" href="assets/{acc}.png" x="0" y="0" width="1200" height="1200"/>' if acc else ""}

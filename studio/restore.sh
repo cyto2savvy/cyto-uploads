@@ -32,6 +32,8 @@ for d in $H/hf/*/; do if [ -f "$d/build.py" ]; then ln -sfn ../node_modules "$d/
 pip install --break-system-packages -q pillow numpy >/dev/null 2>&1 || true
 # rebuild voice.wav + timing from raw.mp3 + segs.json
 for n in 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do [ -f $H/ep$n/segs.json ] && (cd $H/cyto2 && python3 build_voice2.py $H/ep$n >/dev/null) || true; done
+# Ep 12+: word times come from ElevenLabs Scribe (words_scribe.json); re-apply them after build_voice2
+for n in 12 13 14 15 16 17 18 19 20; do [ -f $H/ep$n/make_segs.py ] && [ -f $H/ep$n/words_scribe.json ] && (cd $H/ep$n && python3 make_segs.py remap >/dev/null) || true; done
 echo "Restored. Before rendering with HyperFrames run:"
 echo '  export HYPERFRAMES_BROWSER_PATH=$(ls /opt/pw-browsers/chromium_headless_shell-*/chrome-headless-shell-linux64/chrome-headless-shell | head -1)'
 
