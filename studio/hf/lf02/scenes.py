@@ -1,4 +1,6 @@
-"""LF02 scenes. python3 scenes.py s01 s02 ...  (no args = all). Each scene -> /home/claude/hf/lf02/<name>/index.html"""
+"""LF02 scenes (FIX pass). python3 scenes.py s01 s02 ...  (no args = all). Each scene -> /home/claude/hf/lf02/<name>/index.html
+Scene boundaries = CUTS (J-cut: picture cuts 0.15 s after the next scene's first sound). Every dialogue line gets the
+speaker camera + listener rules from lib.Scene (talk_camera / listener_looks / close_listener)."""
 import sys, json
 sys.path.insert(0, "/home/claude/hf/lf02")
 from lib import *
@@ -35,57 +37,6 @@ def snowfall(S, sid, T, dy=260):
 
 
 # =====================================================================================================
-@scene
-def s01():
-    """COLD OPEN — Queen's Park HQ. Cyto chill on the beanbag; alarm; Neutro kicks the door in; Rhino at the window; title slam."""
-    S = Scene("s01", 0, BEATS["title"][1], bg="#47306b")
-    MUSIC.append((0, BEATS["alarm"][0], "cozy")); MUSIC.append((BEATS["alarm"][0], S.t1, "alarm"))
-    for l in X.hq("hq"): S.add(l)
-    S.add(X.alarm_fx("hq"))
-    snowfall(S, "hqsnow", S.T)
-    tA = BEATS["alarm"][0]; tB = BEATS["title"][0]
-    l2, l3, l4, l5 = S.l(2), S.l(3), S.l(4), S.l(5)
-    # Rhino pressed to the window (clipped to the arch), waves, ducks
-    S.add('<div id="rhClip" class="fill" style="z-index:1;clip-path:path(\'M283 657 V385 A222 222 0 0 1 727 385 V657Z\')">'
-          + K.wrap(K.rhino_html("rh", "idle"), "rhW", 380, 700, .62) + '</div>')
-    S.j(f'tl.set("#rhW",{{y:0}},0);tl.to("#rhW",{{y:-500,duration:.35,ease:"back.out(1.6)"}},{tB + .1:.3f});tl.to("#rhW",{{y:0,duration:.3,ease:"power3.in"}},{tB + 2.05:.3f});')
-    S.j(K.act_js("rh", 28, 26, poses=[(tB + .5, "wave"), (tB + 1.6, "duck")], expr=[(tB + .2, 1.8, "smug")], T=S.T, blinks=[]))
-    S.j(f'tl.to("#rhW",{{x:14,duration:.12,yoyo:true,repeat:5}},{tB + .55:.3f});')
-    # Cyto on the beanbag, phone in hand
-    S.cyto(540, 640, .6, phone=True,
-           expr=[(S.w(1, "Nah") - .05, .9, "skeptic"), (tA + .05, 1.3, "shock"), (l3[0], .9, "skeptic")],
-           x_expr=[(S.w(1, "him"), .9, "smug"), (l5[0] - .1, 1.6, "exhausted"), (tB + .2, 2.2, "sideeye")],
-           sips=[(S.w(1, "I", ) - .05, 1.1)], tilts=[(S.w(1, "Exams"), .5, -6), (l3[0], .6, 7)], shrugs=[(S.w(1, "Nah"), .6)],
-           looks=[(S.w(1, "Group") - .1, -10, 8), (l2[0], 14, -2), (tB + .3, -14, -8)])
-    for t, txt, x in ((S.w(1, "Exams"), "EXAMS", 760), (S.w(1, "Group"), "GROUP CHAT", 790), (S.w(1, "Holiday"), "SALE ENDS SOON", 760)):
-        buzz(S, t - .1); notif(f"n{int(t * 10)}", t - .1, txt, x, 520 - (t - 1) * 40, S=S, d=1.2)
-    buzz(S, tA - .25, .4)
-    alarm_on(S, "hq", tA, S.T - .05)
-    S.shake(tA, .6, 16); S.punch(tA, 1.1)
-    S.sfx(tA, "siren", -6); S.sfx(tB + .15, "hit", -2); S.sfx(tB + .3, "gulp", -8)
-    # Neutro kicks the door open, steps in with a hand on his radio
-    S.j(f'gsap.set("#hqdoor",{{svgOrigin:"1530 520"}});tl.to("#hqdoor",{{scaleX:.12,duration:.16,ease:"power4.out"}},{tA + .7:.3f});tl.to("#hqdoor",{{scaleX:.2,duration:.4,ease:"elastic.out(1,.4)"}},{tA + .86:.3f});')
-    S.sfx(tA + .7, "kick", -2)
-    S.char("neutro", "nt", 1530, 300, .74, pose="idle", who="NEUTRO",
-           poses=[(tA + .8, "radio"), (l4[0] - .1, "idle"), (l5[0] + .3, "cross")],
-           expr=[(tA + .8, 1.1, "determined"), (l4[0] - .05, 1.4, "deadpan"), (l5[0], 1.2, "deadpan"), (tB + .4, 2.0, "sideeye")],
-           looks=[(l3[0] + .2, -.3, 0), (tB + .5, -.3, -.2)], nods=[l2[0] + .1, l4[0] + .3])
-    S.j(f'tl.set("#ntW",{{x:260,opacity:0}},0);tl.set("#ntW",{{opacity:1}},{tA + .72:.3f});tl.to("#ntW",{{x:-120,duration:.35,ease:"power3.out"}},{tA + .74:.3f});'
-        f'tl.fromTo("#ntW",{{y:-30}},{{y:0,duration:.35,ease:"bounce.out",immediateRender:false}},{tA + .9:.3f});')
-    S.punch(l4[0], 1.18, .5, 1350, 520)            # "December." snap on Neutro
-    S.snapzoom(l5[0] - .1, 1.12, 1.0, 520, 640)       # slow push on Cyto's "...nyeahh"
-    # TITLE SLAM
-    S.over(f'<div id="title" class="clip" data-start="{tB + .05:.3f}" data-duration="{S.T - tB:.3f}" style="position:absolute;left:760px;right:60px;top:80px;text-align:center;z-index:85">'
-           '<div style="font:130px/1 InterBlack;color:#FAF4E8;-webkit-text-stroke:7px #0c1622;paint-order:stroke fill;text-shadow:0 12px 0 rgba(0,0,0,.45)">DECEMBER:</div>'
-           '<div style="font:160px/1 InterBlack;color:#ff3b3b;-webkit-text-stroke:8px #0c1622;paint-order:stroke fill;text-shadow:0 14px 0 rgba(0,0,0,.45)">CODE RED</div></div>')
-    S.j(f'tl.to(".settxt",{{opacity:0,duration:.1}},{tB:.3f});')
-    S.j(f'tl.fromTo("#title",{{scale:3,opacity:0}},{{scale:1,opacity:1,duration:.22,ease:"power4.in"}},{tB + .05:.3f});')
-    S.shake(tB + .27, .45, 22)
-    S.tr_out("zoom", .35)
-    S.captions({"red": "#ff6b6b", "december": "#ff6b6b", "him": "#FFD166"})
-    return S
-
-
 def rooftop(p="rt"):
     sky = (f'<defs><linearGradient id="{p}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d1838"/><stop offset="1" stop-color="#4a3a78"/></linearGradient></defs>'
            f'<rect width="1920" height="1080" fill="url(#{p}s)"/><circle cx="1620" cy="170" r="60" fill="#f5f0d8"/>')
@@ -100,62 +51,19 @@ def rooftop(p="rt"):
     return [X.layer(f"{p}L0", sky, 1), X.layer(f"{p}L1", far, 2), X.layer(f"{p}L2", mid, 3), X.layer(f"{p}L3", f'<g transform="translate(0 110)">{roof}</g>' + X.snow(p + "snow", 60, 9), 4)]
 
 
-@scene
-def s02():
-    """INTRO — 3D fly-through of the body-city into Queen's Park, then Cyto hosting from the HQ rooftop."""
-    t0 = BEATS["title"][1]; t1 = BEATS["to_report"][1]
-    S = Scene("s02", t0, t1, music="intro", bg="#2b1640")
-    tFly = S.w(6, "And") - .1      # 3D until "...inside your body."
-    S.three3d("CITY", "bodycity", 0, tFly + .4, f"{{dur:{tFly + .4:.3f}}}", z=50)
-    S.tr_in("zoom", .35)
-    # body-city labels over the 3D (one at a time)
-    for i, (txt, a, b, x) in enumerate((("THE BODY = THE 6IX", .5, 2.6, 960), ("HEART = DOWNTOWN", 2.8, 4.2, 1340), ("BRAIN = QUEEN'S PARK", 4.4, tFly, 960))):
-        S.over(f'<div id="lab{i}" class="pop clip" data-start="{a:.3f}" data-duration="{b - a:.3f}" style="left:{x - 380}px;width:760px;top:150px;text-align:center;font:54px InterBlack;color:#FFD166;-webkit-text-stroke:3px #0c1622;paint-order:stroke fill">{txt}</div>')
-        S.j(f'tl.fromTo("#lab{i}",{{y:-30,opacity:0}},{{y:0,opacity:1,duration:.25,ease:"back.out(2)"}},{a:.3f});')
-    S.sfx(0, "whoosh", -4)
-    # rooftop host shot
-    for l in rooftop("rt"): S.add(l)
-    S.parallax([("rtL1", .15), ("rtL2", .35), ("rtL3", .7)], tFly, S.T, dx=-120)
-    snowfall(S, "rtsnow", S.T, 300)
-    S.j(f'gsap.set("#rtsiren",{{transformOrigin:"50% 100%"}});tl.fromTo("#rtsiren",{{opacity:1}},{{opacity:.3,duration:.3,yoyo:true,repeat:{int(S.T / .3)},immediateRender:false}},0);')
-    S.cyto(700, 700, .62, outfit="outfit_pufferhoodie",
-           expr=[(S.w(6, "lowkey"), .9, "squint"), (S.w(6, "bro") - .05, 1.3, "shock"), (S.w(6, "cheat"), .9, "hype")],
-           x_expr=[(S.w(6, "Today"), 1.2, "determined"), (S.w(6, "Not"), 1.6, "deadpan")],
-           waves=[S.w(6, "Yo")], points=[(S.w(6, "why"), .8), (S.w(6, "cheat"), .8)], sips=[(S.w(6, "just") - .2, 1.1)],
-           tilts=[(S.w(6, "panicking"), .7, -7)], looks=[(S.w(6, "why") + .1, 14, -8)])
-    S.j(f'tl.set("#cytoLayer",{{opacity:0}},0);tl.set("#cytoLayer",{{opacity:1}},{tFly + .3:.3f});')
-    S.j(f'tl.fromTo("#cytoPos",{{y:"+=300"}},{{y:"-=300",duration:.4,ease:"back.out(1.7)",immediateRender:false}},{tFly + .3:.3f});')
-    # Rhino tiptoes along the roof behind Cyto (sight gag), Mito jogs by far below? keep it to one gag
-    S.char("rhino", "rh", 2000, 590, .45, pose="sneak", z=5, expr=[(S.w(6, "Today"), 4, "smug")], blinks=[])
-    S.j(f'tl.fromTo("#rhW",{{x:0}},{{x:-2500,duration:10,ease:"none",immediateRender:false}},{S.w(6, "Today") - .5:.3f});'
-        f'tl.to("#rh",{{y:-16,duration:.25,yoyo:true,repeat:19,ease:"sine.inOut"}},{S.w(6, "Today") - .5:.3f});')
-    S.sfx(S.w(6, "Today") - .4, "tiptoe", -10)
-    # teaser beats: WHY / WHAT IT DOES / "BRO, WHAT" / CHEAT CODES, then the NOT MEDICAL ADVICE card
-    S.popup("tz1", S.w(6, "why") - .05, S.w(6, "plus") - .1, "TODAY", "WHY + WHAT IT DOES TO YOU", "#8ce2d6", 1330, 170, 900)
-    S.popup("tz2", S.w(6, "plus"), S.w(6, "And", after=S.w(6, "plus")) - .1, "CASE FILE", "ONE STUDY: “BRO, WHAT”", "#ff8a8a", 1330, 170, 900)
-    S.popup("tz3", S.w(6, "cheat") - .1, S.w(6, "Not") - .15, "LOADING...", "CHEAT CODES", "#FFD166", 1330, 170, 900)
-    S.snapzoom(S.w(6, "bro") - .05, 1.16, .9, 700, 560)
-    S.sfx(S.w(6, "bro") - .05, "sting", -6); S.sfx(S.w(6, "cheat") - .1, "coin", -8)
-    S.over(f'<div id="nma" class="clip" data-start="{S.w(6, "Not") - .1:.3f}" data-duration="{S.T - S.w(6, "Not") + .1:.3f}" style="position:absolute;left:1120px;top:200px;width:700px;z-index:70;'
-           'padding:26px 30px;border-radius:24px;background:#FAF4E8;border-left:16px solid #e63946;box-shadow:0 14px 0 rgba(0,0,0,.35)">'
-           '<div style="font:44px InterBlack;color:#e63946">NOT MEDICAL ADVICE</div><div style="font:36px/1.2 InterSB;color:#0c1622;margin-top:6px">Just your boy + some science. Sources on screen + in the description.</div></div>')
-    S.j(f'tl.fromTo("#nma",{{x:80,opacity:0}},{{x:0,opacity:1,duration:.3,ease:"back.out(1.6)"}},{S.w(6, "Not") - .1:.3f});')
-    S.tr_out("whip", .3)
-    S.captions({"6ix": "#FFD166", "panicking": "#ff6b6b", "bro": "#ff8a8a", "what": "#ff8a8a"})
-    return S
-
-
-
 def card(S, id_, t0, t1, num, title, art, x=620, y=70, rot=-3):
-    """Incident-report card: slams in with a whoosh + alarm blip."""
+    """Incident-report card: slams in (whoosh + blip), brief (<= 3 s), then gets torn off with a rip."""
+    t1 = min(t1, t0 + 3.0)
     S.over(f'<div id="{id_}" class="pop clip" data-start="{t0:.3f}" data-duration="{t1 - t0:.3f}" style="left:{x}px;top:{y}px;width:680px;height:560px;z-index:60;transform:rotate({rot}deg);'
            f'background:#FAF4E8;border:8px solid #0c1622;border-radius:18px;box-shadow:0 18px 0 rgba(0,0,0,.35)">'
            f'<div style="position:absolute;left:0;right:0;top:0;height:86px;background:#1f2b4d;border-radius:8px 8px 0 0"></div>'
            f'<div style="position:absolute;left:28px;top:14px;font:46px InterBlack;color:#FFD166">INCIDENT {num}</div>'
            f'<div style="position:absolute;left:28px;top:458px;right:20px;font:38px/1.1 InterBlack;color:#0c1622">{title}</div>'
            f'<svg style="position:absolute;left:20px;top:100px" width="620" height="360" viewBox="0 0 620 360">{art}</svg></div>')
-    S.j(f'tl.fromTo("#{id_}",{{x:-900,rotation:-30}},{{x:0,rotation:{rot},duration:.32,ease:"back.out(1.5)"}},{t0:.3f});tl.to("#{id_}",{{x:1500,rotation:20,duration:.25,ease:"power3.in"}},{t1 - .25:.3f});')
-    S.sfx(t0, "whoosh", -6); S.sfx(t0 + .25, "blip", -8)
+    S.j(f'tl.fromTo("#{id_}",{{x:-900,rotation:-30}},{{x:0,rotation:{rot},duration:.32,ease:"back.out(1.5)"}},{t0:.3f});'
+        f'tl.to("#{id_}",{{rotation:{rot + 4},duration:.08,yoyo:true,repeat:1}},{t0 + .34:.3f});'
+        f'tl.to("#{id_}",{{x:1500,y:-260,rotation:28,duration:.25,ease:"power3.in"}},{t1 - .25:.3f});')
+    S.sfx(t0, "whoosh", -6); S.sfx(t0 + .25, "blip", -8); S.sfx(t1 - .25, "rip", -8)
 
 
 ART_EXAM = ('<rect x="170" y="20" width="250" height="320" rx="10" fill="#fff" stroke="#0c1622" stroke-width="7" transform="rotate(-6 295 180)"/>'
@@ -179,100 +87,6 @@ ART_AUNTIE = ('<circle cx="190" cy="230" r="120" fill="#c5a3ff" stroke="#0c1622"
               '<text x="465" y="100" text-anchor="middle" font-family="InterBlack" font-size="34" fill="#0c1622">SO... WHAT</text><text x="465" y="146" text-anchor="middle" font-family="InterBlack" font-size="34" fill="#0c1622">ARE YOU</text><text x="465" y="190" text-anchor="middle" font-family="InterBlack" font-size="30" fill="#0c1622">DOING??</text>')
 
 
-@scene
-def s03():
-    """ACT 1 — the incident report. Neutro reads off his notepad, cards slam in, Cyto takes each one personally."""
-    t0 = BEATS["to_report"][1]; t1 = BEATS["to_condos"][0] + .6
-    S = Scene("s03", t0, t1, music="alarm_low", bg="#47306b")
-    for l in X.hq("hq"): S.add(l)
-    S.add(X.alarm_fx("hq")); snowfall(S, "hqsnow", S.T)
-    alarm_on(S, "hq", 0, S.T, beams=False)
-    S.tr_in("whip", .3)
-    S.parallax([("hqL0", .2), ("hqL1", .35), ("hqL2", .5), ("hqL3", 1.0)], 0, S.T, dx=-60)
-    l = {n: S.l(n) for n in range(7, 13)}
-    S.j('tl.to(".settxt",{opacity:0,duration:.2},.31);')   # the cards cover the wall signs all scene
-    cards = [(7, "EXAMS.", ART_EXAM, "ONE"), (8, "SECRET SANTA GROUP CHAT", ART_CHAT, "TWO"), (9, "THE MALL = LINE 1 AT RUSH HOUR", ART_TRAIN, "THREE"), (10, "YOUR AUNTIE.", ART_AUNTIE, "FOUR")]
-    for i, (n, title, art, num) in enumerate(cards):
-        a = l[n][0] - .05; b = (l[n + 1][0] - .1) if n < 10 else l[12][1] + .3
-        card(S, f"ic{n}", a, b, num, title, art, x=640, y=60, rot=(-3, 2, -2, 3)[i])
-    S.cyto(420, 660, .56, expr=[(l[8][0] + 1.2, 1.0, "skeptic"), (l[10][0] + 1.2, 1.4, "shock"), (l[11][0], 1.2, "skeptic")],
-           x_expr=[(l[7][0] + .8, 1.0, "deadpan"), (l[9][0] + 1.0, 1.6, "exhausted"), (l[12][0], 1.1, "worried")],
-           looks=[(l[7][0] + .1, 12, -8), (l[9][0] + .1, 12, -8), (l[12][0] + .1, 14, 0)],
-           shrugs=[(l[11][0] + .1, .8)], tilts=[(l[10][0] + 2.0, .9, -8)], sips=[(l[9][1] - .9, 1.1)])
-    S.char("neutro", "nt", 1340, 300, .74, pose="notepad", who="NEUTRO",
-           poses=[(l[11][0] + .5, "point"), (l[12][0] + .2, "notepad")],
-           expr=[(l[7][0], l[10][1] - l[7][0], "deadpan"), (l[11][0] + .3, .9, "sideeye"), (l[12][0], 1.4, "smug")],
-           nods=[l[7][1] - .3, l[8][1] - .3, l[9][1] - .3, l[10][1] - .3, l[12][0] + .5], looks=[(l[11][0] + .2, -.3, 0)])
-    S.punch(l[11][0], 1.12, .45, 420, 600)          # "Bro, that's personal."
-    S.snapzoom(l[12][0] + .05, 1.1, .9, 1560, 500)   # "It's in the report."
-    S.sfx(l[12][0] + .4, "tap", -6)
-    # the alarm signal zips out of HQ (to the adrenal condos)
-    tz = BEATS["to_condos"][0] - t0
-    S.over(f'<div id="zip" class="clip" data-start="{tz:.3f}" data-duration="{S.T - tz:.3f}" style="position:absolute;left:0;top:0;width:1920px;height:1080px;z-index:75"><svg width="1920" height="1080"><path id="zipP" d="M1060 110 C1300 300 700 600 1000 1180" fill="none" stroke="#ff3b3b" stroke-width="22" stroke-linecap="round" stroke-dasharray="1600" stroke-dashoffset="1600"/></svg></div>')
-    S.j(f'tl.to("#zipP",{{attr:{{"stroke-dashoffset":0}},duration:.45,ease:"power2.in"}},{tz:.3f});')
-    S.sfx(tz, "zap", -6)
-    S.tr_out("whip", .25)
-    S.captions({"exams": "#FFD166", "fortythree": "#FFD166", "twenty": "#FFD166", "personal": "#ff8a8a"})
-    return S
-
-
-def mito_court_char(S, **kw):
-    S.char("mito", "mt", kw.pop("x"), kw.pop("y"), kw.pop("s", .62), who="MITO", **kw)
-
-
-@scene
-def s04():
-    """Streetball court establishing: scoreboard drops, crowd bobs, Mito warms up, THE ALARM checks in. Cyto on the mic."""
-    t0 = BEATS["to_condos"][0] + .6; t1 = gw(13, "signal") - .4
-    S = Scene("s04", t0, t1, music="court", bg="#5a1430")
-    S.cap_lr = (720, 120)
-    for l in X.court("ct"): S.add(l)
-    S.add(X.desk("dk"))
-    S.over(X.scoreboard("sb"))
-    S.tr_in("whip", .25)
-    S.j(f'tl.fromTo("#sb",{{y:-40,opacity:0}},{{y:0,opacity:1,duration:.4,ease:"back.out(2)"}},.2);')
-    S.j(f'document.querySelectorAll(".ctfan").forEach((f,i)=>tl.to(f,{{y:-10-(i%3)*4,duration:.22+(i%4)*.04,yoyo:true,repeat:{int(S.T / .22)},ease:"sine.inOut"}},(i%9)*.04));')
-    S.parallax([("ctL1", .3), ("ctL2", .6)], 0, S.T, dx=-50)
-    S.sfx(.2, "crowd", -10)
-    S.cyto(360, 700, .5, z=29, toque_extra=X.HEADSET, face_extra=X.HEADSET_MIC,
-           expr=[(S.w(13, "Welcome") - .05, 1.0, "hype")], x_expr=[(S.w(13, "stress"), 1.1, "determined")],
-           points=[(S.w(13, "alarm") - .2, .8)], looks=[(S.w(13, "brain"), 14, -6)])
-    mito_court_char(S, x=860, y=270, s=.66, pose="ball", expr=[(.3, 1.4, "hype"), (S.w(13, "brain"), 1.6, "determined")],
-                    poses=[(1.2, "hype"), (S.w(13, "Welcome"), "ball")], pops=[(1.2, 1)], looks=[(S.w(13, "alarm"), .3, 0)])
-    S.add(f'<div style="position:absolute;left:0;top:0;z-index:18">' + K.wrap(X.alarm_guy("al", "idle"), "alW", 1300, 300, .78, z=18) + '</div>')
-    S.j(f'tl.fromTo("#alW",{{x:900}},{{x:0,duration:.8,ease:"power3.out"}},.6);tl.fromTo("#al",{{rotation:0}},{{rotation:4,duration:.2,yoyo:true,repeat:3,svgOrigin:"250 700"}},.6);'
-        f'tl.set("#alP_idle",{{opacity:0}},{S.w(13, "alarm"):.3f});tl.set("#alP_flex",{{opacity:1}},{S.w(13, "alarm"):.3f});'
-        f'tl.fromTo("#alglow",{{opacity:.2}},{{opacity:.9,duration:.25,yoyo:true,repeat:{int(S.T / .25)},immediateRender:false}},0);')
-    S.sfx(.7, "siren", -9)
-    S.punch(S.w(13, "alarm"), 1.08, .4, 1500, 500)
-    S.tr_out("flash", .2)
-    S.captions({"alarm": "#ff6b6b"})
-    return S
-
-
-@scene
-def s05():
-    """3D: the alarm signal runs down to the adrenal 'condos' on the kidneys; they fire hormone basketballs. Cyto calls it (PiP)."""
-    t0 = gw(13, "signal") - .4; t1 = LINES[13]["t1"] + .15
-    S = Scene("s05", t0, t1, music="court", bg="#3a1028")
-    S.three3d("CON", "condos", 0, S.T, f"{{dur:{S.T:.3f},tFire:{S.w(13, 'pumping') - .2:.3f}}}", z=1)
-    S.tr_in("flash", .2)
-    S.popup("lbA", S.w(13, "adrenal") - .1, S.w(13, "they") - .15, "ADRENAL GLANDS", "= CONDOS ON YOUR KIDNEYS", "#ffa94d", 1240, 90, 1040)
-    S.popup("lbB", S.w(13, "adrenaline") - .1, S.w(13, "cortisol") - .05, "HORMONE", "ADRENALINE", "#ff8a8a", 1240, 90, 760)
-    S.popup("lbC", S.w(13, "cortisol") - .05, S.T - .05, "HORMONE", "CORTISOL", "#FFD166", 1240, 90, 760)
-    S.over('<div id="pip" style="position:absolute;left:40px;top:560px;width:520px;height:340px;z-index:50;border-radius:24px;overflow:hidden;border:8px solid #FAF4E8;background:#20283a;box-shadow:0 14px 0 rgba(0,0,0,.35)">'
-           '<div style="position:absolute;left:16px;top:10px;font:24px InterBlack;color:#ff3b3b;z-index:3">● LIVE</div></div>')
-    S.cyto(300, 820, .42, z=51, toque_extra=X.HEADSET, face_extra=X.HEADSET_MIC,
-           expr=[(S.w(13, "condos") - .05, .8, "hype")], x_expr=[(S.w(13, "adrenaline") - .1, 1.2, "shocked")],
-           points=[(S.w(13, "kidneys") - .2, .7)], looks=[(S.w(13, "adrenal"), 14, -10)])
-    S.j('tl.set("#cytoLayer",{clipPath:"inset(560px 1380px 180px 40px round 24px)"},0);')
-    S.sfx(S.w(13, "pumping") - .2, "boing", -8); S.sfx(S.w(13, "adrenaline"), "boing", -8)
-    S.tr_out("flash", .15)
-    S.captions({"adrenal": "#ffa94d", "condos": "#ffa94d", "adrenaline": "#ff8a8a", "cortisol": "#FFD166"})
-    return S
-
-
-
 BEAR = ('<path d="M40 150 Q30 80 80 70 Q70 30 100 30 Q120 30 125 55 Q160 40 200 55 Q205 30 225 30 Q255 30 245 70 Q290 80 280 150 Q300 230 220 240 L100 240 Q20 230 40 150Z" fill="#7a4b2c" stroke="#0c1622" stroke-width="7"/>'
         '<circle cx="120" cy="130" r="11" fill="#0c1622"/><circle cx="200" cy="130" r="11" fill="#0c1622"/><ellipse cx="160" cy="175" rx="38" ry="28" fill="#c9965f" stroke="#0c1622" stroke-width="5"/><ellipse cx="160" cy="165" rx="14" ry="9" fill="#0c1622"/>')
 
@@ -285,85 +99,11 @@ def bubble(S, id_, t0, t1, inner, x, y, w=340, h=300):
     S.j(f'tl.fromTo("#{id_}",{{scale:0,transformOrigin:"20% 100%"}},{{scale:1,duration:.3,ease:"back.out(2)"}},{t0:.3f});')
 
 
-@scene
-def s06():
-    """MITO vs THE ALARM — play-by-play. Adrenaline, heart rate + breathing meters, sugar pass, the dunk, the bear, the subs."""
-    t0 = LINES[13]["t1"] + .15; t1 = BEATS["countdown"][0]
-    S = Scene("s06", t0, t1, music="court", bg="#5a1430")
-    S.cap_lr = (720, 120)
-    for l in X.court("ct"): S.add(l)
-    S.add(X.desk("dk")); S.over(X.scoreboard("sb"))
-    S.tr_in("flash", .15)
-    S.j(f'document.querySelectorAll(".ctfan").forEach((f,i)=>tl.to(f,{{y:-10-(i%3)*4,duration:.22+(i%4)*.04,yoyo:true,repeat:{int(S.T / .22)},ease:"sine.inOut"}},(i%9)*.04));')
-    l = {n: S.l(n) for n in range(14, 26)}
-    dk0, dk1 = S.b("dunk"); sb0, sb1 = S.b("subbed")
-    # meters (bars only)
-    S.j(f'tl.to("#sbhr",{{scaleX:.78,duration:.5,ease:"back.out(2)"}},{S.w(15, "UP") - .1:.3f});tl.to("#sbbr",{{scaleX:.8,duration:.5,ease:"back.out(2)"}},{S.w(16, "UP") - .1:.3f});'
-        f'tl.to("#sbhr",{{scaleX:.95,duration:.4}},{sb0:.3f});tl.to("#sbbr",{{scaleX:.95,duration:.4}},{sb0:.3f});')
-    S.j(f'gsap.set("#sbheart",{{transformOrigin:"50% 50%"}});tl.fromTo("#sbheart",{{scale:1.25}},{{scale:1,duration:.5,repeat:{int(S.w(15, "Heart") / .5)},ease:"power2.out",immediateRender:false}},0);'
-        f'tl.fromTo("#sbheart",{{scale:1.35}},{{scale:1,duration:.22,repeat:{int((S.T - S.w(15, "Heart")) / .22)},ease:"power2.out",immediateRender:false}},{S.w(15, "Heart"):.3f});')
-    for n, w in ((15, "UP"), (16, "UP")):
-        S.popup(f"up{n}", S.w(n, w) - .05, l[n][1] + .3, "", "↑ " + ("HEART RATE" if n == 15 else "BREATHING"), "#ff8a8a" if n == 15 else "#8ce2d6", 290, 270, 480)
-        S.sfx(S.w(n, w) - .05, "buzzer", -12)
-    # Cyto: play-by-play desk
-    S.cyto(360, 700, .5, z=29, toque_extra=X.HEADSET, face_extra=X.HEADSET_MIC, phone=True,
-           expr=[(S.w(15, "Adrenaline"), .8, "hype"), (S.w(17, "Mito") - .1, .8, "hype"), (dk0 + .2, 1.2, "shock"), (l[25][0], 1.1, "skeptic")],
-           x_expr=[(S.w(19, "built"), 1.2, "determined"), (l[21][0], l[21][1] - l[21][0] + .4, "deadpan"), (S.w(23, "Again"), 2.0, "exhausted")],
-           points=[(S.w(17, "paint") - .3, .7), (l[25][0], 1.0)], looks=[(S.w(17, "sugar"), 14, -8), (l[20][0] + .2, 14, -4)])
-    # Mito
-    S.char("mito", "mt", 820, 250, .66, pose="ball", who="MITO", z=21,
-           poses=[(l[14][0], "hype"), (S.w(17, "Mito") + .2, "ball"), (dk0 - .1, "dunk"), (dk1 - .3, "idle"), (l[20][0], "point"),
-                  (l[22][0], "idle"), (l[24][0], "shrug"), (l[25][0], "idle")],
-           expr=[(l[14][0], l[14][1] - l[14][0] + .3, "hype"), (S.w(16, "Breathing"), 1.0, "determined"), (l[18][0], dk1 - l[18][0], "hype"),
-                 (l[19][0] + 1, 1.6, "determined"), (l[20][0], 1.2, "worried"), (l[22][0] - .5, l[22][1] - l[22][0] + .8, "sideeye"),
-                 (sb0, 1.4, "shocked"), (l[24][0], l[24][1] - l[24][0] + .4, "shocked"), (l[25][0], 1, "exhausted")],
-           pops=[(l[14][0] + .1, 1), (dk0 + .05, 1.4)],
-           looks=[(l[20][0] + .1, -.3, 0), (l[20][0] + .5, .3, 0), (l[20][0] + .9, -.3, -.2), (l[24][0] + .3, -.3, 0)])
-    # the dunk: rise to the rim, backboard shatters, slow-mo, crowd
-    S.j(f'tl.to("#mtW",{{x:560,y:-230,duration:.45,ease:"power2.out"}},{dk0:.3f});tl.to("#mtW",{{x:575,y:-205,duration:1.6,ease:"none"}},{dk0 + .45:.3f});'
-        f'tl.to("#mtW",{{x:0,y:0,duration:.5,ease:"power2.inOut"}},{dk1 - .55:.3f});')
-    S.j(f'tl.set("#ctshards",{{opacity:1}},{dk0 + .5:.3f});tl.set("#ctboard",{{opacity:0}},{dk0 + .5:.3f});'
-        f'document.querySelectorAll(".ctshard").forEach((e,i)=>tl.fromTo(e,{{x:0,y:0,rotation:0}},{{x:(i%5-2)*90,y:200+(i%3)*120,rotation:(i%2?1:-1)*200,duration:1.8,ease:"power1.in",immediateRender:false}},{dk0 + .5:.3f}));'
-        f'tl.set("#ctshards",{{opacity:0}},{dk1 + .5:.3f});tl.set("#ctboard",{{opacity:1}},{dk1 + .5:.3f});')
-    S.j(f'tl.to(".ctfan",{{y:-46,duration:.18,yoyo:true,repeat:5,ease:"power2.out"}},{dk0 + .55:.3f});')
-    S.over(f'<div id="lbx" class="clip" data-start="{dk0:.3f}" data-duration="{dk1 - dk0:.3f}" style="position:absolute;inset:0;z-index:66;pointer-events:none;box-shadow:inset 0 120px 0 #000, inset 0 -120px 0 #000"></div>'
-           f'<div id="slomo" class="pop clip" data-start="{dk0 + .3:.3f}" data-duration="{dk1 - dk0 - .5:.3f}" style="left:1480px;top:30px;font:54px InterBlack;color:#FFD166;z-index:67">SLOW-MO</div>')
-    S.snapzoom(dk0 + .45, 1.3, dk1 - dk0 - .8, 1600, 330, .4)
-    S.sfx(dk0 + .5, "shatter", -2); S.sfx(dk0 + .6, "crowd", -4); S.sfx(dk0 + .45, "slam", -2)
-    # THE ALARM + its subs
-    S.add(K.wrap(X.alarm_guy("al", "defend"), "alW", 1320, 300, .74, z=19))
-    S.add(K.wrap(X.alarm_guy("al2", "defend"), "al2W", 1520, 330, .7, z=18))
-    S.add(K.wrap(X.alarm_guy("al3", "flex"), "al3W", 1080, 340, .68, z=17))
-    S.j(f'tl.fromTo(["#alglow","#al2glow","#al3glow"],{{opacity:.2}},{{opacity:.9,duration:.25,yoyo:true,repeat:{int(S.T / .25)},immediateRender:false}},0);'
-        f'tl.to("#alW",{{x:900,duration:.4,ease:"power2.in"}},{dk0:.3f});tl.to("#alW",{{x:0,duration:.6,ease:"power3.out"}},{sb0:.3f});'
-        f'tl.set(["#al2W","#al3W"],{{x:300,opacity:0}},0);tl.to("#al2W",{{x:0,opacity:1,duration:.35,ease:"back.out(1.4)"}},{S.w(23, "Again") - .1:.3f});tl.to("#al3W",{{x:0,opacity:1,duration:.35,ease:"back.out(1.4)"}},{S.w(23, "again", after=S.w(23, "Again") + .1) - .1:.3f});')
-    for t in (sb0, S.w(23, "Again") - .1, S.w(23, "again", after=S.w(23, "Again") + .1) - .1):
-        S.sfx(t, "siren_short", -10); S.sfx(t, "buzzer", -12)
-    for t in (S.w(23, "phone") - .1, S.w(23, "Again") - .3, S.w(23, "again", after=S.w(23, "Again") + .1) - .3):
-        buzz(S, t, .3)
-    S.popup("sub", sb0 + .1, sb0 + 1.4, "SUBSTITUTION", "THE ALARM (AGAIN)", "#ff8a8a", 290, 260, 480)
-    S.j(f'tl.to("#mtW",{{x:-260,duration:.35,ease:"power3.in"}},{sb0 + .2:.3f});tl.to("#mtW",{{x:0,duration:.5,ease:"power2.out"}},{sb1 + .2:.3f});')
-    # sugar pass
-    S.add(f'<div id="sugar" class="clip" data-start="{S.w(17, "sugar") - .2:.3f}" data-duration="{S.w(18, "I") - S.w(17, "sugar") + .2:.3f}" style="position:absolute;left:0;top:0;width:120px;height:120px;z-index:22">'
-          '<svg width="120" height="120"><rect x="10" y="10" width="100" height="100" rx="18" fill="#fff" stroke="#0c1622" stroke-width="7"/><text x="60" y="72" text-anchor="middle" font-family="InterBlack" font-size="26" fill="#0c1622">SUGAR</text></svg></div>')
-    S.j(f'tl.fromTo("#sugar",{{x:400,y:120,rotation:0}},{{x:1150,y:330,rotation:540,duration:{S.w(17, "paint") - S.w(17, "sugar") + .1:.3f},ease:"power1.in"}},{S.w(17, "sugar") - .2:.3f});')
-    S.sfx(S.w(17, "paint"), "catch", -6)
-    # the bear (thought bubble) + the group chat reveal
-    bubble(S, "bear", S.w(19, "bear") - .1, l[21][1] + .2, BEAR, 520, 270)
-    S.over(f'<div id="bearX" class="pop clip" data-start="{S.w(21, "no"):.3f}" data-duration="{l[21][1] - S.w(21, "no") + .2:.3f}" style="left:600px;top:310px;font:220px/1 InterBlack;color:#e63946;-webkit-text-stroke:6px #0c1622">X</div>')
-    S.j(f'tl.fromTo("#bearX",{{scale:3,opacity:0}},{{scale:1,opacity:1,duration:.18,ease:"power4.in"}},{S.w(21, "no"):.3f});')
-    S.snapzoom(S.w(21, "group") - .05, 1.3, .9, 520, 640)
-    S.sfx(S.w(19, "bear"), "roar", -10)
-    S.punch(l[24][0], 1.12, .45, 1100, 500)
-    S.tr_out("whip", .3)
-    S.captions({"up": "#ff8a8a", "him": "#FFD166", "bear": "#c9965f", "groupchat": "#8ce2d6", "again": "#ff8a8a"})
-    return S
-
-
-
-def src_chip(S, id_, t0, t1, txt, x=60, y=60):
-    S.over(f'<div id="{id_}" class="pop clip" data-start="{t0:.3f}" data-duration="{t1 - t0:.3f}" style="left:{x}px;top:{y}px;padding:12px 22px;border-radius:14px;background:#0c1622;border:4px solid #FAF4E8;font:34px InterBlack;color:#FAF4E8">{txt}</div>')
-    S.j(f'tl.fromTo("#{id_}",{{x:-60,opacity:0}},{{x:0,opacity:1,duration:.25,ease:"power3.out"}},{t0:.3f});')
+def src_chip(S, id_, t0, t1, txt, x=40, y=36, right=False):
+    """Source chip: reserved zone at the top corners (fix pass I4: never on a face)."""
+    pos = f"right:40px;top:{y}px" if right else f"left:{x}px;top:{y}px"
+    S.over(f'<div id="{id_}" class="pop clip" data-start="{t0:.3f}" data-duration="{t1 - t0:.3f}" style="{pos};padding:10px 22px;border-radius:14px;background:#0c1622;border:4px solid #FAF4E8;font:34px InterBlack;color:#FAF4E8;z-index:74">{txt}</div>')
+    S.j(f'tl.fromTo("#{id_}",{{y:-40,opacity:0}},{{y:0,opacity:1,duration:.25,ease:"power3.out"}},{t0:.3f});')
 
 
 def flipsign(S, id_, t, txt0, txt1, x=80, y=60, w=620):
@@ -389,82 +129,6 @@ IMM = ('<circle cx="90" cy="90" r="80" fill="#8ce2d6" stroke="#0c1622" stroke-wi
 FLAME = '<path d="M30 0 Q60 40 50 70 Q70 60 66 40 Q90 70 70 100 Q40 120 14 100 Q-6 80 10 50 Q16 70 26 72 Q14 40 30 0Z" fill="#ff7a29" stroke="#0c1622" stroke-width="5"/><path d="M40 60 Q56 80 46 100 Q30 104 26 90 Q24 76 40 60Z" fill="#FFD166"/>'
 
 
-@scene
-def s07():
-    """IT DRAGS ON — countdown sign, Mito gassed on the bench, the cortisol gag, Neutro vs. a crumb."""
-    t0 = BEATS["countdown"][0]; t1 = gw(32, "And")
-    S = Scene("s07", t0, t1, music="moody", bg="#2a1030")
-    for l in X.court("ct"): S.add(l)
-    S.add('<div class="fill" style="z-index:5;background:linear-gradient(rgba(20,10,60,.55),rgba(10,5,30,.65))"></div>')
-    S.add(X.layer("bench", BENCH, 6))
-    S.tr_in("whip", .3)
-    flipsign(S, "cd", .5, "12 DAYS TILL BREAK", "10 DAYS TILL BREAK", 80, 120)
-    S.parallax([("ctL1", .2), ("ctL2", .4), ("bench", .5)], 0, S.T, dx=-60)
-    l = {n: S.l(n) for n in range(26, 33)}
-    cb0, cb1 = S.b("crumb"); bn0, _ = S.b("bench")
-    S.cyto(560, 650, .62, expr=[(l[26][0] + 3.4, 1.1, "squint"), (S.w(28, "stop"), 1.0, "sad"), (l[30][0], 1.1, "skeptic")],
-           x_expr=[(l[26][0] + .2, 1.4, "smug"), (S.w(28, "Cortisol"), 1.4, "determined"), (S.w(28, "inflammation"), 1.6, "worried"), (cb0, 1.1, "shocked"), (l[32][0], 2.0, "sideeye")],
-           points=[(S.w(28, "Carnegie"), .7), (l[30][0] + .1, .9)], shrugs=[(S.w(26, "days") - .1, .8)], sips=[(l[27][1] + .1, 1.2)],
-           looks=[(bn0, 14, 0), (cb0 + .1, 14, 6), (l[32][0] + 1.3, -10, 0)])
-    S.char("mito", "mt", 1270, 190, .66, pose="slump", gassed=True, who="MITO", z=21,
-           expr=[(0, S.T, "exhausted")], shut_at=[(l[27][1] + .6, 2.0)], nods=[l[27][0] + .2], bob=True)
-    S.j(f'tl.fromTo("#mtsweat",{{y:0,opacity:1}},{{y:30,opacity:0,duration:1.2,repeat:{int(S.T / 1.2)},ease:"power1.in",immediateRender:false}},0);')
-    # cortisol gag (quick, with Cyto reacting): megaphone -> immune cell puts headphones on -> flames won't go out
-    a0 = S.w(28, "Cortisol") - .1; a1 = S.w(28, "But", after=a0) - 1.9
-    S.over(f'<div id="cg" class="pop clip" data-start="{a0:.3f}" data-duration="{a1 - a0 + 2.6:.3f}" style="left:900px;top:150px;width:900px;height:330px;z-index:50;border-radius:28px;background:#FAF4E8;border:7px solid #0c1622;box-shadow:0 14px 0 rgba(0,0,0,.35)">'
-           f'<svg width="900" height="330"><g transform="translate(40 110)">{CORT}</g>'
-           f'<g id="cgtxt"><rect x="250" y="40" width="300" height="70" rx="20" fill="#fff" stroke="#0c1622" stroke-width="5"/><text x="400" y="86" text-anchor="middle" font-family="InterBlack" font-size="30" fill="#0c1622">AIGHT, CALM DOWN</text></g>'
-           f'<g transform="translate(600 90)">{IMM}</g><g id="cgfl" opacity="0"><g transform="translate(330 170)">{FLAME}</g><g transform="translate(420 190) scale(.8)">{FLAME}</g><g transform="translate(500 170)">{FLAME}</g></g>'
-           f'<text x="450" y="315" text-anchor="middle" font-family="InterBlack" font-size="28" fill="#e63946" id="cglab" opacity="0">INFLAMMATION</text></svg></div>')
-    S.j(f'tl.fromTo("#cg",{{y:-500}},{{y:0,duration:.35,ease:"back.out(1.5)"}},{a0:.3f});tl.set("#hph",{{opacity:1}},{S.w(28, "stop"):.3f});'
-        f'tl.fromTo("#hph",{{y:-60}},{{y:0,duration:.25,ease:"bounce.out"}},{S.w(28, "stop"):.3f});tl.set("#cgtxt",{{opacity:.25}},{S.w(28, "listening"):.3f});'
-        f'tl.set(["#cgfl","#cglab"],{{opacity:1}},{S.w(28, "inflammation"):.3f});tl.fromTo("#cgfl",{{scaleY:.9,transformOrigin:"50% 100%"}},{{scaleY:1.12,duration:.18,yoyo:true,repeat:30,immediateRender:false}},{S.w(28, "inflammation"):.3f});'
-        f'tl.to("#cg",{{y:-600,duration:.3,ease:"power3.in"}},{a1 + 1.6:.3f});')
-    # sight gags after the card: the immune cell (headphones on) pops next to Cyto, flames at Mito's feet won't go out
-    g0 = S.w(28, "immune", after=a1) - .2; g1 = l[28][1] + .4
-    S.over(f'<div id="imm2" class="pop clip" data-start="{g0:.3f}" data-duration="{g1 - g0:.3f}" style="left:880px;top:330px;z-index:50"><svg width="260" height="200" viewBox="-10 -40 240 220">{IMM.replace('id="hph"', 'id="hph2"')}</svg></div>'
-           f'<div id="fl2" class="pop clip" data-start="{S.w(28, "inflammation"):.3f}" data-duration="{g1 - S.w(28, "inflammation"):.3f}" style="left:1300px;top:780px;z-index:23"><svg width="300" height="130" viewBox="0 0 300 130">'
-           f'<g transform="translate(0 10)">{FLAME}</g><g transform="translate(100 20) scale(.8)">{FLAME}</g><g transform="translate(190 10)">{FLAME}</g></svg></div>')
-    S.j(f'tl.fromTo("#imm2",{{scale:0}},{{scale:1,duration:.3,ease:"back.out(2)"}},{g0:.3f});tl.set("#hph2",{{opacity:0}},0);tl.set("#hph2",{{opacity:1}},{S.w(28, "stop"):.3f});'
-        f'tl.fromTo("#hph2",{{y:-60}},{{y:0,duration:.25,ease:"bounce.out",immediateRender:false}},{S.w(28, "stop"):.3f});'
-        f'tl.fromTo("#fl2",{{scaleY:.85,transformOrigin:"50% 100%"}},{{scaleY:1.1,duration:.16,yoyo:true,repeat:{int((g1 - S.w(28, "inflammation")) / .16)},immediateRender:false}},{S.w(28, "inflammation"):.3f});')
-    src_chip(S, "src1", S.w(28, "Carnegie") - .1, l[28][1], "COHEN ET AL. · PNAS 2012", 1180, 140)
-    S.sfx(S.w(28, "stop"), "pop", -8)
-    # Neutro: jittery, spins at the crumb, radios for backup
-    S.add('<div id="crumb" style="position:absolute;left:990px;top:840px;z-index:7"><svg width="70" height="50"><path d="M6 44 L20 10 L52 6 L64 38Z" fill="#d9a35b" stroke="#0c1622" stroke-width="4"/></svg></div>')
-    S.char("neutro", "nt", 2000, 330, .7, pose="idle", who="NEUTRO", z=22,
-           poses=[(cb0 + .5, "radio"), (l[31][0], "point"), (l[32][0] + .4, "cross")],
-           expr=[(cb0, cb1 - cb0 + l[29][1] - l[29][0] + .2, "determined"), (l[31][0], 1.6, "sideeye"), (l[32][0], 2.4, "deadpan")],
-           looks=[(cb0 + .3, -.3, .2), (l[30][0] + .3, -.3, 0)])
-    S.j(f'tl.to("#ntW",{{x:-1100,duration:.4,ease:"power3.out"}},{cb0 - .5:.3f});'
-        f'tl.to("#nt",{{scaleX:-1,duration:.08,svgOrigin:"300 650",yoyo:true,repeat:3}},{cb0:.3f});'
-        f'tl.to("#ntW",{{x:-1040,duration:.07,yoyo:true,repeat:9}},{cb0 + .1:.3f});')
-    S.sfx(cb0, "whoosh", -10); S.sfx(cb0 + .5, "radio", -6)
-    S.snapzoom(cb0 + .3, 1.5, cb1 - cb0, 1030, 760, .35)
-    S.punch(l[30][0], 1.12, .45, 560, 600)
-    S.tr_out("iris", .3)
-    S.captions({"cortisol": "#FFD166", "carnegie": "#8ce2d6", "mellon": "#8ce2d6", "cooked": "#ff8a8a", "crumb": "#d9a35b"})
-    return S
-
-
-@scene
-def s08():
-    """3D: Rhino's heist at the nose (front door): ducking under laser beams. Silent villain, heist music."""
-    t0 = gw(32, "And"); t1 = BEATS["heist"][1]
-    S = Scene("s08", t0, t1, music="heist", bg="#2a0a14")
-    S.three3d("LAS", "lasers", 0, S.T, "{}", z=1)
-    S.tr_in("iris", .3)
-    S.popup("fd", .4, S.T - .3, "LOCATION", "FRONT DOOR = YOUR NOSE", "#ff8a8a", 960, 60, 860)
-    S.char("rhino", "rh", -380, 520, .95, pose="sneak", z=30, expr=[(0, S.T, "smug")], blinks=[],
-           poses=[(1.0, "duck"), (2.2, "spread"), (3.2, "sneak"), (4.4, "duck"), (5.6, "wave")])
-    S.j(f'tl.to("#rhW",{{x:900,duration:{S.T - 1:.3f},ease:"sine.inOut"}},.2);tl.to("#rh",{{y:-20,duration:.3,yoyo:true,repeat:{int(S.T / .3)},ease:"sine.inOut"}},0);'
-        f'tl.to("#rh",{{rotation:360,duration:.6,svgOrigin:"200 260",ease:"power2.inOut"}},2.4);tl.set("#rh",{{rotation:0}},3.05);')
-    S.sfx(.2, "tiptoe", -8); S.sfx(2.4, "whoosh", -10); S.sfx(S.T - 1.2, "gulp", -8)
-    S.tr_out("flash", .3)
-    S.captions({"officer": "#ff8a8a"})
-    return S
-
-
 def reel(inner):
     return (f'<div style="position:absolute;inset:0;background:#111"><svg width="1920" height="1080">'
             + "".join(f'<rect x="{40 + i * 120}" y="20" width="60" height="40" rx="6" fill="#444"/><rect x="{40 + i * 120}" y="1020" width="60" height="40" rx="6" fill="#444"/>' for i in range(16))
@@ -479,172 +143,9 @@ VOL = lambda x: (f'<g transform="translate({x} 560)"><circle cx="0" cy="120" r="
 TINYRH = '<g><circle r="22" fill="#777" stroke="#000" stroke-width="5"/>' + "".join(f'<circle cx="{30 * math.cos(a / 6 * 6.283):.0f}" cy="{30 * math.sin(a / 6 * 6.283):.0f}" r="7" fill="#aaa" stroke="#000" stroke-width="3"/>' for a in range(6)) + '<rect x="-16" y="-8" width="32" height="10" rx="4" fill="#000"/></g>'
 
 
-@scene
-def s09():
-    """COLD CASE: 1991 — film-noir. Neutro in a trench coat reads the case file; reenactment; the numbers; "Bro, WHAT."; colour snaps back."""
-    import math as _m
-    t0 = BEATS["heist"][1]; t1 = BEATS["smirk"][1]
-    S = Scene("s09", t0, t1, music="noir", bg="#111")
-    for l in X.noir("nr"): S.add(l)
-    S.tr_in("flash", .3)
-    nb0, nb1 = S.b("noir"); re0, re1 = S.b("reenact"); si0, si1 = S.b("silence"); sm0, sm1 = S.b("smirk")
-    l = {n: S.l(n) for n in range(33, 43)}
-    tc = l[42][0] - .1                       # colour snaps back
-    S.j(f'tl.set("#cam",{{filter:"grayscale(1) contrast(1.25) brightness(.95)"}},0);tl.set("#cam",{{filter:"none"}},{tc:.3f});')
-    S.over(f'<div id="grain" class="static clip" data-start="0" data-duration="{tc:.3f}" style="position:absolute;inset:0;z-index:60;opacity:.07;pointer-events:none"></div>')
-    S.j(f'tl.fromTo("#grain",{{backgroundPosition:"0px 0px"}},{{backgroundPosition:"53px 29px",duration:.05,repeat:{int(tc / .05)},ease:"steps(1)",immediateRender:false}},0);')
-    S.j(f'tl.fromTo("#nrrain",{{y:-60}},{{y:0,duration:.35,repeat:{int(S.T / .35)},ease:"none",immediateRender:false}},0);')
-    S.j(f'tl.fromTo("#nrlamp",{{opacity:1}},{{opacity:.6,duration:.06,yoyo:true,repeat:5,immediateRender:false}},{nb0 + .2:.3f});')
-    S.sfx(0, "rain", -12); S.sfx(nb0 + .1, "sax", -4)
-    S.over(f'<div id="cct" class="clip" data-start="{nb0 + .1:.3f}" data-duration="{l[33][1] + .2:.3f}" style="position:absolute;left:0;right:0;top:330px;text-align:center;z-index:70;font:120px InterBlack;color:#f0f0f0;-webkit-text-stroke:5px #000;paint-order:stroke fill">COLD CASE: 1991</div>')
-    S.j(f'tl.fromTo("#cct",{{clipPath:"inset(0 100% 0 0)"}},{{clipPath:"inset(0 0% 0 0)",duration:.9,ease:"steps(15)"}},{nb0 + .1:.3f});')
-    S.sfx(nb0 + .1, "typewriter", -8)
-    # cast: Neutro (trench) behind the desk, Cyto across from him
-    S.char("neutro", "nt", 760, 210, .78, pose="notepad", who="NEUTRO", z=20, trench=True,
-           poses=[(l[34][0], "idle"), (l[38][0], "point"), (l[41][0], "cross")],
-           expr=[(0, l[35][0], "deadpan"), (l[36][0], 1.2, "deadpan"), (l[38][0], l[39][1] - l[38][0], "determined"), (l[41][0], 1.6, "smug")],
-           nods=[l[33][1] - .2, l[36][0] + .3, l[41][0] + .2], looks=[(l[35][0] + .1, -.3, 0)])
-    S.cyto(360, 760, .66, z=35, expr=[(l[35][0] - .05, 1.0, "shock"), (si0 + .1, si1 - si0 + l[40][1] - l[40][0] + .3, "shock")],
-           x_expr=[(l[34][0] + 1, 2.5, "sideeye"), (l[38][0] + 1.0, 2.5, "worried"), (l[42][0] + .1, 2.5, "determined"), (sm0, 1.2, "worried")],
-           looks=[(l[33][0], 12, -4), (l[38][0] + .3, 14, -10), (sm0 + .1, -14, 0)], tilts=[(l[42][0] + 1.5, .7, 6)], shrugs=[(S.w(42, "Yeah"), .7)])
-    S.j(f'tl.fromTo("#nrfile",{{y:0}},{{y:-14,duration:.12,yoyo:true,repeat:1,immediateRender:false}},{l[33][0]:.3f});')
-    # case photos (grainy) slide onto the board while he talks
-    S.over(f'<div id="ph1" class="pop clip" data-start="{S.w(34, "volunteers") - .2:.3f}" data-duration="{l[35][0] - S.w(34, "volunteers") + .1:.3f}" style="left:1120px;top:150px;width:660px;height:430px;z-index:40;background:#e8e8e8;border:10px solid #fff;box-shadow:0 12px 0 rgba(0,0,0,.4);transform:rotate(3deg)">'
-           f'<svg width="640" height="410" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice"><rect width="1920" height="1080" fill="#cfcfcf"/>'
-           + "".join(f'<path d="M0 {y} H1920" stroke="#999" stroke-width="6"/>' for y in range(200, 1000, 120)) + "".join(VOL(x) for x in (300, 700, 1100, 1500)).replace('560)', '300)') + '</svg>'
-           f'<div style="position:absolute;left:0;right:0;bottom:-58px;text-align:center;font:34px InterBlack;color:#111;background:#fff">~400 VOLUNTEERS</div></div>')
-    S.j(f'tl.fromTo("#ph1",{{x:900,rotation:20}},{{x:0,rotation:3,duration:.35,ease:"back.out(1.4)"}},{S.w(34, "volunteers") - .2:.3f});')
-    S.sfx(S.w(34, "volunteers") - .1, "click", -6)
-    src_chip(S, "src2", S.w(34, "Scientists"), l[37][1], "COHEN, TYRRELL & SMITH · NEJM 1991", 60, 60)
-    S.punch(l[35][0], 1.18, .5, 360, 640)
-    # reenactment reel: scientists with eye-droppers, volunteers, tiny Rhinos dropping in
-    drops = "".join(f'<g class="trh" transform="translate({340 + i * 400} 380)">{TINYRH}</g>' for i in range(4))
-    S.over(f'<div id="reel" class="clip" data-start="{S.w(34, "dripped") - .2:.3f}" data-duration="{l[37][1] - S.w(34, "dripped") + .4:.3f}" style="position:absolute;inset:0;z-index:45">'
-           + reel("".join(SCI(x) for x in (340, 740, 1140, 1540)) + drops + "".join(VOL(x) for x in (340, 740, 1140, 1540))
-                  + '<text x="1820" y="130" text-anchor="end" font-family="InterBlack" font-size="34" fill="#111">REENACTMENT</text>') + '</div>')
-    S.j(f'document.querySelectorAll(".trh").forEach((e,i)=>tl.fromTo(e,{{y:0,opacity:0}},{{y:260,opacity:1,duration:.6,ease:"power2.in",repeat:3,repeatDelay:.25,immediateRender:false}},{re0:.3f}+i*.15));'
-        f'tl.fromTo("#reel",{{scale:1.05}},{{scale:1,duration:.3}},{S.w(34, "dripped") - .2:.3f});')
-    S.sfx(re0 + .1, "drip", -6); S.sfx(re0 + .9, "drip", -6)
-    # the numbers (one quick 'evidence' board, Neutro pointing, Cyto reacting)
-    b0 = l[38][0] - .1; b1 = si0 + .1
-    def bar(id_, lab, v, col, y):
-        return (f'<div style="position:absolute;left:30px;top:{y}px;font:34px InterBlack;color:#111">{lab}</div>'
-                f'<div style="position:absolute;left:30px;top:{y + 44}px;width:560px;height:46px;background:#bbb;border:4px solid #111"><div id="{id_}" style="width:{v}%;height:100%;background:{col};transform-origin:0 50%"></div></div>'
-                f'<div id="{id_}n" style="position:absolute;left:600px;top:{y + 44}px;font:42px InterBlack;color:#111">{v}%</div>')
-    S.over(f'<div id="ev" class="pop clip" data-start="{b0:.3f}" data-duration="{b1 - b0:.3f}" style="left:1100px;top:130px;width:720px;height:520px;z-index:40;background:#efefef;border:8px solid #111;box-shadow:0 12px 0 rgba(0,0,0,.4)">'
-           f'<div style="position:absolute;left:30px;top:16px;font:30px InterBlack;color:#555">INFECTED</div>'
-           + bar("evA", "LOW STRESS", 74, "#666", 56) + bar("evB", "HIGH STRESS", 90, "#111", 156)
-           + '<div style="position:absolute;left:30px;top:270px;font:30px InterBlack;color:#555">ACTUAL COLDS</div>'
-           + bar("evC", "LOW STRESS", 27, "#666", 310) + bar("evD", "HIGH STRESS", 47, "#111", 410) + '</div>')
-    S.j(f'tl.fromTo("#ev",{{y:-700}},{{y:0,duration:.35,ease:"back.out(1.3)"}},{b0:.3f});')
-    for i, (k, w) in enumerate((("evA", S.w(38, "seventy")), ("evB", S.w(38, "ninety")), ("evC", S.w(39, "Twenty")), ("evD", S.w(39, "forty")))):
-        S.j(f'tl.fromTo("#{k}",{{scaleX:0}},{{scaleX:1,duration:.4,ease:"power2.out"}},{w - .05:.3f});tl.fromTo("#{k}n",{{opacity:0}},{{opacity:1,duration:.1}},{w + .2:.3f});')
-        S.sfx(w, "stamp", -8)
-    # silence -> shake + snap zoom -> "Bro, WHAT."
-    S.j(f'tl.to(".settxt",{{opacity:0,duration:.05}},{si0 + .8:.3f});tl.to(".settxt",{{opacity:1,duration:.1}},{l[41][0] + .1:.3f});')
-    S.shake(si0 + .9, .5, 18); S.snapzoom(si0 + .85, 1.45, si1 - si0 + l[40][1] - l[40][0] - .5, 360, 640, .3)
-    S.sfx(l[41][0] + .5, "slam", -4)
-    S.j(f'tl.to("#nrfile",{{y:-30,duration:.1,yoyo:true,repeat:1}},{l[41][0] + .4:.3f});')
-    # colour snaps back; Rhino peeks from behind the door frame and smirks
-    S.sfx(tc, "whoosh", -8)
-    S.char("rhino", "rh", 1560, 420, .7, pose="idle", z=21, expr=[(sm0, sm1 - sm0, "smug")], blinks=[])
-    S.j(f'tl.set("#rhW",{{x:420}},0);tl.to("#rhW",{{x:0,duration:.35,ease:"back.out(1.6)"}},{sm0:.3f});')
-    S.sfx(sm0 + .3, "sting", -6)
-    S.tr_out("whip", .3)
-    S.captions({"purpose": "#ff8a8a", "seventyfour": "#FAF4E8", "ninety": "#ff8a8a", "fortyseven": "#ff8a8a", "what": "#ff8a8a"})
-    return S
-
-
-
 def lever_pull(S, p, t):
     S.j(f'gsap.set("#{p}lever",{{svgOrigin:"1255 545"}});tl.to("#{p}lever",{{rotation:180,duration:.12,ease:"power3.in"}},{t:.3f});tl.to("#{p}lever",{{rotation:0,duration:.3,ease:"back.out(2)"}},{t + .35:.3f});')
     S.sfx(t + .08, "clunk", -6)
-
-
-@scene
-def s10():
-    """THE TWIST — the alarm is still going. Security-cam footage: Cyto yanks the lever every time his phone buzzes."""
-    t0 = BEATS["smirk"][1]; t1 = BEATS["to_heart"][0] + .8
-    S = Scene("s10", t0, t1, music="alarm_low", bg="#47306b")
-    for l in X.hq("hq"): S.add(l)
-    S.add(X.alarm_fx("hq")); snowfall(S, "hqsnow", S.T)
-    alarm_on(S, "hq", 0, S.T, beams=False)
-    S.tr_in("whip", .3)
-    l = {n: S.l(n) for n in range(43, 48)}
-    c0, c1 = S.b("seccam")
-    S.cyto(560, 650, .6, phone=True, expr=[(l[44][0] - .05, .8, "skeptic"), (c1 - .1, l[45][1] - c1 + .1, "shock")],
-           x_expr=[(l[46][0], .9, "worried"), (l[47][0], 2.8, "smug")], looks=[(l[43][0] + .3, 14, -2), (c1 + .3, 14, 0), (c1 + .7, -10, -6), (l[46][0] + .2, 14, -2)],
-           shrugs=[(l[47][0] + .2, 1.0)], tilts=[(l[47][0] + 1.4, .9, -8)])
-    S.char("neutro", "nt", 1290, 300, .74, pose="radio", who="NEUTRO",
-           poses=[(l[43][1], "cross"), (l[46][0], "idle")],
-           expr=[(0, l[43][1], "determined"), (l[44][0], 1.2, "sideeye"), (c1, l[46][1] - c1 + .2, "deadpan"), (l[47][0] + .4, 2.2, "smug")],
-           looks=[(l[43][1], -.3, 0), (l[46][0] + .1, -.3, 0)], nods=[l[47][1] - .4])
-    S.j(f'tl.fromTo("#ntW",{{x:0}},{{x:-6,duration:.05,yoyo:true,repeat:{int(l[43][1] / .05)},immediateRender:false}},0);')    # jumpy
-    # security-cam cutaway (grainy, green, timestamp, REC) — Cyto on the beanbag pulling the lever without looking
-    pulls = [c0 + .6, c0 + 1.5, c0 + 2.4]
-    S.over(f'<div id="cam2" class="clip" data-start="{c0:.3f}" data-duration="{c1 - c0:.3f}" style="position:absolute;inset:0;z-index:72;background:#000;overflow:hidden">'
-           f'<div id="camI" style="position:absolute;inset:0;transform-origin:960px 540px;filter:grayscale(1) sepia(1) hue-rotate(60deg) saturate(1.6) contrast(1.3) brightness(.85)">'
-           + "".join(X.hq("sc")[:3]) +
-           f'<div style="position:absolute;inset:0;z-index:5">{K.wrap(K.rhino_html("zz", "idle"), "zzW", -900, 0, .1)}</div>'
-           f'<div id="scCy" style="position:absolute;left:0;top:0;z-index:6"><svg viewBox="0 0 1200 1200" width="1200" height="1200" style="position:absolute;left:{1000 - 600 * .5:.0f}px;top:{640 - 640 * .5:.0f}px;transform:scale(.5);transform-origin:0 0;overflow:visible">'
-           f'<circle cx="600" cy="640" r="300" fill="#3fc1b0" stroke="#0c1622" stroke-width="8"/><ellipse cx="600" cy="300" rx="290" ry="140" fill="#1e56ac" stroke="#0c1622" stroke-width="8"/>'
-           f'<ellipse cx="520" cy="640" rx="40" ry="26" fill="#fff" stroke="#0c1622" stroke-width="6"/><ellipse cx="660" cy="640" rx="40" ry="26" fill="#fff" stroke="#0c1622" stroke-width="6"/><circle cx="520" cy="652" r="16" fill="#0c1622"/><circle cx="660" cy="652" r="16" fill="#0c1622"/>'
-           f'<rect x="440" y="760" width="110" height="180" rx="16" fill="#1b1f2a" stroke="#0c1622" stroke-width="7"/><rect x="452" y="776" width="86" height="148" rx="6" fill="#8ce2d6"/>'
-           f'<g id="scArm"><path d="M840 650 Q980 560 1010 420" fill="none" stroke="#0c1622" stroke-width="78" stroke-linecap="round"/><path d="M840 650 Q980 560 1010 420" fill="none" stroke="#188076" stroke-width="62" stroke-linecap="round"/><circle cx="1010" cy="410" r="50" fill="#3fc1b0" stroke="#0c1622" stroke-width="7"/></g></svg></div>'
-           f'</div>'
-           f'<div class="static" id="scN" style="position:absolute;inset:0;opacity:.12"></div>'
-           f'<div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.25) 0 2px,transparent 2px 5px)"></div>'
-           f'<div style="position:absolute;left:60px;top:44px;font:44px InterBlack;color:#e8ffe8;text-shadow:0 0 8px #000">CAM 1 · HQ</div>'
-           f'<div id="rec" style="position:absolute;left:1600px;top:44px;font:44px InterBlack;color:#ff4d4d">● REC</div>'
-           f'<div style="position:absolute;left:60px;top:120px;font:38px InterBlack;color:#e8ffe8;text-shadow:0 0 8px #000">DEC 06 2026 · 06:00</div></div>')
-    S.j(f'tl.fromTo("#scN",{{backgroundPosition:"0px 0px"}},{{backgroundPosition:"41px 77px",duration:.05,repeat:{int((c1 - c0) / .05)},ease:"steps(1)",immediateRender:false}},{c0:.3f});'
-        f'tl.fromTo("#rec",{{opacity:1}},{{opacity:0,duration:.4,yoyo:true,repeat:{int((c1 - c0) / .4)},ease:"steps(1)",immediateRender:false}},{c0:.3f});'
-        f'tl.fromTo("#camI",{{scale:1}},{{scale:1.18,duration:{c1 - c0:.3f},ease:"none",immediateRender:false}},{c0:.3f});'
-        f'gsap.set("#scArm",{{svgOrigin:"840 650"}});')
-    for t in pulls:
-        S.j(f'tl.to("#scArm",{{rotation:40,duration:.12,ease:"power3.in"}},{t:.3f});tl.to("#scArm",{{rotation:0,duration:.3,ease:"power2.out"}},{t + .3:.3f});')
-        lever_pull(S, "sc", t)
-        S.over(f'<div id="bz{int(t * 10)}" class="pop clip" data-start="{t - .25:.3f}" data-duration=".5" style="left:800px;top:280px;z-index:73;font:50px InterBlack;color:#e8ffe8">BZZT</div>')
-        S.sfx(t - .25, "buzz", -6)
-    S.sfx(c0, "static", -10)
-    S.j(f'tl.to(".settxt",{{opacity:0,duration:.05}},{c0 - .05:.3f});tl.to(".settxt",{{opacity:1,duration:.1}},{c1:.3f});')
-    # the twist reaction: silent holds, then the confession
-    S.snapzoom(c1 + .05, 1.15, l[45][1] - c1, 560, 600, .2)
-    S.snapzoom(l[46][0] + .02, 1.15, .85, 1530, 500, .2)
-    S.punch(l[47][0], 1.1, .5, 560, 600)
-    S.sfx(l[47][0] + .2, "sting", -8)
-    S.tr_out("iris", .4)
-    S.captions({"who": "#FFD166", "me": "#FFD166", "ahlie": "#FFD166"})
-    return S
-
-
-@scene
-def s11():
-    """SERIOUS BEAT — downtown (the heart), 3D, calm. Cup down."""
-    t0 = BEATS["to_heart"][0] + .8; t1 = BEATS["to_cheats"][0] + .4
-    S = Scene("s11", t0, t1, music="calm", bg="#1d2240")
-    S.three3d("HRT", "heart", 0, S.T, "{}", z=1)
-    S.tr_in("iris", .4)
-    l = {n: S.l(n) for n in range(48, 51)}
-    S.add('<div class="fill" style="z-index:2;background:linear-gradient(90deg,rgba(13,18,40,.75),rgba(13,18,40,0) 45%)"></div>')
-    S.cyto(380, 700, .62, z=20, expr=[(S.w(48, "Not"), 1.2, "sad")], x_expr=[(l[48][0] + .2, 1.6, "determined"), (S.w(49, "Call") - .1, 1.8, "determined")],
-           looks=[(S.w(48, "Christmas"), 14, -10)], points=[(S.w(49, "Call") - .1, 1.0)])
-    S.j(C.cup_down(.6, S.T + 1))
-    S.popup("hb1", S.w(48, "Some") - .1, S.w(48, "Not") - .1, "SOME STUDIES", "MORE HEART ATTACKS AROUND THE HOLIDAYS", "#ff8a8a", 1260, 90, 1000)
-    S.popup("hb2", S.w(48, "Not"), S.w(48, "But") - .1, "TO BE FAIR", "NOT EVERY STUDY", "#8ce2d6", 1260, 90, 760)
-    S.popup("hb3", S.w(48, "stress") - .1, l[48][1] + .2, "POSSIBLE REASONS", "STRESS · BIG MEALS · SALT · ALCOHOL · WAITING TOO LONG", "#FFD166", 1260, 90, 1040)
-    S.popup("hb4", S.w(49, "Call") - .15, S.T - .2, "CHEST PAIN?", "DON'T WAIT. CALL 911.", "#ff6b6b", 1260, 90, 860)
-    src_chip(S, "src3", S.w(48, "Some"), l[48][1], "KLONER 2006 · MILNE 2005 · WEERASINGHE 2002", 1000, 360)
-    S.char("neutro", "nt", 2000, 300, .7, pose="idle", who="NEUTRO", z=19, expr=[(l[50][0] - .4, 2, "determined")], nods=[l[50][0] + .2])
-    S.j(f'tl.to("#ntW",{{x:-560,duration:.4,ease:"power3.out"}},{l[50][0] - .6:.3f});')
-    S.tr_out("whip", .3)
-    S.captions({"911": "#ff6b6b", "nine": "#ff6b6b", "one": "#ff6b6b"})
-    return S
-
-
-
-def hq_cast(S, cy=(430, 650, .58), mito=None, neutro=None):
-    pass
 
 
 def breath_ring(S, t0, tin, tout):
@@ -655,81 +156,9 @@ def breath_ring(S, t0, tin, tout):
         f'tl.to("#ringC",{{scale:.4,duration:{tout - tin:.3f},ease:"sine.inOut"}},{tin:.3f});')
 
 
-@scene
-def s12():
-    """CHEAT CODE 1 — slow breathing. The siren slows; Neutro breathes extremely seriously; Mito yawns."""
-    t0 = BEATS["to_cheats"][0] + .4; t1 = BEATS["breathe"][1]
-    S = Scene("s12", t0, t1, music="game", bg="#47306b")
-    for l in X.hq("hq"): S.add(l)
-    S.add(X.alarm_fx("hq")); snowfall(S, "hqsnow", S.T)
-    S.tr_in("whip", .3)
-    l = {n: S.l(n) for n in range(51, 53)}
-    b0, b1 = S.b("breathe")
-    tin = S.w(52, "in", after=S.w(52, "So", after=S.w(52, "did") - .2)); tout = l[52][1]
-    # alarm: pulsing, then slower and dimmer with each breath
-    S.j(f'tl.set("#hqred",{{opacity:.8}},0);tl.fromTo("#hqred",{{opacity:.85}},{{opacity:.3,duration:.35,yoyo:true,repeat:{int((tin - .2) / .35)},immediateRender:false}},0);'
-        f'tl.fromTo("#hqred",{{opacity:.6}},{{opacity:.2,duration:1.0,yoyo:true,repeat:{int((S.T - tin) / 1.0)},immediateRender:false}},{tin:.3f});'
-        f'tl.to("#hqred",{{opacity:.12,duration:.6}},{b0 + .4:.3f});')
-    S.cyto(430, 650, .58, expr=[(l[51][0], .9, "squint"), (S.w(52, "Plot") - .05, 1.1, "shock")],
-           x_expr=[(S.w(51, "I'm"), 1.6, "determined"), (S.w(52, "slow", after=S.w(52, "part") - .5), 1.0, "smug")],
-           points=[(S.w(51, "Cheat"), .8), (S.w(52, "slow") - .1, .7)], shrugs=[(S.w(52, "didn't"), .8)], blinks=[])
-    S.j(f'tl.to("#cyto",{{scale:1.12,duration:{tout - tin - 1.2:.3f},ease:"sine.inOut"}},{tin:.3f});tl.to("#cyto",{{scale:1,duration:1.3,ease:"sine.inOut"}},{tout - 1.2:.3f});'
-        f'tl.to(["#lidL","#lidR"],{{y:40,duration:.2}},{tin + .1:.3f});tl.to(["#lidL","#lidR"],{{y:-14,duration:.2}},{b1 - .4:.3f});')
-    S.char("mito", "mt", 860, 330, .56, pose="slump", gassed=True, who="MITO", z=19, expr=[(0, S.T, "exhausted")], shut_at=[(b0 + .2, 1.4)])
-    S.j(f'tl.set(["#mtm_rest","#mtm_frown","#mtm_smirk","#mtm_grin","#mtm_flat","#mtm_small","#mtm_a","#mtm_e","#mtm_mbp"],{{opacity:0}},{b0 + .2:.3f});tl.set("#mtm_o",{{opacity:1}},{b0 + .2:.3f});'
-        f'gsap.set("#mtm_o",{{transformOrigin:"50% 50%"}});tl.fromTo("#mtm_o",{{scale:1}},{{scale:1.8,duration:.5,yoyo:true,repeat:1}},{b0 + .2:.3f});tl.set("#mtm_o",{{opacity:0}},{b1 - .1:.3f});tl.set("#mtm_frown",{{opacity:1}},{b1 - .1:.3f});')
-    S.sfx(b0 + .3, "yawn", -8)
-    S.char("neutro", "nt", 1330, 300, .72, pose="cross", who="NEUTRO", z=20, expr=[(tin, b1 - tin, "determined")], shut_at=[(tin + .2, b1 - tin - .3)])
-    S.j(f'tl.to("#ntBody",{{scale:1.09,duration:{tout - tin - .3:.3f},ease:"sine.inOut"}},{tin:.3f});tl.to("#ntBody",{{scale:1,duration:1.2,ease:"sine.inOut"}},{tout - .4:.3f});'
-        f'tl.to("#ntBody",{{scale:1.1,duration:.8,ease:"sine.inOut",yoyo:true,repeat:1}},{b0 + .1:.3f});')
-    S.popup("cc0", S.w(51, "Cheat") - .1, l[52][0] - .1, "PRESS START", "CHEAT CODES", "#FFD166", 1040, 120, 700)
-    S.popup("cc1", S.w(52, "Cheat") - .1, S.w(52, "A") - .1, "CHEAT CODE 1 UNLOCKED", "SLOW YOUR BREATHING", "#8ce2d6", 1040, 120, 900)
-    S.popup("cc1b", S.w(52, "A"), S.w(52, "Plot") - .15, "12-WEEK TRIAL", "SLOW BREATHING → ANXIETY ↓", "#8ce2d6", 1040, 120, 900)
-    S.popup("cc1c", S.w(52, "Plot") - .05, S.w(52, "So", after=S.w(52, "did") - .2) - .1, "PLOT TWIST", "LONGER EXHALE? NOPE. SLOW = THE KEY", "#FFD166", 1040, 120, 980)
-    src_chip(S, "src4", S.w(52, "A"), S.w(52, "So", after=S.w(52, "did") - .2), "BIRDEE ET AL. 2023", 600, 560)
-    breath_ring(S, tin - .1, S.w(52, "and", after=tin) - .1, tout + .2)
-    S.j(f'tl.set("#ringT",{{innerHTML:"OUT..."}},{S.w(52, "and", after=tin) - .1:.3f});')
-    S.sfx(S.w(51, "Cheat") - .1, "coin", -6); S.sfx(S.w(52, "Cheat") - .1, "levelup", -6); S.sfx(tin, "inhale", -10)
-    S.tr_out("whip", .3)
-    S.captions({"cheat": "#FFD166", "codes": "#FFD166", "slow": "#8ce2d6"})
-    return S
-
-
 SNEAKER = '<path d="M10 70 L20 30 Q50 40 70 20 L100 50 L150 60 Q160 80 150 90 L10 90Z" fill="#fbfbf6" stroke="#0c1622" stroke-width="6"/><rect x="10" y="84" width="145" height="12" fill="#e63946" stroke="#0c1622" stroke-width="4"/>'
 MEDIT = '<circle cx="80" cy="30" r="22" fill="#ff9f5a" stroke="#0c1622" stroke-width="5"/><path d="M30 95 Q80 40 130 95Z" fill="#7a5cc7" stroke="#0c1622" stroke-width="5"/><path d="M40 70 L10 60 M120 70 L150 60" stroke="#0c1622" stroke-width="6" stroke-linecap="round"/>'
 WIND = '<path d="M10 40 H110 Q140 40 140 20 Q140 0 120 0 M10 65 H130 Q160 65 160 85 Q160 105 140 105 M10 90 H80" fill="none" stroke="#3fc1b0" stroke-width="10" stroke-linecap="round"/>'
-
-
-@scene
-def s13():
-    """CHEAT CODE 2 — pick your side quest (trial card), Mito wants hoops, 'Bet.'"""
-    t0 = BEATS["breathe"][1]; t1 = LINES[55]["t1"] + .3
-    S = Scene("s13", t0, t1, music="game", bg="#47306b")
-    for l in X.hq("hq"): S.add(l)
-    snowfall(S, "hqsnow", S.T)
-    S.add('<div class="fill" style="z-index:30;background:rgba(255,40,40,.1)"></div>')
-    S.tr_in("whip", .3)
-    l = {n: S.l(n) for n in range(53, 56)}
-    S.cyto(430, 650, .58, x_expr=[(S.w(53, "All"), 1.6, "smug"), (l[55][0] - .1, 1.0, "hype")], expr=[(l[54][0] + .3, .7, "skeptic")],
-           points=[(S.w(53, "Cheat"), .8), (S.w(53, "pick", after=S.w(53, "So", after=S.w(53, "same")) - .1) - .1, .8)], looks=[(S.w(53, "Another"), 14, -10), (l[54][0], 14, 0)])
-    S.char("mito", "mt", 860, 300, .58, pose="slump", who="MITO", z=19, poses=[(l[54][0] - .2, "ball"), (l[55][0] + .1, "hype")],
-           expr=[(0, l[54][0] - .3, "exhausted"), (l[54][0] - .2, 1.3, "hype"), (l[55][0], S.T - l[55][0], "hype")], pops=[(l[54][0] - .1, 1), (l[55][0] + .15, 1.3)])
-    S.char("neutro", "nt", 1330, 300, .72, pose="cross", who="NEUTRO", z=20, expr=[(0, S.T, "deadpan")], nods=[S.w(53, "same")])
-    S.popup("cc2", S.w(53, "Cheat") - .1, S.w(53, "Another") - .1, "CHEAT CODE 2 UNLOCKED", "PICK YOUR SIDE QUEST", "#FFD166", 1040, 120, 900)
-    tc0 = S.w(53, "Another") - .05; tc1 = min(tc0 + 3.9, S.w(53, "So", after=S.w(53, "same")) + .2)
-    S.over(f'<div id="tri" class="pop clip" data-start="{tc0:.3f}" data-duration="{tc1 - tc0:.3f}" style="left:620px;top:110px;width:1000px;height:330px;z-index:55;border-radius:26px;background:#FAF4E8;border:7px solid #0c1622;box-shadow:0 14px 0 rgba(0,0,0,.35)">'
-           f'<div style="position:absolute;left:0;right:0;top:16px;text-align:center;font:36px InterBlack;color:#0c1622">5-WEEK TRIAL: ALL 3 LOWERED STRESS</div>'
-           f'<svg style="position:absolute;left:40px;top:80px" width="920" height="240"><g transform="translate(20 20)">{SNEAKER}</g><text x="240" y="90" font-family="InterBlack" font-size="80" fill="#e63946">=</text>'
-           f'<g transform="translate(340 10)">{MEDIT}</g><text x="560" y="90" font-family="InterBlack" font-size="80" fill="#e63946">=</text><g transform="translate(660 20)">{WIND}</g>'
-           f'<text x="90" y="200" text-anchor="middle" font-family="InterBlack" font-size="30" fill="#0c1622">EXERCISE</text><text x="420" y="200" text-anchor="middle" font-family="InterBlack" font-size="30" fill="#0c1622">MEDITATION</text><text x="740" y="200" text-anchor="middle" font-family="InterBlack" font-size="30" fill="#0c1622">SLOW BREATHING</text></svg></div>')
-    S.j(f'tl.fromTo("#tri",{{y:-60,opacity:0}},{{y:0,opacity:1,duration:.3,ease:"back.out(1.4)"}},{tc0:.3f});tl.to(".settxt",{{opacity:0,duration:.1}},{tc0:.3f});tl.to(".settxt",{{opacity:1,duration:.1}},{tc1:.3f});')
-    src_chip(S, "src5", tc0 + .3, tc1, "VAN DER ZWAN ET AL. 2015", 1140, 470)
-    S.popup("pk", tc1 + .05, l[53][1] + .3, "", "PICK WHAT YOU'LL ACTUALLY DO", "#8ce2d6", 1100, 120, 760)
-    S.sfx(S.w(53, "Cheat") - .1, "levelup", -6); S.sfx(l[55][0], "coin", -6)
-    S.punch(l[55][0], 1.1, .4, 430, 600)
-    S.tr_out("zoom", .3)
-    S.captions({"side": "#FFD166", "quest": "#FFD166", "same": "#8ce2d6"})
-    return S
 
 
 def nps(p="np"):
@@ -757,118 +186,8 @@ def block(p="bk"):
     return [X.layer(f"{p}0", '<rect width="1920" height="1080" fill="#9fc3e0"/>' + houses + X.snow(p + "sn", 50, 4), 1), X.layer(f"{p}1", walk, 2)]
 
 
-@scene
-def s14():
-    """SIDE-QUEST MONTAGE — brick outside, skate at Nathan Phillips Square, Distillery lights, walk the block. SIDE QUEST COMPLETE."""
-    t0 = LINES[55]["t1"] + .3; t1 = BEATS["sidequest"][1]
-    S = Scene("s14", t0, t1, music="game", bg="#16224a")
-    S.tr_in("zoom", .3)
-    tA = S.w(56, "Skate") - .15; tB = S.w(56, "walk") - .1; tC = S.w(56, "or") - .1; sq0, sq1 = S.b("sidequest")
-    segs = [("bk", 0, tA, block("bk")), ("np", tA, tB, nps("np")), ("ds", tB, tC, distillery("ds")), ("bk2", tC, S.T, block("bk2"))]
-    for i, (p, a, b, layers) in enumerate(segs):
-        S.add(f'<div id="seg{i}" class="clip" data-start="{a:.3f}" data-duration="{b - a:.3f}" style="position:absolute;inset:0">' + "".join(layers) + '</div>')
-        S.parallax([(f"{p}0", .3), (f"{p}1", .7)] + ([(f"{p}2", 1.0)] if p == "np" else []), a, b, dx=-120)
-        if i: S.j(f'tl.fromTo("#seg{i}",{{x:1920}},{{x:0,duration:.25,ease:"power3.out"}},{a:.3f});'); S.sfx(a, "whoosh", -10)
-    S.j('tl.fromTo("#bksn",{y:-200},{y:0,duration:3,ease:"none"},0);')
-    S.cyto(760, 700, .6, z=20, x_expr=[(0, tA, "worried"), (tA, tB - tA, "hype"), (tB, tC - tB, "smug"), (tC, S.T - tC, "smug")],
-           waves=[tA + .4], blinks=None, toque_extra="")
-    S.j(f'tl.to("#cyto",{{x:6,duration:.05,yoyo:true,repeat:{int(tA / .05) - 2}}},0);')                       # shivering
-    S.j(f'tl.fromTo("#cytoPos",{{x:"-=500"}},{{x:"+=900",duration:{tB - tA:.3f},ease:"sine.inOut",immediateRender:false}},{tA:.3f});tl.to("#cyto",{{rotation:-8,duration:.4,yoyo:true,repeat:3}},{tA:.3f});'
-        f'tl.to("#cytoPos",{{x:"-=400",duration:.01}},{tB:.3f});')
-    S.over(f'<div id="hp" class="clip" data-start="{tC:.3f}" data-duration="{S.T - tC:.3f}" style="position:absolute;left:0;top:0;z-index:21"><svg width="1920" height="1080">'
-           f'<g transform="translate({760 - 300 * .6 - 40:.0f} {700 - 220:.0f})"><path d="M40 120 Q180 -40 400 120" fill="none" stroke="#222" stroke-width="20"/><rect x="10" y="100" width="56" height="90" rx="20" fill="#e63946" stroke="#0c1622" stroke-width="6"/><rect x="376" y="100" width="56" height="90" rx="20" fill="#e63946" stroke="#0c1622" stroke-width="6"/></g></svg></div>')
-    S.popup("q0", .1, tA - .1, "SIDE QUEST", "IT'S BRICK OUTSIDE: BUNDLE UP", "#8ce2d6", 960, 70, 900)
-    S.popup("q1", tA + .1, tB - .1, "SIDE QUEST", "SKATE AT NATHAN PHILLIPS SQUARE", "#8ce2d6", 960, 70, 980)
-    S.popup("q2", tB + .1, tC - .1, "SIDE QUEST", "DISTILLERY WINTER VILLAGE: FREE BEFORE 4 PM", "#8ce2d6", 960, 70, 1100)
-    S.popup("q3", tC + .1, sq0, "SIDE QUEST", "WALK THE BLOCK, HEADPHONES IN", "#8ce2d6", 960, 70, 980)
-    S.popup("sqc", sq0, S.T, "★ ★ ★", "SIDE QUEST COMPLETE", "#FFD166", 960, 380, 900)
-    S.sfx(sq0, "levelup", -4); S.sfx(tA + .2, "skate", -8)
-    S.tr_out("whip", .3)
-    S.captions({"brick": "#8ce2d6", "nathan": "#FFD166", "phillips": "#FFD166", "distillery": "#FFD166"})
-    return S
-
-
-@scene
-def s15():
-    """CHEAT CODE 3 — mute the group chat. The lever finally stays up. The alarm goes quiet."""
-    t0 = BEATS["sidequest"][1]; t1 = BEATS["mute"][1]
-    S = Scene("s15", t0, t1, music="game", bg="#47306b")
-    for l in X.hq("hq"): S.add(l)
-    S.add(X.alarm_fx("hq")); snowfall(S, "hqsnow", S.T)
-    S.j('tl.set("#hqred",{opacity:.25},0);')
-    S.tr_in("whip", .3)
-    l57 = S.l(57); m0, m1 = S.b("mute")
-    S.cyto(430, 650, .58, phone=True, x_expr=[(S.w(57, "Say"), 1.2, "determined"), (m0, S.T - m0, "smug")], points=[(S.w(57, "Protect") - .1, .8)], sips=[(m0 + .1, 1.1)])
-    S.char("mito", "mt", 860, 330, .56, pose="idle", who="MITO", z=19, expr=[(m0, S.T - m0, "hype")])
-    S.char("neutro", "nt", 1330, 300, .72, pose="cross", who="NEUTRO", z=20, expr=[(0, m0, "deadpan"), (m0, S.T - m0, "smug")], nods=[m0 + .3])
-    S.popup("cc3", S.w(57, "Cheat") - .1, S.w(57, "Say") - .1, "CHEAT CODE 3 UNLOCKED", "MUTE THE GROUP CHAT", "#ff8a8a", 1040, 120, 900)
-    S.popup("cc3b", S.w(57, "Say"), S.w(57, "Protect") - .1, "BONUS", "SAY NO TO ONE THING", "#8ce2d6", 1040, 120, 760)
-    S.popup("cc3c", S.w(57, "Protect"), m1, "BONUS", "PROTECT YOUR SLEEP", "#c4b0ff", 1040, 120, 760)
-    S.j(f'tl.set("#cyNotif",{{opacity:0}},{S.w(57, "mute"):.3f});')
-    S.over(f'<div id="mute" class="pop clip" data-start="{S.w(57, "mute"):.3f}" data-duration="{S.T - S.w(57, "mute"):.3f}" style="left:700px;top:560px;z-index:60"><svg width="120" height="120"><circle cx="60" cy="60" r="54" fill="#e63946" stroke="#0c1622" stroke-width="6"/>'
-           '<path d="M34 48 H50 L70 30 V90 L50 72 H34Z" fill="#fff"/><path d="M80 44 L100 76 M100 44 L80 76" stroke="#fff" stroke-width="8" stroke-linecap="round"/></svg></div>')
-    S.j(f'tl.fromTo("#mute",{{scale:0}},{{scale:1,duration:.3,ease:"back.out(3)"}},{S.w(57, "mute"):.3f});')
-    S.j(f'tl.to("#hqred",{{opacity:0,duration:.6}},{m0:.3f});tl.to("#hqalarmGlass",{{opacity:0,duration:.3}},{m0:.3f});')
-    S.popup("alq", m0 + .1, S.T, "", "ALARM: QUIET", "#8ce2d6", 1255, 300, 520)
-    S.sfx(S.w(57, "mute"), "click", -6); S.sfx(m0, "powerdown", -6)
-    S.tr_out("flash", .25)
-    S.captions({"mute": "#ff8a8a", "sleep": "#c4b0ff"})
-    return S
-
-
-
 BIRD = ('<g id="bird"><ellipse cx="40" cy="40" rx="34" ry="26" fill="#4f86ff" stroke="#0c1622" stroke-width="5"/><circle cx="62" cy="24" r="18" fill="#4f86ff" stroke="#0c1622" stroke-width="5"/>'
         '<circle cx="68" cy="20" r="4" fill="#0c1622"/><path d="M78 24 L94 28 L78 32Z" fill="#ffb02e" stroke="#0c1622" stroke-width="3"/><path d="M10 40 L-8 30 L0 50Z" fill="#3a6ad6" stroke="#0c1622" stroke-width="4"/></g>')
-
-
-@scene
-def s16():
-    """CLIMAX — silence, a bird chirps. 'Exactly.' Neutro spots Rhino frozen mid-sneak, tickets him; ACHOO out the front door."""
-    t0 = BEATS["mute"][1]; t1 = BEATS["breakstarts"][0]
-    S = Scene("s16", t0, t1, music="quiet", bg="#47306b")
-    for l in X.hq("hq"): S.add(l)
-    snowfall(S, "hqsnow", S.T)
-    S.tr_in("flash", .25)
-    ch0, ch1 = S.b("chirp"); sp0, sp1 = S.b("spot"); ac0, ac1 = S.b("achoo")
-    l = {n: S.l(n) for n in range(58, 64)}
-    S.add(f'<div style="position:absolute;left:600px;top:572px;z-index:3"><svg width="120" height="90" style="overflow:visible">{BIRD}</svg></div>')
-    S.j(f'gsap.set("#bird",{{transformOrigin:"50% 100%"}});tl.to("#bird",{{rotation:-12,y:-6,duration:.12,yoyo:true,repeat:5}},{ch0 + .4:.3f});')
-    for i, t in enumerate((ch0 + .4, ch0 + 1.0)):
-        S.over(f'<div id="nt{i}x" class="pop clip" data-start="{t:.3f}" data-duration=".9" style="left:{700 + i * 40}px;top:{500 - i * 30}px;font:60px InterBlack;color:#FFD166;-webkit-text-stroke:2px #0c1622">♪</div>')
-        S.j(f'tl.fromTo("#nt{i}x",{{y:0,opacity:1}},{{y:-60,opacity:0,duration:.9}},{t:.3f});')
-        S.sfx(t, "chirp", -4)
-    S.cyto(430, 650, .58, expr=[(ac0 - .2, .9, "shock")], x_expr=[(l[58][0] - .3, 1.6, "sideeye"), (l[60][0], 1.6, "smug"), (l[63][0], 1.4, "smug")],
-           looks=[(ch0 + .4, 10, -8), (l[59][0] + .1, 14, 0)], sips=[(l[60][1] + .1, 1.0)])
-    S.char("mito", "mt", 860, 330, .56, pose="idle", who="MITO", z=19, poses=[(l[62][0] - .1, "hype")],
-           expr=[(0, ch1, "deadpan"), (sp0, 1.3, "shocked"), (l[62][0] - .1, S.T - l[62][0] + .1, "hype")], pops=[(l[62][0], 1.3)])
-    # Rhino frozen mid-sneak behind the plant (mannequin-challenge freeze)
-    S.char("rhino", "rh", 1290, 520, .62, pose="sneak", z=18, expr=[(sp0, S.T - sp0, "shocked")], blinks=[], bob=False)
-    S.j(f'tl.fromTo("#rhW",{{x:-260}},{{x:0,duration:{sp0:.3f},ease:"none",immediateRender:false}},0);tl.to("#rh",{{y:-12,duration:.3,yoyo:true,repeat:{int(sp0 / .3) - 1},ease:"sine.inOut"}},0);')
-    S.char("neutro", "nt", 1500, 300, .72, pose="cross", who="NEUTRO", z=20,
-           poses=[(sp0 + .3, "point"), (l[61][0], "notepad"), (l[61][1] - .1, "ticket")],
-           expr=[(0, sp0, "deadpan"), (sp0, .9, "shocked"), (l[61][0], S.T - l[61][0], "smug")], looks=[(sp0 + .1, -.3, .1)], nods=[l[59][0] + .1])
-    S.j(f'tl.to("#nt",{{scaleX:-1,duration:.1,svgOrigin:"300 650"}},{sp0:.3f});tl.to("#nt",{{scaleX:1,duration:.1,svgOrigin:"300 650"}},{sp0 + .25:.3f});')
-    S.snapzoom(sp0 + .3, 1.35, sp1 - sp0, 1420, 640, .3)
-    S.sfx(sp0 + .3, "sting", -6); S.sfx(l[61][1] - .1, "rip", -4); S.sfx(l[61][1] + .15, "slap", -2)
-    S.over(f'<div id="tkt" class="pop clip" data-start="{l[61][1] + .1:.3f}" data-duration="{ac0 - l[61][1]:.3f}" style="left:1360px;top:560px;z-index:60;transform:rotate(-12deg)"><svg width="120" height="140"><rect x="6" y="6" width="108" height="128" rx="8" fill="#fff6c8" stroke="#0c1622" stroke-width="6"/><path d="M22 34 H96 M22 60 H96 M22 86 H70" stroke="#c0392b" stroke-width="7"/></svg></div>')
-    S.j(f'tl.fromTo("#tkt",{{scale:2.5,opacity:0}},{{scale:1,opacity:1,duration:.15,ease:"power4.in"}},{l[61][1] + .1:.3f});')
-    # ACHOO: cut to the nose front door, Rhino launched out
-    nd = "".join(X.nose_door("nd"))
-    S.over(f'<div id="ach" class="clip" data-start="{ac0:.3f}" data-duration="{S.T - ac0:.3f}" style="position:absolute;inset:0;z-index:70;overflow:hidden">{nd}'
-           f'<div style="position:absolute;inset:0;z-index:5">{K.wrap(K.rhino_html("rz", "spread"), "rzW", 760, 520, .7)}</div>'
-           f'<div id="achT" style="position:absolute;left:0;right:0;top:300px;text-align:center;z-index:6;font:230px InterBlack;color:#FFD166;-webkit-text-stroke:9px #0c1622;paint-order:stroke fill">ACHOO!</div>'
-           f'<div style="position:absolute;inset:0;z-index:7">{K.wrap(K.mito_html("mz", "hype"), "mzW", 1420, 330, .62)}</div></div>')
-    S.j(f'tl.fromTo("#rzW",{{x:0,y:0,scale:1,rotation:0}},{{x:-260,y:-900,scale:.15,rotation:720,duration:1.1,ease:"power2.in"}},{ac0 + .25:.3f});'
-        f'tl.fromTo("#achT",{{scale:.2,opacity:0}},{{scale:1,opacity:1,duration:.18,ease:"back.out(3)"}},{ac0 + .2:.3f});tl.to("#achT",{{scale:1.15,opacity:0,duration:.3}},{ac1 - .3:.3f});'
-        f'tl.set("#mzW",{{y:900}},0);tl.fromTo("#mzW",{{y:900}},{{y:0,duration:.35,ease:"back.out(1.6)"}},{l[62][0] - .3:.3f});')
-    S.j(K.act_js("mz", 38, 32, mouths=K.mouth_track(DIALOGUE, S.words_of("MITO"), [(0, S.T, "hype")], S.t0, S.t1), expr=[(ac0, S.T - ac0, "hype")], T=S.T, blinks=[]))
-    S.j(K.act_js("rz", 28, 26, expr=[(ac0, S.T - ac0, "shocked")], T=S.T, blinks=[], bob=False))
-    S.shake(ac0 + .2, .7, 26)
-    S.j(f'tl.to(".settxt",{{opacity:0,duration:.05}},{ac0 - .05:.3f});')
-    S.sfx(ac0 + .15, "achoo", 0); S.sfx(ac0 + .5, "whoosh", -6); S.sfx(l[62][0], "crowd", -10)
-    S.tr_out("whip", .3)
-    S.captions({"exactly": "#FFD166", "booked": "#FFD166", "nasal": "#ff8a8a"})
-    return S
 
 
 SOURCES = [("Fight-or-flight: standard physiology (textbook)", "Cohen et al., PNAS 2012"),
@@ -878,49 +197,799 @@ SOURCES = [("Fight-or-flight: standard physiology (textbook)", "Cohen et al., PN
            ("Distillery Winter Village (free before 4 pm)", "Nathan Phillips Square skating: City of Toronto")]
 
 
+
+
+# =====================================================================================================  FIX PASS
+CUTS = {
+    "s01": (0, cut_line(6)), "s02": (cut_line(6), cut_line(7)), "s03": (cut_line(7), cut_line(13)),
+    "s04": (cut_line(13), round(gw(13, "signal") - .4, 3)), "s05": (round(gw(13, "signal") - .4, 3), cut_line(14)),
+    "s06": (cut_line(14), cut_beat("countdown")), "s07": (cut_beat("countdown"), round(gw(32, "And"), 3)),
+    "s08": (round(gw(32, "And"), 3), cut_beat("noir")), "s09": (cut_beat("noir"), cut_line(43)),
+    "s10": (cut_line(43), cut_beat("to_heart")), "s11": (cut_beat("to_heart"), cut_beat("to_cheats")),
+    "s12": (cut_beat("to_cheats"), cut_line(53)), "s13": (cut_line(53), cut_line(56)), "s14": (cut_line(56), cut_line(57)),
+    "s15": (cut_line(57), cut_beat("chirp")), "s16": (cut_beat("chirp"), cut_beat("breakstarts")), "s17": (cut_beat("breakstarts"), TM["T"]),
+}
+AMB = {}      # scene -> room-tone kind (mix.py lays a continuous bed under every scene)
+
+
+def mk(name, music, bg, amb):
+    t0, t1 = CUTS[name]; AMB[name] = amb
+    S = Scene(name, t0, t1, music=music, bg=bg); S.ambience = amb
+    return S
+
+
+def alarm_shake(S, p, t0, t1):
+    """the alarm bell keeps rattling for as long as the siren runs (F)."""
+    S.j(f'gsap.set("#{p}alarm",{{svgOrigin:"1060 40"}});tl.fromTo("#{p}alarm",{{rotation:-4}},{{rotation:4,duration:.09,yoyo:true,repeat:{max(1, int((t1 - t0) / .09))},ease:"sine.inOut",immediateRender:false}},{t0:.3f});'
+        f'tl.to("#{p}alarm",{{rotation:0,duration:.1}},{t1:.3f});')
+
+
 @scene
-def s17():
-    """OUTRO — BREAK STARTS, Mito smells holiday food, sources, CTA. Phone buzzes once, the alarm flickers... hard cut = loop."""
-    t0 = BEATS["breakstarts"][0]; t1 = BEATS["end"][1]
-    S = Scene("s17", t0, t1, music="outro", bg="#47306b")
+def s01():
+    """COLD OPEN (I11): the alarm DROPS in at frame 3, siren + red wash by 0.4 s while Cyto brags over it; the door bursts on
+    "I'm him", Neutro storms in; shot/reverse-shot "Code red" / "for what?" / "December." / eyeroll / "...nyeahh"; title slam."""
+    S = mk("s01", None, "#47306b", "hq")
+    MUSIC.append((0, S.t1, "alarm"))
+    for l in X.hq("hq"): S.add(l)
+    S.add(X.alarm_fx("hq"))
+    snowfall(S, "hqsnow", S.T)
+    tS = .35; tB = BEATS["title"][0]
+    l2, l3, l4, l5 = S.l(2), S.l(3), S.l(4), S.l(5)
+    S.prop_in("#hqalarm", .08, "drop", svg="1060 40", sfx="clunk")
+    alarm_on(S, "hq", tS, S.T - .02)
+    alarm_shake(S, "hq", tS + .55, S.T)
+    S.j(f'gsap.set("#hqlamp",{{svgOrigin:"1000 770"}});tl.fromTo("#hqlamp",{{scaleY:1,scaleX:1}},{{keyframes:[{{scaleY:.8,scaleX:1.15,duration:.08}},{{scaleY:1.15,scaleX:.9,duration:.1}},{{scaleY:1,scaleX:1,duration:.2}}],immediateRender:false}},{tS:.3f});')
+    S.shake(tS, .45, 14)
+    S.sfx(tS - .05, "siren", -4)
+    # Rhino pressed to the window (clipped to the arch) during the title
+    S.add('<div id="rhClip" class="fill" style="z-index:1;clip-path:path(\'M283 657 V385 A222 222 0 0 1 727 385 V657Z\')">'
+          + K.wrap(K.rhino_html("rh", "idle"), "rhW", 380, 700, .62) + '</div>')
+    S.j(f'tl.set("#rhW",{{y:0}},0);tl.to("#rhW",{{y:-500,duration:.35,ease:"back.out(1.6)"}},{tB + .05:.3f});tl.to("#rhW",{{x:14,duration:.12,yoyo:true,repeat:3}},{tB + .4:.3f});')
+    S.j(K.act_js("rh", 28, 26, poses=[(tB + .35, "wave")], expr=[(tB + .1, 1.2, "smug")], T=S.T, blinks=[]))
+    # Cyto: chilling, phone buzzing, unbothered by the siren
+    S.cyto(540, 640, .6, phone=True,
+           expr=[(S.w(1, "Nah") - .05, .8, "skeptic"), (l5[0] - .05, .2, "squint")],
+           x_expr=[(S.w(1, "him"), .5, "smug"), (l2[1] - .02, l3[0] - l2[1] + .5, "deadpan"), (l4[1] + .02, l5[1] - l4[1] + .3, "exhausted"), (tB + .2, .8, "sideeye")],
+           sips=[(S.w(1, "I", ) - .05, .9)], tilts=[(S.w(1, "Exams"), .45, -6), (l3[0], .5, 7)], shrugs=[(S.w(1, "Nah"), .55)],
+           looks=[(S.w(1, "Group") - .1, -10, 8)])
+    for t, txt, x in ((S.w(1, "Exams"), "EXAMS", 760), (S.w(1, "Group"), "GROUP CHAT", 790), (S.w(1, "Holiday"), "SALE ENDS SOON", 760)):
+        buzz(S, t - .1); notif(f"n{int(t * 10)}", t - .1, txt, x, 470 - (t - .3) * 30, S=S, d=1.0)
+    # the door BURSTS open on "him" and Neutro storms in
+    tD = S.w(1, "him") + .1
+    S.j(f'gsap.set("#hqdoor",{{svgOrigin:"1530 520"}});tl.to("#hqdoor",{{scaleX:1.04,duration:.06}},{tD - .08:.3f});tl.to("#hqdoor",{{scaleX:.12,duration:.12,ease:"power4.out"}},{tD:.3f});tl.to("#hqdoor",{{scaleX:.22,duration:.45,ease:"elastic.out(1,.35)"}},{tD + .12:.3f});')
+    S.sfx(tD, "slam", -3)
+    S.char("neutro", "nt", 1410, 300, .74, pose="idle", who="NEUTRO",
+           poses=[(tD + .05, "radio"), (l4[0] - .1, "idle"), (l5[0] + .3, "cross")],
+           expr=[(tD + .05, l2[1] - tD, "determined"), (l4[0] - .05, .95, "deadpan"), (l4[1] + .05, .7, "sideeye"), (tB + .2, .9, "sideeye")],
+           looks=[(l4[1] + .05, 0, -.25)], nods=[l2[0] + .05])
+    S.j(f'tl.set("#ntW",{{x:420,opacity:0}},0);tl.set("#ntW",{{opacity:1}},{tD + .02:.3f});tl.to("#ntW",{{x:0,duration:.3,ease:"power3.out"}},{tD + .04:.3f});'
+        f'tl.fromTo("#ntW",{{y:-24}},{{y:0,duration:.3,ease:"bounce.out",immediateRender:false}},{tD + .2:.3f});')
+    S.sfx(tD + .15, "kick", -6)
+    # TITLE SLAM (stays on through the whip into the skyline)
+    S.over(f'<div id="title" class="clip" data-start="{tB:.3f}" data-duration="{S.T - tB:.3f}" style="position:absolute;left:780px;right:40px;top:110px;text-align:center;z-index:85">'
+           '<div style="font:120px/1 InterBlack;color:#FAF4E8;-webkit-text-stroke:7px #0c1622;paint-order:stroke fill;text-shadow:0 12px 0 rgba(0,0,0,.45)">DECEMBER:</div>'
+           '<div style="font:156px/1 InterBlack;color:#ff3b3b;-webkit-text-stroke:8px #0c1622;paint-order:stroke fill;text-shadow:0 14px 0 rgba(0,0,0,.45)">CODE RED</div></div>')
+    S.j(f'tl.to(".settxt",{{opacity:0,duration:.1}},{tB:.3f});tl.fromTo("#title",{{scale:2.6,opacity:0}},{{scale:1,opacity:1,duration:.2,ease:"power4.in"}},{tB:.3f});')
+    S.shake(tB + .2, .4, 22); S.sfx(tB + .18, "hit", -2)
+    S.tr_out("whip")
+    S.captions({"red": "#ff6b6b", "december": "#ff6b6b", "him": "#FFD166"})
+    return S
+
+
+def rooftop2(p="rt"):
+    """Rooftop host set in front of the REAL skyline (blurred, darkened photo plate with parallax)."""
+    sky = (f'<image href="assets/ph_skyline_bg.jpg" x="-96" y="-120" width="2112" height="1188" preserveAspectRatio="xMidYMid slice"/>'
+           f'<rect width="1920" height="1080" fill="#2b1640" opacity=".18"/>')
+    roof = ('<path d="M-40 1100 L-40 760 L700 700 L1500 700 L1980 760 L1980 1100Z" fill="#9c5a3c" stroke="#0c1622" stroke-width="10"/>'
+            '<path d="M-40 790 L1980 790" stroke="#7a4128" stroke-width="12"/>'
+            + "".join(f'<path d="M{x} 700 L{x - 40} 1100" stroke="#7a4128" stroke-width="6"/>' for x in range(100, 1900, 160))
+            + '<rect x="1300" y="380" width="260" height="330" fill="#c98f6a" stroke="#0c1622" stroke-width="9"/><path d="M1270 390 L1430 230 L1590 390Z" fill="#5a3a5a" stroke="#0c1622" stroke-width="9"/>'
+            + '<path d="M1385 710 V560 A45 45 0 0 1 1475 560 V710Z" fill="#ffd98a" stroke="#0c1622" stroke-width="7"/>'
+            + '<g id="rtsiren"><path d="M1400 230 Q1400 180 1430 180 Q1460 180 1460 230Z" fill="#ff3b3b" stroke="#0c1622" stroke-width="6"/></g>')
+    return [X.layer(f"{p}L1", sky, 2), X.layer(f"{p}L3", f'<g transform="translate(0 110)">{roof}</g>' + X.snow(p + "snow", 60, 9), 4)]
+
+
+@scene
+def s02():
+    """INTRO: real skyline (Ken Burns) "THE BODY = THE 6IX" -> real Queen's Park photo "QUEEN'S PARK HQ" -> Cyto hosts on the
+    rooftop in front of the real (blurred) skyline. Text over photos sits on dark panels."""
+    S = mk("s02", "intro", "#2b1640", "city")
+    S.talk_scale = 0                      # VO over photos, then a single host: manual camera
+    tQP = S.w(6, "inside") - .04; tR = S.w(6, "lowkey") - .3
+    S.photo("phS", "skyline", 0, tQP + .2, (1.0, 1.1), z=50, ox="62%", oy="40%")
+    S.photo("phQ", "queens_park", tQP, tR + .2, (1.03, 1.12), z=51, ox="50%", oy="55%")
+    S.tr_in("whip")
+    S.j(f'tl.to("#title",{{y:-520,opacity:0,duration:.3,ease:"power3.in"}},.75);')
+    S.over(f'<div id="title" class="clip" data-start="0" data-duration="1.1" style="position:absolute;left:780px;right:40px;top:110px;text-align:center;z-index:85">'
+           '<div style="font:120px/1 InterBlack;color:#FAF4E8;-webkit-text-stroke:7px #0c1622;paint-order:stroke fill;text-shadow:0 12px 0 rgba(0,0,0,.45)">DECEMBER:</div>'
+           '<div style="font:156px/1 InterBlack;color:#ff3b3b;-webkit-text-stroke:8px #0c1622;paint-order:stroke fill;text-shadow:0 14px 0 rgba(0,0,0,.45)">CODE RED</div></div>')
+    S.panel("pb1", 1.1, tQP - .05, "THE BODY", "= THE 6IX", "#FFD166", 60, 60, 620)
+    S.panel("pb2", tQP + .1, tR, "BRAIN =", "QUEEN'S PARK HQ", "#8ce2d6", 60, 60, 760)
+    S.sfx(tQP - .04, "whoosh", -8); S.sfx(0, "whoosh", -6)
+    # rooftop host shot
+    for l in rooftop2("rt"): S.add(l)
+    S.parallax([("rtL1", .3), ("rtL3", .8)], tR, S.T, dx=-90)
+    snowfall(S, "rtsnow", S.T, 300)
+    S.j(f'gsap.set("#rtsiren",{{transformOrigin:"50% 100%"}});tl.fromTo("#rtsiren",{{opacity:1}},{{opacity:.3,duration:.3,yoyo:true,repeat:{int(S.T / .3)},immediateRender:false}},0);')
+    S.cyto(700, 700, .62, outfit="outfit_pufferhoodie",
+           expr=[(S.w(6, "lowkey"), .9, "squint"), (S.w(6, "bro") - .05, 1.1, "shock"), (S.w(6, "cheat"), .9, "hype")],
+           x_expr=[(S.w(6, "Today"), 1.1, "determined"), (S.w(6, "Not"), 1.5, "deadpan")],
+           waves=[tR + .4], points=[(S.w(6, "why"), .8), (S.w(6, "cheat"), .8)], sips=[(S.w(6, "just") - .2, 1.0)],
+           tilts=[(S.w(6, "panicking"), .7, -7), (S.w(6, "science") - .3, .6, 6)], shrugs=[(S.w(6, "plus"), .6)], looks=[(S.w(6, "why") + .1, 14, -8)])
+    S.j(f'tl.set("#cytoLayer",{{opacity:0}},0);tl.set("#cytoLayer",{{opacity:1}},{tR:.3f});'
+        f'tl.fromTo("#cytoPos",{{y:"+=320"}},{{y:"-=320",duration:.4,ease:"back.out(1.7)",immediateRender:false}},{tR:.3f});')
+    S.sfx(tR + .05, "boing", -10)
+    # host camera: a new framing every ~3 s
+    for a, b, sc, ox, oy in ((tR, S.w(6, "Today") - .1, 1.0, 700, 600), (S.w(6, "Today") - .1, S.w(6, "plus") - .1, 1.08, 700, 600),
+                             (S.w(6, "plus") - .1, S.w(6, "And", after=S.w(6, "plus")) - .1, 1.16, 700, 560),
+                             (S.w(6, "And", after=S.w(6, "plus")) - .1, S.w(6, "Not") - .1, 1.05, 900, 560), (S.w(6, "Not") - .1, S.T, 1.1, 700, 600)):
+        S.j(f'tl.to("#tk",{{scale:{sc},x:{(1 - sc) * ox:.0f},y:{(1 - sc) * oy:.0f},duration:.3,ease:"power2.inOut",transformOrigin:"0px 0px"}},{a:.3f});')
+    # Rhino tiptoes along the roof behind Cyto (sight gag)
+    S.char("rhino", "rh", 2000, 590, .45, pose="sneak", z=5, expr=[(S.w(6, "Today"), 4, "smug")], blinks=[])
+    S.j(f'tl.fromTo("#rhW",{{x:0}},{{x:-2500,duration:10,ease:"none",immediateRender:false}},{S.w(6, "Today") - .5:.3f});'
+        f'tl.to("#rh",{{y:-16,duration:.25,yoyo:true,repeat:19,ease:"sine.inOut"}},{S.w(6, "Today") - .5:.3f});')
+    S.sfx(S.w(6, "Today") - .4, "tiptoe", -10)
+    S.popup("tz1", S.w(6, "why") - .05, S.w(6, "plus") - .1, "TODAY", "WHY + WHAT IT DOES TO YOU", "#8ce2d6", 1380, 150, 860)
+    S.popup("tz2", S.w(6, "plus"), S.w(6, "And", after=S.w(6, "plus")) - .1, "CASE FILE", "ONE STUDY: “BRO, WHAT”", "#ff8a8a", 1380, 150, 860)
+    S.popup("tz3", S.w(6, "cheat") - .1, S.w(6, "Not") - .15, "LOADING...", "CHEAT CODES", "#FFD166", 1380, 150, 860)
+    S.sfx(S.w(6, "bro") - .05, "sting", -6); S.sfx(S.w(6, "cheat") - .1, "coin", -8)
+    S.over(f'<div id="nma" class="clip" data-start="{S.w(6, "Not") - .1:.3f}" data-duration="{S.T - S.w(6, "Not") + .1:.3f}" style="position:absolute;left:1140px;top:180px;width:700px;z-index:70;'
+           'padding:26px 30px;border-radius:24px;background:#FAF4E8;border-left:16px solid #e63946;box-shadow:0 14px 0 rgba(0,0,0,.35)">'
+           '<div style="font:44px InterBlack;color:#e63946">NOT MEDICAL ADVICE</div><div style="font:36px/1.2 InterSB;color:#0c1622;margin-top:6px">Just your boy + some science. Sources on screen + in the description.</div></div>')
+    S.j(f'tl.fromTo("#nma",{{x:80,opacity:0}},{{x:0,opacity:1,duration:.3,ease:"back.out(1.6)"}},{S.w(6, "Not") - .1:.3f});')
+    S.tr_out("whip")
+    S.captions({"6ix": "#FFD166", "panicking": "#ff6b6b", "bro": "#ff8a8a", "what": "#ff8a8a"})
+    return S
+
+
+@scene
+def s03():
+    """ACT 1 - the incident report. Neutro reads, each card is a brief pop-in he flicks away; Cyto takes each one personally."""
+    S = mk("s03", "alarm_low", "#47306b", "hq")
     for l in X.hq("hq"): S.add(l)
     S.add(X.alarm_fx("hq")); snowfall(S, "hqsnow", S.T)
-    S.tr_in("whip", .3)
+    alarm_on(S, "hq", 0, S.T, beams=False); alarm_shake(S, "hq", 0, S.T)
+    S.tr_in("whip")
+    S.parallax([("hqL0", .2), ("hqL1", .35), ("hqL2", .5), ("hqL3", 1.0)], 0, S.T, dx=-60)
+    l = {n: S.l(n) for n in range(7, 13)}
+    cards = [(7, "EXAMS.", ART_EXAM, "ONE"), (8, "SECRET SANTA GROUP CHAT", ART_CHAT, "TWO"), (9, "THE MALL = LINE 1 AT RUSH HOUR", ART_TRAIN, "THREE"), (10, "YOUR AUNTIE.", ART_AUNTIE, "FOUR")]
+    flicks = []
+    for i, (n, title, art, num) in enumerate(cards):
+        a = max(.2, l[n][0] - .05); b = min(l[n][1] + .2, a + 3.0)
+        card(S, f"ic{n}", a, b, num, title, art, x=640, y=60, rot=(-3, 2, -2, 3)[i]); flicks.append(b - .3)
+        S.j(f'tl.to(".settxt",{{opacity:0,duration:.1}},{a:.3f});tl.to(".settxt",{{opacity:1,duration:.1}},{b:.3f});')
+    S.cyto(420, 660, .56, expr=[(l[8][0] + 1.2, 1.0, "skeptic"), (l[10][0] + 1.2, 1.2, "shock"), (l[11][0], 1.0, "skeptic")],
+           x_expr=[(l[7][0] + .8, 1.0, "deadpan"), (l[9][0] + 1.0, 1.5, "exhausted"), (l[12][0], 1.0, "worried")],
+           shrugs=[(l[11][0] + .1, .7)], tilts=[(l[10][0] + 2.0, .8, -8)], sips=[(l[9][1] - .8, 1.0)])
+    S.char("neutro", "nt", 1340, 300, .74, pose="notepad", who="NEUTRO",
+           poses=[(f, "point") for f in flicks] + [(f + .35, "notepad") for f in flicks] + [(l[12][0] + .1, "notepad")],
+           expr=[(l[7][0], 1.2, "deadpan"), (l[11][0] + .3, .9, "sideeye"), (l[12][0], 1.1, "smug")],
+           nods=[l[12][0] + .4])
+    S.sfx(l[12][0] + .4, "tap", -6)
+    # the alarm signal zips out of HQ (to the adrenal condos)
+    tz = BEATS["to_condos"][0] - S.t0
+    S.over(f'<div id="zip" class="clip" data-start="{tz:.3f}" data-duration="{S.T - tz:.3f}" style="position:absolute;left:0;top:0;width:1920px;height:1080px;z-index:75"><svg width="1920" height="1080"><path id="zipP" d="M1060 110 C1300 300 700 600 1000 1180" fill="none" stroke="#ff3b3b" stroke-width="22" stroke-linecap="round" stroke-dasharray="1600" stroke-dashoffset="1600"/></svg></div>')
+    S.j(f'tl.to("#zipP",{{attr:{{"stroke-dashoffset":0}},duration:.45,ease:"power2.in"}},{tz:.3f});')
+    S.sfx(tz, "zap", -6)
+    S.tr_out("whip")
+    S.captions({"exams": "#FFD166", "fortythree": "#FFD166", "twenty": "#FFD166", "personal": "#ff8a8a"})
+    return S
+
+
+@scene
+def s04():
+    """Streetball court establishing: scoreboard drops on a spring, crowd bobs, Mito warms up, THE ALARM struts in."""
+    S = mk("s04", "court", "#5a1430", "court")
+    for l in X.court("ct"): S.add(l)
+    S.add(X.desk("dk"))
+    S.over(X.scoreboard("sb"))
+    S.tr_in("whip")
+    S.prop_in("#sb", .1, "drop", origin="50% 0%", sfx="clunk", amp=.7)
+    S.j(f'document.querySelectorAll(".ctfan").forEach((f,i)=>tl.to(f,{{y:-10-(i%3)*4,duration:.22+(i%4)*.04,yoyo:true,repeat:{int(S.T / .22)},ease:"sine.inOut"}},(i%9)*.04));')
+    S.parallax([("ctL1", .3), ("ctL2", .6)], 0, S.T, dx=-50)
+    S.sfx(.1, "crowd", -10)
+    S.cyto(360, 700, .5, z=29, toque_extra=X.HEADSET, face_extra=X.HEADSET_MIC,
+           expr=[(S.w(13, "Welcome") - .05, 1.0, "hype")], x_expr=[(S.w(13, "stress"), 1.0, "determined")],
+           points=[(S.w(13, "alarm") - .2, .8)])
+    S.char("mito", "mt", 860, 270, .66, who="MITO", pose="ball", expr=[(.3, 1.2, "hype"), (S.w(13, "brain"), 1.4, "determined")],
+           poses=[(1.0, "hype"), (2.0, "ball")], pops=[(1.0, 1)], looks=[(S.w(13, "alarm"), .3, 0)])
+    S.add(f'<div style="position:absolute;left:0;top:0;z-index:18">' + K.wrap(X.alarm_guy("al", "idle"), "alW", 1300, 300, .78, z=18) + '</div>')
+    S.j(f'tl.fromTo("#alW",{{x:900}},{{x:0,duration:.6,ease:"back.out(1.4)"}},{S.w(13, "alarm") - .6:.3f});tl.fromTo("#al",{{rotation:0}},{{rotation:4,duration:.2,yoyo:true,repeat:3,svgOrigin:"250 700"}},{S.w(13, "alarm") - .1:.3f});'
+        f'tl.set("#alP_idle",{{opacity:0}},{S.w(13, "alarm"):.3f});tl.set("#alP_flex",{{opacity:1}},{S.w(13, "alarm"):.3f});'
+        f'tl.fromTo("#alglow",{{opacity:.2}},{{opacity:.9,duration:.25,yoyo:true,repeat:{int(S.T / .25)},immediateRender:false}},0);')
+    S.sfx(S.w(13, "alarm") - .5, "siren_short", -9)
+    S.tr_out("cut")
+    S.captions({"alarm": "#ff6b6b"})
+    return S
+
+
+@scene
+def s05():
+    """3D (clean): the alarm signal runs down to the adrenal 'condos' on the kidneys; they fire hormone basketballs. Labels on panels."""
+    S = mk("s05", "court", "#2b1640", "body")
+    S.talk_scale = 0
+    S.three3d("CON", "condos", 0, S.T, f"{{dur:{S.T:.3f},tFire:{S.w(13, 'pumping') - .2:.3f}}}", z=1)
+    S.tr_in("cut")
+    S.panel("lbA", S.w(13, "adrenal") - .1, S.w(13, "And", after=S.w(13, "adrenal")) - .15, "ADRENAL GLANDS", "= CONDOS ON YOUR KIDNEYS", "#ffa94d", 1000, 60, 860)
+    S.panel("lbB", S.w(13, "adrenaline") - .1, S.w(13, "cortisol") - .05, "HORMONE", "ADRENALINE", "#ff8a8a", 1200, 60, 660)
+    S.panel("lbC", S.w(13, "cortisol") - .05, S.T, "HORMONE", "CORTISOL", "#FFD166", 1200, 60, 660)
+    S.drift = False
+    S.add('<div id="pipbg" style="position:absolute;left:40px;top:540px;width:520px;height:340px;z-index:50;border-radius:24px;background:#20283a;box-shadow:0 14px 0 rgba(0,0,0,.35)"></div>')
+    S.over('<div id="pip" style="position:absolute;left:40px;top:540px;width:520px;height:340px;z-index:50;border-radius:24px;border:8px solid #FAF4E8">'
+           '<div style="position:absolute;left:16px;top:10px;font:24px InterBlack;color:#ff3b3b;z-index:3">● LIVE</div></div>')
+    S.cyto(300, 800, .42, z=51, toque_extra=X.HEADSET, face_extra=X.HEADSET_MIC,
+           expr=[(S.w(13, "condos") - .05, .8, "hype")], x_expr=[(S.w(13, "adrenaline") - .1, 1.0, "shocked")],
+           points=[(S.w(13, "kidneys") - .2, .7)], looks=[(S.w(13, "adrenal"), 14, -10)])
+    S.j('tl.set("#cytoLayer",{clipPath:"inset(540px 1360px 200px 40px round 24px)"},0);')
+    S.j(f'tl.fromTo(["#pip","#pipbg","#cytoLayer"],{{x:-600}},{{x:0,duration:.35,ease:"back.out(1.5)"}},.15);')
+    S.sfx(S.w(13, "pumping") - .2, "boing", -8); S.sfx(S.w(13, "adrenaline"), "boing", -8)
+    S.tr_out("whip")
+    S.captions({"adrenal": "#ffa94d", "condos": "#ffa94d", "adrenaline": "#ff8a8a", "cortisol": "#FFD166"})
+    return S
+
+
+@scene
+def s06():
+    """MITO vs THE ALARM - play-by-play with shot/reverse-shot. The dunk (I2): Mito rises ON "I'm HIM!", rim + shatter on the beat,
+    slow-mo hang while Cyto's commentary plays; fully framed (no letterbox), crowd erupts. Then the bear + the subs."""
+    S = mk("s06", "court", "#5a1430", "court")
+    for l in X.court("ct"): S.add(l)
+    S.add(X.desk("dk")); S.over(X.scoreboard("sb"))
+    S.tr_in("cut")
+    S.talk_off = {18, 19}
+    S.j(f'document.querySelectorAll(".ctfan").forEach((f,i)=>tl.to(f,{{y:-10-(i%3)*4,duration:.22+(i%4)*.04,yoyo:true,repeat:{int(S.T / .22)},ease:"sine.inOut"}},(i%9)*.04));')
+    l = {n: S.l(n) for n in range(14, 26)}
+    dk0, dk1 = S.b("dunk"); sb0, sb1 = S.b("subbed")
+    r0 = l[18][0]; land = l[19][0] + 1.3
+    S.j(f'tl.to("#sbhr",{{scaleX:.78,duration:.5,ease:"back.out(2)"}},{S.w(15, "UP") - .1:.3f});tl.to("#sbbr",{{scaleX:.8,duration:.5,ease:"back.out(2)"}},{S.w(16, "UP") - .1:.3f});'
+        f'tl.to("#sbhr",{{scaleX:.95,duration:.4}},{sb0:.3f});tl.to("#sbbr",{{scaleX:.95,duration:.4}},{sb0:.3f});')
+    S.j(f'gsap.set("#sbheart",{{transformOrigin:"50% 50%"}});tl.fromTo("#sbheart",{{scale:1.25}},{{scale:1,duration:.5,repeat:{int(S.w(15, "Heart") / .5)},ease:"power2.out",immediateRender:false}},0);'
+        f'tl.fromTo("#sbheart",{{scale:1.35}},{{scale:1,duration:.22,repeat:{int((S.T - S.w(15, "Heart")) / .22)},ease:"power2.out",immediateRender:false}},{S.w(15, "Heart"):.3f});')
+    for n, w in ((15, "UP"), (16, "UP")):
+        S.popup(f"up{n}", S.w(n, w) - .05, l[n][1] + .3, "", "↑ " + ("HEART RATE" if n == 15 else "BREATHING"), "#ff8a8a" if n == 15 else "#8ce2d6", 290, 270, 480)
+        S.sfx(S.w(n, w) - .05, "buzzer", -12)
+    S.cyto(360, 700, .5, z=29, toque_extra=X.HEADSET, face_extra=X.HEADSET_MIC, phone=True,
+           expr=[(S.w(15, "Adrenaline"), .8, "hype"), (S.w(17, "Mito") - .1, .8, "hype"), (dk0 + .05, 1.0, "shock"), (l[25][0], 1.0, "skeptic")],
+           x_expr=[(S.w(19, "built"), 1.1, "determined"), (l[21][0], 1.2, "deadpan"), (S.w(23, "Again"), 1.6, "exhausted")],
+           points=[(S.w(17, "paint") - .3, .7), (l[25][0], .9)], looks=[(S.w(17, "sugar"), 14, -8)])
+    S.char("mito", "mt", 820, 250, .66, pose="ball", who="MITO", z=21,
+           poses=[(l[14][0], "hype"), (l[15][0] + .4, "ball"), (l[16][0], "point"), (l[17][0], "ball"), (r0, "dunk"), (land, "hype"), (land + 1.0, "idle"),
+                  (l[20][0], "point"), (l[22][0], "idle"), (l[23][0] + 1.0, "ball"), (l[24][0], "shrug"), (l[25][0], "idle")],
+           expr=[(l[14][0], 1.5, "hype"), (S.w(16, "Breathing"), 1.0, "determined"), (r0, land - r0 + .4, "hype"),
+                 (l[20][0], 1.0, "worried"), (l[22][0] - .3, 1.3, "sideeye"), (sb0, 1.2, "shocked"), (l[24][0], 1.4, "shocked"), (l[25][0], .9, "exhausted")],
+           pops=[(l[14][0] + .1, 1), (r0 + .05, 1.2), (land, 1.1)])
+    # dribble side to side during the play-by-play (no locked pose)
+    S.j(f'tl.fromTo("#mtW",{{x:0}},{{x:-70,duration:.55,yoyo:true,repeat:{max(1, int((r0 - l[15][0]) / .55) - 1)},ease:"sine.inOut",immediateRender:false}},{l[15][0]:.3f});')
+    # THE DUNK: rise on "I'm HIM!", rim at the beat, slow-mo hang under the commentary, land
+    S.j(f'tl.to("#mtW",{{x:560,y:-175,duration:{dk0 - r0:.3f},ease:"power2.out"}},{r0:.3f});tl.to("#mtW",{{x:575,y:-162,duration:{land - dk0 - .5:.3f},ease:"none"}},{dk0:.3f});'
+        f'tl.to("#mtW",{{x:0,y:0,duration:.5,ease:"power2.in"}},{land - .5:.3f});')
+    S.j(f'tl.set("#ctshards",{{opacity:1}},{dk0 + .05:.3f});tl.set("#ctboard",{{opacity:0}},{dk0 + .05:.3f});'
+        f'document.querySelectorAll(".ctshard").forEach((e,i)=>tl.fromTo(e,{{x:0,y:0,rotation:0}},{{x:(i%5-2)*90,y:200+(i%3)*120,rotation:(i%2?1:-1)*200,duration:2.2,ease:"power1.in",immediateRender:false}},{dk0 + .05:.3f}));'
+        f'tl.set("#ctshards",{{opacity:0}},{land + .3:.3f});tl.set("#ctboard",{{opacity:1}},{land + .3:.3f});')
+    S.j(f'tl.to(".ctfan",{{y:-46,duration:.18,yoyo:true,repeat:7,ease:"power2.out"}},{dk0 + .1:.3f});')
+    S.j(f'tl.to("#cam",{{scale:1.12,duration:.25,ease:"power3.out",transformOrigin:"1500px 0px"}},{dk0 - .05:.3f});tl.to("#cam",{{scale:1,duration:.4,ease:"power2.inOut"}},{land:.3f});')
+    S.shake(dk0 + .05, .35, 16)
+    S.over(f'<div id="slomo" class="pop clip" data-start="{dk0 + .2:.3f}" data-duration="{land - dk0 - .4:.3f}" style="left:60px;top:40px;padding:8px 22px;border-radius:14px;background:rgba(12,22,34,.85);font:44px InterBlack;color:#FFD166;z-index:67">SLOW-MO</div>')
+    S.sfx(dk0 + .05, "shatter", -2); S.sfx(dk0 + .1, "crowd", -3); S.sfx(dk0, "slam", -2)
+    # THE ALARM + its subs
+    S.add(K.wrap(X.alarm_guy("al", "defend"), "alW", 1320, 300, .74, z=19))
+    S.add(K.wrap(X.alarm_guy("al2", "defend"), "al2W", 1520, 330, .7, z=18))
+    S.add(K.wrap(X.alarm_guy("al3", "flex"), "al3W", 1080, 340, .68, z=17))
+    S.j(f'tl.fromTo(["#alglow","#al2glow","#al3glow"],{{opacity:.2}},{{opacity:.9,duration:.25,yoyo:true,repeat:{int(S.T / .25)},immediateRender:false}},0);'
+        f'tl.to("#alW",{{x:900,duration:.4,ease:"power2.in"}},{r0:.3f});tl.to("#alW",{{x:0,duration:.6,ease:"power3.out"}},{sb0:.3f});'
+        f'tl.set(["#al2W","#al3W"],{{x:300,opacity:0}},0);tl.to("#al2W",{{x:0,opacity:1,duration:.35,ease:"back.out(1.4)"}},{S.w(23, "Again") - .1:.3f});tl.to("#al3W",{{x:0,opacity:1,duration:.35,ease:"back.out(1.4)"}},{S.w(23, "again", after=S.w(23, "Again") + .1) - .1:.3f});')
+    for t in (sb0, S.w(23, "Again") - .1, S.w(23, "again", after=S.w(23, "Again") + .1) - .1):
+        S.sfx(t, "siren_short", -10); S.sfx(t, "buzzer", -12)
+    for t in (S.w(23, "phone") - .1, S.w(23, "Again") - .3, S.w(23, "again", after=S.w(23, "Again") + .1) - .3):
+        buzz(S, t, .3)
+    S.popup("sub", sb0 + .05, sb1 + .6, "SUBSTITUTION", "THE ALARM (AGAIN)", "#ff8a8a", 290, 260, 480)
+    S.j(f'tl.to("#mtW",{{x:-260,duration:.3,ease:"power3.in"}},{sb0 + .1:.3f});tl.to("#mtW",{{x:0,duration:.45,ease:"power2.out"}},{sb1 + .1:.3f});')
+    # sugar pass
+    S.add(f'<div id="sugar" class="clip" data-start="{S.w(17, "sugar") - .2:.3f}" data-duration="{l[17][1] - S.w(17, "sugar") + .2:.3f}" style="position:absolute;left:0;top:0;width:120px;height:120px;z-index:22">'
+          '<svg width="120" height="120"><rect x="10" y="10" width="100" height="100" rx="18" fill="#fff" stroke="#0c1622" stroke-width="7"/><text x="60" y="72" text-anchor="middle" font-family="InterBlack" font-size="26" fill="#0c1622">SUGAR</text></svg></div>')
+    S.j(f'tl.fromTo("#sugar",{{x:400,y:120,rotation:0}},{{x:1100,y:330,rotation:540,duration:{S.w(17, "paint") - S.w(17, "sugar") + .1:.3f},ease:"power1.in"}},{S.w(17, "sugar") - .2:.3f});')
+    S.sfx(S.w(17, "paint"), "catch", -6)
+    bubble(S, "bear", S.w(19, "bear") - .1, l[21][1] + .2, BEAR, 520, 270)
+    S.over(f'<div id="bearX" class="pop clip" data-start="{S.w(21, "no"):.3f}" data-duration="{l[21][1] - S.w(21, "no") + .2:.3f}" style="left:600px;top:310px;font:220px/1 InterBlack;color:#e63946;-webkit-text-stroke:6px #0c1622">X</div>')
+    S.j(f'tl.fromTo("#bearX",{{scale:3,opacity:0}},{{scale:1,opacity:1,duration:.18,ease:"power4.in"}},{S.w(21, "no"):.3f});')
+    S.sfx(S.w(19, "bear"), "roar", -10)
+    S.tr_out("whip")
+    S.captions({"up": "#ff8a8a", "him": "#FFD166", "bear": "#c9965f", "groupchat": "#8ce2d6", "again": "#ff8a8a"})
+    return S
+
+
+@scene
+def s07():
+    """IT DRAGS ON - countdown sign drops in, Mito gassed on the bench, the cortisol gag (card top-left, clear of faces), Neutro vs. a crumb."""
+    S = mk("s07", "moody", "#2a1030", "court_low")
+    for l in X.court("ct"): S.add(l)
+    S.add('<div class="fill" style="z-index:5;background:linear-gradient(rgba(20,10,60,.55),rgba(10,5,30,.65))"></div>')
+    S.add(X.layer("bench", BENCH, 6))
+    S.tr_in("whip")
+    flipsign(S, "cd", .5, "12 DAYS TILL BREAK", "10 DAYS TILL BREAK", 650, 70)
+    S.prop_in("#cd", .02, "drop", origin="50% 0%", sfx="clunk", amp=.6)
+    S.parallax([("ctL1", .2), ("ctL2", .4), ("bench", .5)], 0, S.T, dx=-60)
+    l = {n: S.l(n) for n in range(26, 33)}
+    cb0, cb1 = S.b("crumb"); bn0, _ = S.b("bench")
+    S.cyto(470, 720, .58, expr=[(S.w(26, "weird") - .2, 1.0, "squint"), (S.w(28, "stop"), 1.0, "sad"), (l[30][0], 1.0, "skeptic")],
+           x_expr=[(l[26][0] + .2, 1.3, "smug"), (S.w(28, "Cortisol"), 1.3, "determined"), (S.w(28, "inflammation"), 1.5, "worried"), (cb0, 1.0, "shocked"), (l[32][0] + .1, 1.6, "sideeye")],
+           points=[(S.w(28, "Carnegie"), .7), (l[30][0] + .1, .9)], shrugs=[(S.w(26, "days") - .1, .8)], sips=[(l[27][1] + .1, 1.1)],
+           tilts=[(S.w(26, "Useful"), .6, 6)])
+    S.char("mito", "mt", 1270, 190, .66, pose="slump", gassed=True, who="MITO", z=21,
+           expr=[(0, S.T, "exhausted")], shut_at=[(l[27][1] + .6, 2.0)], nods=[l[27][0] + .2], bob=True)
+    S.j(f'tl.fromTo("#mtsweat",{{y:0,opacity:1}},{{y:30,opacity:0,duration:1.2,repeat:{int(S.T / 1.2)},ease:"power1.in",immediateRender:false}},0);')
+    # cortisol gag card: top-left reserved zone (never over Mito / Cyto), drops in, pinned for <= 3 s per beat
+    a0 = S.w(28, "Cortisol") - .1; a1 = min(S.w(28, "inflammation") + 1.0, a0 + 6.0)
+    S.over(f'<div id="cg" class="pop clip" data-start="{a0:.3f}" data-duration="{a1 - a0:.3f}" style="left:40px;top:180px;width:900px;height:330px;z-index:50;border-radius:28px;background:#FAF4E8;border:7px solid #0c1622;box-shadow:0 14px 0 rgba(0,0,0,.35);transform:scale(.88);transform-origin:0 0">'
+           f'<svg width="900" height="330"><g transform="translate(40 110)">{CORT}</g>'
+           f'<g id="cgtxt"><rect x="250" y="40" width="300" height="70" rx="20" fill="#fff" stroke="#0c1622" stroke-width="5"/><text x="400" y="86" text-anchor="middle" font-family="InterBlack" font-size="30" fill="#0c1622">AIGHT, CALM DOWN</text></g>'
+           f'<g transform="translate(600 90)">{IMM}</g><g id="cgfl" opacity="0"><g transform="translate(330 170)">{FLAME}</g><g transform="translate(420 190) scale(.8)">{FLAME}</g><g transform="translate(500 170)">{FLAME}</g></g>'
+           f'<text x="450" y="315" text-anchor="middle" font-family="InterBlack" font-size="28" fill="#e63946" id="cglab" opacity="0">INFLAMMATION</text></svg></div>')
+    S.j(f'tl.fromTo("#cg",{{y:-600}},{{y:0,duration:.4,ease:"elastic.out(1,.5)"}},{a0:.3f});tl.set("#hph",{{opacity:1}},{S.w(28, "stop"):.3f});'
+        f'tl.fromTo("#hph",{{y:-60}},{{y:0,duration:.25,ease:"bounce.out"}},{S.w(28, "stop"):.3f});tl.set("#cgtxt",{{opacity:.25}},{S.w(28, "listening"):.3f});'
+        f'tl.set(["#cgfl","#cglab"],{{opacity:1}},{S.w(28, "inflammation"):.3f});tl.fromTo("#cgfl",{{scaleY:.9,transformOrigin:"50% 100%"}},{{scaleY:1.12,duration:.18,yoyo:true,repeat:12,immediateRender:false}},{S.w(28, "inflammation"):.3f});'
+        f'tl.to("#cg",{{y:-700,rotation:-8,duration:.3,ease:"power3.in"}},{a1 - .3:.3f});')
+    S.sfx(a0 + .1, "clunk", -8); S.sfx(a1 - .3, "whoosh", -10)
+    S.over(f'<div id="fl2" class="pop clip" data-start="{S.w(28, "inflammation"):.3f}" data-duration="{l[28][1] - S.w(28, "inflammation") + .4:.3f}" style="left:1300px;top:780px;z-index:23"><svg width="300" height="130" viewBox="0 0 300 130">'
+           f'<g transform="translate(0 10)">{FLAME}</g><g transform="translate(100 20) scale(.8)">{FLAME}</g><g transform="translate(190 10)">{FLAME}</g></svg></div>')
+    S.j(f'tl.fromTo("#fl2",{{scaleY:.85,transformOrigin:"50% 100%"}},{{scaleY:1.1,duration:.16,yoyo:true,repeat:{int((l[28][1] - S.w(28, "inflammation") + .4) / .16)},immediateRender:false}},{S.w(28, "inflammation"):.3f});')
+    src_chip(S, "src1", S.w(28, "Carnegie") - .1, l[28][1], "COHEN ET AL. · PNAS 2012", right=True)
+    S.sfx(S.w(28, "stop"), "pop", -8)
+    # Neutro: jittery, spins at the crumb, radios for backup (consistent scale; gentle push, no giant zoom)
+    S.add('<div id="crumb" style="position:absolute;left:990px;top:840px;z-index:7"><svg width="70" height="50"><path d="M6 44 L20 10 L52 6 L64 38Z" fill="#d9a35b" stroke="#0c1622" stroke-width="4"/></svg></div>')
+    S.char("neutro", "nt", 860, 330, .66, pose="idle", who="NEUTRO", z=22,
+           poses=[(cb0 + .4, "radio"), (l[31][0], "point"), (l[32][0] + .4, "cross")],
+           expr=[(cb0, l[29][1] - cb0 + .2, "determined"), (l[31][0], 1.3, "sideeye"), (l[32][0], 1.8, "deadpan")])
+    S.j(f'tl.set("#ntW",{{x:1200}},0);tl.to("#ntW",{{x:0,duration:.4,ease:"power3.out"}},{cb0 - .45:.3f});'
+        f'tl.to("#nt",{{scaleX:-1,duration:.08,svgOrigin:"300 650",yoyo:true,repeat:3}},{cb0:.3f});'
+        f'tl.to("#ntW",{{x:60,duration:.07,yoyo:true,repeat:7}},{cb0 + .1:.3f});')
+    S.sfx(cb0 - .4, "whoosh", -10); S.sfx(cb0 + .45, "radio", -6)
+    S.tr_out("cut")
+    S.captions({"cortisol": "#FFD166", "carnegie": "#8ce2d6", "mellon": "#8ce2d6", "cooked": "#ff8a8a", "crumb": "#d9a35b"})
+    return S
+
+
+@scene
+def s08():
+    """3D (clean: tunnel + lasers + door only): Rhino's heist at the nose front door. Cyto's VO lands during the heist."""
+    S = mk("s08", "heist", "#2a0a14", "body")
+    S.talk_scale = 0
+    S.three3d("LAS", "lasers", 0, S.T, f"{{dur:{S.T:.3f}}}", z=1)
+    S.tr_in("cut")
+    S.panel("fd", .3, S.T - .2, "LOCATION", "FRONT DOOR = YOUR NOSE", "#ff8a8a", 60, 60, 760)
+    S.char("rhino", "rh", -380, 520, .95, pose="sneak", z=30, expr=[(0, S.T, "smug")], blinks=[],
+           poses=[(.8, "duck"), (1.8, "spread"), (2.6, "sneak"), (3.3, "duck")])
+    S.j(f'tl.to("#rhW",{{x:1000,duration:{S.T - .5:.3f},ease:"sine.inOut"}},.1);tl.to("#rh",{{y:-20,duration:.3,yoyo:true,repeat:{int(S.T / .3)},ease:"sine.inOut"}},0);'
+        f'tl.to("#rh",{{rotation:360,duration:.6,svgOrigin:"200 260",ease:"power2.inOut"}},1.9);tl.set("#rh",{{rotation:0}},2.55);')
+    S.sfx(.2, "tiptoe", -8); S.sfx(1.9, "whoosh", -10); S.sfx(S.T - 1.0, "gulp", -8)
+    S.tr_out("whip")
+    S.captions({"officer": "#ff8a8a"})
+    return S
+
+
+@scene
+def s09():
+    """COLD CASE: 1991 - film noir kept B&W to the end (I6). Real Distillery brick through the window (cropped, no signage).
+    Title on its own dark band. Animated reenactment. Neutro points at a pull-down wall chart that fills while Cyto reacts."""
+    S = mk("s09", "noir", "#111", "rain")
+    for l in X.noir("nr"): S.add(l)
+    S.tr_in("cut")
+    nb0, nb1 = S.b("noir"); re0, re1 = S.b("reenact"); si0, si1 = S.b("silence"); sm0, sm1 = S.b("smirk")
+    l = {n: S.l(n) for n in range(33, 43)}
+    S.j('tl.set("#cam",{filter:"grayscale(1) contrast(1.2) brightness(.96)"},0);')
+    S.over(f'<div id="grain" class="static clip" data-start="0" data-duration="{S.T:.3f}" style="position:absolute;inset:0;z-index:60;opacity:.07;pointer-events:none"></div>')
+    S.j(f'tl.fromTo("#grain",{{backgroundPosition:"0px 0px"}},{{backgroundPosition:"53px 29px",duration:.05,repeat:{int(S.T / .05)},ease:"steps(1)",immediateRender:false}},0);')
+    S.j(f'tl.fromTo("#nrrain",{{y:-60}},{{y:0,duration:.35,repeat:{int(S.T / .35)},ease:"none",immediateRender:false}},0);')
+    S.j(f'gsap.set("#nrlamp",{{svgOrigin:"1540 610"}});tl.fromTo("#nrlamp",{{rotation:-14,y:-200}},{{rotation:0,y:0,duration:.6,ease:"elastic.out(1,.4)",immediateRender:true}},.05);'
+        f'tl.fromTo("#nrlamp",{{opacity:1}},{{opacity:.6,duration:.06,yoyo:true,repeat:5,immediateRender:false}},.7);')
+    S.sfx(.1, "clunk", -10); S.sfx(0, "sax", -5)
+    S.over(f'<div id="cct" class="clip" data-start="{.05:.3f}" data-duration="{l[33][1] + .3:.3f}" style="position:absolute;left:0;right:0;top:28px;height:150px;z-index:70;background:linear-gradient(rgba(0,0,0,.9),rgba(0,0,0,.75));text-align:center;font:104px/150px InterBlack;color:#f0f0f0">COLD CASE: 1991</div>')
+    S.j(f'tl.fromTo("#cct",{{clipPath:"inset(0 100% 0 0)"}},{{clipPath:"inset(0 0% 0 0)",duration:.8,ease:"steps(15)"}},.05);tl.to("#cct",{{y:-200,duration:.25,ease:"power2.in"}},{l[33][1] + .05:.3f});')
+    S.sfx(.05, "typewriter", -8)
+    S.char("neutro", "nt", 760, 210, .78, pose="notepad", who="NEUTRO", z=20, trench=True,
+           poses=[(l[34][0], "idle"), (l[38][0] - .2, "point"), (si0, "idle"), (l[41][0], "cross")],
+           expr=[(0, 1.4, "deadpan"), (l[36][0], 1.0, "deadpan"), (l[38][0], 1.4, "determined"), (l[41][0], 1.3, "smug")],
+           nods=[l[33][1] - .2, l[41][0] + .2])
+    S.cyto(360, 760, .66, z=35, expr=[(l[35][0] - .05, .9, "shock"), (S.w(38, "ninety"), .8, "shock"), (si0 + .1, si1 - si0 + l[40][1] - l[40][0] + .2, "shock")],
+           x_expr=[(l[34][0] + 1, 1.8, "sideeye"), (S.w(39, "forty") - .1, 1.3, "worried"), (l[42][0] + .1, 2.0, "determined"), (sm0, .9, "worried")],
+           tilts=[(l[42][0] + 1.5, .7, 6)], shrugs=[(S.w(42, "Yeah"), .7)])
+    S.j(f'tl.fromTo("#nrfile",{{y:0}},{{y:-14,duration:.12,yoyo:true,repeat:1,immediateRender:false}},{l[33][0]:.3f});')
+    src_chip(S, "src2", S.w(34, "Scientists"), l[37][1], "COHEN, TYRRELL & SMITH · NEJM 1991", 40, 36)
+    # REENACTMENT (animated): droppers drip, tiny Rhinos hop into noses, volunteers sneeze
+    ra = S.w(34, "dripped") - .2; rb = l[37][1] + .2
+    vols = "".join(f'<g class="vol" transform="translate({x} 560)"><g class="volB">{VOL(0)}</g></g>' for x in (340, 740, 1140, 1540)).replace('translate(0 560)', 'translate(0 0)')
+    drops = "".join(f'<circle class="drp" cx="{x + 122}" cy="390" r="12" fill="#444" stroke="#000" stroke-width="3"/>' for x in (340, 740, 1140, 1540))
+    hops = "".join(f'<g class="trh" transform="translate({x - 160} 640)">{TINYRH}</g>' for x in (340, 740, 1140, 1540))
+    sneeze = "".join(f'<text class="snz" x="{x + 60}" y="610" font-family="InterBlack" font-size="44" fill="#111" opacity="0">ACHOO</text>' for x in (340, 740, 1140, 1540))
+    S.over(f'<div id="reel" class="clip" data-start="{ra:.3f}" data-duration="{rb - ra:.3f}" style="position:absolute;inset:0;z-index:45">'
+           + reel("".join(SCI(x) for x in (340, 740, 1140, 1540)) + vols + drops + hops + sneeze
+                  + '<text x="1820" y="140" text-anchor="end" font-family="InterBlack" font-size="34" fill="#111">REENACTMENT</text>') + '</div>')
+    S.j(f'tl.fromTo("#reel",{{x:1920}},{{x:0,duration:.25,ease:"power3.out"}},{ra:.3f});tl.to("#reel",{{x:-1920,duration:.22,ease:"power3.in"}},{rb - .22:.3f});'
+        f'document.querySelectorAll("#reel .drp").forEach((e,i)=>tl.fromTo(e,{{y:0,opacity:1}},{{y:270,opacity:.3,duration:.45,ease:"power2.in",repeat:4,repeatDelay:.35,immediateRender:false}},{ra + .3:.3f}+i*.12));'
+        f'document.querySelectorAll("#reel .trh").forEach((e,i)=>tl.fromTo(e,{{x:0,y:0,opacity:1,scale:1}},{{keyframes:[{{x:80,y:-120,duration:.25,ease:"power2.out"}},{{x:160,y:-40,scale:.4,duration:.25,ease:"power2.in"}},{{opacity:0,duration:.05}}],immediateRender:false}},{re0 + .1:.3f}+i*.2));'
+        f'document.querySelectorAll("#reel .volB").forEach((e,i)=>tl.fromTo(e,{{scaleY:1,scaleX:1}},{{keyframes:[{{scaleY:.85,scaleX:1.12,duration:.1}},{{scaleY:1.1,scaleX:.92,duration:.1}},{{scaleY:1,scaleX:1,duration:.15}}],immediateRender:false}},{re1 + .2:.3f}+i*.25));'
+        f'document.querySelectorAll("#reel .snz").forEach((e,i)=>tl.fromTo(e,{{opacity:0,y:0}},{{opacity:1,y:-30,duration:.2,yoyo:true,repeat:1,repeatDelay:.3,immediateRender:false}},{re1 + .2:.3f}+i*.25));')
+    for i in range(4): S.sfx(ra + .3 + i * .12, "drip", -10); S.sfx(re1 + .2 + i * .25, "achoo_small", -14)
+    for i in range(4): S.sfx(re0 + .1 + i * .2, "boing", -16)
+    # the NUMBERS: a chart rolls down over the window like a projector screen; Neutro points, bars fill, Cyto reacts
+    b0 = l[38][0] - .35; b1 = si0 + .2
+    def bar(id_, lab, v, col, y):
+        return (f'<div style="position:absolute;left:30px;top:{y}px;font:32px InterBlack;color:#111">{lab}</div>'
+                f'<div style="position:absolute;left:30px;top:{y + 42}px;width:390px;height:44px;background:#bbb;border:4px solid #111"><div id="{id_}" style="width:{v}%;height:100%;background:{col};transform-origin:0 50%;transform:scaleX(0)"></div></div>'
+                f'<div id="{id_}n" style="position:absolute;left:440px;top:{y + 40}px;font:42px InterBlack;color:#111;opacity:0">{v}%</div>')
+    S.add(f'<div id="ev" class="clip" data-start="{b0:.3f}" data-duration="{b1 - b0:.3f}" style="position:absolute;left:1240px;top:150px;width:540px;height:560px;z-index:8;background:#efefef;border:8px solid #111;box-shadow:0 12px 0 rgba(0,0,0,.4);transform-origin:50% 0">'
+          f'<div style="position:absolute;left:30px;top:14px;font:30px InterBlack;color:#555">INFECTED</div>'
+          + bar("evA", "LOW STRESS", 74, "#666", 54) + bar("evB", "HIGH STRESS", 90, "#111", 150)
+          + '<div style="position:absolute;left:30px;top:270px;font:30px InterBlack;color:#555">ACTUAL COLDS</div>'
+          + bar("evC", "LOW STRESS", 27, "#666", 310) + bar("evD", "HIGH STRESS", 47, "#111", 406) + '</div>')
+    S.j(f'tl.fromTo("#ev",{{scaleY:0}},{{scaleY:1,duration:.45,ease:"bounce.out"}},{b0:.3f});tl.to("#ev",{{scaleY:0,duration:.25,ease:"power2.in"}},{b1 - .25:.3f});')
+    S.sfx(b0, "rip", -10)
+    for k, w in (("evA", S.w(38, "seventy")), ("evB", S.w(38, "ninety")), ("evC", S.w(39, "Twenty")), ("evD", S.w(39, "forty"))):
+        S.j(f'tl.fromTo("#{k}",{{scaleX:0}},{{scaleX:1,duration:.4,ease:"power2.out",immediateRender:false}},{w - .05:.3f});tl.fromTo("#{k}n",{{opacity:0}},{{opacity:1,duration:.1,immediateRender:false}},{w + .2:.3f});')
+        S.sfx(w, "stamp", -8)
+    S.shake(si0 + .25, .45, 18); S.snapzoom(si0 + .2, 1.3, si1 - si0 + l[40][1] - l[40][0] - .3, 360, 680, .3)
+    S.sfx(si0 + .2, "sting", -6); S.sfx(l[41][0] + .5, "slam", -4)
+    S.j(f'tl.to("#nrfile",{{y:-30,duration:.1,yoyo:true,repeat:1}},{l[41][0] + .4:.3f});')
+    # Rhino peeks from behind the door frame and smirks (still B&W)
+    S.char("rhino", "rh", 1560, 420, .7, pose="idle", z=21, expr=[(sm0, sm1 - sm0 + .3, "smug")], blinks=[])
+    S.j(f'tl.set("#rhW",{{x:420}},0);tl.to("#rhW",{{x:0,duration:.3,ease:"back.out(1.6)"}},{sm0:.3f});')
+    S.sfx(sm0 + .2, "sting", -6)
+    S.tr_out("whip")
+    S.captions({"purpose": "#ff8a8a", "ninety": "#ff8a8a", "fortyseven": "#ff8a8a", "what": "#ff8a8a"})
+    return S
+
+
+@scene
+def s10():
+    """THE TWIST - the alarm is still going. Security cam: Cyto's real silhouette (toque pom, cup in hand) yanks the ALARM
+    lever every time his phone buzzes. Silent "..." holds, then the confession."""
+    S = mk("s10", "alarm_low", "#47306b", "hq")
+    for l in X.hq("hq"): S.add(l)
+    S.add(X.alarm_fx("hq")); snowfall(S, "hqsnow", S.T)
+    alarm_on(S, "hq", 0, S.T, beams=False); alarm_shake(S, "hq", 0, S.T)
+    S.tr_in("whip")
+    l = {n: S.l(n) for n in range(43, 48)}
+    c0, c1 = S.b("seccam")
+    S.cyto(560, 650, .6, phone=True, expr=[(l[44][0] - .05, .7, "skeptic"), (c1 - .05, l[45][1] - c1 + .1, "shock")],
+           x_expr=[(l[46][0], .9, "worried"), (l[47][0], 2.4, "smug")],
+           shrugs=[(l[47][0] + .2, .9)], tilts=[(l[47][0] + 1.3, .8, -8)])
+    S.char("neutro", "nt", 1290, 300, .74, pose="radio", who="NEUTRO",
+           poses=[(l[43][1], "cross"), (l[46][0], "idle")],
+           expr=[(0, l[43][1], "determined"), (l[44][0], 1.0, "sideeye"), (c1, l[46][1] - c1 + .2, "deadpan"), (l[47][0] + .4, 2.0, "smug")],
+           nods=[l[47][1] - .4])
+    S.j(f'tl.fromTo("#ntW",{{x:0}},{{x:-6,duration:.05,yoyo:true,repeat:{int(l[43][1] / .05)},immediateRender:false}},0);')
+    # SECURITY CAM: real Cyto silhouette next to the lever, arm up on every buzz
+    pulls = [c0 + .35, c0 + .95, c0 + 1.5]
+    cx, cy, cs = 1060, 560, .42
+    S.over(f'<div id="cam2" class="clip" data-start="{c0:.3f}" data-duration="{c1 - c0:.3f}" style="position:absolute;inset:0;z-index:72;background:#000;overflow:hidden">'
+           f'<div id="camI" style="position:absolute;inset:0;transform-origin:1180px 480px;filter:grayscale(1) sepia(1) hue-rotate(60deg) saturate(1.5) contrast(1.25) brightness(.9)">'
+           + "".join(X.hq("sc")[:3]) +
+           f'<img id="scDn" src="assets/cy_down.png" style="position:absolute;left:{cx - 600 * cs:.0f}px;top:{cy - 640 * cs:.0f}px;width:{1200 * cs:.0f}px;height:{1300 * cs:.0f}px;z-index:6"/>'
+           f'<img id="scUp" src="assets/cy_up.png" style="position:absolute;left:{cx - 600 * cs:.0f}px;top:{cy - 640 * cs:.0f}px;width:{1200 * cs:.0f}px;height:{1300 * cs:.0f}px;z-index:6;opacity:0"/>'
+           f'</div>'
+           f'<div class="static" id="scN" style="position:absolute;inset:0;opacity:.12"></div>'
+           f'<div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.25) 0 2px,transparent 2px 5px)"></div>'
+           f'<div style="position:absolute;left:60px;top:44px;padding:4px 14px;background:rgba(0,0,0,.6);font:44px InterBlack;color:#e8ffe8">CAM 1 · HQ</div>'
+           f'<div id="rec" style="position:absolute;right:60px;top:44px;font:44px InterBlack;color:#ff4d4d">● REC</div>'
+           f'<div style="position:absolute;left:60px;top:120px;padding:4px 14px;background:rgba(0,0,0,.6);font:38px InterBlack;color:#e8ffe8">DEC 06 2026 · 06:00</div></div>')
+    S.j(f'tl.fromTo("#scN",{{backgroundPosition:"0px 0px"}},{{backgroundPosition:"41px 77px",duration:.05,repeat:{int((c1 - c0) / .05)},ease:"steps(1)",immediateRender:false}},{c0:.3f});'
+        f'tl.fromTo("#rec",{{opacity:1}},{{opacity:0,duration:.4,yoyo:true,repeat:{int((c1 - c0) / .4)},ease:"steps(1)",immediateRender:false}},{c0:.3f});'
+        f'tl.fromTo("#camI",{{scale:1}},{{scale:1.2,duration:{c1 - c0:.3f},ease:"none",immediateRender:false}},{c0:.3f});')
+    for t in pulls:
+        S.j(f'tl.set("#scUp",{{opacity:1}},{t:.3f});tl.set("#scDn",{{opacity:0}},{t:.3f});tl.set("#scUp",{{opacity:0}},{t + .3:.3f});tl.set("#scDn",{{opacity:1}},{t + .3:.3f});')
+        lever_pull(S, "sc", t)
+        S.over(f'<div id="bz{int(t * 10)}" class="pop clip" data-start="{t - .22:.3f}" data-duration=".4" style="left:{int(cx - 330)}px;top:400px;z-index:73;font:46px InterBlack;color:#e8ffe8;text-shadow:0 0 8px #000">BZZT</div>')
+        S.sfx(t - .22, "buzz", -6)
+    S.sfx(c0, "static", -12)
+    S.j(f'tl.to(".settxt",{{opacity:0,duration:.05}},{c0 - .05:.3f});tl.to(".settxt",{{opacity:1,duration:.1}},{c1:.3f});')
+    S.snapzoom(c1 + .05, 1.15, l[45][1] - c1, 560, 600, .2)
+    S.snapzoom(l[46][0] + .02, 1.15, .8, 1530, 500, .2)
+    S.sfx(l[47][0] + .2, "sting", -8)
+    S.tr_out("whip")
+    S.captions({"who": "#FFD166", "me": "#FFD166", "ahlie": "#FFD166"})
+    return S
+
+
+@scene
+def s11():
+    """SERIOUS BEAT - downtown = the heart. Clean 3D: one beating heart (visible lub-dub squash & stretch + heartbeat SFX), Cyto in
+    front on the left, cards in the top band (never on the heart), source chip in the top-left zone."""
+    S = mk("s11", "calm", "#1d1838", "body")
+    bpm = 66
+    S.three3d("HRT", "heart", 0, S.T, f"{{dur:{S.T:.3f},bpm:{bpm}}}", z=1)
+    S.tr_in("cut")
+    per = 60 / bpm; k = 0
+    while k * per < S.T - .2:
+        S.sfx(k * per, "heartbeat", -12); k += 1
+    l = {n: S.l(n) for n in range(48, 51)}
+    S.add('<div class="fill" style="z-index:2;background:linear-gradient(90deg,rgba(13,18,40,.75),rgba(13,18,40,0) 45%)"></div>')
+    S.cyto(380, 700, .62, z=20, expr=[(S.w(48, "Not"), 1.1, "sad")], x_expr=[(l[48][0] + .2, 1.4, "determined"), (S.w(49, "Call") - .1, 1.6, "determined")],
+           looks=[(S.w(48, "Christmas"), 14, -10)], points=[(S.w(48, "Some") + .2, .8), (S.w(49, "Call") - .1, 1.0)], tilts=[(S.w(48, "stress"), .6, -5)])
+    S.j(C.cup_down(.6, S.T + 1))
+    S.popup("hb1", S.w(48, "Some") - .1, S.w(48, "Not") - .1, "SOME STUDIES", "MORE HEART ATTACKS AROUND THE HOLIDAYS", "#ff8a8a", 890, 120, 760)
+    S.popup("hb2", S.w(48, "Not"), S.w(48, "But") - .1, "TO BE FAIR", "NOT EVERY STUDY", "#8ce2d6", 890, 120, 700)
+    S.popup("hb3", S.w(48, "stress") - .1, l[48][1] + .2, "POSSIBLE REASONS", "STRESS · BIG MEALS · SALT · ALCOHOL · WAITING", "#FFD166", 890, 120, 760)
+    S.popup("hb4", S.w(49, "Call") - .15, S.T - .2, "CHEST PAIN?", "DON'T WAIT. CALL 911.", "#ff6b6b", 890, 120, 760)
+    src_chip(S, "src3", S.w(48, "Some"), l[48][1], "KLONER 2006 · MILNE 2005 · WEERASINGHE 2002", 40, 36)
+    S.char("neutro", "nt", 1300, 300, .7, pose="idle", who="NEUTRO", z=19, expr=[(l[50][0] - .4, 1.6, "determined")], nods=[l[50][0] + .2])
+    S.j(f'tl.set("#ntW",{{x:800}},0);tl.to("#ntW",{{x:0,duration:.4,ease:"power3.out"}},{l[50][0] - .6:.3f});')
+    S.sfx(l[50][0] - .6, "whoosh", -10)
+    S.tr_out("whip")
+    S.captions({"911": "#ff6b6b", "nine": "#ff6b6b", "one": "#ff6b6b"})
+    return S
+
+
+def hq_trio(S, mito_pose="slump", gassed=True, mito_expr=(), neutro_expr=(), mito_kw=None, neutro_kw=None):
+    """HQ cast with everyone on the FLOOR (Mito no longer perched on the side table)."""
+    S.char("mito", "mt", 760, 480, .52, pose=mito_pose, gassed=gassed, who="MITO", z=19, expr=list(mito_expr), **(mito_kw or {}))
+    S.char("neutro", "nt", 1330, 300, .72, pose="cross", who="NEUTRO", z=20, expr=list(neutro_expr), **(neutro_kw or {}))
+
+
+@scene
+def s12():
+    """CHEAT CODE 1 - slow breathing. The siren slows with each breath; Neutro breathes extremely seriously; Mito yawns."""
+    S = mk("s12", "game", "#47306b", "hq")
+    for l in X.hq("hq"): S.add(l)
+    S.add(X.alarm_fx("hq")); snowfall(S, "hqsnow", S.T)
+    S.tr_in("whip")
+    l = {n: S.l(n) for n in range(51, 53)}
+    b0, b1 = S.b("breathe")
+    tin = S.w(52, "in", after=S.w(52, "So", after=S.w(52, "did") - .2)); tout = l[52][1]
+    S.j(f'tl.set("#hqred",{{opacity:.8}},0);tl.fromTo("#hqred",{{opacity:.85}},{{opacity:.3,duration:.35,yoyo:true,repeat:{int((tin - .2) / .35)},immediateRender:false}},0);'
+        f'tl.fromTo("#hqred",{{opacity:.6}},{{opacity:.2,duration:1.0,yoyo:true,repeat:{int((S.T - tin) / 1.0)},immediateRender:false}},{tin:.3f});'
+        f'tl.to("#hqred",{{opacity:.12,duration:.6}},{b0 + .2:.3f});')
+    alarm_shake(S, "hq", 0, tin)
+    S.cyto(430, 650, .58, expr=[(l[51][0], .8, "squint"), (S.w(52, "Plot") - .05, 1.0, "shock")],
+           x_expr=[(S.w(51, "I'm"), 1.3, "determined"), (S.w(52, "slow", after=S.w(52, "part") - .5), 1.0, "smug")],
+           points=[(S.w(51, "Cheat"), .8), (S.w(52, "slow") - .1, .7), (S.w(52, "twelve"), .6)], shrugs=[(S.w(52, "didn't"), .8)],
+           tilts=[(S.w(52, "anxiety"), .6, -6)], blinks=[])
+    S.j(f'tl.to("#cyto",{{scale:1.12,duration:{max(.5, tout - tin - 1.2):.3f},ease:"sine.inOut"}},{tin:.3f});tl.to("#cyto",{{scale:1,duration:1.2,ease:"sine.inOut"}},{tout - 1.0:.3f});'
+        f'tl.to(["#lidL","#lidR"],{{y:40,duration:.2}},{tin + .1:.3f});tl.to(["#lidL","#lidR"],{{y:-14,duration:.2}},{b1 - .3:.3f});')
+    hq_trio(S, "slump", True, [(0, S.T, "exhausted")], [(tin, b1 - tin, "determined")],
+            mito_kw=dict(shut_at=[(b0, 1.0)], nods=[S.w(52, "trial")]), neutro_kw=dict(shut_at=[(tin + .2, max(.3, b1 - tin - .3))], nods=[S.w(51, "mess")]))
+    S.j(f'tl.set(["#mtm_rest","#mtm_frown","#mtm_smirk","#mtm_grin","#mtm_flat","#mtm_small","#mtm_a","#mtm_e","#mtm_mbp"],{{opacity:0}},{b0 + .05:.3f});tl.set("#mtm_o",{{opacity:1}},{b0 + .05:.3f});'
+        f'gsap.set("#mtm_o",{{transformOrigin:"50% 50%"}});tl.fromTo("#mtm_o",{{scale:1}},{{scale:1.8,duration:.35,yoyo:true,repeat:1}},{b0 + .05:.3f});tl.set("#mtm_o",{{opacity:0}},{b1 - .05:.3f});tl.set("#mtm_frown",{{opacity:1}},{b1 - .05:.3f});')
+    S.sfx(b0 + .1, "yawn", -8)
+    S.j(f'tl.to("#ntBody",{{scale:1.09,duration:{max(.5, tout - tin - .3):.3f},ease:"sine.inOut"}},{tin:.3f});tl.to("#ntBody",{{scale:1,duration:1.0,ease:"sine.inOut"}},{tout - .3:.3f});')
+    S.popup("cc0", S.w(51, "Cheat") - .1, l[52][0] - .1, "PRESS START", "CHEAT CODES", "#FFD166", 1040, 120, 700)
+    S.popup("cc1", S.w(52, "Cheat") - .1, S.w(52, "A") - .1, "CHEAT CODE 1 UNLOCKED", "SLOW YOUR BREATHING", "#8ce2d6", 1040, 120, 900)
+    S.popup("cc1b", S.w(52, "A"), S.w(52, "Plot") - .15, "12-WEEK TRIAL", "SLOW BREATHING → ANXIETY ↓", "#8ce2d6", 1040, 120, 1040)
+    S.popup("cc1c", S.w(52, "Plot") - .05, S.w(52, "So", after=S.w(52, "did") - .2) - .1, "PLOT TWIST", "LONGER EXHALE? NOPE. SLOW = THE KEY", "#FFD166", 1040, 120, 980)
+    src_chip(S, "src4", S.w(52, "A"), S.w(52, "So", after=S.w(52, "did") - .2), "BIRDEE ET AL. 2023", 40, 36)
+    breath_ring(S, tin - .1, S.w(52, "and", after=tin) - .1, tout + .2)
+    S.j('tl.set("#ring",{left:"40px",top:"40px"},0);')
+    S.j(f'tl.set("#ringT",{{innerHTML:"OUT..."}},{S.w(52, "and", after=tin) - .1:.3f});')
+    S.sfx(S.w(51, "Cheat") - .1, "coin", -6); S.sfx(S.w(52, "Cheat") - .1, "levelup", -6); S.sfx(tin, "inhale", -10)
+    S.tr_out("whip")
+    S.captions({"cheat": "#FFD166", "codes": "#FFD166", "slow": "#8ce2d6"})
+    return S
+
+
+@scene
+def s13():
+    """CHEAT CODE 2 - pick your side quest (trial card clear of faces), Mito wants hoops, 'Bet.'"""
+    S = mk("s13", "game", "#47306b", "hq")
+    for l in X.hq("hq"): S.add(l)
+    snowfall(S, "hqsnow", S.T)
+    S.add('<div class="fill" style="z-index:30;background:rgba(255,40,40,.08)"></div>')
+    S.tr_in("whip")
+    l = {n: S.l(n) for n in range(53, 56)}
+    S.cyto(430, 650, .58, x_expr=[(S.w(53, "All"), 1.4, "smug"), (l[55][0] - .1, .9, "hype")], expr=[(l[54][0] + .2, .6, "skeptic")],
+           points=[(S.w(53, "Cheat"), .8), (S.w(53, "pick", after=S.w(53, "So", after=S.w(53, "same")) - .1) - .1, .8)],
+           tilts=[(S.w(53, "meditation"), .6, 6)], shrugs=[(S.w(53, "actually"), .6)])
+    hq_trio(S, "slump", False, [(0, l[54][0] - .3, "exhausted"), (l[54][0] - .2, 1.2, "hype"), (l[55][0], S.T - l[55][0], "hype")], [(0, S.T, "deadpan")],
+            mito_kw=dict(poses=[(l[54][0] - .2, "ball"), (l[55][0] + .1, "hype")], pops=[(l[54][0] - .1, 1), (l[55][0] + .15, 1.3)]),
+            neutro_kw=dict(nods=[S.w(53, "same")], poses=[(S.w(53, "exercise"), "notepad"), (S.w(53, "So", after=S.w(53, "same")), "cross")]))
+    S.popup("cc2", S.w(53, "Cheat") - .1, S.w(53, "Another") - .1, "CHEAT CODE 2 UNLOCKED", "PICK YOUR SIDE QUEST", "#FFD166", 1000, 110, 900)
+    tc0 = S.w(53, "Another") - .05; tc1 = min(tc0 + 3.0, S.w(53, "So", after=S.w(53, "same")) + .2)
+    S.over(f'<div id="tri" class="pop clip" data-start="{tc0:.3f}" data-duration="{tc1 - tc0:.3f}" style="left:520px;top:96px;width:1000px;height:330px;z-index:55;border-radius:26px;background:#FAF4E8;border:7px solid #0c1622;box-shadow:0 14px 0 rgba(0,0,0,.35);transform:scale(.9);transform-origin:50% 0">'
+           f'<div style="position:absolute;left:0;right:0;top:16px;text-align:center;font:36px InterBlack;color:#0c1622">5-WEEK TRIAL: ALL 3 LOWERED STRESS</div>'
+           f'<svg style="position:absolute;left:40px;top:80px" width="920" height="240"><g transform="translate(20 20)">{SNEAKER}</g><text x="240" y="90" font-family="InterBlack" font-size="80" fill="#e63946">=</text>'
+           f'<g transform="translate(340 10)">{MEDIT}</g><text x="560" y="90" font-family="InterBlack" font-size="80" fill="#e63946">=</text><g transform="translate(660 20)">{WIND}</g>'
+           f'<text x="90" y="200" text-anchor="middle" font-family="InterBlack" font-size="30" fill="#0c1622">EXERCISE</text><text x="420" y="200" text-anchor="middle" font-family="InterBlack" font-size="30" fill="#0c1622">MEDITATION</text><text x="740" y="200" text-anchor="middle" font-family="InterBlack" font-size="30" fill="#0c1622">SLOW BREATHING</text></svg></div>')
+    S.j(f'tl.fromTo("#tri",{{y:-60,opacity:0}},{{y:0,opacity:1,duration:.3,ease:"back.out(1.4)"}},{tc0:.3f});tl.to(".settxt",{{opacity:0,duration:.1}},{tc0:.3f});tl.to(".settxt",{{opacity:1,duration:.1}},{tc1:.3f});')
+    src_chip(S, "src5", tc0 + .3, tc1, "VAN DER ZWAN ET AL. 2015", 40, 36)
+    S.popup("pk", tc1 + .05, l[53][1] + .3, "", "PICK WHAT YOU'LL ACTUALLY DO", "#8ce2d6", 1000, 110, 760)
+    S.sfx(S.w(53, "Cheat") - .1, "levelup", -6); S.sfx(l[55][0], "coin", -6)
+    S.tr_out("whip")
+    S.captions({"side": "#FFD166", "quest": "#FFD166", "same": "#8ce2d6"})
+    return S
+
+
+@scene
+def s14():
+    """SIDE-QUEST MONTAGE on REAL Toronto photos (I9/H): skyline (brick outside), Nathan Phillips Square rink (kept wide),
+    Distillery brick (warm grade, cropped - no signage), the block. Cyto stays 2D in front with a light rim + drop shadow."""
+    S = mk("s14", "game", "#16224a", "city")
+    S.talk_scale = 0
+    S.tr_in("whip")
+    tA = S.w(56, "Skate") - .15; tB = S.w(56, "walk") - .1; tC = S.w(56, "or") - .1; sq0, sq1 = S.b("sidequest")
+    segs = [("p0", 0, tA, "skyline", ("55%", "45%")), ("p1", tA, tB, "nathan_phillips", ("50%", "60%")), ("p2", tB, tC, "distillery_warm", ("45%", "40%")), ("p3", tC, S.T, "skyline_block", ("40%", "60%"))]
+    for i, (p, a, b, ph, (ox, oy)) in enumerate(segs):
+        S.photo(p, ph, a, b + (.25 if i < 3 else 0), (1.0, 1.08), z=1 + i, ox=ox, oy=oy)
+        if i:
+            S.j(f'tl.fromTo("#{p}",{{x:1920}},{{x:0,duration:.25,ease:"power3.out",immediateRender:false}},{a:.3f});'); S.sfx(a, "whoosh", -10)
+    S.add(X.layer("snw", X.snow("sqsnow", 70, 4), 6))
+    S.j(f'tl.fromTo("#sqsnow",{{y:-300}},{{y:0,duration:{S.T:.3f},ease:"none"}},0);')
+    S.add('<div class="fill" style="z-index:7;background:linear-gradient(rgba(13,24,56,0) 55%,rgba(13,24,56,.55))"></div>')
+    S.cyto(760, 720, .58, z=20, x_expr=[(0, tA, "worried"), (tA, tB - tA, "hype"), (tB, tC - tB, "smug"), (tC, S.T - tC, "smug")],
+           waves=[tA + .4], points=[(tB + .3, .7)], tilts=[(tC + .3, .6, 6)], blinks=None, toque_extra="")
+    S.style(f"#cytoLayer{{{RIM}}}")
+    S.j(f'tl.to("#cyto",{{x:6,duration:.05,yoyo:true,repeat:{max(2, int(tA / .05) - 2)}}},0);')
+    S.j(f'tl.fromTo("#cytoPos",{{x:"-=520"}},{{x:"+=940",duration:{tB - tA:.3f},ease:"sine.inOut",immediateRender:false}},{tA:.3f});tl.to("#cyto",{{rotation:-8,duration:.4,yoyo:true,repeat:3}},{tA:.3f});'
+        f'tl.to("#cytoPos",{{x:"-=420",duration:.01}},{tB:.3f});')
+    S.over(f'<div id="hp" class="clip" data-start="{tC:.3f}" data-duration="{S.T - tC:.3f}" style="position:absolute;left:0;top:0;z-index:21"><svg width="1920" height="1080">'
+           f'<g transform="translate({760 - 300 * .58 - 40:.0f} {720 - 230:.0f}) scale(.97)"><path d="M40 120 Q180 -40 400 120" fill="none" stroke="#222" stroke-width="20"/><rect x="10" y="100" width="56" height="90" rx="20" fill="#e63946" stroke="#0c1622" stroke-width="6"/><rect x="376" y="100" width="56" height="90" rx="20" fill="#e63946" stroke="#0c1622" stroke-width="6"/></g></svg></div>')
+    S.prop_in("#hp", tC, "drop", origin="50% 50%", sfx="pop", amp=.5)
+    S.panel("q0", .1, tA - .1, "SIDE QUEST", "IT'S BRICK OUTSIDE: BUNDLE UP", "#8ce2d6", 60, 60, 900)
+    S.panel("q1", tA + .1, tB - .1, "SIDE QUEST", "SKATE AT NATHAN PHILLIPS SQUARE", "#8ce2d6", 60, 60, 1000)
+    S.panel("q2", tB + .1, tC - .1, "SIDE QUEST", "DISTILLERY WINTER VILLAGE: FREE BEFORE 4 PM", "#8ce2d6", 60, 60, 1260)
+    S.panel("q3", tC + .1, sq0, "SIDE QUEST", "WALK THE BLOCK, HEADPHONES IN", "#8ce2d6", 60, 60, 960)
+    S.popup("sqc", sq0, S.T, "★ ★ ★", "SIDE QUEST COMPLETE", "#FFD166", 1300, 300, 860)
+    S.sfx(sq0, "levelup", -4); S.sfx(tA + .2, "skate", -8)
+    S.tr_out("whip")
+    S.captions({"brick": "#8ce2d6", "nathan": "#FFD166", "phillips": "#FFD166", "distillery": "#FFD166"})
+    return S
+
+
+@scene
+def s15():
+    """CHEAT CODE 3 - mute the group chat. Cyto pushes the lever back UP (it stays), the alarm powers down and goes quiet."""
+    S = mk("s15", "game", "#47306b", "hq")
+    for l in X.hq("hq"): S.add(l)
+    S.add(X.alarm_fx("hq")); snowfall(S, "hqsnow", S.T)
+    S.j('tl.set("#hqred",{opacity:.25},0);')
+    S.tr_in("whip")
+    l57 = S.l(57); m0, m1 = S.b("mute")
+    alarm_shake(S, "hq", 0, m0)
+    S.cyto(430, 650, .58, phone=True, x_expr=[(S.w(57, "Say"), 1.1, "determined"), (m0, S.T - m0, "smug")], points=[(S.w(57, "Protect") - .1, .8)],
+           sips=[(m0 + .15, 1.0)], tilts=[(S.w(57, "sleep"), .5, -6)])
+    hq_trio(S, "idle", False, [(m0, S.T - m0, "hype")], [(0, m0, "deadpan"), (m0, S.T - m0, "smug")],
+            mito_kw=dict(pops=[(m0 + .2, .8)]), neutro_kw=dict(nods=[m0 + .3]))
+    S.popup("cc3", S.w(57, "Cheat") - .1, S.w(57, "Say") - .1, "CHEAT CODE 3 UNLOCKED", "MUTE THE GROUP CHAT", "#ff8a8a", 1000, 110, 900)
+    S.popup("cc3b", S.w(57, "Say"), S.w(57, "Protect") - .1, "BONUS", "SAY NO TO ONE THING", "#8ce2d6", 1000, 110, 760)
+    S.popup("cc3c", S.w(57, "Protect"), m0 + .05, "BONUS", "PROTECT YOUR SLEEP", "#c4b0ff", 1000, 110, 760)
+    S.j(f'tl.set("#cyNotif",{{opacity:0}},{S.w(57, "mute"):.3f});')
+    S.over(f'<div id="mute" class="pop clip" data-start="{S.w(57, "mute"):.3f}" data-duration="{S.T - S.w(57, "mute"):.3f}" style="left:640px;top:520px;z-index:60"><svg width="120" height="120"><circle cx="60" cy="60" r="54" fill="#e63946" stroke="#0c1622" stroke-width="6"/>'
+           '<path d="M34 48 H50 L70 30 V90 L50 72 H34Z" fill="#fff"/><path d="M80 44 L100 76 M100 44 L80 76" stroke="#fff" stroke-width="8" stroke-linecap="round"/></svg></div>')
+    S.prop_in("#mute", S.w(57, "mute"), "pop", origin="50% 50%", sfx="click")
+    S.j(f'tl.to("#hqred",{{opacity:0,duration:.6}},{m0:.3f});tl.to("#hqalarmGlass",{{opacity:0,duration:.3}},{m0:.3f});'
+        f'gsap.set("#hqalarm",{{svgOrigin:"1060 40"}});tl.to("#hqalarm",{{keyframes:[{{scaleY:.8,duration:.12}},{{scaleY:1.06,duration:.12}},{{scaleY:1,duration:.15}}]}},{m0 + .05:.3f});')
+    S.popup("alq", m0 + .1, S.T, "", "ALARM: QUIET", "#8ce2d6", 1000, 110, 560)
+    S.sfx(m0, "powerdown", -6)
+    S.tr_out("cut")
+    S.captions({"mute": "#ff8a8a", "sleep": "#c4b0ff"})
+    return S
+
+
+@scene
+def s16():
+    """CLIMAX (E/10): silence, a bird chirps. 'Exactly.' Neutro spots Rhino frozen mid-sneak, writes him up and SLAPS the ticket on.
+    Hard cut on the slap to the nose door: ACHOO impact (shake + 6-frame snap zoom + 2-frame white flash), Rhino flicked out in a
+    big on-screen arc across the whole frame, 'ACHOO!' pops 0.4 s. Hard cut on "He got BOOKED!" to all three in frame, Mito hype."""
+    S = mk("s16", "quiet", "#47306b", "hq_quiet")
+    for l in X.hq("hq"): S.add(l)
+    snowfall(S, "hqsnow", S.T)
+    S.tr_in("cut")
+    ch0, ch1 = S.b("chirp"); sp0, sp1 = S.b("spot"); ac0, ac1 = S.b("achoo")
+    l = {n: S.l(n) for n in range(58, 64)}
+    t62 = l[62][0]
+    S.add(f'<div style="position:absolute;left:600px;top:572px;z-index:3"><svg width="120" height="90" style="overflow:visible">{BIRD}</svg></div>')
+    S.j(f'gsap.set("#bird",{{transformOrigin:"50% 100%"}});tl.fromTo("#bird",{{y:-300,rotation:-30}},{{y:0,rotation:0,duration:.35,ease:"back.out(1.6)",immediateRender:true}},.05);'
+        f'tl.to("#bird",{{rotation:-12,y:-6,duration:.12,yoyo:true,repeat:5}},{.45:.3f});')
+    for i, t in enumerate((.45, .95)):
+        S.over(f'<div id="nt{i}x" class="pop clip" data-start="{t:.3f}" data-duration=".9" style="left:{700 + i * 40}px;top:{500 - i * 30}px;font:60px InterBlack;color:#FFD166;-webkit-text-stroke:2px #0c1622">♪</div>')
+        S.j(f'tl.fromTo("#nt{i}x",{{y:0,opacity:1}},{{y:-60,opacity:0,duration:.9}},{t:.3f});')
+        S.sfx(t, "chirp", -4)
+    S.cyto(430, 650, .58, expr=[(ac0 - .1, .6, "shock"), (t62, .7, "hype")], x_expr=[(l[58][0] - .3, 1.3, "sideeye"), (l[60][0], 1.2, "smug"), (l[63][0], 1.0, "smug")],
+           looks=[(.45, 10, -8)], sips=[(l[60][1] + .1, .7)])
+    S.char("mito", "mt", 760, 480, .52, pose="idle", who="MITO", z=19, poses=[(t62 - .05, "hype")],
+           expr=[(0, sp0, "deadpan"), (sp0, 1.1, "shocked"), (t62 - .05, S.T - t62 + .05, "hype")], pops=[(t62 + .02, 1.6)])
+    S.j(f'tl.to("#mtW",{{y:-60,duration:.18,ease:"power2.out",yoyo:true,repeat:1}},{t62 + .05:.3f});')
+    # Rhino frozen mid-sneak behind the plant
+    S.char("rhino", "rh", 1180, 560, .55, pose="sneak", z=18, expr=[(sp0, S.T - sp0, "shocked")], blinks=[], bob=False)
+    S.j(f'tl.fromTo("#rhW",{{x:-260}},{{x:0,duration:{sp0:.3f},ease:"none",immediateRender:false}},0);tl.to("#rh",{{y:-12,duration:.3,yoyo:true,repeat:{max(1, int(sp0 / .3) - 1)},ease:"sine.inOut"}},0);'
+        f'tl.set("#rhW",{{opacity:0}},{ac0:.3f});')
+    S.char("neutro", "nt", 1450, 300, .72, pose="cross", who="NEUTRO", z=20,
+           poses=[(sp0 + .25, "point"), (l[61][0], "notepad"), (l[61][1] - .15, "ticket")],
+           expr=[(0, sp0, "deadpan"), (sp0, .8, "shocked"), (l[61][0], S.T - l[61][0], "smug")], nods=[l[59][0] + .1])
+    S.j(f'tl.to("#nt",{{scaleX:-1,duration:.1,svgOrigin:"300 650"}},{sp0:.3f});tl.to("#nt",{{scaleX:1,duration:.1,svgOrigin:"300 650"}},{sp0 + .25:.3f});'
+        f'tl.to("#ntW",{{x:-150,duration:.25,ease:"power2.out"}},{l[61][1] - .35:.3f});')
+    S.snapzoom(sp0 + .25, 1.2, sp1 - sp0, 1300, 640, .3)
+    S.sfx(sp0 + .25, "sting", -6); S.sfx(l[61][1] - .3, "rip", -4)
+    # the ticket SLAP (ticket sticks to Rhino with a squash), then hard cut on the slap
+    S.over(f'<div id="tkt" class="pop clip" data-start="{l[61][1] - .12:.3f}" data-duration="{ac0 - l[61][1] + .12:.3f}" style="left:1250px;top:560px;z-index:60;transform:rotate(-12deg)"><svg width="120" height="140"><rect x="6" y="6" width="108" height="128" rx="8" fill="#fff6c8" stroke="#0c1622" stroke-width="6"/><path d="M22 34 H96 M22 60 H96 M22 86 H70" stroke="#c0392b" stroke-width="7"/></svg></div>')
+    S.j(f'tl.fromTo("#tkt",{{scale:2.4,opacity:0}},{{scale:1,opacity:1,duration:.1,ease:"power4.in"}},{l[61][1] - .12:.3f});'
+        f'tl.fromTo("#rh",{{scaleY:1,scaleX:1}},{{scaleY:.82,scaleX:1.14,duration:.06,yoyo:true,repeat:1,svgOrigin:"200 400",immediateRender:false}},{l[61][1] - .02:.3f});')
+    S.sfx(l[61][1] - .02, "slap", 0)
+    # ---- ACHOO cutaway (inside the camera so the shake / snap zoom hit it)
+    nd = "".join(X.nose_door("nd"))
+    S.add(f'<div id="ach" class="clip" data-start="{ac0:.3f}" data-duration="{t62 - ac0:.3f}" style="position:absolute;inset:0;z-index:60;overflow:hidden">{nd}'
+          f'<div style="position:absolute;inset:0;z-index:5">{K.wrap(K.rhino_html("rz", "spread"), "rzW", 0, 0, .8)}</div>'
+          f'<div id="rzTk" style="position:absolute;left:0;top:0;z-index:6;width:10px;height:10px"><svg width="90" height="104" style="position:absolute;left:-45px;top:-52px"><rect x="5" y="5" width="80" height="94" rx="6" fill="#fff6c8" stroke="#0c1622" stroke-width="5"/><path d="M16 26 H72 M16 46 H72 M16 66 H52" stroke="#c0392b" stroke-width="6"/></svg></div>'
+          f'<div id="achF" style="position:absolute;inset:0;z-index:8;background:#fff;opacity:0"></div></div>')
+    S.over(f'<div id="achT" class="clip" data-start="{ac0 + .12:.3f}" data-duration=".42" style="position:absolute;left:0;right:0;top:250px;text-align:center;z-index:76;font:220px InterBlack;color:#FFD166;-webkit-text-stroke:9px #0c1622;paint-order:stroke fill">ACHOO!</div>')
+    ti = ac0 + .12
+    # Rhino path: out of the door, big arc across the WHOLE frame (stays on screen, large), exits left
+    path = [(800, 560, .7, 0), (1250, 230, .95, 200), (900, 60, 1.1, 420), (420, 120, 1.15, 600), (60, 380, 1.15, 760), (-500, 640, 1.2, 900)]
+    kf = ",".join(f'{{x:{x},y:{y},scale:{s},rotation:{r},duration:{(ac1 + .1 - ti) / (len(path) - 1):.3f},ease:"none"}}' for x, y, s, r in path[1:])
+    x0, y0, s0, r0 = path[0]
+    S.j(f'gsap.set("#rzW",{{transformOrigin:"0 0"}});tl.set("#rzW",{{x:{x0},y:{y0},scale:{s0},rotation:{r0}}},{ac0:.3f});tl.to("#rzW",{{keyframes:[{kf}]}},{ti:.3f});'
+        f'tl.set("#rzTk",{{x:{x0 + 160},y:{y0 + 150}}},{ac0:.3f});tl.to("#rzTk",{{keyframes:[' + ",".join(f'{{x:{x + 160 * s},y:{y + 150 * s},rotation:{r},duration:{(ac1 + .1 - ti) / (len(path) - 1):.3f},ease:"none"}}' for x, y, s, r in path[1:]) + f']}},{ti:.3f});'
+        f'tl.fromTo("#rzW",{{scaleY:.7}},{{scaleY:{s0},duration:.08,immediateRender:false}},{ac0 + .04:.3f});'
+        f'tl.fromTo("#achF",{{opacity:.75}},{{opacity:0,duration:.067,ease:"steps(1)",immediateRender:false}},{ti:.3f});'
+        f'tl.fromTo("#achT",{{scale:.2}},{{keyframes:[{{scale:1.25,duration:.12,ease:"power3.out"}},{{scale:1,duration:.1}},{{scale:1.05,duration:.12}},{{scale:0,duration:.08,ease:"power3.in"}}],immediateRender:false}},{ti:.3f});')
+    S.j(K.act_js("rz", 28, 26, expr=[(ac0, S.T - ac0, "shocked")], T=S.T, blinks=[], bob=False))
+    S.snapzoom(ti, 1.25, .2, 960, 560, .25)
+    S.shake(ti, .6, 30)
+    S.sfx(ac0 + .02, "achoo", 2); S.sfx(ti + .05, "slam", -2); S.sfx(ti + .2, "whoosh", -4)
+    # back in HQ on the punchline: a tiny Rhino sails past the window (callback), crowd cheer
+    S.add(f'<div id="rhOut" class="clip" data-start="{t62:.3f}" data-duration="1.0" style="position:absolute;left:0;top:0;z-index:1">{K.wrap(K.rhino_html("ro", "spread"), "roW", 300, 240, .16)}</div>')
+    S.j(f'tl.fromTo("#roW",{{x:0,y:0,rotation:0}},{{x:500,y:120,rotation:540,duration:.9,ease:"power1.in"}},{t62:.3f});')
+    S.sfx(t62, "cheer", -8); S.sfx(t62, "hit", -6)
+    S.tr_out("whip")
+    S.captions({"exactly": "#FFD166", "booked": "#FFD166", "nasal": "#ff8a8a"})
+    return S
+
+
+PHOTO_CREDIT = ("Photos: Unsplash", "Ronin · Richard Burlton · Chris Stewart · Zia Syed")
+
+
+@scene
+def s17():
+    """OUTRO (I10): BREAK STARTS. Neutro, Mito and Cyto together on the left 2/3; Rhino in a jar on the shelf, cuffed (callback).
+    Sources in their own band on the right (34 px+), NOT MEDICAL ADVICE in solid colour. Phone buzzes, alarm flickers... loop."""
+    S = mk("s17", "outro", "#47306b", "hq")
+    for l in X.hq("hq"): S.add(l)
+    S.add(X.alarm_fx("hq")); snowfall(S, "hqsnow", S.T)
+    S.tr_in("whip")
     l = {n: S.l(n) for n in range(64, 67)}
     e0, e1 = S.b("end")
-    flipsign(S, "cd", .3, "1 DAY TILL BREAK", "BREAK STARTS", 1240, 120, 560)
-    S.sfx(.4, "cheer", -10)
-    S.cyto(540, 640, .6, phone=True, expr=[(l[65][0], .8, "skeptic"), (e0 + .45, 1.2, "shock")],
-           x_expr=[(S.w(66, "Comment"), 2.0, "hype"), (S.w(66, "Not"), 1.4, "deadpan"), (S.w(66, "breathe") - .2, 1.2, "smug")],
-           waves=[S.w(66, "Like")], points=[(S.w(66, "sources") - .1, .8)], sips=[(S.w(66, "December's") - .3, 1.0)],
-           looks=[(l[64][0] + .3, 14, -4), (e0 + .5, 0, 0)])
-    S.char("mito", "mt", 730, 330, .56, pose="idle", who="MITO", z=19, poses=[(l[64][0], "hype"), (l[65][0] + .5, "slump")],
-           expr=[(.3, 1, "hype"), (l[64][0], l[64][1] - l[64][0], "hype"), (l[65][0] + .3, 2, "exhausted")], shut_at=[(S.w(64, "mans"), 1.4)])
+    flipsign(S, "cd", .45, "1 DAY TILL BREAK", "BREAK STARTS", 290, 40, 520)
+    S.prop_in("#cd", .02, "drop", origin="50% 0%", sfx="clunk", amp=.5)
+    S.j(f'tl.to("#cd",{{y:-260,duration:.3,ease:"power2.in"}},{l[64][0] - .2:.3f});')
+    S.sfx(.5, "cheer", -10)
+    # Rhino in a jar on the shelf, cuffed
+    S.add(f'<div id="jar" style="position:absolute;left:40px;top:200px;z-index:9"><svg width="230" height="230" style="overflow:visible">'
+          f'<rect x="0" y="196" width="230" height="22" rx="6" fill="#7a4b2c" stroke="#0c1622" stroke-width="6"/>'
+          f'<rect x="40" y="40" width="150" height="156" rx="26" fill="#cfe9f7" fill-opacity=".45" stroke="#0c1622" stroke-width="6"/><rect x="34" y="22" width="162" height="28" rx="8" fill="#e63946" stroke="#0c1622" stroke-width="6"/>'
+          f'<g transform="translate(58 66) scale(.28)">{K.rhino_html("rj", "idle")}</g>'
+          f'<g fill="none" stroke="#c9ccd2" stroke-width="7"><circle cx="98" cy="170" r="12"/><circle cx="128" cy="170" r="12"/><path d="M110 170 H116"/></g>'
+          f'<path d="M150 60 Q160 120 150 180" stroke="#fff" stroke-width="8" opacity=".6" fill="none" stroke-linecap="round"/></svg></div>')
+    S.prop_in("#jar", .25, "drop", origin="50% 100%", sfx="clunk", amp=.6)
+    S.j(f'tl.to("#rjBody",{{y:-6,duration:.4,yoyo:true,repeat:{int(S.T / .4)},ease:"sine.inOut"}},.8);')
+    S.cyto(360, 690, .54, phone=True, expr=[(l[65][0], .8, "skeptic"), (e0 + .45, 1.0, "shock")],
+           x_expr=[(S.w(66, "Comment"), 1.6, "hype"), (S.w(66, "Not"), 1.2, "deadpan"), (S.w(66, "breathe") - .2, 1.0, "smug")],
+           waves=[S.w(66, "Like")], points=[(S.w(66, "sources") - .1, .8)], sips=[(S.w(66, "December's") - .3, .9)])
+    S.char("mito", "mt", 560, 500, .48, pose="idle", who="MITO", z=19, poses=[(l[64][0], "hype"), (l[65][0] + .5, "slump")],
+           expr=[(.3, 1, "hype"), (l[64][0], l[64][1] - l[64][0], "hype"), (l[65][0] + .3, 2, "exhausted")], shut_at=[(S.w(64, "mans"), 1.2)])
     S.j(f'tl.to("#mtBody",{{y:-14,duration:.3,yoyo:true,repeat:5,ease:"sine.inOut"}},{l[64][0] + .2:.3f});')
-    S.over(f'<div id="smell" class="clip" data-start="{l[64][0]:.3f}" data-duration="{l[64][1] - l[64][0] + .5:.3f}" style="position:absolute;left:950px;top:300px;z-index:30"><svg width="260" height="200">'
+    S.over(f'<div id="smell" class="clip" data-start="{l[64][0]:.3f}" data-duration="{l[64][1] - l[64][0] + .5:.3f}" style="position:absolute;left:640px;top:330px;z-index:30"><svg width="260" height="200">'
            + "".join(f'<path d="M{20 + i * 70} 190 q30 -40 0 -80 t0 -80" fill="none" stroke="#FAF4E8" stroke-width="10" stroke-linecap="round" opacity=".8"/>' for i in range(3)) + '</svg></div>')
     S.j(f'tl.fromTo("#smell",{{y:30,opacity:0}},{{y:-20,opacity:1,duration:1.2,repeat:2}},{l[64][0]:.3f});')
     S.sfx(S.w(64, "Is"), "sniff", -6)
-    S.char("neutro", "nt", 1500, 300, .7, pose="cross", who="NEUTRO", z=20, expr=[(0, S.T, "deadpan")], nods=[.6])
-    S.j(f'tl.to("#ntW",{{x:700,duration:.5,ease:"power2.in"}},{l[64][0] - .6:.3f});')
-    # sources (2 per screen, >=34px), CTA, not medical advice
-    s0 = l[64][0]; per = (e0 - s0) / len(SOURCES)
+    S.char("neutro", "nt", 860, 330, .6, pose="cross", who="NEUTRO", z=20, expr=[(0, S.T, "deadpan")], nods=[.6, S.w(66, "Not")],
+           poses=[(S.w(66, "sources") - .1, "point"), (S.w(66, "sources") + 1.0, "cross")])
+    # sources band (right, own zone), NOT MEDICAL ADVICE, then the photo credit
+    s0 = l[64][0]; items = SOURCES + [PHOTO_CREDIT]; per = (e0 - s0) / len(items)
     S.j(f'tl.to(".settxt",{{opacity:0,duration:.1}},{s0 - .1:.3f});')
-    for i, (a, b) in enumerate(SOURCES):
+    S.over(f'<div id="srcband" class="clip" data-start="{s0 - .15:.3f}" data-duration="{e0 - s0 + .15:.3f}" style="position:absolute;left:1260px;top:150px;width:620px;height:720px;z-index:61;border-radius:26px;background:rgba(12,22,34,.9);border:6px solid #FAF4E8"></div>')
+    S.j(f'tl.fromTo("#srcband",{{x:700}},{{x:0,duration:.3,ease:"back.out(1.4)"}},{s0 - .15:.3f});')
+    for i, (a, b) in enumerate(items):
         ta = s0 + i * per
-        S.over(f'<div id="src{i}" class="pop clip" data-start="{ta:.3f}" data-duration="{per:.3f}" style="left:1060px;top:300px;width:820px;z-index:62;padding:26px 30px;border-radius:24px;background:#0c1622;border:6px solid #FAF4E8">'
-               f'<div style="font:28px InterBlack;color:#FFD166;letter-spacing:.08em">SOURCES {i + 1}/{len(SOURCES)}</div>'
-               f'<div style="font:36px/1.2 InterBlack;color:#FAF4E8;margin-top:14px">{a}</div><div style="font:36px/1.2 InterBlack;color:#FAF4E8;margin-top:16px">{b}</div></div>')
-        S.j(f'tl.fromTo("#src{i}",{{x:60,opacity:0}},{{x:0,opacity:1,duration:.25}},{ta:.3f});')
-    S.over(f'<div id="nma2" class="clip" data-start="{s0:.3f}" data-duration="{e0 - s0:.3f}" style="position:absolute;left:1060px;top:700px;width:820px;z-index:62;text-align:center;font:40px InterBlack;color:#ff8a8a;-webkit-text-stroke:2px #0c1622">NOT MEDICAL ADVICE</div>')
-    S.popup("cta", S.w(66, "Comment") - .1, S.w(66, "Like") - .1, "COMMENT", "WHAT'S STRESSING YOU OUT?", "#FFD166", 540, 120, 900)
-    S.popup("cta2", S.w(66, "Like") - .05, S.w(66, "sources") - .1, "", "LIKE + SUBSCRIBE", "#ff8a8a", 540, 120, 700)
-    S.j(f'tl.set(".settxt",{{opacity:0}},{S.w(66, "Like") - .04:.3f});tl.set(".settxt",{{opacity:0}},{S.w(66, "sources"):.3f});tl.set(".settxt",{{opacity:0}},{S.w(66, "Comment") - .09:.3f});')
-    # the loop: phone buzzes once, the alarm light flickers, Cyto looks at camera -> hard cut to the cold open
+        hdr = "PHOTOS" if i == len(items) - 1 else f"SOURCES {i + 1}/{len(SOURCES)}"
+        S.over(f'<div id="src{i}" class="pop clip" data-start="{ta:.3f}" data-duration="{per:.3f}" style="left:1290px;top:190px;width:560px;z-index:62">'
+               f'<div style="font:30px InterBlack;color:#FFD166;letter-spacing:.08em">{hdr}</div>'
+               f'<div style="font:36px/1.2 InterBlack;color:#FAF4E8;margin-top:16px">{a}</div><div style="font:36px/1.2 InterBlack;color:#FAF4E8;margin-top:18px">{b}</div></div>')
+        S.j(f'tl.fromTo("#src{i}",{{x:40,opacity:0}},{{x:0,opacity:1,duration:.22}},{ta:.3f});')
+    S.over(f'<div id="nma2" class="clip" data-start="{s0:.3f}" data-duration="{e0 - s0:.3f}" style="position:absolute;left:1300px;top:760px;width:540px;z-index:63;text-align:center;padding:12px 0;border-radius:16px;background:#e63946;font:40px InterBlack;color:#fff">NOT MEDICAL ADVICE</div>')
+    S.popup("cta", S.w(66, "Comment") - .1, S.w(66, "Like") - .1, "COMMENT", "WHAT'S STRESSING YOU OUT?", "#FFD166", 560, 110, 900)
+    S.popup("cta2", S.w(66, "Like") - .05, S.w(66, "sources") - .1, "", "LIKE + SUBSCRIBE", "#ff8a8a", 560, 110, 700)
     buzz(S, e0 + .15, .4)
     S.j(f'tl.set("#hqred",{{opacity:0}},0);tl.to("#hqred",{{opacity:.7,duration:.05}},{e0 + .55:.3f});tl.to("#hqred",{{opacity:0,duration:.05}},{e0 + .7:.3f});tl.to("#hqred",{{opacity:.6,duration:.05}},{e0 + .9:.3f});tl.to("#hqred",{{opacity:0,duration:.08}},{e0 + 1.05:.3f});'
         f'tl.to("#hqalarmGlass",{{opacity:1,duration:.05}},{e0 + .55:.3f});tl.to("#hqalarmGlass",{{opacity:.35,duration:.05}},{e0 + 1.1:.3f});')
-    S.snapzoom(e0 + .5, 1.2, e1 - e0, 540, 600, .01)
+    alarm_shake(S, "hq", e0 + .55, S.T)
+    S.snapzoom(e0 + .5, 1.2, e1 - e0, 400, 600, .01)
     S.sfx(e0 + .55, "blip", -6)
     S.captions({"comment": "#FFD166", "breathe": "#8ce2d6", "christmas": "#ff8a8a", "marved": "#FFD166"})
     return S
@@ -929,10 +998,14 @@ def s17():
 if __name__ == "__main__":
     names = sys.argv[1:] or list(SC)
     for n in names:
-        s = SC[n](); d = s.build() if not os.environ.get("NOBUILD") else None; print("built", n, f"{s.t0:.2f}-{s.t1:.2f} ({s.T:.2f}s)")
+        s = SC[n](); d = s.build() if not os.environ.get("NOBUILD") else None
+        print("built", n, f"{s.t0:.2f}-{s.t1:.2f} ({s.T:.2f}s)", "mouth fixes:", sum(1 for m in MOUTH_LOG if m[0] == n))
     ev_f = "/home/claude/lf02/events.json"
     ev = json.load(open(ev_f)) if os.path.exists(ev_f) else {}
     for n in names:
-        s0, s1 = json.load(open(f"{P}/{n}/meta.json"))["t0"], json.load(open(f"{P}/{n}/meta.json"))["t1"]
-        ev[n] = {"sfx": [x for x in SFX if s0 - .01 <= x[0] < s1 + .01], "music": [m for m in MUSIC if s0 - .01 <= m[0] < s1 + .01]}
+        s0, s1 = CUTS[n]
+        ev[n] = {"sfx": [x for x in SFX if s0 - .2 <= x[0] < s1 + .01], "music": [m for m in MUSIC if s0 - .01 <= m[0] < s1 + .01],
+                 "amb": [s0, s1, AMB.get(n, "hq")]}
+    ev = {k: v for k, v in ev.items() if k in CUTS}
     json.dump(ev, open(ev_f, "w"), indent=0)
+    json.dump(MOUTH_LOG, open("/home/claude/lf02/mouth_log.json", "w"))

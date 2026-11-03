@@ -63,47 +63,53 @@
 
   // ------------------------------------------------ 2. adrenal "condos" on the kidneys, firing hormone basketballs
   function condos(cv, o = {}) {
+    /* fix pass: 3 heroes only (left kidney+condos, right kidney+condos, hormone balls) + ground disc + fogged sky; eased orbit */
     const { r, sc, cam } = setup(cv, 38); seed = 21;
-    sc.background = new THREE.Color(0x3a1028); lights(sc, 0.38);
-    const ground = new THREE.Mesh(new THREE.PlaneGeometry(200, 200), toon(0x5a1a36)); ground.rotation.x = -Math.PI / 2; sc.add(ground);
-    const kids = [], towers = [];
+    sc.background = new THREE.Color(0x2b1640); sc.fog = new THREE.Fog(0x2b1640, 34, 70); lights(sc, 0.42);
+    const ground = new THREE.Mesh(new THREE.CircleGeometry(30, 48), toon(0x47306b)); ground.rotation.x = -Math.PI / 2; sc.add(ground);
+    const towers = [];
     for (const sx of [-1, 1]) {
-      const k = ol(new THREE.SphereGeometry(4, 28, 20), toon(0xa2333f)); k.scale.set(1.05, 0.8, 0.75); k.position.set(sx * 7, 3.4, 0); k.rotation.z = sx * 0.12; sc.add(k); kids.push(k);
+      const k = ol(new THREE.SphereGeometry(4, 28, 20), toon(0xb03a6e)); k.scale.set(1.05, 0.8, 0.75); k.position.set(sx * 7, 3.4, 0); k.rotation.z = sx * 0.12; sc.add(k);
       const g = new THREE.Group(); g.position.set(sx * 7 - sx * 0.6, 5.9, 0); sc.add(g);
-      [[0, 0, 2.2, 6], [1.6, 0.5, 1.4, 4], [-1.4, -0.4, 1.6, 4.8]].forEach(([x, z, w, h]) => { const t = tower(w, h, w, "#ffd166", "#fff7d6"); t.position.x = x; t.position.z = z; g.add(t); });
-      const cap = ol(new THREE.ConeGeometry(1.8, 2, 4), toon(0xffa94d)); cap.position.y = 7; cap.rotation.y = Math.PI / 4; g.add(cap);
+      [[0, 0, 2.2, 6], [1.6, 0.5, 1.4, 4], [-1.4, -0.4, 1.6, 4.8]].forEach(([x, z, w, h]) => { const t = tower(w, h, w, "#7a5cc7", "#ffd166"); t.position.x = x; t.position.z = z; g.add(t); });
       towers.push(g);
     }
     const sig = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.25, 1, 8), new THREE.MeshBasicMaterial({ color: 0xff3b3b })); sc.add(sig);
     const bt = ballTex(); const balls = [];
-    for (let i = 0; i < 12; i++) { const b = ol(new THREE.SphereGeometry(0.75, 20, 14), toon(0xffffff, { map: bt })); b.visible = false; sc.add(b); balls.push({ m: b, t0: 1.2 + i * 0.55, sx: i % 2 ? 1 : -1, vx: (i % 3 - 1) * 2.4, lab: i % 2 }); }
+    for (let i = 0; i < 10; i++) { const b = ol(new THREE.SphereGeometry(0.75, 20, 14), toon(0xffffff, { map: bt })); b.visible = false; sc.add(b); balls.push({ m: b, t0: 1.2 + i * 0.55, sx: i % 2 ? 1 : -1, vx: (i % 3 - 1) * 1.6 }); }
     const dur = o.dur || 8, tFire = o.tFire || 1.2;
     return { render(t) {
-      const a = 0.25 + t * 0.05;
-      cam.position.set(Math.sin(a) * 28, 9 + Math.sin(t * 0.3) * 1, Math.cos(a) * 28); cam.lookAt(0, 6, 0);
-      const s = cl((t - 0.1) / 0.9, 0, 1); sig.visible = t < tFire + 0.2; sig.scale.y = 40 * (1 - s) + 0.1; sig.position.set(0, 10 + 20 * (1 - s) + 20 * (1 - s), 0);
+      const k = sm(t / dur); const a = 0.15 + 0.55 * k;
+      cam.position.set(Math.sin(a) * (30 - 4 * k), 10 - 1.5 * k, Math.cos(a) * (30 - 4 * k)); cam.lookAt(0, 6.5, 0);
+      const s = cl((t - 0.1) / 0.9, 0, 1); sig.visible = false; sig.scale.y = 40 * (1 - s) + 0.1; sig.position.set(0, 10 + 40 * (1 - s), 0);
       towers.forEach((g, i) => { const p = Math.max(0, Math.sin((t - tFire) * 9 + i)) * (t > tFire ? 0.08 : 0); g.scale.set(1 + p, 1 - p, 1 + p); });
-      balls.forEach(b => { const u = t - (tFire + (b.t0 - 1.2)); if (u < 0 || u > 2.2) { b.m.visible = false; return; } b.m.visible = true;
-        b.m.position.set(b.sx * 7 + b.vx * u, 16 + 12 * u - 9 * u * u, 6 * u); b.m.rotation.set(u * 6, u * 4, 0); });
+      balls.forEach(b => { const u = t - (tFire + (b.t0 - 1.2)); if (u < 0 || u > 2.0) { b.m.visible = false; return; } b.m.visible = true;
+        b.m.position.set(b.sx * 7 + b.vx * u, 13 + 10 * u - 8 * u * u, 5 * u); b.m.rotation.set(u * 6, u * 4, 0); });
       r.render(sc, cam);
     } };
   }
 
   // ------------------------------------------------ 3. downtown heart (calm, beating)
   function heart(cv, o = {}) {
-    const { r, sc, cam } = setup(cv, 36); seed = 31;
-    sc.background = new THREE.Color(0x1d2240); sc.fog = new THREE.Fog(0x1d2240, 30, 90); lights(sc, 0.32);
+    /* fix pass: ONE hero (the heart + its two vessels) + ground disc + fogged sky. Visible lub-dub squash & stretch
+       at o.bpm (mix.py puts a heartbeat SFX on the same grid). Slow eased dolly-in. Heart sits right of frame (Cyto is left). */
+    const { r, sc, cam } = setup(cv, 34); seed = 31;
+    sc.background = new THREE.Color(0x1d1838); sc.fog = new THREE.Fog(0x1d1838, 26, 60); lights(sc, 0.36);
     const hs = new THREE.Shape(); hs.moveTo(0, -2.2); hs.bezierCurveTo(-4.4, 0.8, -2.2, 4.1, 0, 1.9); hs.bezierCurveTo(2.2, 4.1, 4.4, 0.8, 0, -2.2);
+    const H = new THREE.Group(); sc.add(H);
     const h = ol(new THREE.ExtrudeGeometry(hs, { depth: 2.6, bevelEnabled: true, bevelSize: 0.9, bevelThickness: 1.1, bevelSegments: 5, curveSegments: 24 }), toon(0xd7263d), 0.03);
-    h.position.set(3, 6.5, -1.3); sc.add(h);
-    for (const [x, c] of [[-1, 0x4a7bd1], [1.2, 0xe63946]]) { const v = ol(new THREE.CylinderGeometry(0.5, 0.6, 3, 14), toon(c)); v.position.set(x + 3, 11, 0); v.rotation.z = x * 0.2; sc.add(v); }
-    const pal = ["#2f6f8f", "#7a5cc7", "#3fc1b0", "#46306b"];
-    for (let i = 0; i < 34; i++) { const a = (i / 34) * Math.PI * 2, R = 14 + rnd() * 10; const t = tower(2 + rnd() * 2, 3 + rnd() * 9, 2 + rnd() * 2, pal[i % 4], "#ffd98a"); t.position.set(Math.cos(a) * R, 0, Math.sin(a) * R); sc.add(t); }
-    const g = new THREE.Mesh(new THREE.CircleGeometry(60, 40), toon(0x283055)); g.rotation.x = -Math.PI / 2; sc.add(g);
+    h.position.set(0, 0, -1.3); H.add(h);
+    for (const [x, c] of [[-1, 0x4a7bd1], [1.2, 0xc04b8a]]) { const v = ol(new THREE.CylinderGeometry(0.5, 0.6, 3, 14), toon(c)); v.position.set(x, 4.4, 0); v.rotation.z = x * 0.2; H.add(v); }
+    H.position.set(0, 6.2, 0);
+    const g = new THREE.Mesh(new THREE.CircleGeometry(22, 48), toon(0x2c2350)); g.rotation.x = -Math.PI / 2; sc.add(g);
+    const per = 60 / (o.bpm || 66), dur = o.dur || 20;
     return { render(t) {
-      const a = 0.15 + Math.sin(t * 0.12) * 0.35; cam.position.set(Math.sin(a) * 26, 9 + Math.sin(t * 0.2), Math.cos(a) * 26); cam.lookAt(1, 6.5, 0);
-      const ph = (t * 1.15) % 1; const b = ph < 0.12 ? 1 + 0.09 * Math.sin(ph / 0.12 * Math.PI) : (ph < 0.3 ? 1 + 0.05 * Math.sin((ph - 0.12) / 0.18 * Math.PI) : 1);
-      h.scale.setScalar(b); r.render(sc, cam);
+      const k = sm(t / dur);
+      cam.position.set(-8.0 + 1.5 * k, 8.6, 37 - 4 * k); cam.lookAt(-7.4 + 1.2 * k, 7.6, 0);
+      const ph = (t % per) / per;
+      const b = Math.max(ph < 0.14 ? Math.sin(ph / 0.14 * Math.PI) : 0, ph > 0.2 && ph < 0.32 ? 0.6 * Math.sin((ph - 0.2) / 0.12 * Math.PI) : 0);
+      H.scale.set(1 + 0.13 * b, 1 - 0.09 * b + 0.03 * (1 - b), 1 + 0.13 * b);
+      r.render(sc, cam);
     } };
   }
 
@@ -111,16 +117,16 @@
   function lasers(cv, o = {}) {
     const { r, sc, cam } = setup(cv, 50); seed = 41;
     sc.background = new THREE.Color(0x2a0a14); sc.fog = new THREE.Fog(0x2a0a14, 8, 46); lights(sc, 0.45);
-    const tube = new THREE.Mesh(new THREE.CylinderGeometry(7, 7, 80, 32, 1, true), toon(0xb34a5a, { side: THREE.BackSide })); tube.rotation.x = Math.PI / 2; tube.position.z = -30; sc.add(tube);
-    for (let z = 4; z > -70; z -= 5) { const ring = new THREE.Mesh(new THREE.TorusGeometry(6.9, 0.18, 6, 40), new THREE.MeshBasicMaterial({ color: 0x7a2236 })); ring.position.z = z; sc.add(ring); }
-    for (let i = 0; i < 60; i++) { const hr = ol(new THREE.ConeGeometry(0.15, 1.6, 6), toon(0xe6a0aa), 0.08); const a = rnd() * Math.PI * 2; hr.position.set(Math.cos(a) * 6.3, Math.sin(a) * 6.3, -rnd() * 60); hr.lookAt(0, 0, hr.position.z); hr.rotateX(-Math.PI / 2); sc.add(hr); }
+    const tube = new THREE.Mesh(new THREE.CylinderGeometry(7, 7, 80, 32, 1, true), toon(0x8e2f5a, { side: THREE.BackSide })); tube.rotation.x = Math.PI / 2; tube.position.z = -30; sc.add(tube);
+    for (let z = 4; z > -70; z -= 5) { const ring = new THREE.Mesh(new THREE.TorusGeometry(6.9, 0.18, 6, 40), new THREE.MeshBasicMaterial({ color: 0x5a1a3e })); ring.position.z = z; sc.add(ring); }
+    if (false) for (let i = 0; i < 60; i++) { const hr = ol(new THREE.ConeGeometry(0.15, 1.6, 6), toon(0xe6a0aa), 0.08); const a = rnd() * Math.PI * 2; hr.position.set(Math.cos(a) * 6.3, Math.sin(a) * 6.3, -rnd() * 60); hr.lookAt(0, 0, hr.position.z); hr.rotateX(-Math.PI / 2); sc.add(hr); }
     const door = ol(new THREE.TorusGeometry(4, 0.6, 12, 40, Math.PI), toon(0xffd166)); door.position.set(0, -3, -48); sc.add(door);
     const lz = []; const lm = new THREE.MeshBasicMaterial({ color: 0xff2020 });
     for (let i = 0; i < 6; i++) { const g = new THREE.Group(); const beam = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 14, 6), lm); beam.rotation.z = Math.PI / 2; g.add(beam);
       const glow = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 14, 8), new THREE.MeshBasicMaterial({ color: 0xff4040, transparent: true, opacity: 0.25 })); glow.rotation.z = Math.PI / 2; g.add(glow);
       g.position.z = -8 - i * 6; g.userData.ph = i * 0.9; sc.add(g); lz.push(g); }
     return { render(t) {
-      cam.position.set(Math.sin(t * 0.6) * 0.6, -0.5, 6 - t * 2.2); cam.lookAt(0, -0.8, cam.position.z - 10);
+      const k = sm(t / (o.dur || 4)); cam.position.set(0, -0.5, 6 - 22 * k); cam.lookAt(0, -0.8, cam.position.z - 10);
       lz.forEach((g, i) => { g.rotation.z = Math.sin(t * 1.6 + g.userData.ph) * 0.9; g.position.y = Math.sin(t * 1.1 + i) * 2.4; });
       r.render(sc, cam);
     } };

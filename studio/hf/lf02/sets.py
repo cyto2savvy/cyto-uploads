@@ -44,7 +44,7 @@ def hq(p="hq", window_x=270, door=True):
             + "".join(f'<rect x="{x}" y="60" width="34" height="710" fill="#3d2960"/>' for x in (180, 820, 1420)))
     winp = (f'<g clip-path="url(#{p}win)"><rect x="{wx}" y="{wy}" width="{ww}" height="{wh}" fill="url(#{p}sky)"/>'
             f'<circle cx="{wx + 360}" cy="{wy + 120}" r="34" fill="#f5f0d8"/>'
-            f'<g transform="translate({wx - 500} {wy - 150}) scale(.75)">{skyline(820, "#1b2448", seed=7)}</g>'
+            f'<image id="{p}winph" href="assets/ph_skyline_bg.jpg" x="{wx - 120}" y="{wy - 20}" width="{ww + 240}" height="{wh + 40}" preserveAspectRatio="xMidYMid slice"/>'
             f'<g id="{p}rhinoSlot"></g>'
             f'{snow(p + "snow", 40, 3, wx, wx + ww, wy - 200, wy + wh)}</g>'
             f'<path d="M{wx} {wy + wh} V{wy + ww / 2} A{ww / 2} {ww / 2} 0 0 1 {wx + ww} {wy + ww / 2} V{wy + wh}Z" fill="none" stroke="#c7b28a" stroke-width="26"/>'
@@ -130,8 +130,8 @@ def scoreboard(p="sb"):
 def desk(p="dk"):
     return layer(f"{p}", f'<path d="M40 860 L660 860 L700 1100 L0 1100Z" fill="#20283a" stroke="{INK}" stroke-width="8"/>'
                          f'<rect x="20" y="840" width="700" height="34" rx="8" fill="#39445c" stroke="{INK}" stroke-width="6"/>'
-                         f'<rect x="140" y="920" width="460" height="70" rx="12" fill="#e63946" stroke="{INK}" stroke-width="5"/>'
-                         f'<text class="settxt" x="370" y="968" text-anchor="middle" font-family="InterBlack" font-size="36" fill="#fff">PLAY-BY-PLAY</text>'
+                         f'<rect x="170" y="878" width="400" height="44" rx="10" fill="#e63946" stroke="{INK}" stroke-width="5"/>'
+                         f'<text class="settxt" x="370" y="911" text-anchor="middle" font-family="InterBlack" font-size="28" fill="#fff">PLAY-BY-PLAY</text>'
                          f'<rect x="540" y="770" width="16" height="74" fill="#333"/><ellipse cx="548" cy="768" rx="22" ry="30" fill="#222" stroke="{INK}" stroke-width="5"/>', 30)
 
 
@@ -164,11 +164,12 @@ def alarm_guy(idp="al", pose="idle"):
 
 # ------------------------------------------------------------------ NOIR office
 def noir(p="nr"):
-    blinds = "".join(f'<rect x="1120" y="{y}" width="640" height="18" fill="#cfcfcf" opacity=".9"/>' for y in range(170, 700, 40))
+    blinds = "".join(f'<rect x="1120" y="{y}" width="640" height="10" fill="#cfcfcf" opacity=".55"/>' for y in range(170, 700, 56))
     rain = "".join(f'<path class="{p}drop" d="M{1130 + (i * 53) % 620} {160 + (i * 97) % 520} l-6 34" stroke="#e8e8e8" stroke-width="3" opacity=".7"/>' for i in range(60))
     room = (f'<rect width="{W}" height="{H}" fill="#2a2a2a"/>'
             f'<rect x="1100" y="150" width="680" height="570" fill="#101010" stroke="#000" stroke-width="10"/>'
-            f'<g opacity=".45">{skyline(720, "#3a3a3a", "#bbbbbb", seed=11, x0=1100, x1=1780, cn=False)}</g><g id="{p}rain">{rain}</g>{blinds}'
+            f'<image href="assets/ph_distillery_noir.jpg" x="1100" y="150" width="680" height="570" preserveAspectRatio="xMidYMid slice" opacity=".8"/>'
+            f'<rect x="1100" y="150" width="680" height="570" fill="#000" opacity=".25"/><g id="{p}rain">{rain}</g>{blinds}'
             f'<path d="M1100 150 L1780 150 L1780 720 L1100 720Z" fill="none" stroke="#000" stroke-width="14"/>'
             f'<path d="M0 0 L760 0 L560 1080 L0 1080Z" fill="#000" opacity=".25"/>'
             f'<rect x="80" y="160" width="520" height="380" rx="8" fill="#6e6e6e" stroke="#000" stroke-width="8"/>'

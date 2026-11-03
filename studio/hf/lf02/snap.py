@@ -25,7 +25,8 @@ with sync_playwright() as p:
     shots = []
     for t in times:
         pg.evaluate(SEEK, t); pg.wait_for_timeout(60)
-        f = f"/tmp/claude-0/snap_{scene}_{t:.2f}.png"; pg.screenshot(path=f); shots.append((t, f))
+        if os.environ.get("DBG"): print(t, pg.evaluate("(ss)=>ss.map(s=>{const e=document.querySelector(s);return s+'='+(e?getComputedStyle(e).transform:'-')})", os.environ["DBG"].split(",")))
+        f = f"/home/claude/lf02/snaps/snap_{scene}_{t:.2f}.png"; pg.screenshot(path=f); shots.append((t, f))
     b.close()
 if errs: print("PAGE ERRORS:", errs[:3])
 if what == "sheet":

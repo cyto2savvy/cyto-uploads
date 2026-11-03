@@ -1,4 +1,6 @@
-"""LF02 audio: dialogue + synthesized per-scene music bed (ducked under speech) + SFX -> /home/claude/lf02/mix.wav"""
+"""LF02 audio: dialogue + continuous ROOM TONE per scene (-34 dBFS-ish, never digital silence) + synthesized per-scene
+music bed (ducked under speech) + SFX -> /home/claude/lf02/mix.wav.  Fix pass: every scene's bed/music starts JC=0.15 s
+BEFORE its picture cut (J-cut: the ear arrives first) with a 0.15 s crossfade."""
 import json, subprocess, numpy as np, os, wave
 SR = 48000
 D = "/home/claude/lf02"; A = "/home/user/cyto-uploads/audio"
@@ -78,6 +80,8 @@ SYN = {
     "tap": lambda: cat(noise(.05, 1000, 5000, r=.01), np.zeros(int(.12 * SR)), noise(.05, 1000, 5000, r=.01)),
     "flip": lambda: cat(*[noise(.04, 800, 6000, r=.01) for _ in range(4)]),
     "sting": lambda: sum(tone(f, .8, "saw", r=.4) for f in (196, 233, 277)) * .3,
+    "heartbeat": lambda: cat(M(tone(55, .16, r=.06), noise(.06, 30, 200, r=.03)), np.zeros(int(.09 * SR)), M(tone(46, .16, r=.07), noise(.05, 30, 180, r=.03)) * .7),
+    "achoo_small": lambda: cat(noise(.18, 400, 2500, r=99, a=.15) * np.linspace(.2, 1, int(.18 * SR)), noise(.22, 800, 6000, r=.08, a=.005)) * .6,
 }
 FILES = {"siren": "lf02_sfx_siren.mp3", "crowd": "lf02_sfx_crowd.mp3", "cheer": "lf02_sfx_crowd.mp3", "shatter": "lf02_sfx_shatter.mp3",
          "sax": "lf02_sfx_sax.mp3", "achoo": "lf02_sfx_achoo.mp3", "chirp": "lf02_sfx_chirp.mp3"}
@@ -170,22 +174,57 @@ def bed(kind, d):
     return y / (np.sqrt(np.mean(y ** 2)) + 1e-9)
 
 
+def room(kind, d):
+    """continuous ambience bed (unit RMS), loop-free noise so it never 'repeats'."""
+    n = int(d * SR); t = np.arange(n) / SR
+    lp = lambda x, f: np.fft.irfft(np.fft.rfft(x) * (np.fft.rfftfreq(len(x), 1 / SR) < f), len(x))
+    bp = lambda x, a, b: np.fft.irfft(np.fft.rfft(x) * ((np.fft.rfftfreq(len(x), 1 / SR) > a) & (np.fft.rfftfreq(len(x), 1 / SR) < b)), len(x))
+    w = rng.standard_normal(n)
+    if kind in ("hq", "hq_quiet"):         # HQ: HVAC hum + soft room air
+        y = .5 * np.sin(2 * np.pi * 60 * t) + .25 * np.sin(2 * np.pi * 120 * t) + 3 * lp(w, 400) + .6 * bp(w, 400, 3000)
+        if kind == "hq_quiet": y *= .7
+    elif kind in ("court", "court_low"):   # crowd murmur: band-limited babble with slow swells
+        y = bp(w, 180, 2200) * (1 + .5 * np.sin(2 * np.pi * .37 * t) + .3 * np.sin(2 * np.pi * 1.3 * t + 1)) + .8 * lp(w, 200)
+        if kind == "court_low": y = lp(y, 900)
+    elif kind == "body":                   # inside the body: low rumble + slow whoosh
+        y = 2.5 * lp(w, 140) * (1 + .4 * np.sin(2 * np.pi * .25 * t)) + .3 * bp(w, 300, 1200)
+    elif kind == "rain":                   # noir: steady rain on the window
+        y = bp(w, 1200, 9000) + .5 * lp(w, 300)
+    else:                                  # city / rooftop: wind + distant traffic
+        y = 2 * lp(w, 500) * (1 + .5 * np.sin(2 * np.pi * .18 * t)) + .4 * bp(w, 500, 3000)
+    return y / (np.sqrt(np.mean(y ** 2)) + 1e-9)
+
+
 # ---------------------------------------------------------------- mix
 dlg = load(f"{D}/dialogue.wav"); N = len(dlg) + SR
 out = np.zeros(N); out[:len(dlg)] += dlg
 vr = np.sqrt(np.mean(dlg[np.abs(dlg) > .01] ** 2))
 ev = json.load(open(f"{D}/events.json"))
 music = sorted({tuple(m) for v in ev.values() for m in v["music"]})
+
 # speech envelope for ducking
 fr = SR // 50; e = np.array([np.sqrt(np.mean(dlg[i:i + fr] ** 2)) for i in range(0, len(dlg), fr)])
 act = np.convolve((e > vr * .25).astype(float), np.ones(15) / 15, "same") > 0
 duck = np.repeat(np.where(act, .5, 1.0), fr)[:N]; duck = np.pad(duck, (0, N - len(duck)), constant_values=1)
 duck = np.convolve(duck, np.ones(2400) / 2400, "same")
 MUS_DB = {"quiet": -34, "calm": -27, "noir": -24}
+JC = .15
+fade = int(JC * SR)
 for t0, t1, kind in music:
-    i0, i1 = int(t0 * SR), min(N, int(t1 * SR)); b = bed(kind, (i1 - i0) / SR)[:i1 - i0]
-    fade = int(.15 * SR); b[:fade] *= np.linspace(0, 1, fade); b[-fade:] *= np.linspace(1, 0, fade)
+    t0 = max(0, t0 - JC) if t0 > 0 else 0          # J-cut: the music of the next scene arrives first
+    i0, i1 = int(t0 * SR), min(N, int((t1 + .02) * SR)); b = fit(bed(kind, (i1 - i0) / SR + .1), i1 - i0)
+    if i0 > 0: b[:fade] *= np.linspace(0, 1, fade)
+    b[-fade:] *= np.linspace(1, 0, fade)
     out[i0:i1] += b * vr * 10 ** (MUS_DB.get(kind, -22) / 20) * duck[i0:i1]
+# ROOM TONE: one continuous bed per scene, crossfaded at the (J-)cuts -> the track never drops to digital silence
+for name, v in ev.items():
+    t0, t1, kind = v.get("amb", [0, 0, "hq"])
+    if t1 <= t0: continue
+    a = max(0, t0 - JC) if t0 > 0 else 0
+    i0, i1 = int(a * SR), min(N, int((t1 + JC) * SR)); r = fit(room(kind, (i1 - i0) / SR + .1), i1 - i0)
+    if i0 > 0: r[:fade] *= np.linspace(0, 1, fade)
+    r[-fade:] *= np.linspace(1, 0, fade)
+    out[i0:i1] += r * vr * 10 ** (-19 / 20)
 for v in ev.values():
     for t, name, g in v["sfx"]:
         x = sfx(name); i = int(t * SR)
