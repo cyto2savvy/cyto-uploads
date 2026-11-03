@@ -17,4 +17,5 @@
 Nov 2: LF01 long-form voice, 8 chunks, 1 take each, 5,127 ElevenLabs credits (flow 9FCDlyMjCyXT9Z51HIp7). Plan estimate was ~7,000; script runs 5:24.
 Nov 3: LF02 voices designed (Neutro, Mito: 2 design rounds) + 4 takes = 4,115 ElevenLabs credits (+ design credits).
 - 2026-11-03: LF02 build (one cloud session). Voice = the 4 approved takes (flow 9FCDlyMjCyXT9Z51HIp7, counted Nov 3), NOT regenerated; fetched via fetch-audio. Scribe word timing x4 = 0 cr. SFX: 6 x eleven_text_to_sound_v2 (siren, crowd, backboard shatter, noir sax, achoo, bird chirp) at ~16.7 cr = ~100 ElevenLabs credits; the other ~35 SFX + all music beds synthesized in numpy (0 cr). vidIQ 0.
+  Final: ~$24-26 total session estimate (no live meter). Final mp4 re-encoded to stay under GitHub 100 MB.
   Session compute (estimate, no live meter in the sandbox): ~$12 after scenes 1-6 drafted, ~$18 after all 17 scenes + layout check, ~$22-24 at final render + package. Renders: 1 per scene + 1 re-render of s01 (title moved so Rhino's window gag reads).
