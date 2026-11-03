@@ -5,3 +5,7 @@ HAVE ep12_sfx_pop.mp3
 HAVE ep12_sfx_hit.mp3
 HAVE ep12_sfx_chime.mp3
 HAVE ep13_raw.mp3
+OK lf02_cyto1.mp3
+OK lf02_cyto2.mp3
+OK lf02_neutro.mp3
+OK lf02_mito.mp3
