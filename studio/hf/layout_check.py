@@ -22,6 +22,7 @@ ap.add_argument("ep")
 ap.add_argument("--brief")
 ap.add_argument("--step", type=float, default=0.25)
 ap.add_argument("--root", default="/home/claude/hf")
+ap.add_argument("--size", default="1080x1920", help="WxH; 1920x1080 for long-form landscape (LF01+)")
 a = ap.parse_args()
 
 # ---- serve /home/claude/hf over http (file:// breaks ES modules / fetch)
@@ -97,15 +98,24 @@ JS_COLLECT = r"""
     const r = sv.getBoundingClientRect(); if (r.width < 30) return;
     gfx.push({type: "lottie", id: (sv.parentElement && sv.parentElement.id) || "lottie", x: r.left, y: r.top, w: r.width, h: r.height});
   });
-  const cy = document.querySelector("#bodyG") || document.querySelector("#cyto");
-  if (cy && inTime(cy) && eff(cy) > 0.4) { const r = cy.getBoundingClientRect(); if (r.width > 50) gfx.push({type: "cyto", id: "cyto", x: r.left, y: r.top, w: r.width, h: r.height}); }
+  // Cyto's real silhouette = body circle + toque (the outfit <image> inside #bodyG is a full 1200px transparent canvas and inflated the box)
+  const parts = ["#bodyG > circle", "#toque"].map(q => document.querySelector(q)).filter(Boolean);
+  const cy = parts.length ? parts[0] : (document.querySelector("#bodyG") || document.querySelector("#cyto"));
+  if (cy && inTime(cy) && eff(cy) > 0.4) {
+    const rs = (parts.length ? parts : [cy]).map(e => e.getBoundingClientRect());
+    const x0 = Math.min(...rs.map(r => r.left)), y0 = Math.min(...rs.map(r => r.top)), x1 = Math.max(...rs.map(r => r.right)), y1 = Math.max(...rs.map(r => r.bottom));
+    if (x1 - x0 > 50) gfx.push({type: "cyto", id: "cyto", x: x0, y: y0, w: x1 - x0, h: y1 - y0});
+  }
   const g = (sel, p) => { try { return gsap.getProperty(sel, p) } catch (e) { return 0 } };
   return {items: out, gfx: gfx, pup: [g("#pupL", "x"), g("#pupL", "y"), g("#pupR", "x"), g("#pupR", "y")]};
 }
 """
 
-W, Hh = 1080, 1920
-SAFE = dict(left=40, right=1010, top=120, bottom=1560)
+W, Hh = (int(v) for v in a.size.lower().split("x"))
+if W > Hh:   # landscape long-form: no Shorts UI, so the safe zone is just "nothing within 40px of an edge" (flag fires at <40 incl. the 10px slack)
+    SAFE = dict(left=50, right=W - 50, top=50, bottom=Hh - 50)
+else:
+    SAFE = dict(left=40, right=1010, top=120, bottom=1560)
 fails, warns = {}, {}
 seen_text = {}
 def add(d, key, t, msg):
@@ -150,7 +160,7 @@ with sync_playwright() as p:
         for it in items:
             if it["cap"]: continue
             for G in res["gfx"]:
-                if it["w"] > 900: continue
+                if it["w"] > 0.83 * W: continue
                 tx, ty, tw, th = it["x"] + it["w"] * .03, it["y"] + it["h"] * .15, it["w"] * .94, it["h"] * .7
                 ix = max(0, min(tx + tw, G["x"] + G["w"] * .92) - max(tx, G["x"] + G["w"] * .04)); iy = max(0, min(ty + th, G["y"] + G["h"] * .92) - max(ty, G["y"] + G["h"] * .04))
                 frac = (ix * iy) / (tw * th)

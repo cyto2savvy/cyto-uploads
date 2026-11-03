@@ -180,3 +180,11 @@ The red cup is ALWAYS drawn IN FRONT of Cyto's hand and body, never behind the h
 - **Frame 0:** the last zoom/whip transition's fromTo rendered its from-values at t=0 (1.5x zoom) and `#cytoPos` wasn't placed until the playhead moved. Fix: `immediateRender:false` on transition fromTo + `gsap.set("#cytoPos", POS_HOOK)` at build time.
 - Cards slide in from x:90 with a fade (the old x:600 slide was flagged as cut off). Big headlines: left 60 / width 880 to stay inside the safe zone (right edge 940).
 - Hidden art still counts in layout_check (off-screen svg text = safe-zone WARN); use `display:none`, not a translate.
+
+### LF01 lessons (Nov 3, 2026): first LANDSCAPE long-form (1920x1080)
+- Build = `studio/hf/lf01/`: `lf.py` (landscape framework: Cyto left third at `place(350,640,.70)`, panel x660-1860 y60-850, captions y878 under the panel, chapter title card confined to the panel area, chapter-edge whips, Ken Burns on every slide + background, auto "nudge" filler so a visual change lands at least every 2.6-2.9 s), `lfart.py` (Toronto backgrounds: Don Valley, U of T, Kensington, Bluffs, Queen St 501, downtown, night; figures: clock, gauge, ECG, brain+receptors, calendar flip, cilia, phone chat UI, pharmacy cross, Toronto map + pins), `chK.py` per chapter, `mix.py` (global bed + SFX from every chapter's logged beats), `concat.py`, `snap.py` (Playwright frames/contact sheets), `thumbs_lf.py` (1280x720), `package.py` (meta/srt/pinned). `prep_voice.py` concatenates the ElevenLabs chunks with 0.35 s gaps (+ a 4 s music-only hold in the outro so the 6 source screens get >=2.5 s each).
+- `layout_check.py --size 1920x1080` = landscape mode (no Shorts UI; flags anything within 40px of an edge). Cyto's box is now body circle + toque (the outfit <image> is a 1200px transparent canvas and caused false "text over Cyto" warnings).
+- **GSAP rounds px values: never animate `strokeDashoffset` on a 0-1 pathLength** (it snaps instead of drawing). Use `pathLength="100"` and 100 -> 0 (`lf.DRAW`).
+- Chapter boundaries: `math.floor(t*30)/30`, not round, or the first word of a chapter can fall into the previous one.
+- `wt()` after= times are chapter-LOCAL; a lowercase "and" matched `wt("And")` and squeezed the source screens. Always pass after= for common words.
+- Render speed: ~3x realtime at 1920x1080 (ch0 36.7 s took 114 s).
