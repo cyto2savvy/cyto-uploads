@@ -5,3 +5,11 @@ HAVE ep12_sfx_pop.mp3
 HAVE ep12_sfx_hit.mp3
 HAVE ep12_sfx_chime.mp3
 HAVE ep13_raw.mp3
+OK lf01_c0.mp3
+OK lf01_c1.mp3
+OK lf01_c2.mp3
+OK lf01_c3.mp3
+OK lf01_c4.mp3
+OK lf01_c5.mp3
+OK lf01_c6.mp3
+OK lf01_c7.mp3
