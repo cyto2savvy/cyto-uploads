@@ -9,7 +9,7 @@ HAVE photo_queens_park.jpg
 HAVE photo_nathan_phillips.jpg
 HAVE photo_distillery_bw.jpg
 HAVE photo_skyline_dusk.jpg
-<<<<<<< HEAD
+FAIL <<<<<<< http=000
 HAVE lf02_cyto1.mp3
 HAVE lf02_cyto2.mp3
 HAVE lf02_neutro.mp3
@@ -24,7 +24,7 @@ HAVE lf02_sfx_shatter.mp3
 HAVE lf02_sfx_sax.mp3
 HAVE lf02_sfx_achoo.mp3
 HAVE lf02_sfx_chirp.mp3
-=======
-OK lf02v3_neutro.mp3
-OK lf02v3_cyto3.mp3
->>>>>>> origin/main
+FAIL ======= http=000
+HAVE lf02v3_neutro.mp3
+HAVE lf02v3_cyto3.mp3
+FAIL >>>>>>> http=000
