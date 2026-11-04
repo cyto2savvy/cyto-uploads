@@ -1,0 +1,802 @@
+{
+"words": [
+{
+"text": "Code",
+"type": "word",
+"start": 0.0,
+"end": 0.28
+},
+{
+"text": "red.",
+"type": "word",
+"start": 0.32,
+"end": 0.72
+},
+{
+"text": "December.",
+"type": "word",
+"start": 0.8,
+"end": 1.68
+},
+{
+"text": "Incident",
+"type": "word",
+"start": 1.76,
+"end": 2.512
+},
+{
+"text": "one.",
+"type": "word",
+"start": 2.56,
+"end": 3.04
+},
+{
+"text": "Exams.",
+"type": "word",
+"start": 3.2,
+"end": 4.4
+},
+{
+"text": "Incident",
+"type": "word",
+"start": 4.64,
+"end": 5.04
+},
+{
+"text": "two.",
+"type": "word",
+"start": 5.12,
+"end": 5.68
+},
+{
+"text": "Secret",
+"type": "word",
+"start": 5.92,
+"end": 6.24
+},
+{
+"text": "Santa",
+"type": "word",
+"start": 6.32,
+"end": 6.56
+},
+{
+"text": "group",
+"type": "word",
+"start": 6.64,
+"end": 6.88
+},
+{
+"text": "chat.",
+"type": "word",
+"start": 6.96,
+"end": 7.52
+},
+{
+"text": "Forty-three",
+"type": "word",
+"start": 7.6,
+"end": 8.0
+},
+{
+"text": "members.",
+"type": "word",
+"start": 8.08,
+"end": 8.8
+},
+{
+"text": "Twenty",
+"type": "word",
+"start": 8.88,
+"end": 9.04
+},
+{
+"text": "dollar",
+"type": "word",
+"start": 9.12,
+"end": 9.36
+},
+{
+"text": "limit.",
+"type": "word",
+"start": 9.44,
+"end": 10.16
+},
+{
+"text": "Incident",
+"type": "word",
+"start": 10.28,
+"end": 10.64
+},
+{
+"text": "three.",
+"type": "word",
+"start": 10.72,
+"end": 11.44
+},
+{
+"text": "The",
+"type": "word",
+"start": 11.52,
+"end": 11.6
+},
+{
+"text": "mall.",
+"type": "word",
+"start": 11.68,
+"end": 12.4
+},
+{
+"text": "Packed",
+"type": "word",
+"start": 12.44,
+"end": 12.72
+},
+{
+"text": "like",
+"type": "word",
+"start": 12.8,
+"end": 12.88
+},
+{
+"text": "Line",
+"type": "word",
+"start": 12.96,
+"end": 13.2
+},
+{
+"text": "one",
+"type": "word",
+"start": 13.44,
+"end": 13.6
+},
+{
+"text": "at",
+"type": "word",
+"start": 13.64,
+"end": 13.68
+},
+{
+"text": "rush",
+"type": "word",
+"start": 13.84,
+"end": 14.08
+},
+{
+"text": "hour.",
+"type": "word",
+"start": 14.24,
+"end": 14.8
+},
+{
+"text": "Incident",
+"type": "word",
+"start": 14.92,
+"end": 15.28
+},
+{
+"text": "four.",
+"type": "word",
+"start": 15.36,
+"end": 16.08
+},
+{
+"text": "Your",
+"type": "word",
+"start": 16.16,
+"end": 16.24
+},
+{
+"text": "auntie",
+"type": "word",
+"start": 16.32,
+"end": 16.64
+},
+{
+"text": "asked",
+"type": "word",
+"start": 16.72,
+"end": 16.88
+},
+{
+"text": "what",
+"type": "word",
+"start": 16.96,
+"end": 17.04
+},
+{
+"text": "you're",
+"type": "word",
+"start": 17.08,
+"end": 17.28
+},
+{
+"text": "doing",
+"type": "word",
+"start": 17.4,
+"end": 17.52
+},
+{
+"text": "with",
+"type": "word",
+"start": 17.6,
+"end": 17.68
+},
+{
+"text": "your",
+"type": "word",
+"start": 17.76,
+"end": 17.84
+},
+{
+"text": "life.",
+"type": "word",
+"start": 18.04,
+"end": 18.56
+},
+{
+"text": "It's",
+"type": "word",
+"start": 18.6,
+"end": 18.72
+},
+{
+"text": "in",
+"type": "word",
+"start": 18.76,
+"end": 18.8
+},
+{
+"text": "the",
+"type": "word",
+"start": 18.84,
+"end": 18.88
+},
+{
+"text": "report.",
+"type": "word",
+"start": 19.16,
+"end": 19.68
+},
+{
+"text": "That's",
+"type": "word",
+"start": 19.8,
+"end": 20.0
+},
+{
+"text": "the",
+"type": "word",
+"start": 20.04,
+"end": 20.08
+},
+{
+"text": "evidence.",
+"type": "word",
+"start": 20.16,
+"end": 20.96
+},
+{
+"text": "Now",
+"type": "word",
+"start": 21.04,
+"end": 21.12
+},
+{
+"text": "watch",
+"type": "word",
+"start": 21.24,
+"end": 21.36
+},
+{
+"text": "what",
+"type": "word",
+"start": 21.4,
+"end": 21.44
+},
+{
+"text": "it",
+"type": "word",
+"start": 21.52,
+"end": 21.6
+},
+{
+"text": "does.",
+"type": "word",
+"start": 21.68,
+"end": 22.32
+},
+{
+"text": "Follow",
+"type": "word",
+"start": 22.44,
+"end": 22.56
+},
+{
+"text": "me.",
+"type": "word",
+"start": 22.64,
+"end": 23.28
+},
+{
+"text": "That",
+"type": "word",
+"start": 23.36,
+"end": 23.44
+},
+{
+"text": "was",
+"type": "word",
+"start": 23.52,
+"end": 23.76
+},
+{
+"text": "one",
+"type": "word",
+"start": 23.84,
+"end": 24.08
+},
+{
+"text": "bad",
+"type": "word",
+"start": 24.24,
+"end": 24.4
+},
+{
+"text": "day.",
+"type": "word",
+"start": 24.56,
+"end": 25.12
+},
+{
+"text": "Now",
+"type": "word",
+"start": 25.2,
+"end": 25.36
+},
+{
+"text": "make",
+"type": "word",
+"start": 25.44,
+"end": 25.52
+},
+{
+"text": "it",
+"type": "word",
+"start": 25.56,
+"end": 25.6
+},
+{
+"text": "a",
+"type": "word",
+"start": 25.68,
+"end": 25.76
+},
+{
+"text": "month.",
+"type": "word",
+"start": 25.92,
+"end": 26.48
+},
+{
+"text": "Requesting",
+"type": "word",
+"start": 26.72,
+"end": 27.12
+},
+{
+"text": "backup.",
+"type": "word",
+"start": 27.36,
+"end": 27.92
+},
+{
+"text": "Suspicious",
+"type": "word",
+"start": 28.12,
+"end": 28.56
+},
+{
+"text": "crumb.",
+"type": "word",
+"start": 28.64,
+"end": 29.44
+},
+{
+"text": "Case",
+"type": "word",
+"start": 29.6,
+"end": 29.76
+},
+{
+"text": "file.",
+"type": "word",
+"start": 29.84,
+"end": 30.48
+},
+{
+"text": "Nineteen",
+"type": "word",
+"start": 30.52,
+"end": 30.96
+},
+{
+"text": "ninety-one.",
+"type": "word",
+"start": 31.04,
+"end": 32.16
+},
+{
+"text": "Scientists",
+"type": "word",
+"start": 32.44,
+"end": 32.72
+},
+{
+"text": "took",
+"type": "word",
+"start": 32.84,
+"end": 32.96
+},
+{
+"text": "almost",
+"type": "word",
+"start": 33.04,
+"end": 33.36
+},
+{
+"text": "four",
+"type": "word",
+"start": 33.52,
+"end": 33.68
+},
+{
+"text": "hundred",
+"type": "word",
+"start": 33.84,
+"end": 34.16
+},
+{
+"text": "volunteers.",
+"type": "word",
+"start": 34.24,
+"end": 35.28
+},
+{
+"text": "Measured",
+"type": "word",
+"start": 35.44,
+"end": 35.6
+},
+{
+"text": "how",
+"type": "word",
+"start": 35.68,
+"end": 35.76
+},
+{
+"text": "stressed",
+"type": "word",
+"start": 35.84,
+"end": 36.16
+},
+{
+"text": "they",
+"type": "word",
+"start": 36.24,
+"end": 36.32
+},
+{
+"text": "were.",
+"type": "word",
+"start": 36.44,
+"end": 36.88
+},
+{
+"text": "Then",
+"type": "word",
+"start": 36.96,
+"end": 37.28
+},
+{
+"text": "they",
+"type": "word",
+"start": 37.44,
+"end": 37.6
+},
+{
+"text": "dripped",
+"type": "word",
+"start": 37.627,
+"end": 37.92
+},
+{
+"text": "cold",
+"type": "word",
+"start": 38.0,
+"end": 38.24
+},
+{
+"text": "viruses",
+"type": "word",
+"start": 38.32,
+"end": 38.8
+},
+{
+"text": "into",
+"type": "word",
+"start": 38.88,
+"end": 39.04
+},
+{
+"text": "their",
+"type": "word",
+"start": 39.12,
+"end": 39.2
+},
+{
+"text": "noses.",
+"type": "word",
+"start": 39.28,
+"end": 40.08
+},
+{
+"text": "On",
+"type": "word",
+"start": 40.16,
+"end": 40.24
+},
+{
+"text": "purpose.",
+"type": "word",
+"start": 40.32,
+"end": 41.2
+},
+{
+"text": "Then",
+"type": "word",
+"start": 41.28,
+"end": 41.52
+},
+{
+"text": "they",
+"type": "word",
+"start": 41.76,
+"end": 41.92
+},
+{
+"text": "waited.",
+"type": "word",
+"start": 42.0,
+"end": 42.72
+},
+{
+"text": "Watched",
+"type": "word",
+"start": 42.84,
+"end": 43.04
+},
+{
+"text": "who",
+"type": "word",
+"start": 43.08,
+"end": 43.12
+},
+{
+"text": "got",
+"type": "word",
+"start": 43.2,
+"end": 43.36
+},
+{
+"text": "sick.",
+"type": "word",
+"start": 43.44,
+"end": 44.16
+},
+{
+"text": "Low",
+"type": "word",
+"start": 44.24,
+"end": 44.32
+},
+{
+"text": "stress.",
+"type": "word",
+"start": 44.4,
+"end": 45.12
+},
+{
+"text": "About",
+"type": "word",
+"start": 45.28,
+"end": 45.44
+},
+{
+"text": "seventy-four",
+"type": "word",
+"start": 45.52,
+"end": 46.08
+},
+{
+"text": "percent",
+"type": "word",
+"start": 46.16,
+"end": 46.48
+},
+{
+"text": "infected.",
+"type": "word",
+"start": 46.6,
+"end": 47.44
+},
+{
+"text": "High",
+"type": "word",
+"start": 47.52,
+"end": 47.6
+},
+{
+"text": "stress.",
+"type": "word",
+"start": 47.68,
+"end": 48.4
+},
+{
+"text": "About",
+"type": "word",
+"start": 48.56,
+"end": 48.72
+},
+{
+"text": "ninety.",
+"type": "word",
+"start": 48.8,
+"end": 49.52
+},
+{
+"text": "Actual",
+"type": "word",
+"start": 49.72,
+"end": 49.92
+},
+{
+"text": "colds.",
+"type": "word",
+"start": 50.0,
+"end": 50.72
+},
+{
+"text": "Twenty-seven",
+"type": "word",
+"start": 50.84,
+"end": 51.28
+},
+{
+"text": "percent\u2026",
+"type": "word",
+"start": 51.36,
+"end": 52.16
+},
+{
+"text": "up",
+"type": "word",
+"start": 52.24,
+"end": 52.32
+},
+{
+"text": "to",
+"type": "word",
+"start": 52.4,
+"end": 52.48
+},
+{
+"text": "forty-seven.",
+"type": "word",
+"start": 52.56,
+"end": 53.52
+},
+{
+"text": "Case",
+"type": "word",
+"start": 53.64,
+"end": 53.76
+},
+{
+"text": "closed.",
+"type": "word",
+"start": 53.84,
+"end": 54.4
+},
+{
+"text": "Alarm's",
+"type": "word",
+"start": 54.72,
+"end": 55.12
+},
+{
+"text": "still",
+"type": "word",
+"start": 55.2,
+"end": 55.28
+},
+{
+"text": "going.",
+"type": "word",
+"start": 55.44,
+"end": 56.08
+},
+{
+"text": "Somebody",
+"type": "word",
+"start": 56.16,
+"end": 56.4
+},
+{
+"text": "keeps",
+"type": "word",
+"start": 56.44,
+"end": 56.64
+},
+{
+"text": "pulling",
+"type": "word",
+"start": 56.72,
+"end": 57.04
+},
+{
+"text": "it.",
+"type": "word",
+"start": 57.12,
+"end": 57.28
+},
+{
+"text": "No",
+"type": "word",
+"start": 57.6,
+"end": 57.76
+},
+{
+"text": "waiting.",
+"type": "word",
+"start": 57.84,
+"end": 58.32
+},
+{
+"text": "Nothing.",
+"type": "word",
+"start": 58.72,
+"end": 59.32
+},
+{
+"text": "Loitering",
+"type": "word",
+"start": 59.52,
+"end": 59.92
+},
+{
+"text": "in",
+"type": "word",
+"start": 60.0,
+"end": 60.04
+},
+{
+"text": "a",
+"type": "word",
+"start": 60.08,
+"end": 60.16
+},
+{
+"text": "nasal",
+"type": "word",
+"start": 60.24,
+"end": 60.56
+},
+{
+"text": "passage.",
+"type": "word",
+"start": 60.64,
+"end": 61.44
+}
+]
+}
