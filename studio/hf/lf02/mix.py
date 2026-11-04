@@ -214,7 +214,9 @@ fr = SR // 50; e = np.array([np.sqrt(np.mean(dlg[i:i + fr] ** 2)) for i in range
 act = np.convolve((e > vr * .25).astype(float), np.ones(15) / 15, "same") > 0
 duck = np.repeat(np.where(act, .5, 1.0), fr)[:N]; duck = np.pad(duck, (0, N - len(duck)), constant_values=1)
 duck = np.convolve(duck, np.ones(2400) / 2400, "same")
-MUS_DB = {"quiet": -34, "calm": -27, "noir": -24}
+import os
+MUSG = float(os.environ.get("MUSG","-12"))   # dB shift for all music beds (-99 = none)
+MUS_DB = {k: v + MUSG for k, v in {"quiet": -34, "calm": -27, "noir": -24}.items()}
 JC = .15
 fade = int(JC * SR)
 for t0, t1, kind in music:
@@ -222,7 +224,7 @@ for t0, t1, kind in music:
     i0, i1 = int(t0 * SR), min(N, int((t1 + .02) * SR)); b = fit(bed(kind, (i1 - i0) / SR + .1), i1 - i0)
     if i0 > 0: b[:fade] *= np.linspace(0, 1, fade)
     b[-fade:] *= np.linspace(1, 0, fade)
-    out[i0:i1] += b * vr * 10 ** (MUS_DB.get(kind, -22) / 20) * duck[i0:i1]
+    out[i0:i1] += b * vr * 10 ** ((MUS_DB.get(kind, -22 + MUSG)) / 20) * duck[i0:i1]
 # ROOM TONE: one continuous bed per scene, crossfaded at the (J-)cuts -> the track never drops to digital silence
 for name, v in ev.items():
     t0, t1, kind = v.get("amb", [0, 0, "hq"])
@@ -231,7 +233,7 @@ for name, v in ev.items():
     i0, i1 = int(a * SR), min(N, int((t1 + JC) * SR)); r = fit(room(kind, (i1 - i0) / SR + .1), i1 - i0)
     if i0 > 0: r[:fade] *= np.linspace(0, 1, fade)
     r[-fade:] *= np.linspace(1, 0, fade)
-    out[i0:i1] += r * vr * 10 ** (-19 / 20)
+    out[i0:i1] += r * vr * 10 ** (float(os.environ.get("ROOMDB","-48")) / 20)
 for v in ev.values():
     for t, name, g in v["sfx"]:
         x = sfx(name); i = int(t * SR)
@@ -239,7 +241,7 @@ for v in ev.values():
         seg = x[:N - i] * vr * 10 ** ((-14 + g) / 20)
         out[i:i + len(seg)] += seg
 out = out / max(1e-9, np.abs(out).max()) * .95
-with wave.open(f"{D}/mix_raw.wav", "wb") as w:
+with wave.open(f"{D}/mix_raw_{os.environ.get('TAG','x')}.wav", "wb") as w:
     w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR); w.writeframes((out * 32767).astype(np.int16).tobytes())
-subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", f"{D}/mix_raw.wav", "-af", "loudnorm=I=-15:TP=-1.5:LRA=11", "-ar", "48000", "-ac", "2", f"{D}/mix.wav"], check=True)
+subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", f"{D}/mix_raw_{os.environ.get('TAG','x')}.wav", "-af", "loudnorm=I=-15:TP=-1.5:LRA=11", "-ar", "48000", "-ac", "2", f"{D}/mix_{os.environ.get('TAG','x')}.wav"], check=True)
 print("mix", N / SR, "s; music segs", len(music))
