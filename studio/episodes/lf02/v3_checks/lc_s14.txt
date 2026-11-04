@@ -1,0 +1,6 @@
+
+Layout check s14: T=12.1s, step 0.5s, brief=script.md
+  WARN @ 0.00s  text over cyto animation (100% covered): "NEXT STOP:"
+  WARN @ 0.00s  text over cyto animation (36% covered): "THE CITY"
+
+0 FAIL group(s), 2 WARN group(s)

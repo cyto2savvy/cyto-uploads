@@ -1,0 +1,24 @@
+
+Layout check s07: T=28.0s, step 0.5s, brief=script.md
+  WARN @ 0.00-0.50s (2 samples)  outside Shorts safe zone: "12 DAYS TILL BREAK"
+  WARN @ 0.00s  text over cyto animation (100% covered): "NEXT STOP:"
+  WARN @ 0.00s  text over cyto animation (29% covered): "THE BENCH"
+  WARN @ 0.00s  text over cyto animation (56% covered): "CASE FILE · CLUES"
+  WARN @ 0.00s  text over cyto animation (100% covered): "WHO KEEPS PULLING THE ALARM?"
+  WARN @ 0.00s  text over cyto animation (100% covered): "✓1"
+  WARN @ 0.00s  text over cyto animation (99% covered): "✓2"
+  WARN @ 0.00s  text over cyto animation (100% covered): "3"
+  WARN @ 0.00s  text over cyto animation (100% covered): "WHO?"
+  WARN @ 0.50s  outside Shorts safe zone: "NEXT STOP:"
+  WARN @ 0.50s  outside Shorts safe zone: "THE BENCH"
+  WARN @ 9.50-10.50s (2 samples)  text over cyto animation (44% covered): "CORTISOL"
+  WARN @ 10.00s  text over cyto animation (43% covered): "CORTISOL"
+  WARN @ 11.00-11.50s (2 samples)  text over cyto animation (47% covered): "CORTISOL"
+  WARN @ 12.00s  text over cyto animation (46% covered): "CORTISOL"
+  WARN @ 12.50s  text over cyto animation (49% covered): "CORTISOL"
+  WARN @ 13.00s  text over cyto animation (51% covered): "CORTISOL"
+  WARN @ 13.50-14.00s (2 samples)  text over cyto animation (50% covered): "CORTISOL"
+  WARN @ 14.50s  text over cyto animation (53% covered): "CORTISOL"
+  WARN @ 15.00s  text over cyto animation (54% covered): "CORTISOL"
+
+0 FAIL group(s), 20 WARN group(s)

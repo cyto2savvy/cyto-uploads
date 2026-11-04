@@ -1,0 +1,9 @@
+
+Layout check s02: T=20.5s, step 0.5s, brief=script.md
+  FAIL @ 0.00s  text overlap 78%: "YOUR BODY" x "DECEMBER:"
+  WARN @ 0.00s  text over cyto animation (100% covered): "NEXT STOP:"
+  WARN @ 0.00s  text over cyto animation (28% covered): "YOUR BODY"
+  WARN @ 0.50s  outside Shorts safe zone: "NEXT STOP:"
+  WARN @ 0.50s  outside Shorts safe zone: "YOUR BODY"
+
+1 FAIL group(s), 4 WARN group(s)

@@ -1,0 +1,4 @@
+
+Layout check s08: T=4.0s, step 0.5s, brief=script.md
+
+0 FAIL group(s), 0 WARN group(s)

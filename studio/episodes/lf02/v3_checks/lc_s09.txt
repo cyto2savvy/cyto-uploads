@@ -1,0 +1,11 @@
+
+Layout check s09: T=37.4s, step 0.5s, brief=script.md
+  WARN @ 0.00s  text over cyto animation (99% covered): "COLD CASES"
+  WARN @ 0.00s  text over cyto animation (100% covered): "CASE FILE · 1991"
+  WARN @ 0.00s  text over cyto animation (100% covered): "NEXT STOP:"
+  WARN @ 0.50-37.00s (2 samples)  outside Shorts safe zone: "NEXT STOP:"
+  WARN @ 0.50s  outside Shorts safe zone: "COLD CASE: 1991"
+  WARN @ 15.00s  text over cyto animation (99% covered): "ACHOO"
+  WARN @ 37.00s  outside Shorts safe zone: "QUEEN'S PARK HQ"
+
+0 FAIL group(s), 7 WARN group(s)

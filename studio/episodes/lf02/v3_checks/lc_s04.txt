@@ -1,0 +1,22 @@
+
+Layout check s04: T=6.2s, step 0.5s, brief=script.md
+  WARN @ 0.00-4.50s (10 samples)  outside Shorts safe zone: "ALARM"
+  WARN @ 0.00-0.50s (2 samples)  outside Shorts safe zone: "MITO vs THE ALARM"
+  WARN @ 0.00-0.50s (2 samples)  outside Shorts safe zone: "HEART RATE"
+  WARN @ 0.00-0.50s (2 samples)  outside Shorts safe zone: "BREATHING"
+  WARN @ 0.00-5.00s (7 samples)  text over cyto animation (99% covered): "PLAY-BY-PLAY"
+  WARN @ 0.00s  text over cyto animation (99% covered): "6"
+  WARN @ 0.00s  text over cyto animation (100% covered): "NEXT STOP:"
+  WARN @ 0.00s  text over cyto animation (29% covered): "THE COURT"
+  WARN @ 0.00s  text over cyto animation (56% covered): "CASE FILE · CLUES"
+  WARN @ 0.00s  text over cyto animation (100% covered): "WHO KEEPS PULLING THE ALARM?"
+  WARN @ 0.00s  text over cyto animation (100% covered): "✓1"
+  WARN @ 0.00s  text over cyto animation (100% covered): "2"
+  WARN @ 0.00s  text over cyto animation (100% covered): "3"
+  WARN @ 0.00s  text over cyto animation (100% covered): "WHO?"
+  WARN @ 0.50s  outside Shorts safe zone: "NEXT STOP:"
+  WARN @ 0.50s  outside Shorts safe zone: "THE COURT"
+  WARN @ 1.00s  text over cyto animation (69% covered): "PLAY-BY-PLAY"
+  WARN @ 2.00-6.00s (5 samples)  text over cyto animation (100% covered): "PLAY-BY-PLAY"
+
+0 FAIL group(s), 18 WARN group(s)

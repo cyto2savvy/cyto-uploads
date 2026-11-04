@@ -1,0 +1,13 @@
+
+Layout check s13: T=13.7s, step 0.5s, brief=script.md
+  WARN @ 0.00s  text over cyto animation (69% covered): "QUEEN'S PARK HQ"
+  WARN @ 0.00s  text over cyto animation (100% covered): "6"
+  WARN @ 0.00s  text over cyto animation (56% covered): "CASE FILE · CLUES"
+  WARN @ 0.00s  text over cyto animation (100% covered): "WHO KEEPS PULLING THE ALARM?"
+  WARN @ 0.00s  text over cyto animation (100% covered): "✓1"
+  WARN @ 0.00s  text over cyto animation (99% covered): "✓2"
+  WARN @ 0.00s  text over cyto animation (99% covered): "✓3"
+  WARN @ 0.00s  text over cyto animation (100% covered): "CYTO"
+  WARN @ 2.50-5.00s (6 samples)  text over cyto animation (100% covered): "EXERCISE"
+
+0 FAIL group(s), 9 WARN group(s)

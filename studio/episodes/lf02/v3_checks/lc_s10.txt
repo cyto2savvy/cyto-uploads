@@ -1,0 +1,9 @@
+
+Layout check s10: T=11.0s, step 0.5s, brief=script.md
+  WARN @ 0.00s  text over cyto animation (100% covered): "NEXT STOP:"
+  WARN @ 4.50s  text over cyto animation (60% covered): "DEC 06 2026 · 06:00"
+  WARN @ 4.50-5.50s (3 samples)  text over cyto animation (99% covered): "BZZT"
+  WARN @ 5.00s  text over cyto animation (54% covered): "DEC 06 2026 · 06:00"
+  WARN @ 5.50s  text over cyto animation (37% covered): "DEC 06 2026 · 06:00"
+
+0 FAIL group(s), 5 WARN group(s)

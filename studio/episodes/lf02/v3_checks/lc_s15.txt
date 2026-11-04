@@ -1,0 +1,12 @@
+
+Layout check s15: T=7.5s, step 0.5s, brief=script.md
+  WARN @ 0.00s  text over cyto animation (100% covered): "6"
+  WARN @ 0.00s  text over cyto animation (100% covered): "NEXT STOP:"
+  WARN @ 1.00s  text touch 7%: "QUEEN'S PARK HQ" x "CHEAT CODE 3 UNLOCKED"
+  WARN @ 5.50-7.50s (5 samples)  outside Shorts safe zone: "QUEEN'S PARK HQ"
+  WARN @ 6.50s  text over cyto animation (91% covered): "✓1"
+  WARN @ 6.50s  text over cyto animation (82% covered): "✓2"
+  WARN @ 6.50s  text over cyto animation (73% covered): "✓3"
+  WARN @ 6.50s  text over cyto animation (65% covered): "CYTO"
+
+0 FAIL group(s), 8 WARN group(s)

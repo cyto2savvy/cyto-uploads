@@ -1,0 +1,19 @@
+
+Layout check s06b: T=23.5s, step 0.5s, brief=script.md
+  WARN @ 0.00s  text over cyto animation (99% covered): "PLAY-BY-PLAY"
+  WARN @ 0.00s  text over cyto animation (100% covered): "6"
+  WARN @ 0.00s  text over cyto animation (90% covered): "MITO vs THE ALARM"
+  WARN @ 0.00s  text over cyto animation (99% covered): "HEART RATE"
+  WARN @ 0.00s  text over cyto animation (73% covered): "BREATHING"
+  WARN @ 0.00s  text over cyto animation (56% covered): "CASE FILE · CLUES"
+  WARN @ 0.00s  text over cyto animation (100% covered): "WHO KEEPS PULLING THE ALARM?"
+  WARN @ 0.00s  text over cyto animation (100% covered): "✓1"
+  WARN @ 0.00s  text over cyto animation (99% covered): "✓2"
+  WARN @ 0.00s  text over cyto animation (100% covered): "3"
+  WARN @ 0.00s  text over cyto animation (100% covered): "WHO?"
+  WARN @ 0.50-16.00s (24 samples)  outside Shorts safe zone: "ALARM"
+  WARN @ 7.00-8.00s (3 samples)  text over cyto animation (25% covered): "X"
+  WARN @ 11.00s  text over cyto animation (93% covered): "THE ALARM (AGAIN)"
+  WARN @ 11.50s  text over cyto animation (99% covered): "THE ALARM (AGAIN)"
+
+0 FAIL group(s), 15 WARN group(s)

@@ -1,0 +1,8 @@
+
+Layout check s11r: T=8.8s, step 0.5s, brief=script.md
+  WARN @ 0.00s  text over cyto animation (39% covered): "WHO KEEPS PULLING THE ALARM?"
+  WARN @ 0.00s  text over cyto animation (100% covered): "STRESS IS"
+  WARN @ 0.00s  text over cyto animation (100% covered): "REAL"
+  WARN @ 0.00s  text over cyto animation (100% covered): "NEXT STOP:"
+
+0 FAIL group(s), 4 WARN group(s)

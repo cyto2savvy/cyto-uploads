@@ -1,0 +1,9 @@
+
+Layout check s01: T=11.2s, step 0.5s, brief=script.md
+  WARN @ 0.00s  text over cyto animation (69% covered): "QUEEN'S PARK HQ"
+  WARN @ 0.50s  text over cyto animation (96% covered): "EXAMS"
+  WARN @ 1.50s  text over cyto animation (26% covered): "GROUP CHAT"
+  WARN @ 2.00s  text over cyto animation (33% covered): "SALE ENDS SOON"
+  WARN @ 2.50s  text over cyto animation (31% covered): "SALE ENDS SOON"
+
+0 FAIL group(s), 5 WARN group(s)

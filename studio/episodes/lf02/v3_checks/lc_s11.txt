@@ -1,0 +1,24 @@
+
+Layout check s11: T=21.8s, step 0.5s, brief=script.md
+  WARN @ 0.00s  text over cyto animation (100% covered): "NEXT STOP:"
+  WARN @ 0.00s  text over cyto animation (26% covered): "DOWNTOWN"
+  WARN @ 0.00s  text over cyto animation (56% covered): "CASE FILE · CLUES"
+  WARN @ 0.00s  text over cyto animation (100% covered): "WHO KEEPS PULLING THE ALARM?"
+  WARN @ 0.00s  text over cyto animation (100% covered): "✓1"
+  WARN @ 0.00s  text over cyto animation (99% covered): "✓2"
+  WARN @ 0.00s  text over cyto animation (99% covered): "✓3"
+  WARN @ 0.00s  text over cyto animation (100% covered): "CYTO"
+  WARN @ 0.50-21.50s (2 samples)  outside Shorts safe zone: "NEXT STOP:"
+  WARN @ 0.50s  outside Shorts safe zone: "DOWNTOWN"
+  WARN @ 6.50s  text over cyto animation (25% covered): "NOT EVERY STUDY"
+  WARN @ 7.00s  text over cyto animation (28% covered): "NOT EVERY STUDY"
+  WARN @ 9.00s  text over cyto animation (33% covered): "STRESS · BIG MEALS · SALT · ALCOHOL · WA"
+  WARN @ 9.50s  text over cyto animation (36% covered): "STRESS · BIG MEALS · SALT · ALCOHOL · WA"
+  WARN @ 10.00-11.50s (3 samples)  text over cyto animation (34% covered): "STRESS · BIG MEALS · SALT · ALCOHOL · WA"
+  WARN @ 11.00s  text over cyto animation (35% covered): "STRESS · BIG MEALS · SALT · ALCOHOL · WA"
+  WARN @ 12.00s  text over cyto animation (30% covered): "STRESS · BIG MEALS · SALT · ALCOHOL · WA"
+  WARN @ 19.50s  text over cyto animation (30% covered): "DON'T WAIT. CALL 911."
+  WARN @ 20.00s  text over cyto animation (27% covered): "DON'T WAIT. CALL 911."
+  WARN @ 21.50s  outside Shorts safe zone: "QUEEN'S PARK HQ"
+
+0 FAIL group(s), 20 WARN group(s)

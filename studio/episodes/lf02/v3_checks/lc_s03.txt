@@ -1,0 +1,5 @@
+
+Layout check s03: T=25.9s, step 0.5s, brief=script.md
+  WARN @ 0.00s  text over cyto animation (100% covered): "NEXT STOP:"
+
+0 FAIL group(s), 1 WARN group(s)
