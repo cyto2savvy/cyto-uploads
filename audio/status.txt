@@ -5,7 +5,9 @@ HAVE ep12_sfx_pop.mp3
 HAVE ep12_sfx_hit.mp3
 HAVE ep12_sfx_chime.mp3
 HAVE ep13_raw.mp3
-OK photo_queens_park.jpg
-OK photo_nathan_phillips.jpg
-OK photo_distillery_bw.jpg
-OK photo_skyline_dusk.jpg
+HAVE photo_queens_park.jpg
+HAVE photo_nathan_phillips.jpg
+HAVE photo_distillery_bw.jpg
+HAVE photo_skyline_dusk.jpg
+OK lf02v3_neutro.mp3
+OK lf02v3_cyto3.mp3
