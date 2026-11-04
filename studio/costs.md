@@ -16,3 +16,4 @@
 - 2026-11-03: Ep 13 build. Voice = approved Nov 2 read (node sDupd..., generation PxDUR1tnCxpL4zIcLWQs, 592 cr, counted above); NOT regenerated, fetched via the fetch-audio Action. Scribe word timing 0 cr. SFX: reused Ep 12's whoosh/pop/hit/chime (0 cr). Music bed = ffmpeg/numpy synth (0 cr). **New ElevenLabs credits: 0. vidIQ: 0.** Renders: 1 draft + 1 final.
 Nov 2: LF01 long-form voice, 8 chunks, 1 take each, 5,127 ElevenLabs credits (flow 9FCDlyMjCyXT9Z51HIp7). Plan estimate was ~7,000; script runs 5:24.
 Nov 3: LF02 voices designed (Neutro, Mito: 2 design rounds) + 4 takes = 4,115 ElevenLabs credits (+ design credits).
+Nov 3 (evening): LF02 v3 re-record = new Neutro voice design (preview rounds) + Neutro take 883 cr + Cyto3 take 142 cr = 1,025 ElevenLabs credits + design credits. Scribe 0 cr.
