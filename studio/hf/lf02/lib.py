@@ -348,12 +348,12 @@ class Scene:
     #   doors: A closes over its last 0.32 s (holds shut 0.1 s), B holds shut 0.12 s then opens -> the cut frame is
     #   identical on both sides.  The doors carry the NEXT STOP sign, so the change of place is always announced.
     def _doors(self, label, t_close=None, t_open=None):
-        i = len(self.top)
+        i = len(self.top); sign = bool(label)
         half = lambda side: (f'<div class="door{side}" style="position:absolute;top:0;{"left" if side == "L" else "right"}:0;width:964px;height:1080px;'
                               f'background:linear-gradient(90deg,#8d969e,#d9dee2 35%,#b4bcc3 70%,#8d969e);border-{"right" if side == "L" else "left"}:14px solid #1b1f24">'
                               f'<div style="position:absolute;{"right" if side == "L" else "left"}:70px;top:250px;width:330px;height:420px;border-radius:26px;background:#22303c;border:12px solid #5d6770;box-shadow:inset 0 0 0 6px #10161c"></div>'
                               f'<div style="position:absolute;left:0;right:0;top:770px;height:26px;background:#C8102E"></div>'
-                              f'<div style="position:absolute;{"right" if side == "L" else "left"}:0;top:84px;width:640px;height:96px;background:#111;border:6px solid #333;'
+                              f'<div class="drsign" style="position:absolute;{"right" if side == "L" else "left"}:0;top:84px;width:640px;height:96px;background:#111;border:6px solid #333;{"" if sign else "display:none;"}'
                               f'font:54px/84px InterBlack;color:#ffb020;text-align:{"right" if side == "L" else "left"};padding:0 26px;letter-spacing:.06em;white-space:nowrap">'
                               f'{"NEXT STOP:" if side == "L" else label}</div></div>')
         h = (f'<div id="dr{i}" class="clip" data-start="{(t_close - .02 if t_close is not None else 0):.3f}" data-duration="{(self.T - t_close + .02 if t_close is not None else t_open + .45):.3f}" style="position:absolute;inset:0;z-index:96;overflow:hidden">'
@@ -362,10 +362,13 @@ class Scene:
         if t_close is not None:
             self.j(f'tl.fromTo("#dr{i}L",{{x:-980}},{{x:0,duration:.22,ease:"power3.in",immediateRender:true}},{t_close:.3f});'
                    f'tl.fromTo("#dr{i}R",{{x:980}},{{x:0,duration:.22,ease:"power3.in",immediateRender:true}},{t_close:.3f});'
-                   f'tl.fromTo("#dr{i}",{{x:0}},{{keyframes:[{{x:-6,duration:.04}},{{x:4,duration:.04}},{{x:0,duration:.04}}],immediateRender:false}},{t_close + .22:.3f});')
+                   f'tl.fromTo("#dr{i}",{{x:0}},{{keyframes:[{{x:-6,duration:.04}},{{x:4,duration:.04}},{{x:0,duration:.04}}],immediateRender:false}},{t_close + .22:.3f});'
+                   f'gsap.set("#dr{i} .drsign",{{opacity:0}});tl.to("#dr{i} .drsign",{{opacity:1,duration:.06}},{t_close + .2:.3f});'
+                   f'tl.set(UIQ(),{{opacity:0}},{t_close + .22:.3f});')
             self.sfx(t_close - .18, "doorchime", -9); self.sfx(t_close + .02, "doorslide", -10)
         else:
-            self.j(f'tl.fromTo("#dr{i}L",{{x:0}},{{x:-980,duration:.3,ease:"power3.inOut",immediateRender:false}},{t_open:.3f});'
+            self.j(f'gsap.set(".settxt",{{opacity:0}});gsap.set(UIQ(),{{opacity:0}});tl.to(UIQ(),{{opacity:1,duration:.1}},{t_open + .06:.3f});tl.to("#dr{i} .drsign",{{opacity:0,duration:.05}},{t_open:.3f});'
+                   f'tl.fromTo("#dr{i}L",{{x:0}},{{x:-980,duration:.3,ease:"power3.inOut",immediateRender:false}},{t_open:.3f});'
                    f'tl.fromTo("#dr{i}R",{{x:0}},{{x:980,duration:.3,ease:"power3.inOut",immediateRender:false}},{t_open:.3f});')
             self.sfx(t_open, "doorslide", -11)
         self.covers.append((t_close if t_close is not None else 0, self.T if t_close is not None else t_open + .3))
@@ -634,6 +637,7 @@ html,body{{width:1920px;height:1080px;overflow:hidden;background:{self.bg}}}
 </div>
 <script>
 const tl = gsap.timeline({{paused:true}});
+const UIQ = () => Array.from(document.querySelectorAll('#case,#sb,#dksb')).filter(Boolean);
 const T = {self.T};
 {chr(10).join(self.js)}
 window.__timelines = window.__timelines || {{}};

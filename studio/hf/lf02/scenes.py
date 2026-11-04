@@ -279,7 +279,7 @@ def s01():
            '<div style="font:156px/1 InterBlack;color:#ff3b3b;-webkit-text-stroke:8px #0c1622;paint-order:stroke fill;text-shadow:0 14px 0 rgba(0,0,0,.45)">CODE RED</div></div>')
     S.hide_txt(tB, S.T); S.j(f'tl.fromTo("#title",{{scale:2.6,opacity:0}},{{scale:1,opacity:1,duration:.2,ease:"power4.in"}},{tB:.3f});')
     S.shake(tB + .2, .4, 22); S.sfx(tB + .18, "hit", -2)
-    S.tr_out("doors", label="YOUR BODY")
+    S.tr_out("doors", label="")
     S.captions({"red": "#ff6b6b", "december": "#ff6b6b", "him": "#FFD166"})
     return S
 
@@ -945,9 +945,9 @@ def s10():
            f'</div>'
            f'<div class="static" id="scN" style="position:absolute;inset:0;opacity:.12"></div>'
            f'<div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.25) 0 2px,transparent 2px 5px)"></div>'
-           f'<div style="position:absolute;left:60px;top:44px;padding:4px 14px;background:rgba(0,0,0,.6);font:44px InterBlack;color:#e8ffe8">CAM 1 · HQ</div>'
+           f'<div style="position:absolute;left:60px;top:190px;padding:4px 14px;background:rgba(0,0,0,.6);font:44px InterBlack;color:#e8ffe8">CAM 1 · HQ</div>'
            f'<div id="rec" style="position:absolute;right:60px;top:44px;font:44px InterBlack;color:#ff4d4d">● REC</div>'
-           f'<div style="position:absolute;left:60px;top:120px;padding:4px 14px;background:rgba(0,0,0,.6);font:38px InterBlack;color:#e8ffe8">DEC 06 2026 · 06:00</div></div>')
+           f'<div style="position:absolute;left:60px;top:266px;padding:4px 14px;background:rgba(0,0,0,.6);font:38px InterBlack;color:#e8ffe8">DEC 06 2026 · 06:00</div></div>')
     S.j(f'tl.fromTo("#scN",{{backgroundPosition:"0px 0px"}},{{backgroundPosition:"41px 77px",duration:.05,repeat:{int((c1 - c0) / .05)},ease:"steps(1)",immediateRender:false}},{c0:.3f});'
         f'tl.fromTo("#rec",{{opacity:1}},{{opacity:0,duration:.4,yoyo:true,repeat:{int((c1 - c0) / .4)},ease:"steps(1)",immediateRender:false}},{c0:.3f});'
         f'tl.fromTo("#camI",{{scale:1}},{{scale:1.2,duration:{c1 - c0:.3f},ease:"none",immediateRender:false}},{c0:.3f});')
@@ -1011,7 +1011,7 @@ def s11r():
     S.add(X.alarm_fx("hq")); snowfall(S, "hqsnow", S.T)
     alarm_on(S, "hq", 0, S.T, beams=False)
     S.tr_in("doors", label="QUEEN'S PARK HQ")
-    S.location("QUEEN'S PARK HQ", "the case board", .45, 2.0)
+    S.est = .95
     S.talk_scale = 0
     S.push(S.est + .1, S.T, 1.0, 1.07, 1100, 480)
     t1, t2, t3 = S.w(70, "Stress"), S.w(70, "alarm"), S.w(70, "colds")
@@ -1034,7 +1034,7 @@ def s11r():
              f'<rect x="14" y="14" width="152" height="130" fill="#2a2f3a"/><text id="bq" x="90" y="110" text-anchor="middle" font-family="InterBlack" font-size="90" fill="#FAF4E8">?</text>'
              f'<image id="bme" href="assets/cy_down.png" x="22" y="10" width="136" height="148" opacity="0"/>'
              f'<text x="90" y="182" text-anchor="middle" font-family="InterBlack" font-size="26" fill="#0c1622">SUSPECT</text></g>'
-             f'<g id="bstamp" opacity="0" transform="translate(450 570) rotate(-12)"><rect x="-150" y="-44" width="300" height="88" rx="10" fill="none" stroke="#e63946" stroke-width="10"/>'
+             f'<g id="bstamp" opacity="0" transform="translate(450 545) rotate(-8)"><rect x="-150" y="-44" width="300" height="88" rx="10" fill="none" stroke="#e63946" stroke-width="10"/>'
              f'<text x="0" y="22" text-anchor="middle" font-family="InterBlack" font-size="60" fill="#e63946">IT’S ME</text></g></svg></div>')
     S.add(board)
     S.prop_in("#board", .3, "drop", origin="50% 0%", sfx="clunk", amp=.25)
@@ -1045,7 +1045,7 @@ def s11r():
     S.j(f'tl.to("#bstr",{{attr:{{"stroke-dashoffset":0}},duration:.5,ease:"power2.out"}},{tq:.3f});'
         f'tl.set("#bq",{{opacity:0}},{tme:.3f});tl.set("#bme",{{opacity:1}},{tme:.3f});gsap.set("#bsus",{{svgOrigin:"450 570"}});'
         f'tl.fromTo("#bsus",{{scaleX:1}},{{keyframes:[{{scaleX:0,duration:.08}},{{scaleX:1,duration:.12}}],immediateRender:false}},{tme - .08:.3f});'
-        f'tl.set("#bstamp",{{opacity:1}},{tme + .25:.3f});gsap.set("#bstamp",{{svgOrigin:"450 570"}});tl.fromTo("#bstamp",{{scale:2.5}},{{scale:1,duration:.22,ease:"power4.in",immediateRender:false}},{tme + .25:.3f});'
+        f'tl.set("#bstamp",{{opacity:1}},{tme + .25:.3f});gsap.set("#bstamp",{{svgOrigin:"450 545"}});tl.fromTo("#bstamp",{{scale:1.5}},{{scale:1,duration:.22,ease:"power4.in",immediateRender:false}},{tme + .25:.3f});'
         f'tl.set("#bhead",{{textContent:"NEXT: CHEAT CODES"}},{tfix:.3f});tl.fromTo("#bhead",{{scale:1.2}},{{scale:1,duration:.25,svgOrigin:"450 70",immediateRender:false}},{tfix:.3f});')
     S.sfx(tq, "rip", -12); S.sfx(tme + .25, "slam", -6); S.sfx(tfix, "coin", -8)
     S.cyto(400, 690, .58, expr=[(tme - .05, .8, "skeptic")], x_expr=[(t1, 1.4, "determined"), (t3, 1.2, "worried"), (tfix, 1.2, "smug")],
