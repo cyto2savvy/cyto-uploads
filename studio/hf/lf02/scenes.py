@@ -1014,6 +1014,7 @@ def s11r():
     S.est = .95
     S.talk_scale = 0
     S.push(S.est + .1, S.T, 1.0, 1.07, 1100, 480)
+    S.hide_txt(0, S.T)                       # the case board hangs over the HQ wall plaque
     t1, t2, t3 = S.w(70, "Stress"), S.w(70, "alarm"), S.w(70, "colds")
     tq, tme, tfix = S.w(70, "one"), S.w(70, "Me"), S.w(70, "fix")
     clue = lambda i, x, title, icon: (f'<g id="bc{i}" transform="translate({x} 130)"><g transform="rotate({(-3, 2, -2)[i - 1]} 110 120)">'
