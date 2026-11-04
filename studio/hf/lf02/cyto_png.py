@@ -9,7 +9,7 @@ for name, rot in (("down", 0), ("up", -128)):
 <script>const a=document.querySelector('#armR'); a.setAttribute('transform','rotate({rot} {R.SH_R[0]} {R.SH_R[1]})');</script></body></html>"""
     open(f"/home/claude/hf/lf02/_cy_{name}.html", "w").write(html)
 with sync_playwright() as p:
-    b = p.chromium.launch(); pg = b.new_page(viewport={"width": 1200, "height": 1300})
+    b = p.chromium.launch(executable_path='/opt/pw-browsers/chromium-1243/chrome-linux64/chrome'); pg = b.new_page(viewport={"width": 1200, "height": 1300})
     for name in ("down", "up"):
         pg.goto(f"file:///home/claude/hf/lf02/_cy_{name}.html"); pg.wait_for_timeout(300)
         pg.screenshot(path=f"/home/claude/hf/lf02/assets/cy_{name}.png", omit_background=True)

@@ -1,5 +1,5 @@
-"""LF02 fix pass packaging: timing.json + captions.srt (re-timed to the new audio) + meta.json chapters/duration/photo credit.
-pinned_comment.txt is left unchanged on purpose."""
+"""LF02 v3 packaging: timing.json + captions.srt (re-timed to the v3 audio) + meta.json chapters/duration/photo credit +
+pinned_comment.txt photo credits."""
 import json, re, sys
 sys.argv = [sys.argv[0]]
 sys.path.insert(0, "/home/claude/hf/lf02")
@@ -29,9 +29,10 @@ open(f"{EP}/captions.srt", "w").write("".join(f"{i + 1}\n{ts(a)} --> {ts(b)}\n{t
 # ---- chapters from the new cut (scene CUTS), whole seconds, every chapter >= 10 s
 import scenes as SCN
 C = SCN.CUTS
-chap = [(0, "Code red"), (C["s02"][0], "The body is the 6ix"), (C["s03"][0], "The incident report"), (C["s04"][0], "Mito vs The Alarm"),
-        (C["s07"][0], "When stress drags on"), (C["s09"][0], "Cold case: 1991"), (TM["beats"]["smirk"][0], "The twist"),
-        (C["s11"][0], "Holiday heart check"), (C["s12"][0], "Cheat codes"), (C["s15"][0], "Quiet"), (C["s17"][0], "Break starts + sources")]
+chap = [(0, "Code red"), (C["s02"][0], "Today's case: who keeps pulling the alarm?"), (C["s03"][0], "Clue 1: the incident report"),
+        (C["s04"][0], "Clue 2: Mito vs The Alarm"), (C["s07"][0], "When stress drags on"), (C["s09"][0], "Clue 3: cold case 1991"),
+        (C["s10"][0], "The twist"), (C["s11"][0], "Holiday heart check"), (C["s11r"][0], "Case recap + cheat codes"),
+        (C["s15"][0], "Quiet"), (C["s17"][0], "Break starts + sources")]
 secs = [int(t) for t, _ in chap]
 for a, b in zip(secs, secs[1:] + [int(TM["T"])]): assert b - a >= 10, (a, b)
 fmt = lambda s: f"{s // 60}:{s % 60:02d}"
@@ -49,3 +50,11 @@ m["end_screen"] = ("Last ~20s: subscribe element + LF01 (quit smoking) video ele
                    "ends with the Unsplash photo credit card); the final frame (Cyto in HQ, phone buzz, alarm flicker) hard-cuts back to the cold open = loop.")
 json.dump(m, open(f"{EP}/meta.json", "w"), indent=1, ensure_ascii=False)
 print("chapters", chapters, "T", TM["T"], "cues", len(cues))
+
+# ---- pinned comment: photo credits (v3)
+pc_f = f"{EP}/pinned_comment.txt"; pc = open(pc_f).read().rstrip()
+if "Photos:" not in pc:
+    pc = pc.replace("\n\nNot medical advice.", "\n\nPhotos (Unsplash): Ronin (@roninkgd) · Richard Burlton (@richardworks) · Chris Stewart (@pass_lake) · Zia Syed (@syedzia123).\n\nNot medical advice.")
+open(pc_f, "w").write(pc + "\n")
+m = json.load(open(f"{EP}/meta.json")); m["pinned_comment"] = pc; json.dump(m, open(f"{EP}/meta.json", "w"), indent=1, ensure_ascii=False)
+print("pinned comment:", pc[-220:])

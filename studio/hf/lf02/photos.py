@@ -49,9 +49,15 @@ bg = ImageEnhance.Brightness(grade(fit(sky, 2112, 1188, .6, .55), .3, NIGHT, MAG
 save(bg, "skyline_bg")
 save(ImageEnhance.Brightness(grade(fit(sky, 2112, 1188, .2, .8, 1.25), .22)).enhance(.85).filter(ImageFilter.GaussianBlur(2)), "skyline_block")
 
-# Queen's Park (landmark; its own building signage is part of the landmark) - cool, slightly dusky grade
+# Queen's Park: v3 = December blue hour so it matches the night look: cooler + darker duotone, blue-hour gradient wash,
+# warm windows kept; the falling-snow overlay is added in the scene (sets.snow layer over the plate)
 qp = Image.open(SRC.format("queens_park")).convert("RGB")
-save(ImageEnhance.Brightness(grade(fit(qp, 2112, 1188, .5, .62), .3, NIGHT, np.array([255, 205, 170]), sat=.75)).enhance(.82).filter(ImageFilter.GaussianBlur(1.0)), "queens_park")
+qpg = grade(fit(qp, 2112, 1188, .5, .62), .55, np.array([8, 14, 40]), np.array([150, 175, 235]), sat=.55, contrast=1.08)
+a = np.asarray(ImageEnhance.Brightness(qpg).enhance(.66)).astype(np.float32)
+yy = np.linspace(0, 1, a.shape[0])[:, None, None]
+wash = np.array([30, 52, 120], np.float32) * (1 - yy) + np.array([16, 24, 60], np.float32) * yy      # blue-hour sky -> night street
+a = a * .78 + wash * .22
+save(Image.fromarray(np.clip(a, 0, 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(1.0)), "queens_park")
 
 # Nathan Phillips Square: keep WIDE (distant skaters stay tiny), soft blur so no face is in focus
 npq = Image.open(SRC.format("nathan_phillips")).convert("RGB")

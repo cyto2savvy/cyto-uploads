@@ -15,7 +15,7 @@ threading.Thread(target=srv.serve_forever, daemon=True).start()
 SEEK = """(t)=>{ document.querySelectorAll('[data-start]').forEach(e=>{ if(e.id==='root')return; const s=+e.dataset.start,d=+e.dataset.duration;
   e.style.visibility=(t>=s-1e-3&&t<s+d-1e-3)?'':'hidden'; }); void window.__timelines.main.seek(t,false); }"""
 with sync_playwright() as p:
-    b = p.chromium.launch(args=["--use-gl=angle", "--use-angle=swiftshader", "--enable-unsafe-swiftshader"])
+    b = p.chromium.launch(executable_path='/opt/pw-browsers/chromium-1243/chrome-linux64/chrome', args=["--use-gl=angle", "--use-angle=swiftshader", "--enable-unsafe-swiftshader"])
     pg = b.new_page(viewport={"width": 1920, "height": 1080})
     errs = []; pg.on("pageerror", lambda e: errs.append(str(e)))
     pg.goto(f"http://127.0.0.1:{srv.server_address[1]}/{scene}/index.html"); pg.wait_for_timeout(1500)

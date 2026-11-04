@@ -72,6 +72,13 @@
   "tts": "It's in the report."
  },
  {
+  "n": 67,
+  "who": "NEUTRO",
+  "text": "That's the evidence. Now watch what it does. Follow me.",
+  "tts": "That's the evidence. Now watch what it does. Follow me.",
+  "slot": "N1"
+ },
+ {
   "n": 13,
   "who": "CYTO",
   "text": "Welcome to the pickup game nobody asked for! Your brain saw stress and hit the alarm. The signal runs down to your adrenal glands, these little condos sitting right on top of your kidneys. And they start pumping out stress hormones, like adrenaline and cortisol.",
@@ -150,6 +157,13 @@
   "tts": "Hold that thought."
  },
  {
+  "n": 68,
+  "who": "NEUTRO",
+  "text": "That was one bad day. Now make it a month.",
+  "tts": "That was one bad day. Now make it a month.",
+  "slot": "N2"
+ },
+ {
   "n": 26,
   "who": "CYTO",
   "text": "Now, a little stress? Normal. Useful, even. But days and days of it? That's where it gets weird.",
@@ -190,6 +204,14 @@
   "who": "CYTO",
   "text": "See? Security's distracted. And you know who loves a distracted officer?",
   "tts": "See? Security's distracted. And you know who loves a distracted officer?"
+ },
+ {
+  "n": 69,
+  "who": "CYTO",
+  "text": "Wait. Hold up. Has this happened before?",
+  "tts": "Wait. Hold up. Has this happened before?",
+  "take": "cyto3",
+  "slot": "C-bridge"
  },
  {
   "n": 33,
@@ -298,6 +320,14 @@
   "who": "NEUTRO",
   "text": "No waiting.",
   "tts": "No waiting."
+ },
+ {
+  "n": 70,
+  "who": "CYTO",
+  "text": "So. Stress flips the alarm. Too long, and colds walk in. And the one pulling it? Me. Let's fix that.",
+  "tts": "So. Stress flips the alarm. Too long, and colds walk in. And the one pulling it? Me. Let's fix that.",
+  "take": "cyto3",
+  "slot": "C-recap"
  },
  {
   "n": 51,

@@ -17,7 +17,8 @@ from scipy.signal import fftconvolve, butter, sosfilt
 D = "/home/claude/lf02"
 LINES = json.load(open("/home/user/cyto-uploads/studio/episodes/lf02/lines.json"))
 SR = 48000
-TAKES = {"cyto1": "lf02_cyto1", "cyto2": "lf02_cyto2", "neutro": "lf02_neutro", "mito": "lf02_mito"}
+TAKES = {"cyto1": "lf02_cyto1", "cyto2": "lf02_cyto2", "cyto3": "lf02v3_cyto3", "neutro": "lf02v3_neutro", "mito": "lf02_mito"}
+WORDS = {"cyto1": "lf02_words_cyto1", "cyto2": "lf02_words_cyto2", "cyto3": "words_cyto3", "neutro": "words_neutro_v3", "mito": "lf02_words_mito"}   # v3: NEW Neutro take (old voice retired)
 CAP_OVERRIDE = {14: "Wys fam! Let's run it!", 6: None}
 
 
@@ -32,14 +33,14 @@ norm = lambda s: re.sub(r"[^a-z0-9]", "", s.lower().replace("1", "one"))
 audio, words = {}, {}
 for k, f in TAKES.items():
     audio[k] = load(f)
-    words[k] = [w for w in json.load(open(f"{D}/lf02_words_{k}.json"))["words"] if w.get("type", "word") == "word"]
+    words[k] = [w for w in json.load(open(f"{D}/{WORDS[k]}.json"))["words"] if w.get("type", "word") == "word"]
 ptr = {k: 0 for k in TAKES}
 cyto_split = 35
 cut = {}
-for L in LINES:
+for L in LINES:   # list order = take order
     if not norm(L["tts"]):
         continue
-    k = L["who"].lower() if L["who"] != "CYTO" else ("cyto1" if L["n"] <= cyto_split else "cyto2")
+    k = L.get("take") or (L["who"].lower() if L["who"] != "CYTO" else ("cyto1" if L["n"] <= cyto_split else "cyto2"))
     toks = L["tts"].split()
     span = words[k][ptr[k]:ptr[k] + len(toks)]
     assert [norm(t) for t in toks] == [norm(w["text"]) for w in span], (L["n"], toks, [w["text"] for w in span])
@@ -48,28 +49,33 @@ for L in LINES:
 for k in TAKES: assert ptr[k] == len(words[k]), (k, ptr[k], len(words[k]))
 
 # ---------- 2. running order. ("L", n, handoff kind) / ("B", name, seconds of action between the two speeches)
-GAP = {"R": .14, "F": .05, "O": -.08, "P": .42, "H": .58, "S": .30, "L": .36, "J": .0}
+GAP = {"R": .14, "F": .06, "O": -.08, "P": .42, "H": .58, "S": .30, "L": .36, "J": .0}
+# v3 running order: every location change is a named beat (walk-out + subway doors + 0.6-0.8 s establishing wide w/ title card)
 ORDER = [
     ("L", 1, "J"), ("L", 2, "P"), ("L", 3, "F"), ("L", 4, "P"), ("L", 5, "H"),
     ("B", "title", .80), ("L", 6, "J"),
-    ("B", "to_report", .30), ("L", 7, "J"), ("L", 8, "L"), ("L", 9, "L"), ("L", 10, "L"), ("L", 11, "F"), ("L", 12, "R"),
-    ("B", "to_condos", .60), ("L", 13, "J"),
-    ("L", 14, "O"), ("L", 15, "F"), ("L", 16, "S"), ("L", 17, "S"), ("L", 18, "O"),
-    ("B", "dunk", 1.35), ("L", 19, "J"), ("L", 20, "F"), ("L", 21, "F"), ("L", 22, "H"),
+    ("B", "to_report", 1.15), ("L", 7, "J"), ("L", 8, "L"), ("L", 9, "L"), ("L", 10, "L"), ("L", 11, "R"), ("L", 12, "F"),
+    ("L", 67, "R"),                                   # N1 "That's the evidence... Follow me."
+    ("B", "to_court", 1.85), ("L", 13, "J"),          # walk out -> doors -> court establishing + title card
+    ("L", 14, "R"), ("L", 15, "R"), ("L", 16, "S"), ("L", 17, "S"), ("L", 18, "F"),
+    ("B", "dunk", 1.80), ("L", 19, "J"), ("L", 20, "R"), ("L", 21, "F"), ("L", 22, "H"),
     ("B", "subbed", .75), ("L", 23, "J"), ("L", 24, "O"), ("L", 25, "F"),
-    ("B", "countdown", .70), ("L", 26, "J"), ("B", "bench", .40), ("L", 27, "J"), ("L", 28, "R"),
-    ("B", "crumb", .75), ("L", 29, "J"), ("L", 30, "F"), ("L", 31, "P"), ("L", 32, "R"),
-    ("B", "heist", 1.50), ("B", "noir", .30), ("L", 33, "J"), ("L", 34, "S"), ("L", 35, "O"), ("L", 36, "F"),
+    ("B", "n2walk", .45), ("L", 68, "J"),             # N2 "That was one bad day. Now make it a month." (Neutro walks in)
+    ("B", "to_bench", 1.60), ("L", 26, "J"), ("B", "bench", .40), ("L", 27, "J"), ("L", 28, "R"),
+    ("B", "crumb", .75), ("L", 29, "J"), ("L", 30, "F"), ("L", 31, "F"), ("L", 32, "R"),
+    ("B", "heist", 1.50), ("L", 69, "J"),             # C-bridge "Wait. Hold up. Has this happened before?"
+    ("B", "noir", 1.35), ("L", 33, "J"), ("L", 34, "S"), ("L", 35, "O"), ("L", 36, "F"),
     ("B", "reenact", .85), ("L", 37, "J"), ("L", 38, "S"), ("L", 39, "S"),
     ("B", "silence", .75), ("L", 40, "J"), ("L", 41, "P"), ("L", 42, "R"),
-    ("B", "smirk", .80), ("L", 43, "J"), ("L", 44, "F"),
+    ("B", "smirk", .62), ("B", "to_hq", 1.20), ("L", 43, "J"), ("L", 44, "R"),
     ("B", "seccam", 1.80), ("L", 45, "J"), ("L", 46, "J"), ("L", 47, "J"),
-    ("B", "to_heart", .80), ("L", 48, "J"), ("L", 49, "S"), ("L", 50, "R"),
-    ("B", "to_cheats", .55), ("L", 51, "J"), ("L", 52, "S"), ("B", "breathe", .85), ("L", 53, "J"), ("L", 54, "F"), ("L", 55, "F"),
-    ("L", 56, "L"), ("B", "sidequest", .85), ("L", 57, "J"),
+    ("B", "to_heart", 1.25), ("L", 48, "J"), ("L", 49, "S"), ("L", 50, "R"),
+    ("B", "to_recap", 1.25), ("L", 70, "J"),          # C-recap: CASE board, all clues ticked
+    ("L", 51, "S"), ("L", 52, "S"), ("B", "breathe", .85), ("L", 53, "J"), ("L", 54, "R"), ("L", 55, "F"),
+    ("B", "to_city", 1.15), ("L", 56, "J"), ("B", "sidequest", .85), ("B", "to_hq3", 1.15), ("L", 57, "J"),
     ("B", "mute", .80), ("B", "chirp", .90), ("L", 58, "J"), ("L", 59, "R"), ("L", 60, "P"),
-    ("B", "spot", .75), ("L", 61, "J"), ("B", "achoo", 1.60), ("L", 62, "J"), ("L", 63, "F"),
-    ("B", "breakstarts", .75), ("L", 64, "J"), ("L", 65, "F"), ("L", 66, "S"), ("B", "end", 1.6),
+    ("B", "spot", .75), ("L", 61, "J"), ("B", "achoo", 1.60), ("L", 62, "J"), ("L", 63, "R"),
+    ("B", "breakstarts", .75), ("L", 64, "J"), ("L", 65, "R"), ("L", 66, "S"), ("B", "end", 1.6),
 ]
 SILENT_HOLD = {45: 0.9, 46: 0.9}      # the twist's "…" reaction holds (no audio)
 BEAT_PAD = (.06, .08)                 # beat interval starts 0.06 after the speech; next speech 0.08 after the beat
