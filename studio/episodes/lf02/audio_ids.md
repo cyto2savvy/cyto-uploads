@@ -13,3 +13,6 @@ Silent beats with no audio line: Neutro's "…" (twist), Cyto's "…" (twist). A
 | cyto3 | Cyto MDpsT9lfiqWEMyN3A1bk | j87TbUJDeVbrOhhjzkp8 | 0649ECIlF5hzGSYqKFjk | 10.32 | 142 | words_cyto3.json | audio/lf02v3_cyto3.mp3 |
 The v3 Neutro take REPLACES the old Neutro take (old Neutro voice NMwm51... is retired). It holds the same Neutro lines + 2 new bridge lines (see lines_v3_new.md).
 Cyto3 holds 2 new Cyto lines (C-bridge before the 1991 case; C-recap before the cheat codes).
+
+## LF02 v3 build (Nov 4, 2026): NO new generations
+The v3 video uses ONLY already-recorded audio: cyto1 + cyto2 + mito (v1 takes) + neutro_v3 + cyto3 (above). Nothing was regenerated on ElevenLabs (0 credits), no new SFX generations (door chime, door slide, rim clang/shake, net whip, dust, bounce synthesized in numpy). Line map: lines.json (new lines n=67 N1, 68 N2, 69 C-bridge, 70 C-recap; list order = take order).

@@ -306,6 +306,10 @@ def s02():
     tQP = S.w(6, "inside") - .04; tR = S.w(6, "lowkey") - .3
     S.photo("phS", "skyline", 0, tQP + .2, (1.0, 1.1), z=50, ox="62%", oy="40%")
     S.photo("phQ", "queens_park", tQP, tR + .2, (1.03, 1.12), z=51, ox="50%", oy="55%")
+    # v3: December blue hour on the real photos: falling snow over both plates (same snow as the cartoon sets)
+    S.add(f'<div id="phSnowW" class="clip" data-start="0" data-duration="{tR + .2:.3f}" style="position:absolute;inset:0;z-index:53;overflow:hidden"><svg width="1920" height="1080">{X.snow("phsnow", 90, 11, y0=-300)}</svg></div>')
+    S.add(f'<div class="clip" data-start="0" data-duration="{tR + .2:.3f}" style="position:absolute;inset:0;z-index:52;background:linear-gradient(rgba(30,52,120,.18),rgba(13,24,56,.28))"></div>')
+    snowfall(S, "phsnow", S.T, 320)
     S.tr_in("doors", label="YOUR BODY")
     S.j(f'tl.to("#title",{{scale:.6,opacity:0,duration:.25,ease:"power3.in"}},.75);')
     S.over(f'<div id="title" class="clip" data-start="0" data-duration="1.1" style="position:absolute;left:780px;right:40px;top:110px;text-align:center;z-index:97">'
@@ -874,11 +878,12 @@ def s09():
            + reel("".join(SCI(x) for x in (340, 740, 1140, 1540)) + vols + drops + hops + sneeze
                   + '<text x="1820" y="140" text-anchor="end" font-family="InterBlack" font-size="34" fill="#111">REENACTMENT</text>') + '</div>')
     S.j(f'tl.fromTo("#reel",{{opacity:0,scale:1.04}},{{opacity:1,scale:1,duration:.18,ease:"power3.out"}},{ra:.3f});tl.to("#reel",{{opacity:0,scale:.96,duration:.2}},{rb - .2:.3f});'
-        f'document.querySelectorAll("#reel .drp").forEach((e,i)=>tl.fromTo(e,{{y:0,opacity:1}},{{y:270,opacity:.3,duration:.45,ease:"power2.in",repeat:4,repeatDelay:.35,immediateRender:false}},{ra + .3:.3f}+i*.12));'
+        f'document.querySelectorAll("#reel .drp").forEach((e,i)=>tl.fromTo(e,{{y:0,opacity:1}},{{y:270,opacity:.3,duration:.45,ease:"power2.in",repeat:{int((rb - ra) / .8) + 1},repeatDelay:.35,immediateRender:false}},{ra + .3:.3f}+i*.12));'
         f'document.querySelectorAll("#reel .trh").forEach((e,i)=>tl.fromTo(e,{{x:0,y:0,opacity:1,scale:1}},{{keyframes:[{{x:80,y:-120,duration:.25,ease:"power2.out"}},{{x:160,y:-40,scale:.4,duration:.25,ease:"power2.in"}},{{opacity:0,duration:.05}}],immediateRender:false}},{re0 + .1:.3f}+i*.2));'
         f'document.querySelectorAll("#reel .volB").forEach((e,i)=>tl.fromTo(e,{{scaleY:1,scaleX:1}},{{keyframes:[{{scaleY:.85,scaleX:1.12,duration:.1}},{{scaleY:1.1,scaleX:.92,duration:.1}},{{scaleY:1,scaleX:1,duration:.15}}],immediateRender:false}},{re1 + .2:.3f}+i*.25));'
         f'document.querySelectorAll("#reel .snz").forEach((e,i)=>tl.fromTo(e,{{opacity:0,y:0}},{{opacity:1,y:-30,duration:.2,yoyo:true,repeat:1,repeatDelay:.3,immediateRender:false}},{re1 + .2:.3f}+i*.25));')
     for i in range(4): S.sfx(ra + .3 + i * .12, "drip", -10); S.sfx(re1 + .2 + i * .25, "achoo_small", -14)
+    S.j(f'tl.fromTo("#reel svg",{{scale:1}},{{scale:1.06,duration:{rb - ra:.3f},ease:"none",transformOrigin:"960px 540px",immediateRender:false}},{ra:.3f});')
     for i in range(4): S.sfx(re0 + .1 + i * .2, "boing", -16)
     # the NUMBERS: a chart rolls down over the window like a projector screen; Neutro points, bars fill, Cyto reacts
     b0 = l[38][0] - .35; b1 = si0 + .2

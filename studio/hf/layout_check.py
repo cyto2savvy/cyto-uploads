@@ -116,7 +116,7 @@ def add(d, key, t, msg):
     d.setdefault((key, msg), []).append(t)
 
 with sync_playwright() as p:
-    b = p.chromium.launch()
+    b = p.chromium.launch(executable_path='/opt/pw-browsers/chromium-1243/chrome-linux64/chrome', )
     pg = b.new_page(viewport={"width": W, "height": Hh})
     errs = []
     pg.on("pageerror", lambda e: errs.append(str(e)))
