@@ -635,3 +635,65 @@ def lungs(cx, cy, s=1.0, idp="lg"):
  <path d="M-60 -60 Q-110 0 -90 80 M60 -60 Q110 0 90 80" fill="none" stroke="#c46a7a" stroke-width="6" stroke-linecap="round"/>
  <g id="{idp}Hurt">{cr}</g>
 </g></g>'''
+
+
+def poppy(cx, cy, r=60, idp="pp", stroke=6):
+    """Generic felt poppy (plain red petals, black centre; NO logo, no text, no pin branding). ids: {idp}P0..3 petals, {idp}C centre."""
+    pet = []
+    for k, (dx, dy, rr) in enumerate(((-0.42, -0.36, .66), (0.42, -0.36, .66), (-0.40, 0.40, .64), (0.40, 0.40, .64))):
+        x, y = cx + dx * r, cy + dy * r
+        pet.append(f'<g id="{idp}P{k}"><ellipse cx="{x:.1f}" cy="{y:.1f}" rx="{rr * r:.1f}" ry="{rr * r * .92:.1f}" fill="#d7262e" stroke="{INK}" stroke-width="{stroke}"/>'
+                   f'<path d="M{cx:.1f} {cy:.1f} Q{(cx + x) / 2 + dy * r * .2:.1f} {(cy + y) / 2 - dx * r * .2:.1f} {x + dx * r * .5:.1f} {y + dy * r * .5:.1f}" '
+                   f'stroke="#a8141c" stroke-width="{max(2, stroke * .6):.1f}" fill="none" stroke-linecap="round"/></g>')
+    return (f'<g id="{idp}">{"".join(pet)}<circle id="{idp}C" cx="{cx}" cy="{cy}" r="{r * .3:.1f}" fill="#141414" stroke="{INK}" stroke-width="{stroke * .7:.1f}"/>'
+            f'<circle cx="{cx - r * .08:.1f}" cy="{cy - r * .08:.1f}" r="{r * .07:.1f}" fill="#3a3a3a"/></g>')
+
+
+def old_city_hall(cx, base, s=1.0, idp="och"):
+    """Old City Hall (Queen & Bay), flat Romanesque silhouette: long sandstone block with arched windows, corner turrets and the
+    tall central clock tower. Clock centre = (cx, base - 720*s). ids: {idp}H (hour hand), {idp}M (minute hand), {idp}Win (windows)."""
+    S = lambda v: v * s
+    st, dk, rf = "#b98d72", "#9c7158", "#4d5a6b"
+    wins = []
+    for row, y0 in enumerate((base - S(300), base - S(190))):
+        for k in range(-7, 8):
+            if abs(k) <= 1: continue
+            x = cx + k * S(68)
+            wins.append(f'<path class="ochw" d="M{x - S(18):.0f} {y0 + S(70):.0f} V{y0 + S(24):.0f} Q{x:.0f} {y0:.0f} {x + S(18):.0f} {y0 + S(24):.0f} V{y0 + S(70):.0f}Z" fill="#ffe6a8" opacity=".55" stroke="{INK}" stroke-width="{S(4):.0f}"/>')
+    turret = lambda x: (f'<rect x="{x - S(46):.0f}" y="{base - S(470):.0f}" width="{S(92):.0f}" height="{S(470):.0f}" fill="{st}" stroke="{INK}" stroke-width="{S(6):.0f}"/>'
+                        f'<path d="M{x - S(56):.0f} {base - S(470):.0f} L{x:.0f} {base - S(600):.0f} L{x + S(56):.0f} {base - S(470):.0f}Z" fill="{rf}" stroke="{INK}" stroke-width="{S(6):.0f}"/>')
+    ccx, ccy, cr = cx, base - S(720), S(56)
+    ticks = "".join(f'<circle cx="{ccx + math.sin(math.radians(a)) * cr * .78:.1f}" cy="{ccy - math.cos(math.radians(a)) * cr * .78:.1f}" r="{S(4 if a % 90 else 6):.1f}" fill="{INK}"/>' for a in range(0, 360, 30))
+    return f'''<g id="{idp}">
+ <rect x="{cx - S(540):.0f}" y="{base - S(380):.0f}" width="{S(1080):.0f}" height="{S(380):.0f}" fill="{st}" stroke="{INK}" stroke-width="{S(6):.0f}"/>
+ <path d="M{cx - S(560):.0f} {base - S(380):.0f} L{cx - S(500):.0f} {base - S(440):.0f} H{cx + S(500):.0f} L{cx + S(560):.0f} {base - S(380):.0f}Z" fill="{rf}" stroke="{INK}" stroke-width="{S(6):.0f}"/>
+ <rect x="{cx - S(540):.0f}" y="{base - S(220):.0f}" width="{S(1080):.0f}" height="{S(14):.0f}" fill="{dk}"/>
+ <g id="{idp}Win">{"".join(wins)}</g>
+ {turret(cx - S(470))}{turret(cx + S(470))}
+ <rect x="{cx - S(84):.0f}" y="{base - S(840):.0f}" width="{S(168):.0f}" height="{S(840):.0f}" fill="{st}" stroke="{INK}" stroke-width="{S(7):.0f}"/>
+ <path d="M{cx - S(48):.0f} {base} V{base - S(130):.0f} Q{cx:.0f} {base - S(190):.0f} {cx + S(48):.0f} {base - S(130):.0f} V{base}Z" fill="#3a2a22" stroke="{INK}" stroke-width="{S(6):.0f}"/>
+ {"".join(f'<path d="M{cx + dx - S(14):.0f} {base - S(820) + S(60):.0f} V{base - S(820) + S(24):.0f} Q{cx + dx:.0f} {base - S(820) + S(8):.0f} {cx + dx + S(14):.0f} {base - S(820) + S(24):.0f} V{base - S(820) + S(60):.0f}Z" fill="#2a3242" stroke="{INK}" stroke-width="{S(4):.0f}"/>' for dx in (-S(44), 0, S(44)))}
+ <path d="M{cx - S(100):.0f} {base - S(840):.0f} L{cx:.0f} {base - S(1060):.0f} L{cx + S(100):.0f} {base - S(840):.0f}Z" fill="{rf}" stroke="{INK}" stroke-width="{S(7):.0f}"/>
+ <path d="M{cx:.0f} {base - S(1060):.0f} V{base - S(1120):.0f}" stroke="{INK}" stroke-width="{S(6):.0f}"/>
+ <circle cx="{ccx:.0f}" cy="{ccy:.0f}" r="{cr * 1.18:.1f}" fill="{dk}" stroke="{INK}" stroke-width="{S(6):.0f}"/>
+ <circle cx="{ccx:.0f}" cy="{ccy:.0f}" r="{cr:.1f}" fill="#f4ecd8" stroke="{INK}" stroke-width="{S(6):.0f}"/>{ticks}
+ <g id="{idp}H"><path d="M{ccx:.0f} {ccy:.0f} V{ccy - cr * .48:.1f}" stroke="{INK}" stroke-width="{S(9):.0f}" stroke-linecap="round"/></g>
+ <g id="{idp}M"><path d="M{ccx:.0f} {ccy:.0f} V{ccy - cr * .74:.1f}" stroke="{INK}" stroke-width="{S(6):.0f}" stroke-linecap="round"/></g>
+ <circle cx="{ccx:.0f}" cy="{ccy:.0f}" r="{S(7):.1f}" fill="{INK}"/>
+</g>'''
+
+
+def cenotaph(x, base, s=1.0, idp="cen"):
+    """Plain granite cenotaph (stepped base + tall pylon, no inscriptions/symbols) with poppy wreaths. ids: {idp}Wr (wreaths)."""
+    S = lambda v: v * s; g, gd = "#c8c6c0", "#a9a7a1"
+    steps = "".join(f'<rect x="{x - S(w):.0f}" y="{base - S(h):.0f}" width="{S(2 * w):.0f}" height="{S(22):.0f}" fill="{gd}" stroke="{INK}" stroke-width="{S(5):.0f}"/>'
+                    for w, h in ((130, 22), (110, 44), (90, 66)))
+    wreath = lambda wx, wy, r: (f'<circle cx="{wx:.0f}" cy="{wy:.0f}" r="{r:.0f}" fill="none" stroke="#2f6b3a" stroke-width="{r * .42:.0f}"/>'
+                                f'<circle cx="{wx:.0f}" cy="{wy:.0f}" r="{r:.0f}" fill="none" stroke="{INK}" stroke-width="{S(3):.0f}" opacity=".5"/>'
+                                + "".join(f'<circle cx="{wx + math.cos(math.radians(a)) * r:.1f}" cy="{wy + math.sin(math.radians(a)) * r:.1f}" r="{r * .2:.1f}" fill="#d7262e" stroke="{INK}" stroke-width="{S(2):.1f}"/>' for a in range(0, 360, 45)))
+    return f'''<g id="{idp}">{steps}
+ <path d="M{x - S(54):.0f} {base - S(66):.0f} L{x - S(40):.0f} {base - S(560):.0f} H{x + S(40):.0f} L{x + S(54):.0f} {base - S(66):.0f}Z" fill="{g}" stroke="{INK}" stroke-width="{S(6):.0f}"/>
+ <rect x="{x - S(52):.0f}" y="{base - S(590):.0f}" width="{S(104):.0f}" height="{S(34):.0f}" fill="{gd}" stroke="{INK}" stroke-width="{S(5):.0f}"/>
+ <path d="M{x - S(20):.0f} {base - S(520):.0f} V{base - S(110):.0f}" stroke="{gd}" stroke-width="{S(6):.0f}"/>
+ <g id="{idp}Wr">{wreath(x - S(70), base - S(40), S(30))}{wreath(x + S(72), base - S(36), S(28))}{wreath(x, base - S(100), S(32))}</g>
+</g>'''

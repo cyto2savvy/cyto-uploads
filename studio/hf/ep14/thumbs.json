@@ -1,0 +1,68 @@
+{
+ "thumb-ep14-A": {
+  "series": "6IXTY SECONDS OF SCIENCE",
+  "headline": [
+   "YOUR HEART",
+   "SLOWS DOWN"
+  ],
+  "hot": "SLOWS DOWN",
+  "hl_size": 122,
+  "hero_svg": "<svg width=\"1080\" height=\"1920\" style=\"position:absolute;left:0;top:0;overflow:visible\">\n<defs><filter id=\"gl\" x=\"-50%\" y=\"-50%\" width=\"200%\" height=\"200%\"><feGaussianBlur stdDeviation=\"22\"/></filter></defs>\n<g transform=\"translate(640,800) scale(3.0)\"><path d=\"M0 40 C-90 -20 -70 -95 -20 -80 C-5 -76 0 -62 0 -52 C0 -62 5 -76 20 -80 C70 -95 90 -20 0 40Z\" fill=\"#ff5a4d\" opacity=\".55\" filter=\"url(#gl)\"/><path d=\"M0 40 C-90 -20 -70 -95 -20 -80 C-5 -76 0 -62 0 -52 C0 -62 5 -76 20 -80 C70 -95 90 -20 0 40Z\" fill=\"#ff5a4d\" stroke=\"#0c1622\" stroke-width=\"4\"/>\n<path d=\"M-48 -52 Q-58 -30 -44 -10\" stroke=\"#fff\" stroke-width=\"5\" stroke-linecap=\"round\" fill=\"none\" opacity=\".6\"/></g>\n<path d=\"M80 1060 L102 1060 L111 1054 L116 1068 L120 980 L125 1084 L131 1060 L146 1048 L158 1060 L192 1060 L201 1054 L206 1068 L210 980 L215 1084 L221 1060 L236 1048 L248 1060 L282 1060 L291 1054 L296 1068 L300 980 L305 1084 L311 1060 L326 1048 L338 1060 L372 1060 L381 1054 L386 1068 L390 980 L395 1084 L401 1060 L416 1048 L428 1060 L462 1060 L471 1054 L476 1068 L480 980 L485 1084 L491 1060 L506 1048 L518 1060 L552 1076 L561 1071 L566 1083 L570 1010 L575 1096 L581 1076 L596 1066 L608 1076 L682 1092 L691 1088 L696 1097 L700 1038 L705 1108 L711 1092 L726 1084 L738 1092 L852 1108 L861 1105 L866 1112 L870 1064 L875 1121 L881 1108 L896 1101 L908 1108 L1040 1110\" fill=\"none\" stroke=\"#FFD166\" stroke-width=\"22\" stroke-linejoin=\"round\" stroke-linecap=\"round\" opacity=\".35\" filter=\"url(#gl)\"/>\n<path d=\"M80 1060 L102 1060 L111 1054 L116 1068 L120 980 L125 1084 L131 1060 L146 1048 L158 1060 L192 1060 L201 1054 L206 1068 L210 980 L215 1084 L221 1060 L236 1048 L248 1060 L282 1060 L291 1054 L296 1068 L300 980 L305 1084 L311 1060 L326 1048 L338 1060 L372 1060 L381 1054 L386 1068 L390 980 L395 1084 L401 1060 L416 1048 L428 1060 L462 1060 L471 1054 L476 1068 L480 980 L485 1084 L491 1060 L506 1048 L518 1060 L552 1076 L561 1071 L566 1083 L570 1010 L575 1096 L581 1076 L596 1066 L608 1076 L682 1092 L691 1088 L696 1097 L700 1038 L705 1108 L711 1092 L726 1084 L738 1092 L852 1108 L861 1105 L866 1112 L870 1064 L875 1121 L881 1108 L896 1101 L908 1108 L1040 1110\" fill=\"none\" stroke=\"#FAF4E8\" stroke-width=\"10\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/>\n<path d=\"M80 1060 H1040\" stroke=\"#96b0c4\" stroke-width=\"5\" stroke-dasharray=\"14 14\" opacity=\".7\"/>\n</svg>",
+  "hero_xy": [
+   640,
+   800
+  ],
+  "glow": "#ff5a4d",
+  "bg1": "#0e1a2e",
+  "bg2": "#15284a",
+  "hero_dy": 0,
+  "cyto": [
+   420,
+   1430,
+   0.82
+  ],
+  "face": "calm",
+  "arm": "none",
+  "look": [
+   14,
+   -10
+  ],
+  "tilt": -3,
+  "pom": -8,
+  "outfit": "outfit_coat",
+  "cup_down": true
+ },
+ "thumb-ep14-B": {
+  "series": "6IXTY SECONDS OF SCIENCE",
+  "headline": [
+   "THE 11:00",
+   "SILENCE"
+  ],
+  "hot": "11:00",
+  "hl_size": 150,
+  "hero_svg": "<svg width=\"1080\" height=\"1920\" style=\"position:absolute;left:0;top:0;overflow:visible\"><g><g id=\"tb\">\n <rect x=\"47\" y=\"1139\" width=\"1026\" height=\"361\" fill=\"#b98d72\" stroke=\"#0c1622\" stroke-width=\"6\"/>\n <path d=\"M28 1139 L85 1082 H1035 L1092 1139Z\" fill=\"#4d5a6b\" stroke=\"#0c1622\" stroke-width=\"6\"/>\n <rect x=\"47\" y=\"1291\" width=\"1026\" height=\"13\" fill=\"#9c7158\"/>\n <g id=\"tbWin\"><path class=\"ochw\" d=\"M91 1282 V1238 Q108 1215 125 1238 V1282Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M155 1282 V1238 Q172 1215 190 1238 V1282Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M220 1282 V1238 Q237 1215 254 1238 V1282Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M284 1282 V1238 Q302 1215 319 1238 V1282Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M349 1282 V1238 Q366 1215 383 1238 V1282Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M414 1282 V1238 Q431 1215 448 1238 V1282Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M672 1282 V1238 Q689 1215 706 1238 V1282Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M737 1282 V1238 Q754 1215 771 1238 V1282Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M801 1282 V1238 Q818 1215 836 1238 V1282Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M866 1282 V1238 Q883 1215 900 1238 V1282Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M930 1282 V1238 Q948 1215 965 1238 V1282Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M995 1282 V1238 Q1012 1215 1029 1238 V1282Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M91 1386 V1342 Q108 1320 125 1342 V1386Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M155 1386 V1342 Q172 1320 190 1342 V1386Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M220 1386 V1342 Q237 1320 254 1342 V1386Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M284 1386 V1342 Q302 1320 319 1342 V1386Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M349 1386 V1342 Q366 1320 383 1342 V1386Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M414 1386 V1342 Q431 1320 448 1342 V1386Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M672 1386 V1342 Q689 1320 706 1342 V1386Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M737 1386 V1342 Q754 1320 771 1342 V1386Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M801 1386 V1342 Q818 1320 836 1342 V1386Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M866 1386 V1342 Q883 1320 900 1342 V1386Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M930 1386 V1342 Q948 1320 965 1342 V1386Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/><path class=\"ochw\" d=\"M995 1386 V1342 Q1012 1320 1029 1342 V1386Z\" fill=\"#ffe6a8\" opacity=\".55\" stroke=\"#0c1622\" stroke-width=\"4\"/></g>\n <rect x=\"70\" y=\"1054\" width=\"87\" height=\"446\" fill=\"#b98d72\" stroke=\"#0c1622\" stroke-width=\"6\"/><path d=\"M60 1054 L114 930 L167 1054Z\" fill=\"#4d5a6b\" stroke=\"#0c1622\" stroke-width=\"6\"/><rect x=\"963\" y=\"1054\" width=\"87\" height=\"446\" fill=\"#b98d72\" stroke=\"#0c1622\" stroke-width=\"6\"/><path d=\"M953 1054 L1006 930 L1060 1054Z\" fill=\"#4d5a6b\" stroke=\"#0c1622\" stroke-width=\"6\"/>\n <rect x=\"480\" y=\"702\" width=\"160\" height=\"798\" fill=\"#b98d72\" stroke=\"#0c1622\" stroke-width=\"7\"/>\n <path d=\"M514 1500 V1376 Q560 1320 606 1376 V1500Z\" fill=\"#3a2a22\" stroke=\"#0c1622\" stroke-width=\"6\"/>\n <path d=\"M505 778 V744 Q518 729 532 744 V778Z\" fill=\"#2a3242\" stroke=\"#0c1622\" stroke-width=\"4\"/><path d=\"M547 778 V744 Q560 729 573 744 V778Z\" fill=\"#2a3242\" stroke=\"#0c1622\" stroke-width=\"4\"/><path d=\"M588 778 V744 Q602 729 615 744 V778Z\" fill=\"#2a3242\" stroke=\"#0c1622\" stroke-width=\"4\"/>\n <path d=\"M465 702 L560 493 L655 702Z\" fill=\"#4d5a6b\" stroke=\"#0c1622\" stroke-width=\"7\"/>\n <path d=\"M560 493 V436\" stroke=\"#0c1622\" stroke-width=\"6\"/>\n <circle cx=\"560\" cy=\"816\" r=\"62.8\" fill=\"#9c7158\" stroke=\"#0c1622\" stroke-width=\"6\"/>\n <circle cx=\"560\" cy=\"816\" r=\"53.2\" fill=\"#f4ecd8\" stroke=\"#0c1622\" stroke-width=\"6\"/><circle cx=\"560.0\" cy=\"774.5\" r=\"5.7\" fill=\"#0c1622\"/><circle cx=\"580.7\" cy=\"780.1\" r=\"3.8\" fill=\"#0c1622\"/><circle cx=\"595.9\" cy=\"795.3\" r=\"3.8\" fill=\"#0c1622\"/><circle cx=\"601.5\" cy=\"816.0\" r=\"5.7\" fill=\"#0c1622\"/><circle cx=\"595.9\" cy=\"836.7\" r=\"3.8\" fill=\"#0c1622\"/><circle cx=\"580.7\" cy=\"851.9\" r=\"3.8\" fill=\"#0c1622\"/><circle cx=\"560.0\" cy=\"857.5\" r=\"5.7\" fill=\"#0c1622\"/><circle cx=\"539.3\" cy=\"851.9\" r=\"3.8\" fill=\"#0c1622\"/><circle cx=\"524.1\" cy=\"836.7\" r=\"3.8\" fill=\"#0c1622\"/><circle cx=\"518.5\" cy=\"816.0\" r=\"5.7\" fill=\"#0c1622\"/><circle cx=\"524.1\" cy=\"795.3\" r=\"3.8\" fill=\"#0c1622\"/><circle cx=\"539.3\" cy=\"780.1\" r=\"3.8\" fill=\"#0c1622\"/>\n <g id=\"tbH\" transform=\"rotate(330 560 816)\"><path d=\"M560 816 V790.5\" stroke=\"#0c1622\" stroke-width=\"9\" stroke-linecap=\"round\"/></g>\n <g id=\"tbM\"><path d=\"M560 816 V776.6\" stroke=\"#0c1622\" stroke-width=\"6\" stroke-linecap=\"round\"/></g>\n <circle cx=\"560\" cy=\"816\" r=\"6.6\" fill=\"#0c1622\"/>\n</g></g>\n<circle cx=\"560\" cy=\"816\" r=\"96\" fill=\"none\" stroke=\"#FFD166\" stroke-width=\"10\" opacity=\".9\"/>\n<g><g id=\"tp\"><g id=\"tpP0\"><ellipse cx=\"808.0\" cy=\"604.0\" rx=\"66.0\" ry=\"60.7\" fill=\"#d7262e\" stroke=\"#0c1622\" stroke-width=\"9\"/><path d=\"M850.0 640.0 Q821.8 630.4 787.0 586.0\" stroke=\"#a8141c\" stroke-width=\"5.4\" fill=\"none\" stroke-linecap=\"round\"/></g><g id=\"tpP1\"><ellipse cx=\"892.0\" cy=\"604.0\" rx=\"66.0\" ry=\"60.7\" fill=\"#d7262e\" stroke=\"#0c1622\" stroke-width=\"9\"/><path d=\"M850.0 640.0 Q863.8 613.6 913.0 586.0\" stroke=\"#a8141c\" stroke-width=\"5.4\" fill=\"none\" stroke-linecap=\"round\"/></g><g id=\"tpP2\"><ellipse cx=\"810.0\" cy=\"680.0\" rx=\"64.0\" ry=\"58.9\" fill=\"#d7262e\" stroke=\"#0c1622\" stroke-width=\"9\"/><path d=\"M850.0 640.0 Q838.0 668.0 790.0 700.0\" stroke=\"#a8141c\" stroke-width=\"5.4\" fill=\"none\" stroke-linecap=\"round\"/></g><g id=\"tpP3\"><ellipse cx=\"890.0\" cy=\"680.0\" rx=\"64.0\" ry=\"58.9\" fill=\"#d7262e\" stroke=\"#0c1622\" stroke-width=\"9\"/><path d=\"M850.0 640.0 Q878.0 652.0 910.0 700.0\" stroke=\"#a8141c\" stroke-width=\"5.4\" fill=\"none\" stroke-linecap=\"round\"/></g><circle id=\"tpC\" cx=\"850\" cy=\"640\" r=\"30.0\" fill=\"#141414\" stroke=\"#0c1622\" stroke-width=\"6.3\"/><circle cx=\"842.0\" cy=\"632.0\" r=\"7.0\" fill=\"#3a3a3a\"/></g></g></svg>",
+  "hero_xy": [
+   560,
+   816.0
+  ],
+  "glow": "#d7262e",
+  "bg1": "#101a30",
+  "bg2": "#1a2846",
+  "hero_dy": 0,
+  "cyto": [
+   400,
+   1450,
+   0.82
+  ],
+  "face": "calm",
+  "arm": "none",
+  "look": [
+   16,
+   -14
+  ],
+  "tilt": -3,
+  "pom": -8,
+  "outfit": "outfit_coat",
+  "cup_down": true
+ }
+}

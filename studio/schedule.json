@@ -198,15 +198,15 @@
    "publish_time": "09:00",
    "series": "6ixty Seconds of Science",
    "topic": "Remembrance Day silence",
-   "outfit": "toque + dark coat, plain red felt-poppy shape pin (generic f",
-   "status": "scripted",
+   "outfit": "dark coat + generic felt poppy pin (cup set down)",
+   "status": "built",
    "title": "What Two Minutes of Silence Does to Your Body",
    "youtube_id": null,
    "tiktok_queued": false,
    "sources": [
-    "10.1136/hrt.2005.064600",
-    "10.1007/s00429-013-0679-3"
-   ]
+    "10.1136/hrt.2005.064600"
+   ],
+   "note": "HOOK-FIRST test #1; compare Studio 'Stayed to watch' vs ~50% baseline (target >= 60%)"
   },
   {
    "ep": "LF01",

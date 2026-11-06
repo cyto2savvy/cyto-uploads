@@ -17,3 +17,4 @@
 Nov 2: LF01 long-form voice, 8 chunks, 1 take each, 5,127 ElevenLabs credits (flow 9FCDlyMjCyXT9Z51HIp7). Plan estimate was ~7,000; script runs 5:24.
 Nov 3: LF02 voices designed (Neutro, Mito: 2 design rounds) + 4 takes = 4,115 ElevenLabs credits (+ design credits).
 Nov 3 (evening): LF02 v3 re-record = new Neutro voice design (preview rounds) + Neutro take 883 cr + Cyto3 take 142 cr = 1,025 ElevenLabs credits + design credits. Scribe 0 cr.
+| 2026-11-06 | 14 | ElevenLabs voice, 1 take (478 chars, eleven_v4) — estimate 477 cr, billed 477 cr; Scribe 0 cr | 477 (ElevenLabs) |

@@ -1,0 +1,64 @@
+{
+ "tempo": 1.0,
+ "lead": 0.0,
+ "line_gap": 0.22,
+ "in_gap": 0.11,
+ "segs": [
+  [
+   0.0,
+   3.702,
+   0,
+   "In one lab study, two minutes of silence slowed people's heart rate."
+  ],
+  [
+   4.29,
+   8.234,
+   1,
+   "Yo, it's ya boy Cyto, live from the 6ix... inside your body."
+  ],
+  [
+   8.77,
+   13.728,
+   2,
+   "Researchers played music with two-minute pauses and tracked heart rate, blood pressure and breathing."
+  ],
+  [
+   14.13,
+   17.746,
+   3,
+   "In the pauses, all three dropped, even below where they started."
+  ],
+  [
+   18.21,
+   21.77,
+   4,
+   "Silence isn't empty, fam. Your body slows down."
+  ],
+  [
+   21.77,
+   25.275,
+   5,
+   "So when the city goes quiet at eleven, your body may go quiet too.",
+   0.5
+  ],
+  [
+   25.69,
+   27.09,
+   6,
+   "Lest we forget.",
+   1.0
+  ],
+  [
+   27.09,
+   28.032,
+   7,
+   "Not medical advice."
+  ],
+  [
+   28.49,
+   30.64,
+   8,
+   "Like, subscribe, take a moment."
+  ]
+ ]
+}

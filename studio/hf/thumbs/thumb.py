@@ -31,6 +31,7 @@ FACES = {   # static reaction faces (same element ids as the animated rig)
     "skeptic": 'gsap.set("#browL",{y:-16,rotation:-12});gsap.set("#browR",{y:8,rotation:10});gsap.set("#lidR",{y:%d});show("mbp");' % R.LID_SQUINT,
     "hype":    'gsap.set(["#browL","#browR"],{y:-14});gsap.set(["#lidL","#lidR"],{y:-30});show("a");',
     "tired":   'gsap.set(["#lidL","#lidR"],{y:22});gsap.set("#browL",{rotation:10,y:-2});gsap.set("#browR",{rotation:-10,y:-2});show("small");',
+    "calm":    'gsap.set(["#lidL","#lidR"],{y:10});gsap.set("#browL",{rotation:6,y:-4});gsap.set("#browR",{rotation:-6,y:-4});show("mbp");',   # respectful / reflective (Ep 14)
 }
 ARMS = {
     "point": 'gsap.set("#armR",{rotation:-124});',
@@ -70,7 +71,8 @@ def page(spec, assets_rel="assets"):
     pupils = spec.get("look", [12, -10])
     js = (FACES[spec.get("face", "shock")] + ARMS[spec.get("arm", "point")] +
           f'gsap.set(["#pupL","#pupR"],{{x:{pupils[0]},y:{pupils[1]}}});gsap.set("#pom",{{rotation:{spec.get("pom", -14)}}});'
-          f'gsap.set("#cyto",{{rotation:{spec.get("tilt", -4)}}});')
+          f'gsap.set("#cyto",{{rotation:{spec.get("tilt", -4)}}});'
+          + ('gsap.set("#cup",{opacity:0});gsap.set("#cupTable",{opacity:1});' if spec.get("cup_down") else ''))   # cup set down (serious episodes)
     return f"""<!doctype html><html><head><meta charset="utf-8"><script src="{assets_rel}/gsap.min.js"></script><style>
 @font-face{{font-family:IB;src:url({assets_rel}/InterDisplay-Black.otf)}}@font-face{{font-family:IX;src:url({assets_rel}/Inter-ExtraBold.otf)}}
 *{{margin:0;padding:0}} html,body{{width:{W}px;height:{H}px;overflow:hidden;background:{NAVY}}}

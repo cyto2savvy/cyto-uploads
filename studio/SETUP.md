@@ -107,6 +107,7 @@ Outfits/accessories: `rig3_html(outfit, cup, acc)` — `acc` is an optional laye
 | 8 | Why you wake up at 3am (first v2+v3 episode, new thumbnail system) | — | built, awaiting OK (Nov 5, 6 PM) |
 | 11 | Diwali food coma (Scarborough-led, kurta outfit) | — | built, awaiting OK (Nov 8, 3 PM) |
 | 12 | Movember: does checking yourself save lives? (first Scribe-timed + ElevenLabs-SFX episode) | — | built, awaiting OK (Nov 9, 6 PM) |
+| 14 | What two minutes of silence does to your body (HOOK-FIRST test #1) | — | built, awaiting OK (Nov 11, 9 AM) |
 
 ## Next ideas already researched
 - Diwali (Nov 8): mithai and the sugar crash, with Mito (Mantantzis 2019, doi 10.1016/j.neubiorev.2019.03.016)
@@ -209,3 +210,12 @@ Rules for next Shorts:
 6. Check Studio "Viewed vs swiped away" for each Short (not in the API) and paste into the chat.
 Studio export (Oct 9-Nov 6): "Stayed to watch" is 43-54% on EVERY Short (Ep2 53.9, Ep3 53.4, Ep5 42.9, Ep1 51.4, Ep4 46.2, Ep6 46.5, Ep7 52.5, Ep8 53.2) and does NOT separate the hits from the misses. About half of viewers swipe away in the first second or two on every video; people who stay watch a lot (Ep1 87.6% avg viewed). Informal creator rule (not official): ~50% average, ~70% good. BASELINE to beat = 50%; target >= 60-65% on the hook-first test (Ep 9+). Ep7 (35 s) had the lowest avg viewed (35%): keep Shorts <= 30 s. Thumbnail CTR is irrelevant for feed views (ignore it). Total so far: 13.2 watch hours, 13 subs in 4 weeks.
 DECISION (Nov 6, Utsha): Eps 9, 12, 13 are already voiced/built, leave them as they are. The hook-first test (Cyto talks on frame 1, most surprising claim first, big on-screen claim, catchphrase AFTER the hook, <= 30 s) starts with the first episode that has no recorded voice yet = Ep 14 (Remembrance Day, tts.txt only). Compare its "Stayed to watch" with the 50% baseline.
+
+### Ep 14 (Nov 6, 2026): HOOK-FIRST TEST #1 build notes (reuse for every hook-first Short)
+- **Voice from frame 1:** `segs.json` now takes `"lead": 0` (default 0.12 s of silence) and an optional 5th item per seg = the gap after it (s). Ep 14's voice onset in the final mp4 = 0.02 s. `build_voice2.py` changed; old segs.json files still build the same.
+- **Scribe -> segs:** Scribe word END times run into the pauses and soft words ("down.", "forget.") sit under -35 dB. Build one segment per script line from Scribe START times and clip each line's end at the first silencedetect start (-45 dB) after its last word (`studio/episodes/ep14/make_segs.py`).
+- **Frame 1:** the big claim (`opacity:1` in the HTML, no fade), the figure (ECG already half drawn via a static dashoffset) and the first caption words (`tl.set` at 0, no pop) are all on screen at 0.00 s. The loop scene is the same `hook()` markup in its frame-1 state.
+- **Respectful mode:** soft cross-fades (each scene's clip window overlaps the next by 0.45 s, the next fades 0->1), a slow push-in on each scene div (not #cam), Cyto glides between marks under the fade, no shake/whip/punch/pop, cup set down all video (`#cup` 0 / `#cupTable` 1), eyes closed for the held beat. Fade the outgoing scene's big text ~0.4 s before each cut so the cross-fade never stacks two titles.
+- Caption hygiene: hide caption words while the same words are a big title, and `tl.set` the previous caption chunk to 0 when a hidden stretch starts (otherwise it lingers).
+- New art: `poppy()` (generic felt poppy, no logo/text), `old_city_hall()` (clock hands `{idp}H`/`{idp}M`, centre = (cx, base-720*s)), `cenotaph()` (plain pylon + poppy wreaths). Outfit `outfit_coat` (dark coat + poppy pin). `thumb.py`: face `calm`, spec `cup_down: true`.
+- Checks run: layout_check 0 FAIL / 0 WARN; 1-fps sheet from the REAL mp4; first 8 s longest static run = 0 frames; mouth closed when silent 162/163 frames.
