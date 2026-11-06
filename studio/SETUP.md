@@ -195,3 +195,15 @@ Source: Utsha's reviews of LF02 v1 -> v2 -> v3 plus a non-science friend's watch
 10. **PROCESS/COST.** Render each scene <= 2 times; mux once; re-measure the same numbers before/after; hard-stop the cloud budget at (balance - $3). Credits are the limit: put expensive work (new voice takes) in the chat, build sessions only render.
 11. **FILE SIZE.** GitHub caps files at 100 MB and releases are blocked in sessions. Keep ~8 Mbps video masters OUT of git: deliver masters via Drive "Final Cuts"; for the YouTube upload keep the mp4 < 100 MB (a 5-min 1080p at ~2 Mbps is ~80 MB) or split. Don't re-encode audio when only the video is trimmed.
 12. **POSTING.** Pinned comments can't be posted/pinned via the API or on private videos: write the text in meta.json `pinned_comment`, Utsha pastes + pins it right after the video goes public.
+
+### PERFORMANCE ANALYSIS (Nov 6, 2026, 7 Shorts, YouTube Analytics): apply to Eps 9+
+Facts: 20 subs, 4,671 views total, ~11.6 watch hours, $0 revenue (not in YPP: needs 500 subs + 3,000 h / 3M Shorts views for early access, 1,000 subs + 4,000 h / 10M Shorts views for ads; new-applicant bar doubles Feb 1, 2027). 86% of views = Shorts feed, search only 2%, subscribers 0.5%.
+Pattern: Eps 2/3/5 each got ~1,100-1,400 views on day 1 then 1-3% of that the next day (Shorts "test batch" ceiling, the seed audience didn't engage enough to expand). Eps 1/4/6/7 never left the small batch (60-250 views).
+Retention (Ep 2 curve): starts average vs similar-length Shorts, drops to bottom quarter by 20-30% of the video (first ~6 s), recovers at the loop end. Avg view 16-19 s on ~30 s (57-65%). Comments ~0, likes ~1-2%.
+Rules for next Shorts:
+1. Test ONE variable per video and log it: hook-first (visual/claim in 0-2 s), catchphrase moved AFTER the hook.
+2. Cut to 20-25 s where possible; kill anything slow before 8 s.
+3. Every Short ends on a question that needs an answer in the comments; pin it as soon as it is public and reply to every comment in the first hour.
+4. Topics: broad "why does my body..." questions that map to a trending moment (the 3 hits: Halloween fear, sugar myth, cold weather). Local/time-boxed titles (clock change, "Toronto,") underperformed.
+5. Put a subscribe prompt at the payoff (~20 s), not only in the outro.
+6. Check Studio "Viewed vs swiped away" for each Short (not in the API) and paste into the chat.
