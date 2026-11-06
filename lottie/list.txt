@@ -32,3 +32,11 @@ stache-2.json https://assets-v2.lottiefiles.com/a/c4d985a3-0f8d-4171-9b3a-e96a30
 ribbon-1.json https://assets-v2.lottiefiles.com/a/db0fd298-118a-11ee-8fc8-872f96d68f2e/2LUPw0Mywi.json
 ribbon-2.json https://assets-v2.lottiefiles.com/a/2cb65176-1181-11ee-a302-3f322f964c17/86CMhFAizl.json
 calendar-1.json https://assets-v2.lottiefiles.com/a/80df35a2-13b9-4e91-bf0e-2bcb216496c4/dfAztOS6XR.json
+notes-1.json https://assets-v2.lottiefiles.com/a/e3093366-117d-11ee-ba0c-073804836ec3/M2NCliyTtZ.json
+notes-2.json https://assets-v2.lottiefiles.com/a/bac4d812-1171-11ee-834d-a39cd5a43e7c/krkUG5wwQV.json
+breath-1.json https://assets-v2.lottiefiles.com/a/593dc400-117b-11ee-8845-e7f6b8b85fa8/qUwcijSHDD.json
+breath-2.json https://assets-v2.lottiefiles.com/a/148bb912-116b-11ee-8380-6fd95497bf05/falM3deTWf.json
+candle-1.json https://assets-v2.lottiefiles.com/a/6b47df38-1161-11ee-b28d-eb5f0cbe139d/SH4BT5vaXS.json
+candle-2.json https://assets-v2.lottiefiles.com/a/9a912729-8eec-43ea-bd60-6d69be91eb8b/FqXKYX5Whr.json
+soundwave-1.json https://assets-v2.lottiefiles.com/a/366b7ce0-1178-11ee-9f3c-677c2e3133ff/zFONwI2WNC.json
+soundwave-2.json https://assets-v2.lottiefiles.com/a/d8728172-1188-11ee-87c7-67ddba2a2d04/KDkNWhpxD2.json
