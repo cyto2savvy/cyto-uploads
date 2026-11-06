@@ -31,3 +31,11 @@ HAVE stache-2.json
 HAVE ribbon-1.json
 HAVE ribbon-2.json
 HAVE calendar-1.json
+OK notes-1.json
+OK notes-2.json
+OK breath-1.json
+OK breath-2.json
+OK candle-1.json
+OK candle-2.json
+OK soundwave-1.json
+OK soundwave-2.json
