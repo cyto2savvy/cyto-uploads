@@ -9,5 +9,6 @@ HAVE photo_queens_park.jpg
 HAVE photo_nathan_phillips.jpg
 HAVE photo_distillery_bw.jpg
 HAVE photo_skyline_dusk.jpg
-OK lf02v3_neutro.mp3
-OK lf02v3_cyto3.mp3
+HAVE lf02v3_neutro.mp3
+HAVE lf02v3_cyto3.mp3
+OK ep14_raw.mp3
