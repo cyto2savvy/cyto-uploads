@@ -1,5 +1,5 @@
 # Ep 14 build brief — Remembrance Day silence (publish 2026-11-11 09:00 ET)
-Status: SCRIPTED, waiting for Utsha's OK (workflow steps 4-5). Do NOT build until approved.
+Status: SCRIPT v2 (hook-first, tightened) APPROVED by Utsha Nov 6 (he delegated the pick). Build now. This is the FIRST hook-first test episode (see SETUP.md 'PERFORMANCE ANALYSIS').
 Series: 6ixty Seconds of Science · Length target 38-45s (hard cap 45s) · ~97 words ≈ 35s at 2.8 w/s · Template: `hf/template/build.py` (v2 layout + v3 rig) · follow SETUP.md "Ep 9 lessons".
 Title (≤60): What Two Minutes of Silence Does to Your Body (45 chars) · Tags: #remembranceday #silence #science #toronto #6ix #shorts · NOT made for kids · Altered/synthetic = YES · Category Science & Technology · Playlist: 6ixty Seconds of Science
 
@@ -35,3 +35,14 @@ Quality gate: eyes centred, one big text at a time, 1-fps frame check, safe-area
 - RESPECTFUL: slow, no jokes. Hook: quiet Toronto morning, Old City Hall clock tower / cenotaph silhouette (verify the Toronto service location before naming it on screen), poppies as generic flower shapes.
 - Lab scene: figure on a calm navy background, no gags; subtle snow.
 - Payoff: Union Station Great Hall hush, then the skyline at 11:00 with a still clock. NO TTC jokes, NO raccoons, no humour beyond the script.
+
+
+## SCRIPT v2 (Nov 6, hook-first test; REPLACES the script above; ~80 words, target 30-34 s)
+[0-3s HOOK, calm, Cyto talks on FRAME 1] In one lab study, two minutes of silence slowed people's heart rate.   (on-screen, huge: SILENCE SLOWS YOUR HEART)
+[3-6s, catchphrase, quiet] Yo, it's ya boy Cyto, live from the 6ix… inside your body.
+[6-14s] Researchers played music with two-minute pauses and tracked heart rate, blood pressure and breathing.
+[14-22s, figure: three lines dip under a flat baseline] In the pauses, all three dropped, even below where they started.
+[22-27s] Silence isn't empty, fam. Your body slows down.
+[27-32s, Toronto payoff, slow] So when the city goes quiet at eleven, your body may go quiet too. Lest we forget. Not medical advice.
+[32-34s outro, sources on screen] Like, subscribe, take a moment.
+Caveat on screen/description: Bernardi 2006, n=24 (12 musicians + 12 controls), music with pauses in a lab; not a Remembrance Day ceremony. tts.txt is already updated to this version. Title unchanged (isolate the hook as the one variable).
