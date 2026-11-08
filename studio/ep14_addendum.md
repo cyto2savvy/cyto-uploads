@@ -15,4 +15,6 @@ CHANGES FROM UTSHA (apply on top of the Ep 14 prompt; the hook-first script v2 i
 3. STYLE MENU (Cyto = Toronto street kid; vary the look per episode, pick ONE and log it in studio/SETUP.md): (a) Street Cyto: puffer/hoodie + toque, shoulder-bounce nod on the beat, point/shrug gestures; (b) group-chat UI: text bubbles carry the explanation; (c) neighbourhood map-hop between Toronto areas; (d) handheld POV camera with slight drift and snap zooms; (e) slow-mo entrance for guests (Neutro/Mito). Ep 14 is solemn: calm style only, slow push-ins, no street swagger, no memes, no trending sounds.
 
 4. TRENDS: none on Ep 14 (Remembrance Day). Do not use trending audio/memes here.
+
+5. OUTFIT = SPONGEBOB-STYLE (Utsha, Nov 8): clothes are part of the body shape, flush with Cyto's silhouette. The outfit layer is clipped to the body outline (no overhang past the sides, no bulky vest/jacket covering the body edge or arms). Arms and hands are ALWAYS drawn in FRONT of the outfit and come out of the sleeve/armhole; toque, face and cup never get covered. Check every outfit in a side-by-side silhouette test against base Cyto (silhouette width within 4%).
 ```
