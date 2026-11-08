@@ -219,3 +219,8 @@ DECISION (Nov 6, Utsha): Eps 9, 12, 13 are already voiced/built, leave them as t
 - Caption hygiene: hide caption words while the same words are a big title, and `tl.set` the previous caption chunk to 0 when a hidden stretch starts (otherwise it lingers).
 - New art: `poppy()` (generic felt poppy, no logo/text), `old_city_hall()` (clock hands `{idp}H`/`{idp}M`, centre = (cx, base-720*s)), `cenotaph()` (plain pylon + poppy wreaths). Outfit `outfit_coat` (dark coat + poppy pin). `thumb.py`: face `calm`, spec `cup_down: true`.
 - Checks run: layout_check 0 FAIL / 0 WARN; 1-fps sheet from the REAL mp4; first 8 s longest static run = 0 frames; mouth closed when silent 162/163 frames.
+
+### CUP + MOTION + TREND RULES (Nov 8, 2026, from Utsha): REPLACES the old double-stacked party-cup rule
+1. Cup = generic Toronto-style paper COFFEE cup (cream body, brown sleeve, dome lid, small Cyto-face logo on the sleeve). No Tim Hortons name/logo/lookalike branding or any real brand. Native SVG, one rigid group with the hand (fingers over the cup). Never show inside. See studio/ep14_addendum.md for the full no-twitch motion rules, expression library, jitter check and style menu.
+2. Trends: use trending FORMATS and phrases (e.g. "Why would I deceive you?" myth-bust, "Answer in one word", zombie-outbreak serial, slow-mo entrance), NOT copyrighted audio (Content ID claims on a monetized channel; our uploads can't attach YouTube's licensed Sounds). Never use memes on solemn episodes. Don't draw known characters from memes (e.g. the Randy Marsh cutout).
+3. Source quality: trend lists from SEO blogs are weak evidence; check Studio's Trending / Shorts 'Sounds' page and vidIQ trending (needs credits) before building around one.
