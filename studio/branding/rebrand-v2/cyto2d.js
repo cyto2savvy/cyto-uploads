@@ -110,6 +110,7 @@ function cyto(fit='none'){
   <circle cx="-218" cy="-95" r="13" fill="#fff" opacity=".4"/>
   <path d="M300 -60 Q330 60 250 200" fill="none" stroke="#9dfbe9" stroke-width="12" stroke-linecap="round" opacity=".55"/>
   ${spots}
+  ${organelles()}
  </g>
  ${garment(fit)}
  <ellipse rx="308" ry="292" fill="none" ${O}/>
@@ -118,9 +119,8 @@ function cyto(fit='none'){
  <path d="M-62 112 Q0 138 84 92" fill="none" stroke="#0a1f24" stroke-width="11" stroke-linecap="round"/>
  <path d="M84 92 Q100 82 106 98" fill="none" stroke="#0a1f24" stroke-width="8" stroke-linecap="round"/>
  <path d="M-40 126 Q10 146 60 118" fill="none" stroke="#1f8f86" stroke-width="7" stroke-linecap="round" opacity=".55"/>
- ${chain()}
  <g transform="translate(-176,124) rotate(-12)"><rect x="-56" y="-22" width="112" height="44" rx="22" fill="#ff9b3d" ${O}/><rect x="-52" y="-18" width="104" height="14" rx="7" fill="#ffc07a" opacity=".8"/><path d="M-34 8 L-20 -6 L-6 8 L8 -6 L22 8 L34 -4" fill="none" stroke="#c4541a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>
- <g transform="translate(190,150)"><circle r="66" fill="url(#nuc)" ${O}/><circle cx="-24" cy="-26" r="14" fill="#efe6ff"/><path d="M-26 20 Q-8 36 12 16 Q24 4 36 20" fill="none" stroke="#d8c8ff" stroke-width="7" stroke-linecap="round"/></g>
+ ${chain()}
  <g transform="rotate(-7 0 -150)">
   <path d="M-292 -150 C-312 -410 312 -410 292 -150Z" fill="url(#hat)" ${O}/>
   <g clip-path="url(#hatclip)">${ribs}<ellipse cx="-150" cy="-300" rx="70" ry="90" fill="#fff" opacity=".13" transform="rotate(20 -150 -290)"/></g>
@@ -133,6 +133,26 @@ function cyto(fit='none'){
  </g>
  ${sparkle(-300,-240,30)}${sparkle(330,-210,24,'#ffe27a')}${sparkle(300,260,20)}${sparkle(-380,-60,18,'#ffe27a')}
  </g>${cup()}`}
+
+function organelles(){ // all drawn inside the cell body clip; nothing can extend outside the cell
+ const T='stroke="#0a1f24" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"';
+ let o='';
+ // nucleus (with nucleolus + envelope)
+ o+=`<g transform="translate(205,128)"><circle r="54" fill="url(#nuc)" ${T}/><circle r="54" fill="none" stroke="#d8c8ff" stroke-width="3" stroke-dasharray="3 9" opacity=".7" transform="scale(.82)"/><circle cx="8" cy="6" r="16" fill="#4b2b94" stroke="#0a1f24" stroke-width="4"/><circle cx="-20" cy="-22" r="11" fill="#efe6ff"/></g>`;
+ // mitochondrion (bean + cristae)
+ const mito=(x,y,r,sc=1)=>`<g transform="translate(${x},${y}) rotate(${r}) scale(${sc})"><rect x="-46" y="-22" width="92" height="44" rx="22" fill="#ffa93a" ${T}/><rect x="-40" y="-16" width="80" height="14" rx="7" fill="#ffd089" opacity=".7"/><path d="M-30 14 L-22 -8 L-14 14 L-6 -8 L2 14 L10 -8 L18 14 L26 -8 L32 8" fill="none" stroke="#c4541a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></g>`;
+ o+=mito(-84,248,-8,.78)+mito(236,-62,62,.72);
+ // golgi stack
+ o+=`<g transform="translate(96,252) rotate(-8)">${[0,1,2,3].map(i=>`<path d="M${-44+i*3} ${-24+i*14} Q0 ${-38+i*14} ${44-i*3} ${-24+i*14}" fill="none" stroke="#0a1f24" stroke-width="14" stroke-linecap="round"/><path d="M${-44+i*3} ${-24+i*14} Q0 ${-38+i*14} ${44-i*3} ${-24+i*14}" fill="none" stroke="${['#ff9ac0','#ff7fae','#f56a9d','#e85a8e'][i]}" stroke-width="8" stroke-linecap="round"/>`).join('')}<circle cx="58" cy="-26" r="8" fill="#ffd0e2" ${T}/><circle cx="-56" cy="26" r="7" fill="#ffd0e2" ${T}/></g>`;
+ // rough ER: wavy folded tube with ribosome dots
+ o+=`<g transform="translate(-246,-6)"><path d="M0 -70 Q-26 -50 0 -32 Q26 -14 0 4 Q-26 22 0 40 Q22 54 0 70" fill="none" stroke="#0a1f24" stroke-width="17" stroke-linecap="round"/><path d="M0 -70 Q-26 -50 0 -32 Q26 -14 0 4 Q-26 22 0 40 Q22 54 0 70" fill="none" stroke="#9be7f2" stroke-width="10" stroke-linecap="round"/>${[[-14,-52],[14,-20],[-14,12],[10,50],[-6,-34],[8,-2]].map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="4.5" fill="#3b2a66" stroke="#0a1f24" stroke-width="1.5"/>`).join('')}</g>`;
+ // lysosomes / vesicles
+ const lys=(x,y,r,c)=>`<g transform="translate(${x},${y})"><circle r="${r}" fill="${c}" ${T}/><circle cx="${-r*.3}" cy="${-r*.3}" r="${r*.28}" fill="#fff" opacity=".7"/><circle cx="${r*.25}" cy="${r*.2}" r="${r*.16}" fill="#0a1f24" opacity=".35"/></g>`;
+ o+=lys(-30,236,17,'#c8f06a')+lys(236,40,15,'#c8f06a')+lys(-262,92,13,'#ffe27a')+lys(-212,-92,12,'#c8f06a');
+ // ribosome dots
+ let r1=9;const rr=()=>(r1=(r1*16807)%2147483647)/2147483647;
+ for(let i=0;i<14;i++){const a=rr()*6.28,rad=60+rr()*220,x=Math.cos(a)*rad,y=Math.sin(a)*rad*0.9+30; if(y<-60||Math.abs(x)<150&&y>-70&&y<150) continue; o+=`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="4.5" fill="#3b2a66" opacity=".8"/>`}
+ return o}
 function skyline(w,h,base,seed){let s=seed;const r=()=>(s=(s*16807)%2147483647)/2147483647;let o='';
  o+=`<rect width="${w}" height="${h}" fill="url(#sky)"/>`;
  for(let i=0;i<130;i++) o+=`<circle cx="${(r()*w).toFixed(0)}" cy="${(r()*base*0.7).toFixed(0)}" r="${(r()*2.2+.6).toFixed(1)}" fill="#fff" opacity="${(.3+r()*.6).toFixed(2)}"/>`;
