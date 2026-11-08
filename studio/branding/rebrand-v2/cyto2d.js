@@ -25,7 +25,7 @@ function eye(x,side){ // side -1 left, 1 right
  <clipPath id="${id}"><ellipse rx="50" ry="55"/></clipPath>
  <ellipse rx="50" ry="55" fill="#fff"/>
  <g clip-path="url(#${id})">
-  <circle cx="${side*7}" cy="16" r="25" fill="#0b0b12"/><circle cx="${side*7-9}" cy="4" r="9" fill="#fff"/><circle cx="${side*9+9}" cy="24" r="4" fill="#fff" opacity=".8"/>
+  <circle cx="5" cy="14" r="25" fill="#0b0b12"/><circle cx="-4" cy="2" r="9" fill="#fff"/><circle cx="14" cy="22" r="4" fill="#fff" opacity=".8"/>
   <path d="M-70 -80 L70 -80 L70 2 Q0 ${-8-side*5} -70 2Z" fill="#2fae9b"/>
   <path d="M-70 0 Q0 ${-10-side*5} 70 0" fill="none" stroke="#0a1f24" stroke-width="8"/>
  </g>
@@ -134,24 +134,33 @@ function cyto(fit='none'){
  ${sparkle(-300,-240,30)}${sparkle(330,-210,24,'#ffe27a')}${sparkle(300,260,20)}${sparkle(-380,-60,18,'#ffe27a')}
  </g>${cup()}`}
 
+
+const ANIM=process.env.ANIM==='1';
+let _os=+(process.env.SEED||Date.now()%100000)+1;
+const orand=()=>(_os=(_os*16807)%2147483647)/2147483647;
+const OJ=(amt)=>(orand()-0.5)*2*amt;   // random out-of-place jitter
+let _ai=0;
+function wob(inner,dx,dy,rot=0){ // drift animation (SMIL), loops every 8s
+ if(!ANIM) return inner;
+ const d=[4,8,8,4][_ai++%4], ph=(orand()*d).toFixed(2);
+ return `<g>${inner}<animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;${dx} ${dy};${(-dx*.6).toFixed(1)} ${(dy*.8).toFixed(1)};0 0" keyTimes="0;.33;.66;1" dur="${d}s" begin="-${ph}s" repeatCount="indefinite" calcMode="spline" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1"/>${rot?`<animateTransform attributeName="transform" type="rotate" additive="sum" values="0;${rot};${-rot};0" dur="${d}s" begin="-${ph}s" repeatCount="indefinite"/>`:''}</g>`}
 function organelles(){ // all drawn inside the cell body clip; nothing can extend outside the cell
  const T='stroke="#0a1f24" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"';
  let o='';
- // nucleus (with nucleolus + envelope)
- o+=`<g transform="translate(205,128)"><circle r="54" fill="url(#nuc)" ${T}/><circle r="54" fill="none" stroke="#d8c8ff" stroke-width="3" stroke-dasharray="3 9" opacity=".7" transform="scale(.82)"/><circle cx="8" cy="6" r="16" fill="#4b2b94" stroke="#0a1f24" stroke-width="4"/><circle cx="-20" cy="-22" r="11" fill="#efe6ff"/></g>`;
- // mitochondrion (bean + cristae)
- const mito=(x,y,r,sc=1)=>`<g transform="translate(${x},${y}) rotate(${r}) scale(${sc})"><rect x="-46" y="-22" width="92" height="44" rx="22" fill="#ffa93a" ${T}/><rect x="-40" y="-16" width="80" height="14" rx="7" fill="#ffd089" opacity=".7"/><path d="M-30 14 L-22 -8 L-14 14 L-6 -8 L2 14 L10 -8 L18 14 L26 -8 L32 8" fill="none" stroke="#c4541a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></g>`;
+ // nucleus
+ o+=wob(`<g transform="translate(${205+OJ(12)},${128+OJ(10)}) rotate(${OJ(20)})"><circle r="54" fill="url(#nuc)" ${T}/><circle r="54" fill="none" stroke="#d8c8ff" stroke-width="3" stroke-dasharray="3 9" opacity=".7" transform="scale(.82)"/><circle cx="8" cy="6" r="16" fill="#4b2b94" stroke="#0a1f24" stroke-width="4"/><circle cx="-20" cy="-22" r="11" fill="#efe6ff"/></g>`,9,-7);
+ // mitochondria
+ const mito=(x,y,r,sc=1)=>wob(`<g transform="translate(${x+OJ(14)},${y+OJ(10)}) rotate(${r+OJ(28)}) scale(${sc})"><rect x="-46" y="-22" width="92" height="44" rx="22" fill="#ffa93a" ${T}/><rect x="-40" y="-16" width="80" height="14" rx="7" fill="#ffd089" opacity=".7"/><path d="M-30 14 L-22 -8 L-14 14 L-6 -8 L2 14 L10 -8 L18 14 L26 -8 L32 8" fill="none" stroke="#c4541a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></g>`,12,6,4);
  o+=mito(-84,248,-8,.78)+mito(236,-62,62,.72);
  // golgi stack
- o+=`<g transform="translate(96,252) rotate(-8)">${[0,1,2,3].map(i=>`<path d="M${-44+i*3} ${-24+i*14} Q0 ${-38+i*14} ${44-i*3} ${-24+i*14}" fill="none" stroke="#0a1f24" stroke-width="14" stroke-linecap="round"/><path d="M${-44+i*3} ${-24+i*14} Q0 ${-38+i*14} ${44-i*3} ${-24+i*14}" fill="none" stroke="${['#ff9ac0','#ff7fae','#f56a9d','#e85a8e'][i]}" stroke-width="8" stroke-linecap="round"/>`).join('')}<circle cx="58" cy="-26" r="8" fill="#ffd0e2" ${T}/><circle cx="-56" cy="26" r="7" fill="#ffd0e2" ${T}/></g>`;
- // rough ER: wavy folded tube with ribosome dots
- o+=`<g transform="translate(-246,-6)"><path d="M0 -70 Q-26 -50 0 -32 Q26 -14 0 4 Q-26 22 0 40 Q22 54 0 70" fill="none" stroke="#0a1f24" stroke-width="17" stroke-linecap="round"/><path d="M0 -70 Q-26 -50 0 -32 Q26 -14 0 4 Q-26 22 0 40 Q22 54 0 70" fill="none" stroke="#9be7f2" stroke-width="10" stroke-linecap="round"/>${[[-14,-52],[14,-20],[-14,12],[10,50],[-6,-34],[8,-2]].map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="4.5" fill="#3b2a66" stroke="#0a1f24" stroke-width="1.5"/>`).join('')}</g>`;
+ o+=wob(`<g transform="translate(${96+OJ(12)},${252+OJ(8)}) rotate(${-8+OJ(14)})">${[0,1,2,3].map(i=>`<path d="M${-44+i*3} ${-24+i*14} Q0 ${-38+i*14} ${44-i*3} ${-24+i*14}" fill="none" stroke="#0a1f24" stroke-width="14" stroke-linecap="round"/><path d="M${-44+i*3} ${-24+i*14} Q0 ${-38+i*14} ${44-i*3} ${-24+i*14}" fill="none" stroke="${['#ff9ac0','#ff7fae','#f56a9d','#e85a8e'][i]}" stroke-width="8" stroke-linecap="round"/>`).join('')}<circle cx="58" cy="-26" r="8" fill="#ffd0e2" ${T}/><circle cx="-56" cy="26" r="7" fill="#ffd0e2" ${T}/></g>`,-8,-5,3);
+ // rough ER
+ o+=wob(`<g transform="translate(${-246+OJ(8)},${-6+OJ(18)})"><path d="M0 -70 Q-26 -50 0 -32 Q26 -14 0 4 Q-26 22 0 40 Q22 54 0 70" fill="none" stroke="#0a1f24" stroke-width="17" stroke-linecap="round"/><path d="M0 -70 Q-26 -50 0 -32 Q26 -14 0 4 Q-26 22 0 40 Q22 54 0 70" fill="none" stroke="#9be7f2" stroke-width="10" stroke-linecap="round"/>${[[-14,-52],[14,-20],[-14,12],[10,50],[-6,-34],[8,-2]].map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="4.5" fill="#3b2a66" stroke="#0a1f24" stroke-width="1.5"/>`).join('')}</g>`,5,10);
  // lysosomes / vesicles
- const lys=(x,y,r,c)=>`<g transform="translate(${x},${y})"><circle r="${r}" fill="${c}" ${T}/><circle cx="${-r*.3}" cy="${-r*.3}" r="${r*.28}" fill="#fff" opacity=".7"/><circle cx="${r*.25}" cy="${r*.2}" r="${r*.16}" fill="#0a1f24" opacity=".35"/></g>`;
+ const lys=(x,y,r,c)=>wob(`<g transform="translate(${x+OJ(16)},${y+OJ(14)})"><circle r="${r}" fill="${c}" ${T}/><circle cx="${-r*.3}" cy="${-r*.3}" r="${r*.28}" fill="#fff" opacity=".7"/><circle cx="${r*.25}" cy="${r*.2}" r="${r*.16}" fill="#0a1f24" opacity=".35"/></g>`,10,-9);
  o+=lys(-30,236,17,'#c8f06a')+lys(236,40,15,'#c8f06a')+lys(-262,92,13,'#ffe27a')+lys(-212,-92,12,'#c8f06a');
  // ribosome dots
- let r1=9;const rr=()=>(r1=(r1*16807)%2147483647)/2147483647;
- for(let i=0;i<14;i++){const a=rr()*6.28,rad=60+rr()*220,x=Math.cos(a)*rad,y=Math.sin(a)*rad*0.9+30; if(y<-60||Math.abs(x)<150&&y>-70&&y<150) continue; o+=`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="4.5" fill="#3b2a66" opacity=".8"/>`}
+ for(let i=0;i<14;i++){const a=orand()*6.28,rad=60+orand()*220,x=Math.cos(a)*rad,y=Math.sin(a)*rad*0.9+30; if(y<-60||Math.abs(x)<150&&y>-70&&y<150) continue; o+=wob(`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="4.5" fill="#3b2a66" opacity=".8"/>`,8,8)}
  return o}
 function skyline(w,h,base,seed){let s=seed;const r=()=>(s=(s*16807)%2147483647)/2147483647;let o='';
  o+=`<rect width="${w}" height="${h}" fill="url(#sky)"/>`;
@@ -214,3 +223,5 @@ const sheet=`<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1100" 
   <text x="300" y="1010" text-anchor="middle" font-family="Arial Black, Impact, DejaVu Sans, sans-serif" font-weight="900" font-size="44" fill="#ffcf5a" stroke="#0a1f24" stroke-width="6" paint-order="stroke">${f[1]}</text></g>`).join('')}
 </svg>`;
 fs.writeFileSync('fits.svg',sheet);
+
+if(ANIM){ fs.writeFileSync('pfp_anim.svg', pfp); }
