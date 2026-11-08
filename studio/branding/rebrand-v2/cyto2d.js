@@ -21,16 +21,16 @@ const O='stroke="#0a1f24" stroke-width="7" stroke-linejoin="round" stroke-lineca
 function sparkle(x,y,r,c='#fff'){return `<path d="M${x} ${y-r} Q${x+r*.15} ${y-r*.15} ${x+r} ${y} Q${x+r*.15} ${y+r*.15} ${x} ${y+r} Q${x-r*.15} ${y+r*.15} ${x-r} ${y} Q${x-r*.15} ${y-r*.15} ${x} ${y-r}Z" fill="${c}"/>`}
 function eye(x,side){ // side -1 left, 1 right
  const id='e'+(side<0?'L':'R');
- return `<g transform="translate(${x},-14)">
- <clipPath id="${id}"><ellipse rx="58" ry="64"/></clipPath>
- <ellipse rx="58" ry="64" fill="#fff"/>
+ return `<g transform="translate(${x},-8)">
+ <clipPath id="${id}"><ellipse rx="50" ry="55"/></clipPath>
+ <ellipse rx="50" ry="55" fill="#fff"/>
  <g clip-path="url(#${id})">
-  <circle cx="${side*9}" cy="14" r="31" fill="#0b0b12"/><circle cx="${side*9-11}" cy="1" r="11" fill="#fff"/><circle cx="${side*9+10}" cy="26" r="5" fill="#fff" opacity=".8"/>
-  <path d="M-70 -80 L70 -80 L70 -6 Q0 -${14+side*4} -70 -6Z" fill="#2fae9b"/>
-  <path d="M-70 -8 Q0 ${-18-side*4} 70 -8" fill="none" stroke="#0a1f24" stroke-width="8"/>
+  <circle cx="${side*7}" cy="16" r="25" fill="#0b0b12"/><circle cx="${side*7-9}" cy="4" r="9" fill="#fff"/><circle cx="${side*9+9}" cy="24" r="4" fill="#fff" opacity=".8"/>
+  <path d="M-70 -80 L70 -80 L70 2 Q0 ${-8-side*5} -70 2Z" fill="#2fae9b"/>
+  <path d="M-70 0 Q0 ${-10-side*5} 70 0" fill="none" stroke="#0a1f24" stroke-width="8"/>
  </g>
- <ellipse rx="58" ry="64" fill="none" ${O}/>
- <path d="M-60 -78 Q0 ${side<0?-112:-96} 62 ${side<0?-84:-72}" fill="none" stroke="#0a1f24" stroke-width="9" stroke-linecap="round"/>
+ <ellipse rx="50" ry="55" fill="none" ${O}/>
+ <path d="M-56 -66 Q0 ${side<0?-98:-86} 58 ${side<0?-72:-62}" fill="none" stroke="#0a1f24" stroke-width="9" stroke-linecap="round"/>
 </g>`}
 function cup(){return `<g transform="translate(-362,92) rotate(-9) scale(1.38)" filter="url(#cut)">
  <path d="M-72 -105 L72 -105 L54 108 Q0 122 -54 108Z" fill="url(#cupw)" ${O}/>
@@ -39,12 +39,12 @@ function cup(){return `<g transform="translate(-362,92) rotate(-9) scale(1.38)" 
  <rect x="-64" y="-12" width="128" height="7" fill="#fff" opacity=".85"/>
  <path d="M-62 -125 L62 -125 L72 -105 L-72 -105Z" fill="#4a2c1f" ${O}/>
  <rect x="-52" y="-146" width="104" height="26" rx="10" fill="#5c3827" ${O}/>
- <path d="M-14 -166 Q-30 -190 -14 -210 M14 -166 Q30 -190 14 -214" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".55"/>
+ <path d="M-16 -160 q-16 -18 0 -34 q16 -16 0 -34 M16 -160 q16 -18 0 -34 q-16 -16 0 -34" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".55"/>
  <g transform="translate(0,-10) scale(.8)"><circle r="62" fill="#3fc4b0" ${O}/>
   <path d="M-60 -12 C-60 -78 60 -78 60 -12Z" fill="#2c63d6" ${O}/><rect x="-62" y="-20" width="124" height="14" fill="#fff"/><circle cy="-72" r="12" fill="#fff" stroke="#0a1f24" stroke-width="6"/>
   <ellipse cx="-22" cy="14" rx="10" ry="12" fill="#fff"/><ellipse cx="22" cy="14" rx="10" ry="12" fill="#fff"/><circle cx="-20" cy="17" r="5" fill="#111"/><circle cx="24" cy="17" r="5" fill="#111"/>
   <path d="M-18 40 Q0 52 18 40" fill="none" stroke="#0a1f24" stroke-width="6" stroke-linecap="round"/></g>
- <g ${O} fill="url(#skinArm)"><ellipse cx="-70" cy="62" rx="26" ry="38"/><rect x="-74" y="44" width="112" height="30" rx="15"/><rect x="-72" y="70" width="104" height="30" rx="15"/></g>
+ <g ${O} fill="url(#skinArm)"><ellipse cx="-70" cy="62" rx="26" ry="38"/><ellipse cx="-14" cy="64" rx="62" ry="36"/></g>
  <path d="M-58 -96 L-52 90" stroke="#fff" stroke-width="9" stroke-linecap="round" opacity=".6"/>
 </g>`}
 function cyto(){
@@ -56,9 +56,6 @@ function cyto(){
  let pom=''; for(let i=0;i<24;i++){const a=rnd()*6.28,r=rnd()*34;pom+=`<circle cx="${(Math.cos(a)*r).toFixed(0)}" cy="${(Math.sin(a)*r).toFixed(0)}" r="5" fill="#dcd5c4"/>`}
  return `<g filter="url(#cut)">
  <ellipse cx="10" cy="338" rx="230" ry="24" fill="#000" opacity=".3" filter="url(#soft)"/>
- <!-- raised peace-sign arm (viewer right) -->
- <path d="M236 70 Q330 40 352 -40" fill="none" stroke="#0a1f24" stroke-width="48" stroke-linecap="round"/><path d="M236 70 Q330 40 352 -40" fill="none" stroke="url(#skinArm)" stroke-width="34" stroke-linecap="round"/>
- <g transform="translate(356,-62) rotate(12)"><rect x="-34" y="-112" width="26" height="86" rx="13" fill="url(#skinArm)" ${O}/><rect x="6" y="-112" width="26" height="86" rx="13" fill="url(#skinArm)" ${O} transform="rotate(10 19 -26)"/><circle r="46" fill="url(#skinArm)" ${O}/><rect x="-46" y="-8" width="30" height="46" rx="15" fill="url(#skinArm)" ${O} transform="rotate(-30)"/></g>
  <!-- body -->
  <ellipse rx="308" ry="292" fill="#3fd0bb" ${O}/>
  <g clip-path="url(#bodyclip2)">
@@ -72,15 +69,17 @@ function cyto(){
   ${spots}
  </g>
  <ellipse rx="308" ry="292" fill="none" ${O}/>
+ <!-- raised arm (front) (viewer right) -->
+ <path d="M236 70 Q330 40 352 -40" fill="none" stroke="#0a1f24" stroke-width="48" stroke-linecap="round"/><path d="M236 70 Q330 40 352 -40" fill="none" stroke="url(#skinArm)" stroke-width="34" stroke-linecap="round"/>
+ <g transform="translate(356,-62)"><circle r="50" fill="url(#skinArm)" ${O}/><ellipse cx="-14" cy="-16" rx="14" ry="9" fill="#fff" opacity=".35"/></g>
  <!-- left arm (to cup) -->
  <path d="M-226 90 Q-282 130 -296 170" fill="none" stroke="#0a1f24" stroke-width="48" stroke-linecap="round"/><path d="M-226 90 Q-282 130 -296 170" fill="none" stroke="url(#skinArm)" stroke-width="34" stroke-linecap="round"/>
- ${eye(-110,-1)}${eye(110,1)}
+ ${eye(-100,-1)}${eye(100,1)}
  <ellipse cx="-196" cy="70" rx="30" ry="18" fill="#ff9aa8" opacity=".55"/><ellipse cx="196" cy="70" rx="30" ry="18" fill="#ff9aa8" opacity=".55"/>
  <!-- smirk -->
- <clipPath id="mo"><path d="M-66 96 Q4 126 82 82 Q80 150 8 160 Q-52 160 -66 96Z"/></clipPath>
- <path d="M-66 96 Q4 126 82 82 Q80 150 8 160 Q-52 160 -66 96Z" fill="#4a0f2b" ${O}/>
- <g clip-path="url(#mo)"><ellipse cx="8" cy="160" rx="46" ry="28" fill="#ff7f95"/><path d="M-60 98 Q4 124 78 84 L78 100 Q4 140 -60 114Z" fill="#fff"/></g>
- <path d="M84 78 Q98 70 104 84" fill="none" stroke="#0a1f24" stroke-width="7" stroke-linecap="round"/>
+ <path d="M-62 112 Q0 138 84 92" fill="none" stroke="#0a1f24" stroke-width="11" stroke-linecap="round"/>
+ <path d="M84 92 Q100 82 106 98" fill="none" stroke="#0a1f24" stroke-width="8" stroke-linecap="round"/>
+ <path d="M-40 126 Q10 146 60 118" fill="none" stroke="#1f8f86" stroke-width="7" stroke-linecap="round" opacity=".55"/>
  <!-- bandage -->
  <g transform="translate(-170,150) rotate(-12)"><rect x="-56" y="-22" width="112" height="44" rx="22" fill="#ff9b3d" ${O}/><rect x="-52" y="-18" width="104" height="14" rx="7" fill="#ffc07a" opacity=".8"/><path d="M-34 8 L-20 -6 L-6 8 L8 -6 L22 8 L34 -4" fill="none" stroke="#c4541a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>
  <!-- nucleus -->
@@ -105,24 +104,46 @@ function cyto(){
 function skyline(w,h,base,seed){let s=seed;const r=()=>(s=(s*16807)%2147483647)/2147483647;let o='';
  o+=`<rect width="${w}" height="${h}" fill="url(#sky)"/>`;
  for(let i=0;i<130;i++) o+=`<circle cx="${(r()*w).toFixed(0)}" cy="${(r()*base*0.7).toFixed(0)}" r="${(r()*2.2+.6).toFixed(1)}" fill="#fff" opacity="${(.3+r()*.6).toFixed(2)}"/>`;
- if(w>1200) o+=`<circle cx="${w*0.7}" cy="${base*0.13}" r="${Math.min(w,h)*0.05}" fill="#fff6d6" opacity=".9"/>`;
+ 
  for(let layer=0;layer<2;layer++){let x=-20;while(x<w){const bw=w*(0.04+r()*0.05),bh=h*(0.1+r()*0.25)*(layer?.7:1);
   o+=`<rect x="${x.toFixed(0)}" y="${(base-bh).toFixed(0)}" width="${bw.toFixed(0)}" height="${(h-base+bh).toFixed(0)}" fill="${layer?'#17275a':'#0e1a3e'}"/>`;
   for(let wy=base-bh+16;wy<base;wy+=24)for(let wx=x+8;wx<x+bw-8;wx+=20)if(r()>.6)o+=`<rect x="${wx.toFixed(0)}" y="${wy.toFixed(0)}" width="7" height="10" fill="#ffd27a" opacity=".8"/>`;
   x+=bw+2}}
  return o}
-function tower(x,base,h){return `<path d="M${x-9} ${base} L${x-3} ${base-h*0.86} L${x+3} ${base-h*0.86} L${x+9} ${base}Z" fill="#0a1230"/><ellipse cx="${x}" cy="${base-h*0.62}" rx="${h*0.07}" ry="${h*0.022}" fill="#0a1230"/><path d="M${x} ${base-h*0.86} L${x} ${base-h}" stroke="#0a1230" stroke-width="3"/><circle cx="${x}" cy="${base-h}" r="3" fill="#ff4a4a"/>`}
+function tower_old(x,base,h){return `<path d="M${x-9} ${base} L${x-3} ${base-h*0.86} L${x+3} ${base-h*0.86} L${x+9} ${base}Z" fill="#0a1230"/><ellipse cx="${x}" cy="${base-h*0.62}" rx="${h*0.07}" ry="${h*0.022}" fill="#0a1230"/><path d="M${x} ${base-h*0.86} L${x} ${base-h}" stroke="#0a1230" stroke-width="3"/><circle cx="${x}" cy="${base-h}" r="3" fill="#ff4a4a"/>`}
+
+function tower(x,base,h){return `<path d="M${x-12} ${base} L${x-4} ${base-h*0.62} L${x+4} ${base-h*0.62} L${x+12} ${base}Z" fill="#0a1230"/>
+ <path d="M${x-4} ${base-h*0.62} L${x-2} ${base-h*0.95} L${x+2} ${base-h*0.95} L${x+4} ${base-h*0.62}Z" fill="#0a1230"/>
+ <ellipse cx="${x}" cy="${base-h*0.6}" rx="${h*0.085}" ry="${h*0.026}" fill="#0a1230"/><ellipse cx="${x}" cy="${base-h*0.628}" rx="${h*0.06}" ry="${h*0.02}" fill="#16254f"/>
+ <ellipse cx="${x}" cy="${base-h*0.74}" rx="${h*0.026}" ry="${h*0.016}" fill="#0a1230"/>
+ <path d="M${x} ${base-h*0.95} L${x} ${base-h}" stroke="#0a1230" stroke-width="3"/><circle cx="${x}" cy="${base-h}" r="3.5" fill="#ff4a4a"/>
+ <ellipse cx="${x}" cy="${base-h*0.6}" rx="${h*0.12}" ry="${h*0.06}" fill="#ffcf5a" opacity=".05" filter="url(#soft)"/>`}
+function extras(w,h,base,withCar,snowSeed){let s=snowSeed;const r=()=>(s=(s*16807)%2147483647)/2147483647;let o='';
+ // horizon glow
+ o+=`<rect y="${base-h*0.18}" width="${w}" height="${h*0.18}" fill="#ff7a59" opacity=".10"/>`;
+ // stadium dome
+ const dx=w*(withCar?0.55:0.2), dr=w*(withCar?0.075:0.09);
+ o+=`<path d="M${dx-dr} ${base} Q${dx} ${base-dr*1.3} ${dx+dr} ${base}Z" fill="#1b2d66"/><path d="M${dx-dr*.5} ${base} Q${dx} ${base-dr*1.2} ${dx+dr*.5} ${base}" fill="none" stroke="#2b4590" stroke-width="3"/>`;
+ // lake
+ o+=`<rect y="${base}" width="${w}" height="${h-base}" fill="#0d1a40"/>`;
+ for(let i=0;i<46;i++){const x=r()*w,y=base+6+r()*(h-base-12),l=8+r()*40;o+=`<rect x="${x.toFixed(0)}" y="${y.toFixed(0)}" width="${l.toFixed(0)}" height="2.5" rx="1.2" fill="${r()>.5?'#ffd27a':'#7fb0ff'}" opacity="${(.12+r()*.28).toFixed(2)}"/>`}
+ if(withCar){const cx=w*0.74,cy=base-h*0.012,cw=w*0.17,ch=h*0.085;
+  o+=`<g><rect x="${cx}" y="${cy-ch}" width="${cw}" height="${ch}" rx="10" fill="#c62828" stroke="#0a1f24" stroke-width="5"/><rect x="${cx}" y="${cy-ch*0.42}" width="${cw}" height="${ch*0.1}" fill="#fff"/>`;
+  for(let i=0;i<5;i++) o+=`<rect x="${cx+cw*0.06+i*cw*0.18}" y="${cy-ch*0.85}" width="${cw*0.13}" height="${ch*0.32}" rx="4" fill="#ffe9a8"/>`;
+  o+=`<path d="M${cx+cw*0.5} ${cy-ch} L${cx+cw*0.42} ${cy-ch*1.35} L${cx+cw*0.6} ${cy-ch*1.35}" stroke="#0a1f24" stroke-width="4" fill="none"/><path d="M${cx-40} ${cy-ch*1.42} H${cx+cw+60}" stroke="#0a1f24" stroke-width="3"/><circle cx="${cx+cw*0.2}" cy="${cy+4}" r="9" fill="#0a1f24"/><circle cx="${cx+cw*0.8}" cy="${cy+4}" r="9" fill="#0a1f24"/></g>`}
+ // snow
+ for(let i=0;i<90;i++) o+=`<circle cx="${(r()*w).toFixed(0)}" cy="${(r()*h).toFixed(0)}" r="${(1.6+r()*3.4).toFixed(1)}" fill="#fff" opacity="${(.35+r()*.5).toFixed(2)}"/>`;
+ return o}
 // PFP 1000x1000
 const pfp=`<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">${defs}
  <clipPath id="circ"><circle cx="500" cy="500" r="486"/></clipPath>
- <g clip-path="url(#circ)">${skyline(1000,1000,780,3)}${tower(840,780,540)}
- <rect y="760" width="1000" height="240" fill="#0b1430"/>
+ <g clip-path="url(#circ)">${skyline(1000,1000,780,3)}${extras(1000,1000,780,false,17)}${tower(850,780,700)}
  <circle cx="520" cy="500" r="470" fill="url(#glow)"/><g transform="translate(512,505) scale(.86)">${cyto()}</g></g>
  <circle cx="500" cy="500" r="486" fill="none" stroke="#ffcf5a" stroke-width="28"/></svg>`;
 fs.writeFileSync('pfp.svg',pfp);
 // COVER 1640x624 (FB) — character left-center, text right, safe middle
 const cover=(w,h,sc,cx,cy,tx,fs1,fs2)=>`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${defs}
- ${skyline(w,h,h*0.8,9)}${tower(w*0.93,h*0.8,h*0.9)}<rect y="${h*0.8}" width="${w}" height="${h*0.2}" fill="#0b1430"/>
+ ${skyline(w,h,h*0.8,9)}${extras(w,h,h*0.8,true,23)}${tower(w*0.93,h*0.8,h*0.98)}
  <circle cx="${cx}" cy="${cy-40}" r="${h*0.62}" fill="url(#glow)"/><g transform="translate(${cx},${cy}) scale(${sc})">${cyto()}</g>
  <g font-family="Arial Black, Impact, DejaVu Sans, sans-serif" font-weight="900">
   <text x="${tx}" y="${h*0.4}" font-size="${fs1}" fill="#fff" stroke="#0a1f24" stroke-width="${fs1*0.08}" paint-order="stroke" filter="url(#cut)">THE BODY</text>
@@ -131,3 +152,4 @@ const cover=(w,h,sc,cx,cy,tx,fs1,fs2)=>`<svg xmlns="http://www.w3.org/2000/svg" 
  </g></svg>`;
 fs.writeFileSync('cover.svg',cover(1640,624,.5,430,365,720,104,26));
 fs.writeFileSync('banner.svg',cover(2560,1440,.62,1030,860,1290,170,46));
+
