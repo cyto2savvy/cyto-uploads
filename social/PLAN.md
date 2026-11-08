@@ -19,7 +19,7 @@ Goal: same Cyto Shorts, native uploads, 1 extra distribution channel each at no 
 - Original sound only. Optional later A/B: add a licensed in-app trending sound at ~10% under the voice on ONE Reel and compare reach; never download third-party audio.
 - Reply to every comment in the first hour.
 
-## Cadence (so each platform gets "fresh"): YouTube 6 PM -> TikTok 6 PM (friend) -> Instagram + Facebook next day 12:00 noon ET.
+## Cadence (so each platform gets "fresh"): YouTube 6 PM -> Instagram + Facebook next day 12:00 noon ET (TikTok is handled separately by a friend; not part of this plan).
 Launch week: post 5 best/most relevant videos 1/day (Ep 2, 3, 5 = our 3 highest-view videos, then Ep 12, 13) so the new accounts have content, then 1 per day following YouTube.
 
 ## Monetization on Meta
