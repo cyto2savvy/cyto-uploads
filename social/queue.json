@@ -1,0 +1,70 @@
+{
+ "_note": "Draft IG/FB queue. Flip status to approved once the accounts exist. Times Toronto.",
+ "queue": [
+  {
+   "episode": "ep02",
+   "status": "draft_until_accounts_exist",
+   "video_url": "https://raw.githubusercontent.com/cyto2savvy/cyto-uploads/main/ep02/cyto-ep2-scared-to-death.mp4",
+   "post_at_toronto_time": "2026-11-10T12:00",
+   "timezone": "America/Toronto",
+   "platforms": [
+    "instagram",
+    "facebook"
+   ],
+   "caption": "Can you actually get scared to death? \ud83d\udc80 Cyto breaks down broken heart syndrome.\n\nSources: Wittstein et al., N Engl J Med 2005; Samuels, Cleve Clin J Med 2007\nNot medical advice.\n\n#halloween #heart #biology #science #toronto #6ix",
+   "ai_generated_label": true
+  },
+  {
+   "episode": "ep03",
+   "status": "draft_until_accounts_exist",
+   "video_url": "https://raw.githubusercontent.com/cyto2savvy/cyto-uploads/main/ep03/cyto-ep3-sugar-rush.mp4",
+   "post_at_toronto_time": "2026-11-11T12:00",
+   "timezone": "America/Toronto",
+   "platforms": [
+    "instagram",
+    "facebook"
+   ],
+   "caption": "The sugar rush is fake \ud83c\udf6c Science says it's all in our heads.\n\nSources: Wolraich et al., JAMA 1995; Hoover & Milich, J Abnorm Child Psychol 1994\n\n#halloween #sugarrush #mythbusting #science #toronto #6ix",
+   "ai_generated_label": true
+  },
+  {
+   "episode": "ep05",
+   "status": "draft_until_accounts_exist",
+   "video_url": "https://raw.githubusercontent.com/cyto2savvy/cyto-uploads/main/ep05/cyto-ep5-cold-season.mp4",
+   "post_at_toronto_time": "2026-11-12T12:00",
+   "timezone": "America/Toronto",
+   "platforms": [
+    "instagram",
+    "facebook"
+   ],
+   "caption": "Why does everyone get sick when it gets cold? \ud83e\udd76 Your nose's virus defence takes a hit.\n\nSources: Huang et al., J Allergy Clin Immunol 2023\nNot medical advice.\n\n#coldandflu #immunesystem #biology #science #toronto #6ix",
+   "ai_generated_label": true
+  },
+  {
+   "episode": "ep12",
+   "status": "draft_until_accounts_exist",
+   "video_url": "https://raw.githubusercontent.com/cyto2savvy/cyto-uploads/d63a6ce811a674113705f6116f224ec4ba541c65/ep12/cyto-ep12-movember.mp4",
+   "post_at_toronto_time": "2026-11-13T12:00",
+   "timezone": "America/Toronto",
+   "platforms": [
+    "instagram",
+    "facebook"
+   ],
+   "caption": "Movember real talk: does checking yourself actually save lives? \ud83c\udfa5 Nobody has proven routine monthly self-checks do, but any lump, swelling or pain = see a doctor.\n\nSources: Thomas et al., Cancer Prev Res 2026; Bashi et al., J Pediatr Urol 2026\nNot medical advice.\n\n#movember #menshealth #science #toronto #6ix",
+   "ai_generated_label": true
+  },
+  {
+   "episode": "ep13",
+   "status": "draft_until_accounts_exist",
+   "video_url": "https://raw.githubusercontent.com/cyto2savvy/cyto-uploads/d63a6ce811a674113705f6116f224ec4ba541c65/ep13/cyto-ep13-neutro.mp4",
+   "post_at_toronto_time": "2026-11-14T12:00",
+   "timezone": "America/Toronto",
+   "platforms": [
+    "instagram",
+    "facebook"
+   ],
+   "caption": "Meet Neutro, your flu season bouncer \ud83e\udda0 Neutrophils are first on the scene, but in severe flu the same moves can hurt your lungs. Your best defence is still the flu shot.\n\nSources: George et al., Vaccines 2021; Lamichhane & Samarasinghe, J Immunol Res 2019\nNot medical advice.\n\n#flu #immunesystem #neutrophil #science #toronto #6ix",
+   "ai_generated_label": true
+  }
+ ]
+}

@@ -227,3 +227,6 @@ DECISION (Nov 6, Utsha): Eps 9, 12, 13 are already voiced/built, leave them as t
 4. OUTFIT = SpongeBob-style (Nov 8): clothes flush with the body silhouette, clipped to the body outline, arms/hands always in front of the outfit, never covering the sides/face/cup. Details: ep14_addendum.md item 5.
 
 ### SCHEDULE CHECK (Nov 8, 2026, YouTube): live = Eps 1-11 (Ep 9 id UEAjo09k7WI, Ep 10 -CEltZRO09A, Ep 11 7Xdk-SvGqBY). Only LF01 (MLdcV-vmyXE) is scheduled (publishAt 2026-11-29T14:45:00Z = 9:45 AM ET, check if 6 PM was intended). Ep 12 (Mon Nov 9 6 PM ET), Ep 13 (Tue Nov 10 6 PM ET), Ep 14 (Wed Nov 11 9 AM ET) are BUILT but NOT uploaded/scheduled.
+
+### INSTAGRAM + FACEBOOK (Nov 8, 2026): see social/PLAN.md and social/queue.json (draft). Post natively from the original mp4, AI label ON, 12:00 ET the day after YouTube, IG/FB safe-zone check (top 220 px / bottom 350 px clear) to be added to layout_check.
+### SCHEDULED Nov 8: Ep 12 = B2kle4wj4A8 (Mon Nov 9 6 PM ET), Ep 13 = Wmcr3C99lwQ (Tue Nov 10 6 PM ET), both private + publishAt + synthetic flag + thumbnail A. Added Eps 9, 12, 13 to tiktok/queue.json. Ep 14 NOT scheduled (rebuild with ep14_addendum.md first).
