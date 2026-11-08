@@ -48,16 +48,17 @@ function cup(){return `<g transform="translate(-362,92) rotate(-9) scale(1.38)" 
  <path d="M-58 -96 L-52 90" stroke="#fff" stroke-width="9" stroke-linecap="round" opacity=".6"/>
 </g>`}
 
-function chain(){ // cuban-style links along a curve + bling pendant
- const P0=[-176,196],C=[0,326],P1=[176,196]; let links='';
- const N=26;
+function chain(){ // necklace wrapping around the body, pendant hanging at centre
+ const P0=[-300,128],C=[0,300],P1=[300,128]; let links='';
+ const N=40;
+ const link=(x,y,ang,i)=>{const rot=ang+(i%2?90:0), rx=i%2?8.5:14, ry=i%2?14:9;
+  return `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${rx}" ry="${ry}" transform="rotate(${rot.toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)})" fill="url(#gold)" stroke="#6b4100" stroke-width="3.5"/>`+(i%2===0?`<circle cx="${(x-3).toFixed(1)}" cy="${(y-3).toFixed(1)}" r="2.4" fill="#fffbe0" opacity=".9"/>`:'')};
  for(let i=0;i<=N;i++){const t=i/N; const x=(1-t)*(1-t)*P0[0]+2*(1-t)*t*C[0]+t*t*P1[0]; const y=(1-t)*(1-t)*P0[1]+2*(1-t)*t*C[1]+t*t*P1[1];
-  const dx=2*(1-t)*(C[0]-P0[0])+2*t*(P1[0]-C[0]), dy=2*(1-t)*(C[1]-P0[1])+2*t*(P1[1]-C[1]); const ang=Math.atan2(dy,dx)*180/Math.PI;
-  const rot=ang+(i%2?90:0), rx=i%2?9:15, ry=i%2?15:9.5;
-  links+=`<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${rx}" ry="${ry}" transform="rotate(${rot.toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)})" fill="url(#gold)" stroke="#6b4100" stroke-width="3.5"/>`;
-  if(i%2===0) links+=`<circle cx="${(x-3).toFixed(1)}" cy="${(y-3).toFixed(1)}" r="2.6" fill="#fffbe0" opacity=".9"/>`}
+  const dx=2*(1-t)*(C[0]-P0[0])+2*t*(P1[0]-C[0]), dy=2*(1-t)*(C[1]-P0[1])+2*t*(P1[1]-C[1]); links+=link(x,y,Math.atan2(dy,dx)*180/Math.PI,i)}
+ let drop=''; for(let k=0;k<3;k++) drop+=link(0,222+k*13,90,k+1);
  let gems=''; for(let i=0;i<12;i++){const a=i/12*6.283; gems+=`<circle cx="${(Math.cos(a)*40).toFixed(1)}" cy="${(Math.sin(a)*40).toFixed(1)}" r="4" fill="#e8fbff" stroke="#6b4100" stroke-width="1.6"/>`}
- return `<path d="M-176 196 Q0 326 176 196" fill="none" stroke="#0a1f24" stroke-width="22" stroke-linecap="round" opacity=".35" transform="translate(5 8)"/>${links}
+ return `<g clip-path="url(#bodyclip2)"><path d="M-300 128 Q0 300 300 128" fill="none" stroke="#0a1f24" stroke-width="22" stroke-linecap="round" opacity=".3" transform="translate(4 9)"/>${links}</g>
+ ${drop}
  <g transform="translate(0,298)"><ellipse cx="0" cy="-48" rx="10" ry="13" fill="none" stroke="#6b4100" stroke-width="6"/><ellipse cx="0" cy="-48" rx="10" ry="13" fill="none" stroke="#ffd95a" stroke-width="2.5"/>
   <circle r="50" fill="url(#gold)" ${O}/><circle r="41" fill="none" stroke="#fff3b0" stroke-width="3"/>${gems}
   <text y="17" text-anchor="middle" font-family="Arial Black, Impact, DejaVu Sans, sans-serif" font-weight="900" font-size="46" fill="#7a4a00" stroke="#fff3b0" stroke-width="1.5" paint-order="stroke">6</text>
@@ -117,9 +118,9 @@ function cyto(fit='none'){
  <path d="M-62 112 Q0 138 84 92" fill="none" stroke="#0a1f24" stroke-width="11" stroke-linecap="round"/>
  <path d="M84 92 Q100 82 106 98" fill="none" stroke="#0a1f24" stroke-width="8" stroke-linecap="round"/>
  <path d="M-40 126 Q10 146 60 118" fill="none" stroke="#1f8f86" stroke-width="7" stroke-linecap="round" opacity=".55"/>
- <g transform="translate(-170,138) rotate(-12)"><rect x="-56" y="-22" width="112" height="44" rx="22" fill="#ff9b3d" ${O}/><rect x="-52" y="-18" width="104" height="14" rx="7" fill="#ffc07a" opacity=".8"/><path d="M-34 8 L-20 -6 L-6 8 L8 -6 L22 8 L34 -4" fill="none" stroke="#c4541a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>
- <g transform="translate(190,150)"><circle r="66" fill="url(#nuc)" ${O}/><circle cx="-24" cy="-26" r="14" fill="#efe6ff"/><path d="M-26 20 Q-8 36 12 16 Q24 4 36 20" fill="none" stroke="#d8c8ff" stroke-width="7" stroke-linecap="round"/></g>
  ${chain()}
+ <g transform="translate(-176,124) rotate(-12)"><rect x="-56" y="-22" width="112" height="44" rx="22" fill="#ff9b3d" ${O}/><rect x="-52" y="-18" width="104" height="14" rx="7" fill="#ffc07a" opacity=".8"/><path d="M-34 8 L-20 -6 L-6 8 L8 -6 L22 8 L34 -4" fill="none" stroke="#c4541a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>
+ <g transform="translate(190,150)"><circle r="66" fill="url(#nuc)" ${O}/><circle cx="-24" cy="-26" r="14" fill="#efe6ff"/><path d="M-26 20 Q-8 36 12 16 Q24 4 36 20" fill="none" stroke="#d8c8ff" stroke-width="7" stroke-linecap="round"/></g>
  <g transform="rotate(-7 0 -150)">
   <path d="M-292 -150 C-312 -410 312 -410 292 -150Z" fill="url(#hat)" ${O}/>
   <g clip-path="url(#hatclip)">${ribs}<ellipse cx="-150" cy="-300" rx="70" ry="90" fill="#fff" opacity=".13" transform="rotate(20 -150 -290)"/></g>
