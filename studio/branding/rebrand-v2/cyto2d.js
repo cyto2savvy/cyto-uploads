@@ -47,20 +47,62 @@ function cup(){return `<g transform="translate(-362,92) rotate(-9) scale(1.38)" 
  <g ${O} fill="url(#skinArm)"><ellipse cx="-70" cy="62" rx="26" ry="38"/><ellipse cx="-14" cy="64" rx="62" ry="36"/></g>
  <path d="M-58 -96 L-52 90" stroke="#fff" stroke-width="9" stroke-linecap="round" opacity=".6"/>
 </g>`}
-function cyto(){
+
+function chain(){ // cuban-style links along a curve + bling pendant
+ const P0=[-176,196],C=[0,326],P1=[176,196]; let links='';
+ const N=26;
+ for(let i=0;i<=N;i++){const t=i/N; const x=(1-t)*(1-t)*P0[0]+2*(1-t)*t*C[0]+t*t*P1[0]; const y=(1-t)*(1-t)*P0[1]+2*(1-t)*t*C[1]+t*t*P1[1];
+  const dx=2*(1-t)*(C[0]-P0[0])+2*t*(P1[0]-C[0]), dy=2*(1-t)*(C[1]-P0[1])+2*t*(P1[1]-C[1]); const ang=Math.atan2(dy,dx)*180/Math.PI;
+  const rot=ang+(i%2?90:0), rx=i%2?9:15, ry=i%2?15:9.5;
+  links+=`<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${rx}" ry="${ry}" transform="rotate(${rot.toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)})" fill="url(#gold)" stroke="#6b4100" stroke-width="3.5"/>`;
+  if(i%2===0) links+=`<circle cx="${(x-3).toFixed(1)}" cy="${(y-3).toFixed(1)}" r="2.6" fill="#fffbe0" opacity=".9"/>`}
+ let gems=''; for(let i=0;i<12;i++){const a=i/12*6.283; gems+=`<circle cx="${(Math.cos(a)*40).toFixed(1)}" cy="${(Math.sin(a)*40).toFixed(1)}" r="4" fill="#e8fbff" stroke="#6b4100" stroke-width="1.6"/>`}
+ return `<path d="M-176 196 Q0 326 176 196" fill="none" stroke="#0a1f24" stroke-width="22" stroke-linecap="round" opacity=".35" transform="translate(5 8)"/>${links}
+ <g transform="translate(0,298)"><ellipse cx="0" cy="-48" rx="10" ry="13" fill="none" stroke="#6b4100" stroke-width="6"/><ellipse cx="0" cy="-48" rx="10" ry="13" fill="none" stroke="#ffd95a" stroke-width="2.5"/>
+  <circle r="50" fill="url(#gold)" ${O}/><circle r="41" fill="none" stroke="#fff3b0" stroke-width="3"/>${gems}
+  <text y="17" text-anchor="middle" font-family="Arial Black, Impact, DejaVu Sans, sans-serif" font-weight="900" font-size="46" fill="#7a4a00" stroke="#fff3b0" stroke-width="1.5" paint-order="stroke">6</text>
+  <path d="M-30 -26 Q-14 -40 4 -36" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".8"/></g>
+ ${sparkle(34,262,14,'#fff')}`}
+function arm(d,w=42){return `<path d="${d}" fill="none" stroke="#0a1f24" stroke-width="${w+14}" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="#2fb5a1" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="#4fd8c3" stroke-width="${w*0.45}" stroke-linecap="round" stroke-linejoin="round" opacity=".55" transform="translate(-4 -5)"/>`}
+function garment(fit){
+ if(fit==='none') return '';
+ const hem='M-330 104 Q0 236 330 104 L330 340 L-330 340Z';
+ let g=`<g clip-path="url(#bodyclip2)">`;
+ if(fit==='jersey'){
+  g+=`<path d="${hem}" fill="#1f4fc0"/><path d="M-330 214 Q0 292 330 214 L330 236 Q0 314 -330 236Z" fill="#fff"/><path d="M-330 252 Q0 330 330 252 L330 270 Q0 348 -330 270Z" fill="#fff"/>
+   <path d="M-330 104 Q0 236 330 104" fill="none" stroke="#fff" stroke-width="12"/><path d="M-330 104 Q0 236 330 104" fill="none" stroke="#0a1f24" stroke-width="7" transform="translate(0 -9)" opacity=".0"/>
+   <text x="0" y="248" text-anchor="middle" transform="scale(1,.92)" font-family="Arial Black, Impact, DejaVu Sans, sans-serif" font-weight="900" font-size="54" fill="#fff" stroke="#0e2468" stroke-width="5" paint-order="stroke" opacity="0">6IX</text>
+   <path d="M-330 104 Q0 236 330 104 L330 340 L-330 340Z" fill="none" stroke="#0a1f24" stroke-width="7"/>`;
+ } else if(fit==='hoodie'){
+  g+=`<path d="${hem}" fill="#2a2d36"/><path d="M-330 104 Q0 236 330 104" fill="none" stroke="#3b3f4b" stroke-width="16"/>
+   <path d="M-130 206 Q0 262 130 206 L156 306 Q0 338 -156 306Z" fill="#23262e" stroke="#0a1f24" stroke-width="5"/>
+   <path d="M-34 170 L-40 222" stroke="#f4f1e8" stroke-width="7" stroke-linecap="round"/><path d="M34 170 L40 222" stroke="#f4f1e8" stroke-width="7" stroke-linecap="round"/>
+   <circle cx="-40" cy="230" r="6" fill="#f4f1e8"/><circle cx="40" cy="230" r="6" fill="#f4f1e8"/>
+   <path d="M-330 296 Q0 390 330 296 L330 340 L-330 340Z" fill="#171920"/>
+   <path d="M-330 104 Q0 236 330 104 L330 340 L-330 340Z" fill="none" stroke="#0a1f24" stroke-width="7"/>`;
+ } else if(fit==='puffer'){
+  g+=`<path d="${hem}" fill="#f0a722"/>`;
+  for(const y of [150,196,242]) g+=`<path d="M-330 ${y} Q0 ${y+88} 330 ${y}" fill="none" stroke="#b86d0a" stroke-width="7"/>`;
+  g+=`<path d="M-330 104 Q0 236 330 104" fill="none" stroke="#ffd36a" stroke-width="12"/><path d="M0 170 L0 340" stroke="#b86d0a" stroke-width="7"/><path d="M-330 104 Q0 236 330 104 L330 340 L-330 340Z" fill="none" stroke="#0a1f24" stroke-width="7"/>
+   <path d="M-210 215 Q-130 235 -60 222" fill="none" stroke="#ffe39a" stroke-width="8" stroke-linecap="round" opacity=".6"/>`;
+ }
+ return g+`</g>`}
+function cyto(fit='none'){
  let spots=''; for(let i=0;i<22;i++){const a=rnd()*6.28,r=Math.sqrt(rnd())*260;const x=Math.cos(a)*r,y=Math.sin(a)*r*0.95+20;
-  if(Math.abs(x)<190&&y>-100&&y<30) continue; if(Math.abs(x)<130&&y>40&&y<170) continue; if(y<-60) continue; if(x>100&&y>80) continue;if(x<-110&&y>70&&x>-270) continue; if(y>150) continue;
+  if(Math.abs(x)<190&&y>-100&&y<30) continue; if(Math.abs(x)<130&&y>40&&y<170) continue; if(y<-60) continue; if(x>100&&y>80) continue;if(x<-110&&y>70&&x>-270) continue; if(y>130) continue;
   spots+=`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${(3+rnd()*5).toFixed(1)}" fill="#25a090" opacity=".55"/>`}
  let ribs=''; for(let i=-10;i<=10;i++) ribs+=`<path d="M${i*28} -140 L${i*32} -400" stroke="#102a74" stroke-width="5" opacity=".45"/>`;
  let cuffr=''; for(let i=-9;i<=9;i++) cuffr+=`<path d="M${i*32} -176 L${i*32} -82" stroke="#0e2468" stroke-width="5" opacity=".55"/>`;
  let pom=''; for(let i=0;i<24;i++){const a=rnd()*6.28,r=rnd()*34;pom+=`<circle cx="${(Math.cos(a)*r).toFixed(0)}" cy="${(Math.sin(a)*r).toFixed(0)}" r="5" fill="#dcd5c4"/>`}
+ const hand=(x,y)=>`<g transform="translate(${x},${y})"><circle r="52" fill="#2fb5a1" ${O}/><circle r="52" fill="url(#skinArm)" opacity=".7"/><ellipse cx="-16" cy="-20" rx="16" ry="10" fill="#fff" opacity=".4" transform="rotate(-30 -16 -20)"/></g>`;
  return `<g filter="url(#cut)">
  <ellipse cx="10" cy="338" rx="230" ry="24" fill="#000" opacity=".3" filter="url(#soft)"/>
+ <!-- arms emerge from behind the body edge -->
+ ${arm("M268 60 Q372 70 366 -34",44)}${hand(366,-62)}
+ ${arm("M-268 82 Q-318 112 -322 164",44)}
  <!-- body -->
  <ellipse rx="308" ry="292" fill="#3fd0bb" ${O}/>
  <g clip-path="url(#bodyclip2)">
-  <ellipse cx="60" cy="70" rx="320" ry="300" fill="#2aa896" transform="translate(54 60)" opacity="0"/>
-  <path d="M-310 0 A310 295 0 0 0 310 0 Q300 150 150 260 Q-40 330 -200 230 Q-300 150 -310 0Z" fill="#27a593" opacity=".0"/>
   <ellipse cx="86" cy="76" rx="300" ry="285" fill="#2aa896"/>
   <ellipse cx="-10" cy="-8" rx="296" ry="282" fill="#3fd0bb"/>
   <path d="M-250 -150 Q-170 -250 -40 -250" fill="none" stroke="#fff" stroke-width="26" stroke-linecap="round" opacity=".38"/>
@@ -68,27 +110,16 @@ function cyto(){
   <path d="M300 -60 Q330 60 250 200" fill="none" stroke="#9dfbe9" stroke-width="12" stroke-linecap="round" opacity=".55"/>
   ${spots}
  </g>
+ ${garment(fit)}
  <ellipse rx="308" ry="292" fill="none" ${O}/>
- <!-- raised arm (front) (viewer right) -->
- <path d="M236 70 Q330 40 352 -40" fill="none" stroke="#0a1f24" stroke-width="48" stroke-linecap="round"/><path d="M236 70 Q330 40 352 -40" fill="none" stroke="url(#skinArm)" stroke-width="34" stroke-linecap="round"/>
- <g transform="translate(356,-62)"><circle r="50" fill="url(#skinArm)" ${O}/><ellipse cx="-14" cy="-16" rx="14" ry="9" fill="#fff" opacity=".35"/></g>
- <!-- left arm (to cup) -->
- <path d="M-226 90 Q-282 130 -296 170" fill="none" stroke="#0a1f24" stroke-width="48" stroke-linecap="round"/><path d="M-226 90 Q-282 130 -296 170" fill="none" stroke="url(#skinArm)" stroke-width="34" stroke-linecap="round"/>
  ${eye(-100,-1)}${eye(100,1)}
  <ellipse cx="-196" cy="70" rx="30" ry="18" fill="#ff9aa8" opacity=".55"/><ellipse cx="196" cy="70" rx="30" ry="18" fill="#ff9aa8" opacity=".55"/>
- <!-- smirk -->
  <path d="M-62 112 Q0 138 84 92" fill="none" stroke="#0a1f24" stroke-width="11" stroke-linecap="round"/>
  <path d="M84 92 Q100 82 106 98" fill="none" stroke="#0a1f24" stroke-width="8" stroke-linecap="round"/>
  <path d="M-40 126 Q10 146 60 118" fill="none" stroke="#1f8f86" stroke-width="7" stroke-linecap="round" opacity=".55"/>
- <!-- bandage -->
- <g transform="translate(-170,150) rotate(-12)"><rect x="-56" y="-22" width="112" height="44" rx="22" fill="#ff9b3d" ${O}/><rect x="-52" y="-18" width="104" height="14" rx="7" fill="#ffc07a" opacity=".8"/><path d="M-34 8 L-20 -6 L-6 8 L8 -6 L22 8 L34 -4" fill="none" stroke="#c4541a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>
- <!-- nucleus -->
- <g transform="translate(188,158)"><circle r="68" fill="url(#nuc)" ${O}/><circle cx="-24" cy="-26" r="14" fill="#efe6ff"/><path d="M-26 20 Q-8 36 12 16 Q24 4 36 20" fill="none" stroke="#d8c8ff" stroke-width="7" stroke-linecap="round"/></g>
- <!-- gold chain + 6 pendant -->
- <path d="M-150 214 Q0 330 150 214" fill="none" stroke="#0a1f24" stroke-width="16" stroke-linecap="round"/>
- <path d="M-150 214 Q0 330 150 214" fill="none" stroke="url(#gold)" stroke-width="9" stroke-linecap="round" stroke-dasharray="14 4"/>
- <g transform="translate(0,300)"><circle r="40" fill="url(#gold)" ${O}/><circle r="30" fill="none" stroke="#fff6c8" stroke-width="3" opacity=".8"/><text y="15" text-anchor="middle" font-family="Arial Black, Impact, DejaVu Sans, sans-serif" font-weight="900" font-size="42" fill="#7a4a00">6</text></g>
- <!-- toque (tilted) -->
+ <g transform="translate(-170,138) rotate(-12)"><rect x="-56" y="-22" width="112" height="44" rx="22" fill="#ff9b3d" ${O}/><rect x="-52" y="-18" width="104" height="14" rx="7" fill="#ffc07a" opacity=".8"/><path d="M-34 8 L-20 -6 L-6 8 L8 -6 L22 8 L34 -4" fill="none" stroke="#c4541a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>
+ <g transform="translate(190,150)"><circle r="66" fill="url(#nuc)" ${O}/><circle cx="-24" cy="-26" r="14" fill="#efe6ff"/><path d="M-26 20 Q-8 36 12 16 Q24 4 36 20" fill="none" stroke="#d8c8ff" stroke-width="7" stroke-linecap="round"/></g>
+ ${chain()}
  <g transform="rotate(-7 0 -150)">
   <path d="M-292 -150 C-312 -410 312 -410 292 -150Z" fill="url(#hat)" ${O}/>
   <g clip-path="url(#hatclip)">${ribs}<ellipse cx="-150" cy="-300" rx="70" ry="90" fill="#fff" opacity=".13" transform="rotate(20 -150 -290)"/></g>
@@ -138,13 +169,13 @@ function extras(w,h,base,withCar,snowSeed){let s=snowSeed;const r=()=>(s=(s*1680
 const pfp=`<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" viewBox="0 0 1000 1000">${defs}
  <clipPath id="circ"><circle cx="500" cy="500" r="486"/></clipPath>
  <g clip-path="url(#circ)">${skyline(1000,1000,780,3)}${extras(1000,1000,780,false,17)}${tower(850,780,700)}
- <circle cx="520" cy="500" r="470" fill="url(#glow)"/><g transform="translate(512,505) scale(.86)">${cyto()}</g></g>
+ <circle cx="520" cy="500" r="470" fill="url(#glow)"/><g transform="translate(512,505) scale(.86)">${cyto(process.env.FIT||'none')}</g></g>
  <circle cx="500" cy="500" r="486" fill="none" stroke="#ffcf5a" stroke-width="28"/></svg>`;
 fs.writeFileSync('pfp.svg',pfp);
 // COVER 1640x624 (FB) — character left-center, text right, safe middle
 const cover=(w,h,sc,cx,cy,tx,fs1,fs2)=>`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${defs}
  ${skyline(w,h,h*0.8,9)}${extras(w,h,h*0.8,true,23)}${tower(w*0.93,h*0.8,h*0.98)}
- <circle cx="${cx}" cy="${cy-40}" r="${h*0.62}" fill="url(#glow)"/><g transform="translate(${cx},${cy}) scale(${sc})">${cyto()}</g>
+ <circle cx="${cx}" cy="${cy-40}" r="${h*0.62}" fill="url(#glow)"/><g transform="translate(${cx},${cy}) scale(${sc})">${cyto(process.env.FIT||'none')}</g>
  <g font-family="Arial Black, Impact, DejaVu Sans, sans-serif" font-weight="900">
   <text x="${tx}" y="${h*0.4}" font-size="${fs1}" fill="#fff" stroke="#0a1f24" stroke-width="${fs1*0.08}" paint-order="stroke" filter="url(#cut)">THE BODY</text>
   <text x="${tx}" y="${h*0.4+fs1*0.98}" font-size="${fs1}" fill="#ffcf5a" stroke="#0a1f24" stroke-width="${fs1*0.08}" paint-order="stroke" filter="url(#cut)">IS THE 6IX</text>
@@ -153,3 +184,12 @@ const cover=(w,h,sc,cx,cy,tx,fs1,fs2)=>`<svg xmlns="http://www.w3.org/2000/svg" 
 fs.writeFileSync('cover.svg',cover(1640,624,.5,430,365,720,104,26));
 fs.writeFileSync('banner.svg',cover(2560,1440,.62,1030,860,1290,170,46));
 
+
+// OUTFIT SHEET
+const fits=[['none','BASE'],['jersey','HOCKEY JERSEY'],['hoodie','BLACK HOODIE'],['puffer','PUFFER']];
+const sheet=`<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1100" viewBox="0 0 2400 1100">${defs}
+ <rect width="2400" height="1100" fill="url(#sky)"/>
+ ${fits.map((f,i)=>`<g transform="translate(${i*600},0)"><circle cx="300" cy="520" r="290" fill="url(#glow)"/><g transform="translate(300,560) scale(.5)">${cyto(f[0])}</g>
+  <text x="300" y="1010" text-anchor="middle" font-family="Arial Black, Impact, DejaVu Sans, sans-serif" font-weight="900" font-size="44" fill="#ffcf5a" stroke="#0a1f24" stroke-width="6" paint-order="stroke">${f[1]}</text></g>`).join('')}
+</svg>`;
+fs.writeFileSync('fits.svg',sheet);
