@@ -203,16 +203,16 @@ const pfp=`<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" vi
  <circle cx="500" cy="500" r="486" fill="none" stroke="#ffcf5a" stroke-width="28"/></svg>`;
 fs.writeFileSync('pfp.svg',pfp);
 // COVER 1640x624 (FB) — character left-center, text right, safe middle
-const cover=(w,h,sc,cx,cy,tx,fs1,fs2)=>`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${defs}
+const cover=(w,h,sc,cx,cy,tx,fs1,fs2,ty=h*0.4)=>`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${defs}
  ${skyline(w,h,h*0.8,9)}${extras(w,h,h*0.8,true,23)}${tower(w*0.93,h*0.8,h*0.98)}
  <circle cx="${cx}" cy="${cy-40}" r="${h*0.62}" fill="url(#glow)"/><g transform="translate(${cx},${cy}) scale(${sc})">${cyto(process.env.FIT||'none')}</g>
  <g font-family="Arial Black, Impact, DejaVu Sans, sans-serif" font-weight="900">
-  <text x="${tx}" y="${h*0.4}" font-size="${fs1}" fill="#fff" stroke="#0a1f24" stroke-width="${fs1*0.08}" paint-order="stroke" filter="url(#cut)">THE BODY</text>
-  <text x="${tx}" y="${h*0.4+fs1*0.98}" font-size="${fs1}" fill="#ffcf5a" stroke="#0a1f24" stroke-width="${fs1*0.08}" paint-order="stroke" filter="url(#cut)">IS THE 6IX</text>
-  <text x="${tx+4}" y="${h*0.4+fs1*0.98+fs2*1.9}" font-size="${fs2}" fill="#8fe8d8" font-weight="700">Science in 30 seconds · live from inside your body</text>
+  <text x="${tx}" y="${ty}" font-size="${fs1}" fill="#fff" stroke="#0a1f24" stroke-width="${fs1*0.08}" paint-order="stroke" filter="url(#cut)">THE BODY</text>
+  <text x="${tx}" y="${ty+fs1*0.98}" font-size="${fs1}" fill="#ffcf5a" stroke="#0a1f24" stroke-width="${fs1*0.08}" paint-order="stroke" filter="url(#cut)">IS THE 6IX</text>
+  <text x="${tx+4}" y="${ty+fs1*0.98+fs2*1.9}" font-size="${fs2}" fill="#8fe8d8" font-weight="700">Science in 30 seconds · live from inside your body</text>
  </g></svg>`;
 fs.writeFileSync('cover.svg',cover(1640,624,.5,430,365,720,104,26));
-fs.writeFileSync('banner.svg',cover(2560,1440,.62,1030,860,1290,170,46));
+fs.writeFileSync('banner.svg',cover(2560,1440,.41,905,745,1105,84,27,640)  /* YT safe area x662-1897 y551-889 */);
 
 
 // OUTFIT SHEET
