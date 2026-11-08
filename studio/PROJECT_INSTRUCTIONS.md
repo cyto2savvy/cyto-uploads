@@ -6,19 +6,20 @@
 
 ## The channel
 - YouTube "Cyto The Cell" (@thebodyisthe6ix), branded "The Body is the 6ix". Monetized Shorts, 1 episode per day. TikTok is run by a friend's Claude from `tiktok/queue.json`.
-- Cyto is an original Toronto cell. He wears a blue-and-white toque, has chill half-lid eyes and talks in casual Toronto/youth slang (never professional). His voice is vidIQ "Liam".
+- Cyto is an original Toronto cell, drawn in the CANON v2 look (`studio/branding/CYTO_CANON_v2.md`: flat 2D cut-out South Park style, mitten hands, NO fingers, parallel pupils, gold chain with 6 medallion). He wears a blue-and-white toque, has chill half-lid eyes and talks in casual Toronto/youth slang (never professional). His voice is vidIQ "Liam".
 - Catchphrase: "Yo, it's ya boy Cyto, live from the 6ix… inside your body."
 - Recurring cast, introduced slowly: Mito (tired mitochondria, gym energy), Neutro (neutrophil security guard), Platelet Pete (TTC-worker energy).
 - Body parts are Toronto neighbourhoods.
 
 ## Cyto's cup
-- Cyto always holds a double-stacked party cup, unblurred, with a small flat cartoon logo of Cyto's face on the front. The default is red. Themed versions are fine: orange with a pumpkin face for Halloween, team colours on game night. It's always double-stacked with his face.
-- No real brand names or logos.
-- Never show what's inside, and never reference drinking or getting high. Sometimes Cyto calls it something science-y ("ATP smoothie", "electrolytes, fam").
+- Cyto always holds the CANON v2 cup: a generic Toronto-style paper coffee cup (white body, red band, brown lid, small flat cartoon Cyto-face logo, steam). It replaces the old double-stacked party cup everywhere. Holiday versions change the band/sleeve colour or pattern only.
+- No real brand names, logos, wave marks or lookalike branding (nothing that reads as Tim Hortons or any other chain).
+- Never show what's inside, and never reference drinking or getting high. Cyto can call it "a double-double", "ATP smoothie", "electrolytes, fam".
 - On sponsored episodes, consider swapping it for a tumbler (brand safety).
 
 ## Animation (the puppet rig + HyperFrames)
-- Cyto is a layered rig. Outfit changes swap the outfit layer only; base Cyto and the cup design never change.
+- Cyto is a layered rig built from `studio/branding/rebrand-v2/cyto2d.js` (CANON v2). Outfit changes swap the outfit layer only (SpongeBob-style: clipped flush to the body; jersey/hoodie/puffer); base Cyto and the cup design never change. Hands are round mittens (no fingers), pupils stay parallel, organelles stay clipped inside the cell with random placement + idle drift, chain is never covered.
+- **Run `bash studio/branding/rebrand-v2/run_tests.sh` after any rig/look change; it must pass 19/19 before a draft is shown.**
 - Mouth shape changes per syllable, blink every 2–4s, constant idle bounce, head tilts on jokes, arm gestures on key points.
 - Cup moves: sip on pauses, raise it on punchlines, set it down for serious parts.
 - Camera: slow push during explanations, punch-zoom on the hook and punchlines, shake on "bro WHAT" beats, Ken Burns on every photo or figure.

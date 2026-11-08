@@ -20,6 +20,9 @@ The scripts expect the original paths (`/home/claude/cyto2`, `/home/claude/epN`,
 - `python3 cyto2/cyto_voice.py epN/rec.m4a epN/raw.wav [cyto|cartoon|gruff]` (source: `studio/pipeline/cyto_voice.py`; needs `pip install --break-system-packages pyworld pedalboard`). WORLD vocoder shifts pitch AND formants so it doesn't sound like him, then a character EQ/comp/grit chain.
 - Then the usual: silencedetect → segs.json → build_voice2.py → timing.json. $0, no vidIQ credits.
 
+## CYTO LOOK = CANON v2 (read first)
+All art/rig work follows `studio/branding/CYTO_CANON_v2.md` and builds from `studio/branding/rebrand-v2/cyto2d.js`. Verify with `bash studio/branding/rebrand-v2/run_tests.sh` (19 checks, must all pass).
+
 ## Pipeline (all $0)
 1. **Research:** PubMed connector for the sources, and WebSearch for Toronto events and trends.
 2. **Voice:** vidIQ voiceover, voice **Liam** (`voiceId TX3LPaxmHKxFdv7VOQHJ`). **Charged 14 credits per started 1,000 characters** — a 600-char script costs the full 14. Ask Utsha before spending. Spell for the ear: "three A M", "six" (captions come from `segs.json`, so they can still say 3AM / 6ix). The cloud workspace can't download the vidIQ MP3 (S3 is blocked), so Utsha drags it into chat.
@@ -125,6 +128,7 @@ Outfits/accessories: `rig3_html(outfit, cup, acc)` — `acc` is an optional laye
 
 | Nov 1, 2026 | Thumbnail system (`hf/thumbs/thumb.py`): fixed headline / hero / big reacting Cyto structure, feed-crop safe | Higher CTR from the Shorts feed | compare Ep 8+ CTR vs Eps 2–7 in the weekly report |
 | Nov 1, 2026 | Publishing rules (`PUBLISHING.md`) + `check_meta.py`: titles ≤ 60 (Shorts) / 50–60 (long), keyword first, no #shorts in titles, pinned comment + related video, separate long-form rules; tag recipe; exact captions file (`make_srt.py`) | Better search reach; titles not cut off | compare search traffic share before/after in the weekly report |
+| Nov 8, 2026 | **CYTO CANON v2** (`branding/CYTO_CANON_v2.md`, `branding/rebrand-v2/`): flat 2D cut-out, generic coffee cup, mitten hands, parallel pupils, chain, clipped random-drift organelles + `run_tests.sh` (19 checks) | Consistent, higher-quality Cyto everywhere; no cup/brand risk | approved Nov 8 — standard for all future builds |
 
 ## Watch: vidIQ credits
 Nov 1, 2026: 26 credits left after Ep 8 (14), 0 renewable until Nov 30 → only ~1 more Liam voiceover. Boost is needed for daily episodes. Spend credits on voice only until Boost is active.

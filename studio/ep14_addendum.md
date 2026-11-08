@@ -2,7 +2,7 @@
 ```
 CHANGES FROM UTSHA (apply on top of the Ep 14 prompt; the hook-first script v2 is unchanged):
 
-1. NEW CUP (replaces the red double-stacked party cup for good, the party cup also reads as alcohol which hurts ad-suitability). New cup = a generic Toronto-style paper COFFEE cup: cream/white body, brown cardboard sleeve, plain dome lid, small flat cartoon Cyto-face logo on the sleeve. NO Tim Hortons name, logo, wave mark or lookalike red/white branding, no "Tim's/Timmy's" text, no other real brand. Never show what's inside. Cyto may call it "a double-double" in dialogue. Holiday versions = change the sleeve colour/pattern only. Build it as NATIVE SVG (not a PNG) and make it ONE rigid group with the hand: fingers are drawn OVER the front of the cup so he is visibly gripping it. Ep 14 is solemn: the cup sits on the table, set down, the whole video.
+1. NEW CUP (CANON v2, see studio/branding/CYTO_CANON_v2.md; replaces the red double-stacked party cup for good, the party cup also reads as alcohol which hurts ad-suitability). New cup = a generic Toronto-style paper COFFEE cup: white body, red band, brown lid, small flat cartoon Cyto-face logo, no fingers (round mitten hand). Use the CANON v2 Cyto from rebrand-v2/cyto2d.js for the whole video. NO Tim Hortons name, logo, wave mark or lookalike red/white branding, no "Tim's/Timmy's" text, no other real brand. Never show what's inside. Cyto may call it "a double-double" in dialogue. Holiday versions = change the sleeve colour/pattern only. Build it as NATIVE SVG (not a PNG) and make it ONE rigid group with the hand: the mitten hand is drawn OVER the front of the cup so he is visibly gripping it (NO fingers, canon v2). Ep 14 is solemn: the cup sits on the table, set down, the whole video.
 
 2. NO-TWITCH MOTION RULES (the old arm/cup/face animation twitched: arm + cup were rotated by separate tweens at 0.11 s with power4.out, so the cup slid off the hand and the move read as a flick):
    - Cup, hand and fingers share ONE parent group; only the forearm/hand rotates. Never tween the cup separately from the hand.
@@ -17,4 +17,6 @@ CHANGES FROM UTSHA (apply on top of the Ep 14 prompt; the hook-first script v2 i
 4. TRENDS: none on Ep 14 (Remembrance Day). Do not use trending audio/memes here.
 
 5. OUTFIT = SPONGEBOB-STYLE (Utsha, Nov 8): clothes are part of the body shape, flush with Cyto's silhouette. The outfit layer is clipped to the body outline (no overhang past the sides, no bulky vest/jacket covering the body edge or arms). Arms and hands are ALWAYS drawn in FRONT of the outfit and come out of the sleeve/armhole; toque, face and cup never get covered. Check every outfit in a side-by-side silhouette test against base Cyto (silhouette width within 4%).
+
+6. CANON v2 LOOK (Utsha approved Nov 8): flat 2D cut-out South Park style; parallel pupils (never cross-eyed); mitten hands, no fingers; gold chain with 6 medallion; organelles clipped INSIDE the cell with random placement and idle drift (never over the chain, never outside the cell). Run `bash studio/branding/rebrand-v2/run_tests.sh` (19/19) before showing any draft.
 ```
