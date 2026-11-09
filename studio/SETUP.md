@@ -6,7 +6,7 @@
 
 ## Make an episode (one command)
 `python3 studio/make_episode.py epNN` (spec: studio/EPISODE_SCHEMA.md). IDEA chat writes studio/episodes/epNN/{episode.json,claims.md,plan.md}; BUILD chat runs it; stops at gate 1 (`--ok plan`: plan + credit estimate) and gate 2 (`--ok final`). It spends no credits; it writes voice_request.json for the chat to run. Fix problems in episode.json or the compositor, never by hand-building a one-off.
-Tests: `bash studio/branding/rebrand-v2/run_tests.sh` (29/29), `python3 -I studio/rig_v2/test_rig.py` (15/15), `python3 -I studio/test_make_episode.py` (9/9).
+Tests: `bash studio/branding/rebrand-v2/run_tests.sh` (29/29), `python3 -I studio/rig_v2/test_rig.py` (15/15), `python3 -I studio/test_make_episode.py` (12/12).
 
 ## Look (canon v2)
 Flat 2D cut-out Cyto, mitten hands, generic paper cup with steam + Cyto-face logo, gold "6" chain, toque. Built from studio/branding/rebrand-v2/cyto2d.js + rig in studio/rig_v2/ (cyto_rig.js, compose.js, thumbs.js). Style rules: HARD_RULES.md + rig_v2/SCENE_STYLE.md. Safe zone x 60-940, y 200-1480 (IG/FB: top 220 / bottom 350 clear); captions at y~900, 74 px.
