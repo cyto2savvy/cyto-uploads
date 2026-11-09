@@ -1,0 +1,442 @@
+[
+{
+"text": "In",
+"start": 0,
+"end": 0.16
+},
+{
+"text": "one",
+"start": 0.24,
+"end": 0.4
+},
+{
+"text": "lab",
+"start": 0.52,
+"end": 0.64
+},
+{
+"text": "study,",
+"start": 0.72,
+"end": 1.36
+},
+{
+"text": "two",
+"start": 1.44,
+"end": 1.52
+},
+{
+"text": "minutes",
+"start": 1.6,
+"end": 1.84
+},
+{
+"text": "of",
+"start": 1.88,
+"end": 1.92
+},
+{
+"text": "silence",
+"start": 2,
+"end": 2.48
+},
+{
+"text": "slowed",
+"start": 2.6,
+"end": 2.88
+},
+{
+"text": "people's",
+"start": 3,
+"end": 3.2
+},
+{
+"text": "heart",
+"start": 3.28,
+"end": 3.44
+},
+{
+"text": "rate.",
+"start": 3.52,
+"end": 4.08
+},
+{
+"text": "And",
+"start": 4.12,
+"end": 4.16
+},
+{
+"text": "it",
+"start": 4.24,
+"end": 4.32
+},
+{
+"text": "wasn't",
+"start": 4.4,
+"end": 4.56
+},
+{
+"text": "just",
+"start": 4.64,
+"end": 4.72
+},
+{
+"text": "the",
+"start": 4.8,
+"end": 4.88
+},
+{
+"text": "heart.",
+"start": 4.96,
+"end": 5.68
+},
+{
+"text": "Yo,",
+"start": 5.84,
+"end": 6.16
+},
+{
+"text": "it's",
+"start": 6.24,
+"end": 6.32
+},
+{
+"text": "ya",
+"start": 6.36,
+"end": 6.4
+},
+{
+"text": "boy",
+"start": 6.48,
+"end": 6.64
+},
+{
+"text": "Cyto,",
+"start": 6.72,
+"end": 7.36
+},
+{
+"text": "live",
+"start": 7.44,
+"end": 7.68
+},
+{
+"text": "from",
+"start": 7.76,
+"end": 7.84
+},
+{
+"text": "the",
+"start": 7.92,
+"end": 8
+},
+{
+"text": "six\u2026",
+"start": 8.2,
+"end": 8.8
+},
+{
+"text": "inside",
+"start": 9.04,
+"end": 9.28
+},
+{
+"text": "your",
+"start": 9.36,
+"end": 9.44
+},
+{
+"text": "body.",
+"start": 9.64,
+"end": 10.4
+},
+{
+"text": "Researchers",
+"start": 10.68,
+"end": 10.96
+},
+{
+"text": "played",
+"start": 11.08,
+"end": 11.2
+},
+{
+"text": "music",
+"start": 11.36,
+"end": 11.52
+},
+{
+"text": "with",
+"start": 11.64,
+"end": 11.76
+},
+{
+"text": "two-minute",
+"start": 11.84,
+"end": 12.16
+},
+{
+"text": "pauses",
+"start": 12.24,
+"end": 12.72
+},
+{
+"text": "and",
+"start": 12.8,
+"end": 12.88
+},
+{
+"text": "tracked",
+"start": 13.04,
+"end": 13.2
+},
+{
+"text": "heart",
+"start": 13.32,
+"end": 13.44
+},
+{
+"text": "rate,",
+"start": 13.56,
+"end": 13.92
+},
+{
+"text": "blood",
+"start": 14.04,
+"end": 14.16
+},
+{
+"text": "pressure",
+"start": 14.24,
+"end": 14.56
+},
+{
+"text": "and",
+"start": 14.8,
+"end": 14.88
+},
+{
+"text": "breathing.",
+"start": 14.96,
+"end": 15.76
+},
+{
+"text": "In",
+"start": 15.8,
+"end": 15.84
+},
+{
+"text": "the",
+"start": 15.92,
+"end": 16
+},
+{
+"text": "pauses,",
+"start": 16.08,
+"end": 16.827
+},
+{
+"text": "all",
+"start": 16.933,
+"end": 17.04
+},
+{
+"text": "three",
+"start": 17.16,
+"end": 17.28
+},
+{
+"text": "dropped,",
+"start": 17.36,
+"end": 18
+},
+{
+"text": "even",
+"start": 18.12,
+"end": 18.24
+},
+{
+"text": "below",
+"start": 18.32,
+"end": 18.56
+},
+{
+"text": "where",
+"start": 18.64,
+"end": 18.72
+},
+{
+"text": "they",
+"start": 18.8,
+"end": 18.88
+},
+{
+"text": "started.",
+"start": 18.96,
+"end": 19.84
+},
+{
+"text": "Silence",
+"start": 19.92,
+"end": 20.32
+},
+{
+"text": "isn't",
+"start": 20.4,
+"end": 20.64
+},
+{
+"text": "empty,",
+"start": 20.8,
+"end": 21.04
+},
+{
+"text": "fam.",
+"start": 21.08,
+"end": 21.68
+},
+{
+"text": "Your",
+"start": 21.76,
+"end": 21.84
+},
+{
+"text": "body",
+"start": 22,
+"end": 22.16
+},
+{
+"text": "slows",
+"start": 22.24,
+"end": 22.48
+},
+{
+"text": "down.",
+"start": 22.68,
+"end": 23.36
+},
+{
+"text": "So",
+"start": 23.52,
+"end": 23.68
+},
+{
+"text": "when",
+"start": 23.92,
+"end": 24
+},
+{
+"text": "the",
+"start": 24.08,
+"end": 24.16
+},
+{
+"text": "city",
+"start": 24.24,
+"end": 24.32
+},
+{
+"text": "goes",
+"start": 24.4,
+"end": 24.56
+},
+{
+"text": "quiet",
+"start": 24.64,
+"end": 24.88
+},
+{
+"text": "at",
+"start": 24.92,
+"end": 24.96
+},
+{
+"text": "eleven,",
+"start": 25.04,
+"end": 25.76
+},
+{
+"text": "your",
+"start": 25.84,
+"end": 25.92
+},
+{
+"text": "body",
+"start": 26.04,
+"end": 26.16
+},
+{
+"text": "may",
+"start": 26.24,
+"end": 26.32
+},
+{
+"text": "go",
+"start": 26.4,
+"end": 26.48
+},
+{
+"text": "quiet",
+"start": 26.64,
+"end": 26.8
+},
+{
+"text": "too.",
+"start": 26.92,
+"end": 27.52
+},
+{
+"text": "Lest",
+"start": 27.6,
+"end": 27.84
+},
+{
+"text": "we",
+"start": 27.92,
+"end": 28
+},
+{
+"text": "forget.",
+"start": 28.2,
+"end": 28.8
+},
+{
+"text": "Not",
+"start": 28.88,
+"end": 29.04
+},
+{
+"text": "medical",
+"start": 29.12,
+"end": 29.36
+},
+{
+"text": "advice.",
+"start": 29.44,
+"end": 30.32
+},
+{
+"text": "Like,",
+"start": 30.44,
+"end": 30.8
+},
+{
+"text": "subscribe,",
+"start": 31.08,
+"end": 31.68
+},
+{
+"text": "take",
+"start": 31.76,
+"end": 31.92
+},
+{
+"text": "a",
+"start": 31.96,
+"end": 32
+},
+{
+"text": "moment.",
+"start": 32.16,
+"end": 32.56
+}
+]

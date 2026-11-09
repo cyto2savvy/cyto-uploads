@@ -144,11 +144,13 @@ ${EXPR==='shock'?`<ellipse cx="10" cy="122" rx="58" ry="66" fill="#5a1530" ${O}/
 
 
 const ANIM=process.env.ANIM==='1';
+const RIG=process.env.RIG==='1';
 let _os=+(process.env.SEED||Date.now()%100000)+1;
 const orand=()=>(_os=(_os*16807)%2147483647)/2147483647;
 const OJ=(amt)=>(orand()-0.5)*2*amt;   // random out-of-place jitter
 let _ai=0;
 function wob(inner,dx,dy,rot=0){ // drift animation (SMIL), loops every 8s
+ if(RIG){ const d=[4,8,8,4][_ai++%4], ph=(orand()*d).toFixed(2); return `<g class="org" data-dx="${dx}" data-dy="${dy}" data-rot="${rot}" data-d="${d}" data-ph="${ph}">${inner}</g>`; }
  if(!ANIM) return inner;
  const d=[4,8,8,4][_ai++%4], ph=(orand()*d).toFixed(2);
  return `<g>${inner}<animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;${dx} ${dy};${(-dx*.6).toFixed(1)} ${(dy*.8).toFixed(1)};0 0" keyTimes="0;.33;.66;1" dur="${d}s" begin="-${ph}s" repeatCount="indefinite" calcMode="spline" keySplines=".4 0 .6 1;.4 0 .6 1;.4 0 .6 1"/>${rot?`<animateTransform attributeName="transform" type="rotate" additive="sum" values="0;${rot};${-rot};0" dur="${d}s" begin="-${ph}s" repeatCount="indefinite"/>`:''}</g>`}
@@ -237,4 +239,110 @@ if(ANIM){ fs.writeFileSync('pfp_anim.svg', pfp); }
 // TRANSPARENT CANON ASSETS (for video rig, thumbnails, watermark, end cards): cyto_<fit>.svg, 1100x1100, Cyto centred
 for(const f of ['none','jersey','hoodie','puffer']){
  fs.writeFileSync(`cyto_${f}${EXPR==='chill'?'':'_'+EXPR}.svg`,`<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1100" viewBox="-550 -550 1100 1100">${defs}<g>${cyto(f)}</g></svg>`);
+}
+
+// ============================================================================================================
+// ANIMATABLE RIG (RIG=1).  Same canon drawing, split into layers with ids for GSAP/HyperFrames.
+//   #cyto            root (canon units, body centre 0,0; viewBox -550..550)
+//   #ledge           stone ledge the cup is set down on (cupDown)            - static
+//   #armCup          ONE rigid group: left arm + mitten #handL + #cup         - static when set down
+//   #bob             idle bounce group (everything below moves together)
+//     #armR/#handR   right arm, lowered and calm
+//     #body          cell body, organelles (#orgs, .org drift), outfit, outline
+//     #eyeL/#eyeR    whites, #pupL/#pupR (parallel), #lidL/#lidR (blink: translate y 0..64), #browL/#browR
+//     #mouth         #m_closed #m_small #m_wide #m_o  (one visible at a time, all centred on (10,120))
+//     #chain  #toque (#pom)
+// Runtime: cyto_rig_runtime.js -> CytoRig(rootEl,{mouth,blinks,bob}).update(t)   (seek-safe, pure function of t)
+// ============================================================================================================
+function rigEye(x,side){
+ const s=side<0?'L':'R', sol=EXPR==='solemn';
+ const brow=sol?`M-56 ${side<0?-60:-84} Q0 ${side<0?-84:-96} 58 ${side<0?-92:-62}`:`M-56 -66 Q0 ${side<0?-98:-86} 58 ${side<0?-72:-62}`;
+ return `<g id="eye${s}" transform="translate(${x},-8)">
+ <clipPath id="rclip${s}"><ellipse rx="50" ry="55"/></clipPath>
+ <ellipse rx="50" ry="55" fill="#fff"/>
+ <g clip-path="url(#rclip${s})">
+  <g id="pup${s}"><circle cx="5" cy="${sol?24:14}" r="25" fill="#0b0b12"/><circle cx="-4" cy="${sol?12:2}" r="9" fill="#fff"/><circle cx="14" cy="${sol?32:22}" r="4" fill="#fff" opacity=".8"/></g>
+  <g id="lid${s}"><path d="M-70 -160 L70 -160 L70 ${sol?-14:2} Q0 ${(sol?-22:-8)-side*5} -70 ${sol?-14:2}Z" fill="#2fae9b"/>
+   <path d="M-70 ${sol?-12:0} Q0 ${(sol?-22:-10)-side*5} 70 ${sol?-12:0}" fill="none" stroke="#0a1f24" stroke-width="8"/></g>
+ </g>
+ <ellipse rx="50" ry="55" fill="none" ${O}/>
+ <path id="brow${s}" d="${brow}" fill="none" stroke="#0a1f24" stroke-width="9" stroke-linecap="round"/>
+</g>`}
+function rigMouth(){ // talking set, all centred on (10,120) so swaps never shift the mouth
+ const dark='#5a1530', tongue='#ff7a8a';
+ return `<g id="mouth">
+ <g id="m_closed"><path d="M-46 122 Q10 114 66 122" fill="none" stroke="#0a1f24" stroke-width="11" stroke-linecap="round"/></g>
+ <g id="m_small" opacity="0"><ellipse cx="10" cy="120" rx="34" ry="13" fill="${dark}" stroke="#0a1f24" stroke-width="7"/></g>
+ <g id="m_wide" opacity="0"><ellipse cx="10" cy="120" rx="48" ry="24" fill="${dark}" stroke="#0a1f24" stroke-width="7"/><ellipse cx="10" cy="132" rx="26" ry="9" fill="${tongue}"/></g>
+ <g id="m_o" opacity="0"><ellipse cx="10" cy="120" rx="24" ry="28" fill="${dark}" stroke="#0a1f24" stroke-width="7"/><ellipse cx="10" cy="134" rx="13" ry="8" fill="${tongue}"/></g>
+</g>`}
+function rigCup(){ // generic white/red cup with the Cyto-face logo, upright (set down). No real brand. Lid on: contents never shown.
+ return `<g id="cup" transform="translate(-412,152) scale(1.22)">
+ <path d="M-72 -105 L72 -105 L54 108 Q0 122 -54 108Z" fill="url(#cupw)" ${O}/>
+ <path d="M-68 -54 L68 -54 L62 36 L-62 36Z" fill="#c62828" ${O}/>
+ <path d="M-68 -54 L68 -54 L66 -36 L-66 -36Z" fill="#e24a4a" opacity=".55"/>
+ <rect x="-64" y="-12" width="128" height="7" fill="#fff" opacity=".85"/>
+ <path d="M-62 -125 L62 -125 L72 -105 L-72 -105Z" fill="#4a2c1f" ${O}/>
+ <rect x="-52" y="-146" width="104" height="26" rx="10" fill="#5c3827" ${O}/>
+ <g transform="translate(0,-10) scale(.8)"><circle r="62" fill="#3fc4b0" ${O}/>
+  <path d="M-60 -12 C-60 -78 60 -78 60 -12Z" fill="#2c63d6" ${O}/><rect x="-62" y="-20" width="124" height="14" fill="#fff"/><circle cy="-72" r="12" fill="#fff" stroke="#0a1f24" stroke-width="6"/>
+  <ellipse cx="-22" cy="14" rx="10" ry="12" fill="#fff"/><ellipse cx="22" cy="14" rx="10" ry="12" fill="#fff"/><circle cx="-20" cy="17" r="5" fill="#111"/><circle cx="24" cy="17" r="5" fill="#111"/>
+  <path d="M-18 40 Q0 52 18 40" fill="none" stroke="#0a1f24" stroke-width="6" stroke-linecap="round"/></g>
+ <path d="M-58 -96 L-52 90" stroke="#fff" stroke-width="9" stroke-linecap="round" opacity=".6"/>
+</g>`}
+function rigPoppyPin(x,y,r){ // plain red felt-poppy SHAPE (generic flower, no Legion logo/text)
+ let p=''; for(let i=0;i<4;i++){const a=i*Math.PI/2+.4; p+=`<ellipse cx="${(Math.cos(a)*r*.48).toFixed(1)}" cy="${(Math.sin(a)*r*.48).toFixed(1)}" rx="${(r*.62).toFixed(1)}" ry="${(r*.5).toFixed(1)}" transform="rotate(${(a*57.3).toFixed(0)} ${(Math.cos(a)*r*.48).toFixed(1)} ${(Math.sin(a)*r*.48).toFixed(1)})" fill="#d7262e" stroke="#0a1f24" stroke-width="4"/>`}
+ return `<g id="pin" transform="translate(${x},${y})">${p}<circle r="${(r*.32).toFixed(1)}" fill="#141414" stroke="#0a1f24" stroke-width="3"/></g>`}
+function rig(fit='hoodie',opt={}){
+ const pin=opt.pin!==false;
+ let spots=''; for(let i=0;i<22;i++){const a=rnd()*6.28,r=Math.sqrt(rnd())*260;const x=Math.cos(a)*r,y=Math.sin(a)*r*0.95+20;
+  if(Math.abs(x)<190&&y>-100&&y<30) continue; if(Math.abs(x)<130&&y>40&&y<170) continue; if(y<-60) continue; if(x>100&&y>80) continue;if(x<-110&&y>70&&x>-270) continue; if(y>130) continue;
+  spots+=`<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${(3+rnd()*5).toFixed(1)}" fill="#25a090" opacity=".55"/>`}
+ let ribs=''; for(let i=-10;i<=10;i++) ribs+=`<path d="M${i*28} -140 L${i*32} -400" stroke="#102a74" stroke-width="5" opacity=".45"/>`;
+ let cuffr=''; for(let i=-9;i<=9;i++) cuffr+=`<path d="M${i*32} -176 L${i*32} -82" stroke="#0e2468" stroke-width="5" opacity=".55"/>`;
+ let pom=''; for(let i=0;i<24;i++){const a=rnd()*6.28,r=rnd()*34;pom+=`<circle cx="${(Math.cos(a)*r).toFixed(0)}" cy="${(Math.sin(a)*r).toFixed(0)}" r="5" fill="#dcd5c4"/>`}
+ const mitten=(id,x,y,r=52)=>`<g id="${id}" transform="translate(${x},${y})"><circle r="${r}" fill="#2fb5a1" ${O}/><circle r="${r}" fill="url(#skinArm)" opacity=".7"/><ellipse cx="${-r*.3}" cy="${-r*.38}" rx="${r*.3}" ry="${r*.19}" fill="#fff" opacity=".4" transform="rotate(-30 ${-r*.3} ${-r*.38})"/></g>`;
+ return `<g id="cyto" filter="url(#cut)">
+ <ellipse id="shadow" cx="-60" cy="338" rx="300" ry="24" fill="#000" opacity=".3" filter="url(#soft)"/>
+ <g id="ledge"><rect x="-536" y="284" width="252" height="66" rx="8" fill="#8b93a3" ${O}/><rect x="-528" y="290" width="236" height="12" rx="5" fill="#b9c0cc" opacity=".8"/></g>
+ <g id="armCup">${rigCup()}${arm("M-268 82 Q-316 118 -330 182",44)}${mitten("handL",-336,206,44)}</g>
+ <g id="bob">
+ <g id="armR">${arm("M268 82 Q318 112 326 170",44)}${mitten("handR",330,198)}</g>
+ <g id="body">
+ <ellipse rx="308" ry="292" fill="#3fd0bb" ${O}/>
+ <g clip-path="url(#bodyclip2)">
+  <ellipse cx="86" cy="76" rx="300" ry="285" fill="#2aa896"/>
+  <ellipse cx="-10" cy="-8" rx="296" ry="282" fill="#3fd0bb"/>
+  <path d="M-250 -150 Q-170 -250 -40 -250" fill="none" stroke="#fff" stroke-width="26" stroke-linecap="round" opacity=".38"/>
+  <circle cx="-218" cy="-95" r="13" fill="#fff" opacity=".4"/>
+  <path d="M300 -60 Q330 60 250 200" fill="none" stroke="#9dfbe9" stroke-width="12" stroke-linecap="round" opacity=".55"/>
+  ${spots}
+  <g id="orgs">${organelles()}</g>
+ </g>
+ <g id="outfit">${garment(fit)}</g>
+ <ellipse rx="308" ry="292" fill="none" ${O}/>
+ </g>
+ <g id="face">${rigEye(-100,-1)}${rigEye(100,1)}
+ <ellipse cx="-196" cy="70" rx="30" ry="18" fill="#ff9aa8" opacity=".55"/><ellipse cx="196" cy="70" rx="30" ry="18" fill="#ff9aa8" opacity=".55"/>
+ ${rigMouth()}
+ <g transform="translate(-176,124) rotate(-12)"><rect x="-56" y="-22" width="112" height="44" rx="22" fill="#ff9b3d" ${O}/><rect x="-52" y="-18" width="104" height="14" rx="7" fill="#ffc07a" opacity=".8"/><path d="M-34 8 L-20 -6 L-6 8 L8 -6 L22 8 L34 -4" fill="none" stroke="#c4541a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>
+ </g>
+ <g id="chain">${chain()}</g>
+ <g id="toque" transform="rotate(-7 0 -150)">
+  <path d="M-292 -150 C-312 -410 312 -410 292 -150Z" fill="url(#hat)" ${O}/>
+  <g clip-path="url(#hatclip)">${ribs}<ellipse cx="-150" cy="-300" rx="70" ry="90" fill="#fff" opacity=".13" transform="rotate(20 -150 -290)"/></g>
+  <rect x="-304" y="-176" width="608" height="98" rx="42" fill="#142f84" ${O}/>
+  ${cuffr}
+  <rect x="-300" y="-140" width="600" height="24" fill="#fff"/>
+  <path d="M-296 -172 Q0 -196 296 -172" fill="none" stroke="#3a78ec" stroke-width="10" opacity=".6" stroke-linecap="round"/>
+  <g transform="translate(0,-128)"><circle r="30" fill="url(#gold)" stroke="#0a1f24" stroke-width="6"/><text y="14" text-anchor="middle" font-family="Arial Black, Impact, DejaVu Sans, sans-serif" font-weight="900" font-size="38" fill="#7a4a00">6</text></g>
+  ${pin?rigPoppyPin(-196,-128,26):''}
+  <g id="pom" transform="translate(0,-404)"><circle r="56" fill="#f6f3ea" ${O}/>${pom}</g>
+ </g>
+ </g>
+</g>`}
+if(RIG){
+ for(const f of ['none','hoodie','puffer','jersey']){
+  fs.writeFileSync(`cyto_rig_${f}${EXPR==='chill'?'':'_'+EXPR}.svg`,`<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1100" viewBox="-550 -550 1100 1100" overflow="visible">${defs}${rig(f,{pin:EXPR==='solemn'})}</svg>`);
+ }
 }

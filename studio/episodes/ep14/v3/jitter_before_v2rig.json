@@ -1,0 +1,58 @@
+{
+ "handL": {
+  "reversals_in_0_3s": 3,
+  "accel_max": 15.116,
+  "accel_median": 0.0295,
+  "spike_ratio": 512.71,
+  "ok": false
+ },
+ "cup": {
+  "reversals_in_0_3s": 3,
+  "accel_max": 17.1,
+  "accel_median": 0.0362,
+  "spike_ratio": 472.12,
+  "ok": false
+ },
+ "handR": {
+  "reversals_in_0_3s": 3,
+  "accel_max": 216.514,
+  "accel_median": 0.0336,
+  "spike_ratio": 6442.24,
+  "ok": false
+ },
+ "pupL": {
+  "reversals_in_0_3s": 5,
+  "accel_max": 14.925,
+  "accel_median": 0.0285,
+  "spike_ratio": 522.8,
+  "ok": false
+ },
+ "pupR": {
+  "reversals_in_0_3s": 4,
+  "accel_max": 14.748,
+  "accel_median": 0.0282,
+  "spike_ratio": 522.75,
+  "ok": false
+ },
+ "browL": {
+  "reversals_in_0_3s": 5,
+  "accel_max": 19.193,
+  "accel_median": 0.034,
+  "spike_ratio": 564.7,
+  "ok": false
+ },
+ "browR": {
+  "reversals_in_0_3s": 5,
+  "accel_max": 19.052,
+  "accel_median": 0.0337,
+  "spike_ratio": 566.16,
+  "ok": false
+ },
+ "mouth": {
+  "reversals_in_0_3s": 4,
+  "accel_max": 10.646,
+  "accel_median": 0.02,
+  "spike_ratio": 533.22,
+  "ok": false
+ }
+}

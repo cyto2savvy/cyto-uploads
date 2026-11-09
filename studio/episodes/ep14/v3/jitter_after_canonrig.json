@@ -1,0 +1,58 @@
+{
+ "handL": {
+  "reversals_in_0_3s": 0,
+  "accel_max": 0.0,
+  "accel_median": 0.0,
+  "spike_ratio": 0.0,
+  "ok": true
+ },
+ "cup": {
+  "reversals_in_0_3s": 0,
+  "accel_max": 0.0,
+  "accel_median": 0.0,
+  "spike_ratio": 0.0,
+  "ok": true
+ },
+ "handR": {
+  "reversals_in_0_3s": 1,
+  "accel_max": 0.014,
+  "accel_median": 0.0064,
+  "spike_ratio": 2.11,
+  "ok": true
+ },
+ "pupL": {
+  "reversals_in_0_3s": 1,
+  "accel_max": 0.009,
+  "accel_median": 0.0051,
+  "spike_ratio": 1.83,
+  "ok": true
+ },
+ "pupR": {
+  "reversals_in_0_3s": 1,
+  "accel_max": 0.009,
+  "accel_median": 0.0051,
+  "spike_ratio": 1.83,
+  "ok": true
+ },
+ "browL": {
+  "reversals_in_0_3s": 1,
+  "accel_max": 0.009,
+  "accel_median": 0.0052,
+  "spike_ratio": 1.77,
+  "ok": true
+ },
+ "browR": {
+  "reversals_in_0_3s": 1,
+  "accel_max": 0.009,
+  "accel_median": 0.0052,
+  "spike_ratio": 1.76,
+  "ok": true
+ },
+ "mouth": {
+  "reversals_in_0_3s": 1,
+  "accel_max": 0.009,
+  "accel_median": 0.0052,
+  "spike_ratio": 1.78,
+  "ok": true
+ }
+}

@@ -2,7 +2,7 @@
  "format": "short",
  "keyword": "two minutes of silence",
  "title": "What Two Minutes of Silence Does to Your Body",
- "description": "What do two minutes of silence do to your body? In one lab study, a two-minute pause slowed people's heart rate. Cyto breaks it down from the 6ix for Remembrance Day.\n\nResearchers played music with randomly inserted two-minute pauses and tracked heart rate, blood pressure and breathing. In the pauses, all three dropped, even below where they started (the resting baseline).\n\nCaveat: this was a small lab study (Bernardi 2006, n=24: 12 musicians + 12 non-musicians) using music with pauses. It did not test Remembrance Day ceremonies, so 'your body may go quiet too' is a maybe, not a promise.\n\nSources (via PubMed):\nBernardi, Porta & Sleight, Heart 2006 — https://doi.org/10.1136/hrt.2005.064600\n\nLest we forget. Not medical advice.\n\n#remembranceday #silence #science #toronto #6ix #shorts",
+ "description": "What do two minutes of silence do to your body? In one lab study, a two-minute pause slowed people's heart rate. And it wasn't just the heart. Cyto breaks it down from the 6ix for Remembrance Day.\n\nResearchers played music with randomly inserted two-minute pauses and tracked heart rate, blood pressure and breathing. In the pauses, all three dropped, even below where they started (the resting baseline).\n\nCaveat: this was a small lab study (Bernardi 2006, n=24: 12 musicians + 12 non-musicians) using music with pauses. It did not test Remembrance Day ceremonies, so 'your body may go quiet too' is a maybe, not a promise.\n\nSources (via PubMed):\nBernardi, Porta & Sleight, Heart 2006, PMID 16199412 — https://doi.org/10.1136/hrt.2005.064600\n\nLest we forget. Not medical advice.\n\n#shorts #science #toronto #6ix #remembranceday #silence #heartrate",
  "tags": [
   "two minutes of silence",
   "what does silence do to your body",
@@ -21,10 +21,10 @@
  "made_for_kids": false,
  "synthetic": true,
  "health": true,
- "duration_s": 32.05,
+ "duration_s": 33.55,
  "thumbnails": [
-  "thumb-ep14-A.jpg",
-  "thumb-ep14-B.jpg"
+  "thumb-ep14-B.jpg",
+  "thumb-ep14-A.jpg"
  ],
  "captions_srt": "captions.srt",
  "playlist": "6ixty Seconds of Science",
@@ -32,5 +32,7 @@
  "pinned_comment": "Where will you be at 11:00 on Nov 11, and do you actually feel your body slow down in the silence? 🌺 Tell us below.\n\nSource: Bernardi, Porta & Sleight, Heart 2006 (lab study, 24 people, music with 2-min pauses; not a ceremony) https://doi.org/10.1136/hrt.2005.064600\nBonus nuance (mouse study, not people): Kirste et al., Brain Struct Funct 2013, mice exposed to silence grew more new brain cells https://doi.org/10.1007/s00429-013-0679-3\nNot medical advice.",
  "publish_at": "2026-11-11T14:00:00Z",
  "video_file": "ep14/cyto-ep14-two-minutes-silence.mp4",
- "test": "HOOK-FIRST test #1: Cyto speaks on frame 1 (voice 0.02s), claim 'SILENCE SLOWS YOUR HEART' + heart-rate trace on frame 1, catchphrase after the hook, 32.05s, loop frame = hook frame. Baseline stayed-to-watch ~50%, target >= 60%."
+ "test": "v3 (Nov 9): canon-v2 layered rig (hoodie + plain poppy-shape pin, solemn face, cup set down on a ledge). HOOK-FIRST: voice 0.022s, claim + heart trace on frame 1; RE-HOOK at 4.1s ('And it wasn't just the heart.' + BP/breathing '?' lines); new visual every <=2s in first 8s; catchphrase at 5.8s; quiet follow chip 14.1-18.8s; loop frame = hook frame. 33.55s. Baseline stayed-to-watch ~50%, target >= 60%.",
+ "thumbnail_note": "Upload B (stronger, 'SILENCE SLOWS YOUR HEART'); add A ('2 MINUTES OF SILENCE') in Test & Compare.",
+ "outfit": "Toque + dark charcoal hoodie (flush, clipped to body) + plain red poppy-SHAPE pin on the toque cuff (generic flower, no Legion logo/text). Cup set down on a stone ledge the whole video."
 }
