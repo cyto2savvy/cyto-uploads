@@ -20,7 +20,7 @@ def cyto_png(expr,fit):
 def main():
     a=argparse.ArgumentParser(); a.add_argument("out"); a.add_argument("--lines",required=True); a.add_argument("--colors",default="w,w,y")
     a.add_argument("--expr",default="shock"); a.add_argument("--bg",default="#ff3b30,#6a00ff"); a.add_argument("--side",default="right")
-    a.add_argument("--fit",default="none"); a.add_argument("--arrow",action="store_true"); a.add_argument("--object"); a.add_argument("--scene",default=""); a.add_argument("--bg-image",dest="bgimg"); a=a.parse_args()
+    a.add_argument("--fit",default="none"); a.add_argument("--arrow",action="store_true"); a.add_argument("--object"); a.add_argument("--scene",default=""); a.add_argument("--bg2",help="2nd photo -> split-screen (left=bg-image, right=bg2)"); a.add_argument("--labels",default="",help="split corner labels L|R, e.g. \"57C|-71C\""); a.add_argument("--badge",default="",help="top-right big badge e.g. DAY 115"); a.add_argument("--blur",type=float,default=1.5); a.add_argument("--bg-image",dest="bgimg"); a=a.parse_args()
     c1,c2=[hexc(x) for x in a.bg.split(",")]
     bg=Image.new("RGB",(W,H)); px=bg.load()
     for y in range(H):
@@ -29,11 +29,16 @@ def main():
     bg=bg.convert('RGBA')
 
     # TOPIC BACKGROUND: --scene (ecg|snow|clock|toronto|stars) or --bg-image photo (cover-cropped, saturated, tinted)
-    if a.bgimg:
+    def load_cover(path,box_w):
         from PIL import ImageEnhance
-        ph=Image.open(a.bgimg).convert("RGB"); r=max(W/ph.width,H/ph.height); ph=ph.resize((int(ph.width*r)+1,int(ph.height*r)+1))
-        ph=ph.crop(((ph.width-W)//2,(ph.height-H)//2,(ph.width-W)//2+W,(ph.height-H)//2+H)); ph=ImageEnhance.Color(ph).enhance(1.6); ph=ImageEnhance.Contrast(ph).enhance(1.2)
-        tint=Image.new("RGB",(W,H),c1); bg=Image.blend(ph,tint,0.30).convert("RGBA")
+        ph=Image.open(path).convert("RGB"); r=max(box_w/ph.width,H/ph.height); ph=ph.resize((int(ph.width*r)+1,int(ph.height*r)+1))
+        ph=ph.crop(((ph.width-box_w)//2,(ph.height-H)//2,(ph.width-box_w)//2+box_w,(ph.height-H)//2+H))
+        ph=ph.filter(ImageFilter.GaussianBlur(a.blur)); ph=ImageEnhance.Color(ph).enhance(1.55); ph=ImageEnhance.Contrast(ph).enhance(1.2); return ph.convert("RGBA")
+    if a.bgimg and a.bg2:
+        bg=Image.new("RGBA",(W,H)); bg.paste(load_cover(a.bgimg,W//2),(0,0)); bg.paste(load_cover(a.bg2,W-W//2),(W//2,0))
+        ImageDraw.Draw(bg).polygon([(W//2-10,0),(W//2+10,0),(W//2+4,H//2),(W//2+12,H),(W//2-12,H),(W//2-4,H//2)],fill=(255,255,255,255))
+    elif a.bgimg:
+        ph=load_cover(a.bgimg,W); bg=Image.blend(ph,Image.new("RGBA",(W,H),c1+(255,)),0.22)
     sd=ImageDraw.Draw(bg)
     if a.scene=="ecg":
         pts=[];x=0
@@ -65,7 +70,7 @@ def main():
             x+=bw+rr.randint(0,10)
         tx0=W*0.45; sd.rectangle([tx0-9,H*0.18,tx0+9,H],fill=(8,14,40,255)); sd.ellipse([tx0-38,H*0.40,tx0+38,H*0.46],fill=(8,14,40,255)); sd.polygon([(tx0-3,H*0.06),(tx0+3,H*0.06),(tx0+9,H*0.2),(tx0-9,H*0.2)],fill=(8,14,40,255))
     # light burst behind face
-    fx=W*0.70 if a.side=="right" else W*0.30
+    fx=W*0.50 if a.bg2 else (W*0.70 if a.side=="right" else W*0.30)
     burst=Image.new("RGBA",(W,H),(0,0,0,0)); bd=ImageDraw.Draw(burst)
     for k in range(24):
         a0=k*math.pi/12; a1=a0+math.pi/24; R=1400
@@ -78,14 +83,21 @@ def main():
     sh=Image.new("RGBA",bg.size,(0,0,0,0)); sh.paste((0,0,0,170),(cx+14,cyy+18),st); sh=sh.filter(ImageFilter.GaussianBlur(10)); bg=Image.alpha_composite(bg,sh)
     wh=Image.new("RGBA",cy.size,(255,255,255,255)); bg.paste(wh,(cx,cyy),st); bg.alpha_composite(cy,(cx,cyy))
     # headline
-    lines=a.lines.split("|"); cols=a.colors.split(",")
+    lines=[l for l in a.lines.split("|") if l]; cols=a.colors.split(",")
     d=ImageDraw.Draw(bg); fp="/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
     size=190
-    while True:
+    while lines:
         F=ImageFont.truetype(fp,size); wmax=max(d.textlength(l,font=F) for l in lines)
         if wmax<=W*0.44 or size<60: break
         size-=6
     lh=int(size*1.02); y0=int(H/2-lh*len(lines)/2+lh/2)-10; tx=(W*0.235 if a.side=="right" else W*0.765)
+    def big(txt,xy,sz,col,anchor):
+        FB=ImageFont.truetype(fp,sz)
+        for dx,dy in [(-8,-8),(8,-8),(-8,8),(8,8),(0,-10),(0,10),(-10,0),(10,0),(0,14)]: d.text((xy[0]+dx,xy[1]+dy),txt,font=FB,fill=(0,0,0),anchor=anchor)
+        d.text(xy,txt,font=FB,fill=col,anchor=anchor)
+    if a.labels:
+        L,R=a.labels.split("|"); big(L,(30,30),120,(255,255,255),"la"); big(R,(W-30,30),120,(255,255,255),"ra")
+    if a.badge: big(a.badge,(W-30,30),130,(255,255,255),"ra")
     for i,l in enumerate(lines):
         col=COL.get(cols[min(i,len(cols)-1)],(255,255,255)); y=y0+i*lh
         for dx,dy in [(-9,-9),(9,-9),(-9,9),(9,9),(0,-11),(0,11),(-11,0),(11,0),(0,17)]: d.text((tx+dx,y+dy),l,font=F,fill=(0,0,0),anchor="mm")
