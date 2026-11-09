@@ -21,7 +21,8 @@
 - Cyto is a layered rig built from `studio/branding/rebrand-v2/cyto2d.js` (CANON v2). Outfit changes swap the outfit layer only (SpongeBob-style: clipped flush to the body; jersey/hoodie/puffer); base Cyto and the cup design never change. Hands are round mittens (no fingers), pupils stay parallel, organelles stay clipped inside the cell with random placement + idle drift, chain is never covered.
 - **Run `bash studio/branding/rebrand-v2/run_tests.sh` after any rig/look change; it must pass 19/19 before a draft is shown.**
 - Mouth shape changes per syllable, blink every 2–4s, constant idle bounce, head tilts on jokes, arm gestures on key points.
-- Cup moves: sip on pauses, raise it on punchlines, set it down for serious parts.
+- THE CUP IS ALWAYS IN HIS HAND, in every scene including serious ones. NEVER set it down or rest it on anything. Round mitten + thumb bump on the cup (no fingers). The coffee is HOT: steam keeps rising from the lid, and the cup sways/bobs a little with his idle bounce. Serious parts = hold it low and still; punchlines = raise it.
+- CYTO'S FACE MUST ALWAYS MOVE (Utsha, Nov 9): gaze wanders (never stares one direction for more than ~2 s, back to camera ~40%), blink every 2-4 s, brows and face REACT to every beat (shock / think / happy / laugh / solemn), mouth per syllable, head tilt. Drive it with `studio/rig_v2/` (timeline: words + beats). Everything else on screen (backgrounds, cards, figures, captions, transitions) is drawn in the same canon cut-out style, see `studio/rig_v2/SCENE_STYLE.md`. Run `python3 -I studio/rig_v2/test_rig.py` before showing a draft.
 - Camera: slow push during explanations, punch-zoom on the hook and punchlines, shake on "bro WHAT" beats, Ken Burns on every photo or figure.
 - Word-by-word captions, with key words bigger and in colour.
 - A transition on every cut (whip, membrane wipe, subway doors, zoom-through). Nothing stays still for more than 1 second.

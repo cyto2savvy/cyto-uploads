@@ -16,7 +16,7 @@ def check(name, ok, detail=""):
     results.append(ok); print(("PASS " if ok else "FAIL ") + name + (f"  [{detail}]" if detail else ""))
 
 def build(d, seed, anim=True):
-    env = dict(os.environ, SEED=str(seed), ANIM="1" if anim else "0")
+    env = dict(os.environ, SEED=str(seed), ANIM="1" if anim else "0", STEAM="0")  # steam (outside the cell) is tested in studio/rig_v2/test_rig.py
     subprocess.run(["node", os.path.join(HERE, "cyto2d.js")], cwd=d, env=env, check=True, capture_output=True)
 
 tmp = tempfile.mkdtemp(prefix="cyto_test_")

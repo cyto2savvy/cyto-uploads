@@ -25,3 +25,9 @@ Cut-out puppet: mouth per syllable, blink every 2–4s, idle bounce, organelle i
 ## Asset pack (`branding/rebrand-v2/assets/`, built by cyto2d.js -> cyto_<fit>.svg)
 `cyto-{none,jersey,hoodie,puffer}-transparent.png` (use these for thumbnails, end cards, b-roll stickers), `video-watermark-150-canon.png` (upload in YouTube Studio > Branding > Video watermark), `thumbnail-template-example-1080x1920.png` (headline top, huge Cyto with white sticker outline bottom).
 RULE: every new thumbnail, watermark, end card and banner uses these canon assets. The old PNG-layer rig (`studio/rig/*.png`, `hf/cyto3.py`) is the OLD look; porting the video rig to canon v2 is the next build task (start with Ep 14).
+
+## Update Nov 9 (Utsha feedback on Ep 14)
+- CUP IS ALWAYS HELD. New hand = opaque round mitten on the cup's lower half + a thumb bump on its left edge (the old see-through blob and the arm clipping are fixed). He never puts it down or on a surface. Hot coffee: animated steam always rises from the lid; cup sways with the idle bounce.
+- FACE ALWAYS MOVES: `studio/rig_v2/cyto_rig.js` drives gaze wander, blinks, brows, reactions, per-syllable mouth, head tilt. Pupils stay parallel when they move (both eyes share one gaze).
+- WHOLE VIDEO IN CANON STYLE: see `studio/rig_v2/SCENE_STYLE.md`.
+- Rebuild all PNGs after any look change: `python3 -I studio/branding/rebrand-v2/render_canon.py`.

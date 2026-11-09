@@ -1,4 +1,7 @@
 const fs=require('fs');
+const MAIN=require.main===module; const W_=(...a)=>{ if(MAIN) fs.writeFileSync(...a); };
+// G = live pose state (defaults = canon). The video rig (studio/rig_v2) mutates this per frame.
+const G={gx:0,gy:0,blink:0,brow:0,mouth:null,cupDy:0,cupRot:0,steam:false};
 let rs=5; const rnd=()=>(rs=(rs*16807)%2147483647)/2147483647;
 const defs=`
 <defs>
@@ -19,7 +22,7 @@ const defs=`
 const O='stroke="#0a1f24" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"';
 
 function sparkle(x,y,r,c='#fff'){return `<path d="M${x} ${y-r} Q${x+r*.15} ${y-r*.15} ${x+r} ${y} Q${x+r*.15} ${y+r*.15} ${x} ${y+r} Q${x-r*.15} ${y+r*.15} ${x-r} ${y} Q${x-r*.15} ${y-r*.15} ${x} ${y-r}Z" fill="${c}"/>`}
-const EXPR=process.env.EXPR||'chill'; // chill (canon default) | shock (thumbnails) | solemn (Remembrance / serious)
+let EXPR=process.env.EXPR||'chill'; // chill (canon default) | shock (thumbnails) | solemn (Remembrance / serious)
 function eye(x,side){ // side -1 left, 1 right
  const id='e'+(side<0?'L':'R');
  const shock=EXPR==='shock', sol=EXPR==='solemn';
@@ -34,26 +37,33 @@ function eye(x,side){ // side -1 left, 1 right
  <clipPath id="${id}"><ellipse rx="${shock?56:50}" ry="${shock?64:55}"/></clipPath>
  <ellipse rx="${shock?56:50}" ry="${shock?64:55}" fill="#fff"/>
  <g clip-path="url(#${id})">
-  ${pupil}
+  <g transform="translate(${(G.gx*16).toFixed(1)},${(G.gy*12).toFixed(1)})">${pupil}</g>
   ${lid}
+  ${G.blink>0?`<rect x="-80" y="-90" width="160" height="${(G.blink*150).toFixed(1)}" fill="#2fae9b"/><line x1="-70" x2="70" y1="${(-90+G.blink*150).toFixed(1)}" y2="${(-90+G.blink*150).toFixed(1)}" stroke="#0a1f24" stroke-width="8"/>`:''}
  </g>
  <ellipse rx="${shock?56:50}" ry="${shock?64:55}" fill="none" ${O}/>
- <path d="${brow}" fill="none" stroke="#0a1f24" stroke-width="9" stroke-linecap="round"/>
+ <path d="${brow}" transform="translate(0,${(-G.brow*16).toFixed(1)})" fill="none" stroke="#0a1f24" stroke-width="9" stroke-linecap="round"/>
 </g>`}
-function cup(){return `<g transform="translate(-362,92) rotate(-9) scale(1.38)" filter="url(#cut)">
+function steamWisps(){ return [0,1,2].map(i=>`<path d="M${(i-1)*24} -160 q-14 -18 0 -34 q14 -16 0 -34" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity="0"><animate attributeName="opacity" values="0;.75;0" dur="2.4s" begin="-${(i*0.8).toFixed(1)}s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="translate" values="0 26;0 -48" dur="2.4s" begin="-${(i*0.8).toFixed(1)}s" repeatCount="indefinite"/></path>`).join(''); }
+function cup(){ // ALWAYS HELD: round mitten + thumb bump gripping the cup, never set down. Steam (hot) rises from the lid.
+ const steam=((ANIM&&process.env.STEAM!=='0')||G.steam)?steamWisps():`<path d="M-16 -160 q-16 -18 0 -34 q16 -16 0 -34 M16 -160 q16 -18 0 -34 q-16 -16 0 -34" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".55"/>`;
+ return `<g transform="translate(-362,${(92+G.cupDy).toFixed(1)}) rotate(${(-9+G.cupRot).toFixed(2)}) scale(1.38)" filter="url(#cut)">
  <path d="M-72 -105 L72 -105 L54 108 Q0 122 -54 108Z" fill="url(#cupw)" ${O}/>
  <path d="M-68 -54 L68 -54 L62 36 L-62 36Z" fill="#c62828" ${O}/>
  <path d="M-68 -54 L68 -54 L66 -36 L-66 -36Z" fill="#e24a4a" opacity=".55"/>
  <rect x="-64" y="-12" width="128" height="7" fill="#fff" opacity=".85"/>
  <path d="M-62 -125 L62 -125 L72 -105 L-72 -105Z" fill="#4a2c1f" ${O}/>
  <rect x="-52" y="-146" width="104" height="26" rx="10" fill="#5c3827" ${O}/>
- <path d="M-16 -160 q-16 -18 0 -34 q16 -16 0 -34 M16 -160 q16 -18 0 -34 q-16 -16 0 -34" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".55"/>
+ ${steam}
  <g transform="translate(0,-10) scale(.8)"><circle r="62" fill="#3fc4b0" ${O}/>
   <path d="M-60 -12 C-60 -78 60 -78 60 -12Z" fill="#2c63d6" ${O}/><rect x="-62" y="-20" width="124" height="14" fill="#fff"/><circle cy="-72" r="12" fill="#fff" stroke="#0a1f24" stroke-width="6"/>
   <ellipse cx="-22" cy="14" rx="10" ry="12" fill="#fff"/><ellipse cx="22" cy="14" rx="10" ry="12" fill="#fff"/><circle cx="-20" cy="17" r="5" fill="#111"/><circle cx="24" cy="17" r="5" fill="#111"/>
   <path d="M-18 40 Q0 52 18 40" fill="none" stroke="#0a1f24" stroke-width="6" stroke-linecap="round"/></g>
- <g ${O} fill="url(#skinArm)"><ellipse cx="-70" cy="62" rx="26" ry="38"/><ellipse cx="-14" cy="64" rx="62" ry="36"/></g>
- <path d="M-58 -96 L-52 90" stroke="#fff" stroke-width="9" stroke-linecap="round" opacity=".6"/>
+ <path d="M-58 -96 L-52 24" stroke="#fff" stroke-width="9" stroke-linecap="round" opacity=".6"/>
+ <!-- hand drawn LAST, fully opaque: mitten on the cup's lower half + thumb bump on the left edge -->
+ <ellipse cx="4" cy="62" rx="54" ry="46" fill="#2fb5a1" ${O}/><ellipse cx="4" cy="62" rx="54" ry="46" fill="url(#skinArm)" opacity=".8"/>
+ <ellipse cx="-56" cy="34" rx="17" ry="27" transform="rotate(-18 -56 34)" fill="#2fb5a1" ${O}/>
+ <ellipse cx="-14" cy="44" rx="22" ry="9" fill="#fff" opacity=".38" transform="rotate(-18 -14 44)"/>
 </g>`}
 
 function chain(){ // necklace wrapping around the body, pendant hanging at centre
@@ -96,6 +106,15 @@ function garment(fit){
    <path d="M-210 215 Q-130 235 -60 222" fill="none" stroke="#ffe39a" stroke-width="8" stroke-linecap="round" opacity=".6"/>`;
  }
  return g+`</g>`}
+function MOUTH(m){ // talking/reaction mouth shapes (rig_v2)
+ const D='#5a1530';
+ if(m==='closed') return `<path d="M-40 120 Q10 128 62 120" fill="none" stroke="#0a1f24" stroke-width="11" stroke-linecap="round"/>`;
+ if(m==='small') return `<ellipse cx="10" cy="120" rx="26" ry="20" fill="${D}" ${O}/>`;
+ if(m==='wide') return `<ellipse cx="10" cy="122" rx="56" ry="42" fill="${D}" ${O}/><ellipse cx="10" cy="146" rx="30" ry="14" fill="#ff7a8a"/>`;
+ if(m==='o') return `<ellipse cx="10" cy="124" rx="30" ry="38" fill="${D}" ${O}/><ellipse cx="10" cy="140" rx="16" ry="10" fill="#ff7a8a"/>`;
+ if(m==='smile') return `<path d="M-56 104 Q10 164 76 104" fill="#5a1530" stroke="#0a1f24" stroke-width="9" stroke-linejoin="round"/><path d="M-30 118 Q10 140 50 118" fill="#fff"/>`;
+ return '';
+}
 function cyto(fit='none'){
  let spots=''; for(let i=0;i<22;i++){const a=rnd()*6.28,r=Math.sqrt(rnd())*260;const x=Math.cos(a)*r,y=Math.sin(a)*r*0.95+20;
   if(Math.abs(x)<190&&y>-100&&y<30) continue; if(Math.abs(x)<130&&y>40&&y<170) continue; if(y<-60) continue; if(x>100&&y>80) continue;if(x<-110&&y>70&&x>-270) continue; if(y>130) continue;
@@ -108,7 +127,7 @@ function cyto(fit='none'){
  <ellipse cx="10" cy="338" rx="230" ry="24" fill="#000" opacity=".3" filter="url(#soft)"/>
  <!-- arms emerge from behind the body edge -->
  ${arm("M268 60 Q372 70 366 -34",44)}${hand(366,-62)}
- ${arm("M-268 82 Q-318 112 -322 164",44)}
+ ${arm("M-268 82 Q-322 116 -338 172",44)}
  <!-- body -->
  <ellipse rx="308" ry="292" fill="#3fd0bb" ${O}/>
  <g clip-path="url(#bodyclip2)">
@@ -124,7 +143,7 @@ function cyto(fit='none'){
  <ellipse rx="308" ry="292" fill="none" ${O}/>
  ${eye(-100,-1)}${eye(100,1)}
  <ellipse cx="-196" cy="70" rx="30" ry="18" fill="#ff9aa8" opacity=".55"/><ellipse cx="196" cy="70" rx="30" ry="18" fill="#ff9aa8" opacity=".55"/>
-${EXPR==='shock'?`<ellipse cx="10" cy="122" rx="58" ry="66" fill="#5a1530" ${O}/><ellipse cx="10" cy="156" rx="34" ry="20" fill="#ff7a8a"/><path d="M-30 78 Q10 94 50 78" fill="#fff" stroke="#0a1f24" stroke-width="5"/>`:EXPR==='solemn'?`<path d="M-46 124 Q10 110 66 124" fill="none" stroke="#0a1f24" stroke-width="11" stroke-linecap="round"/>`:` <path d="M-62 112 Q0 138 84 92" fill="none" stroke="#0a1f24" stroke-width="11" stroke-linecap="round"/>
+${G.mouth?MOUTH(G.mouth):EXPR==='shock'?`<ellipse cx="10" cy="122" rx="58" ry="66" fill="#5a1530" ${O}/><ellipse cx="10" cy="156" rx="34" ry="20" fill="#ff7a8a"/><path d="M-30 78 Q10 94 50 78" fill="#fff" stroke="#0a1f24" stroke-width="5"/>`:EXPR==='solemn'?`<path d="M-46 124 Q10 110 66 124" fill="none" stroke="#0a1f24" stroke-width="11" stroke-linecap="round"/>`:` <path d="M-62 112 Q0 138 84 92" fill="none" stroke="#0a1f24" stroke-width="11" stroke-linecap="round"/>
  <path d="M84 92 Q100 82 106 98" fill="none" stroke="#0a1f24" stroke-width="8" stroke-linecap="round"/>
  <path d="M-40 126 Q10 146 60 118" fill="none" stroke="#1f8f86" stroke-width="7" stroke-linecap="round" opacity=".55"/>`}
  <g transform="translate(-176,124) rotate(-12)"><rect x="-56" y="-22" width="112" height="44" rx="22" fill="#ff9b3d" ${O}/><rect x="-52" y="-18" width="104" height="14" rx="7" fill="#ffc07a" opacity=".8"/><path d="M-34 8 L-20 -6 L-6 8 L8 -6 L22 8 L34 -4" fill="none" stroke="#c4541a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>
@@ -145,7 +164,7 @@ ${EXPR==='shock'?`<ellipse cx="10" cy="122" rx="58" ry="66" fill="#5a1530" ${O}/
 
 const ANIM=process.env.ANIM==='1';
 const RIG=process.env.RIG==='1';
-let _os=+(process.env.SEED||Date.now()%100000)+1;
+let _os=+(process.env.SEED||Date.now()%100000)+1; const SEED0=_os;
 const orand=()=>(_os=(_os*16807)%2147483647)/2147483647;
 const OJ=(amt)=>(orand()-0.5)*2*amt;   // random out-of-place jitter
 let _ai=0;
@@ -211,7 +230,7 @@ const pfp=`<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" vi
  <g clip-path="url(#circ)">${skyline(1000,1000,780,3)}${extras(1000,1000,780,false,17)}${tower(850,780,700)}
  <circle cx="520" cy="500" r="470" fill="url(#glow)"/><g transform="translate(512,505) scale(.86)">${cyto(process.env.FIT||'none')}</g></g>
  <circle cx="500" cy="500" r="486" fill="none" stroke="#ffcf5a" stroke-width="28"/></svg>`;
-fs.writeFileSync('pfp.svg',pfp);
+W_('pfp.svg',pfp);
 // COVER 1640x624 (FB) — character left-center, text right, safe middle
 const cover=(w,h,sc,cx,cy,tx,fs1,fs2,ty=h*0.4)=>`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${defs}
  ${skyline(w,h,h*0.8,9)}${extras(w,h,h*0.8,true,23)}${tower(w*0.93,h*0.8,h*0.98)}
@@ -221,8 +240,8 @@ const cover=(w,h,sc,cx,cy,tx,fs1,fs2,ty=h*0.4)=>`<svg xmlns="http://www.w3.org/2
   <text x="${tx}" y="${ty+fs1*0.98}" font-size="${fs1}" fill="#ffcf5a" stroke="#0a1f24" stroke-width="${fs1*0.08}" paint-order="stroke" filter="url(#cut)">IS THE 6IX</text>
   <text x="${tx+4}" y="${ty+fs1*0.98+fs2*1.9}" font-size="${fs2}" fill="#8fe8d8" font-weight="700">Science in 30 seconds · live from inside your body</text>
  </g></svg>`;
-fs.writeFileSync('cover.svg',cover(1640,624,.5,430,365,720,104,26));
-fs.writeFileSync('banner.svg',cover(2560,1440,.41,905,745,1105,84,27,640)  /* YT safe area x662-1897 y551-889 */);
+W_('cover.svg',cover(1640,624,.5,430,365,720,104,26));
+W_('banner.svg',cover(2560,1440,.41,905,745,1105,84,27,640)  /* YT safe area x662-1897 y551-889 */);
 
 
 // OUTFIT SHEET
@@ -232,17 +251,16 @@ const sheet=`<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1100" 
  ${fits.map((f,i)=>`<g transform="translate(${i*600},0)"><circle cx="300" cy="520" r="290" fill="url(#glow)"/><g transform="translate(300,560) scale(.5)">${cyto(f[0])}</g>
   <text x="300" y="1010" text-anchor="middle" font-family="Arial Black, Impact, DejaVu Sans, sans-serif" font-weight="900" font-size="44" fill="#ffcf5a" stroke="#0a1f24" stroke-width="6" paint-order="stroke">${f[1]}</text></g>`).join('')}
 </svg>`;
-fs.writeFileSync('fits.svg',sheet);
+W_('fits.svg',sheet);
 
-if(ANIM){ fs.writeFileSync('pfp_anim.svg', pfp); }
+if(ANIM){ W_('pfp_anim.svg', pfp); }
 
 // TRANSPARENT CANON ASSETS (for video rig, thumbnails, watermark, end cards): cyto_<fit>.svg, 1100x1100, Cyto centred
 for(const f of ['none','jersey','hoodie','puffer']){
- fs.writeFileSync(`cyto_${f}${EXPR==='chill'?'':'_'+EXPR}.svg`,`<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1100" viewBox="-550 -550 1100 1100">${defs}<g>${cyto(f)}</g></svg>`);
+ W_(`cyto_${f}${EXPR==='chill'?'':'_'+EXPR}.svg`,`<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1100" viewBox="-550 -550 1100 1100">${defs}<g>${cyto(f)}</g></svg>`);
 }
 
-// ============================================================================================================
-// ANIMATABLE RIG (RIG=1).  Same canon drawing, split into layers with ids for GSAP/HyperFrames.
+// =====================================================================================================// ANIMATABLE RIG (RIG=1).  Same canon drawing, split into layers with ids for GSAP/HyperFrames.
 //   #cyto            root (canon units, body centre 0,0; viewBox -550..550)
 //   #ledge           stone ledge the cup is set down on (cupDown)            - static
 //   #armCup          ONE rigid group: left arm + mitten #handL + #cup         - static when set down
@@ -346,3 +364,5 @@ if(RIG){
   fs.writeFileSync(`cyto_rig_${f}${EXPR==='chill'?'':'_'+EXPR}.svg`,`<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1100" viewBox="-550 -550 1100 1100" overflow="visible">${defs}${rig(f,{pin:EXPR==='solemn'})}</svg>`);
  }
 }
+=======
+if(!MAIN) module.exports={cyto,defs,G,reset:()=>{rs=5;_os=SEED0;_ai=0;},setExpr:(e)=>{EXPR=e;}};

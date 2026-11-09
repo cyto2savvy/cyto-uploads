@@ -90,7 +90,7 @@ Tags are a **small** signal now (YouTube reads the title, description and spoken
 | Title length | **50–60 chars**, hard limit 70 |
 | Keyword | in the first 40 chars |
 | Package first | write the title + thumbnail **before** the script; the video has to deliver what they promise |
-| Thumbnail | **required**, 1280×720: Cyto's face with a strong expression (shock/hype), ≤ 4 words, one focal object, high contrast; make 2–3 and use Studio "Test & Compare" |
+| Thumbnail | **required**: make BOTH 1280×720 (browse/search/desktop) AND a vertical 1080×1920 (Shorts, `make_thumb.py --format short`): Cyto's face with a strong expression (shock/hype), ≤ 4 words, one focal object, high contrast; make 2–3 and use Studio "Test & Compare" |
 | Description | 200–500 words: hook line with keyword, summary, chapters, sources, links to the series playlist + related Shorts, disclaimer, 3–5 hashtags |
 | Chapters | required: first is `0:00`, ≥ 3 chapters, each ≥ 10s, keyword-named (not "Part 1") |
 | Length | 8–15 min **only if retention holds**; cutting padding beats adding length |

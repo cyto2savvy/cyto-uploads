@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+"""Rig v2 tests: python3 -I studio/rig_v2/test_rig.py   (needs node+playwright, numpy, pillow)
+Locks in Utsha's Nov 9 feedback: cup ALWAYS held (never set down) with steam; hand on cup; Cyto's face MOVES (gaze wander, blinks,
+reactions, per-syllable mouth) instead of staring one way."""
+import os, sys, json, subprocess, tempfile, shutil
+import numpy as np
+from PIL import Image
+HERE=os.path.dirname(os.path.abspath(__file__)); R=[]
+def check(n,ok,d=""): R.append(ok); print(("PASS " if ok else "FAIL ")+n+(f"  [{d}]" if d else ""))
+def node(js): return subprocess.run(["node","-e",js],cwd=HERE,capture_output=True,text=True,check=True).stdout
+tl={"fps":10,"duration":60,"fit":"none","seed":7,
+ "words":[{"w":"a","start":10.0,"end":10.6},{"w":"b","start":20.0,"end":20.5}],
+ "beats":[{"t":0,"emotion":"chill"},{"t":30,"emotion":"shock","gaze":[0,0]},{"t":40,"emotion":"think"},{"t":50,"emotion":"happy"}]}
+js="const r=require('./cyto_rig.js');const tl="+json.dumps(tl)+";const o=[];for(let t=0;t<60;t+=0.05)o.push([t,r.state(t,tl)]);console.log(JSON.stringify(o))"
+S=json.loads(node(js)); T=np.array([a for a,_ in S]); st=[b for _,b in S]
+col=lambda k: np.array([ (s[k] if s[k] is not None else 0) for s in st],dtype=float)
+# --- behaviour (pure state) ---
+check("cup is held, never placed down (cup offset stays within +-6px, rotation +-3deg over 60 s)", abs(col("cupDy")).max()<=6 and abs(col("cupRot")).max()<=3, f"dy {abs(col('cupDy')).max():.1f} rot {abs(col('cupRot')).max():.1f}")
+check("cup moves a little (sways)", col("cupDy").std()>1.5 and col("cupRot").std()>.8)
+bl=col("blink")>.5; starts=T[1:][bl[1:]&~bl[:-1]]; gaps=np.diff(starts)
+check("blinks every 2-4 s", len(starts)>=12 and gaps.min()>=1.8 and gaps.max()<=4.4, f"{len(starts)} blinks, gaps {gaps.min():.1f}-{gaps.max():.1f}s")
+g=np.round(col("gx"),2)+1j*np.round(col("gy"),2); changes=(np.diff(g)!=0).sum()
+check("gaze wanders (not staring one way)", len(set(np.round(col('gx'),1)))>=6 and abs(col('gx')).max()>.5, f"{len(set(np.round(col('gx'),1)))} distinct x gazes")
+check("looks back at camera regularly", ((abs(col('gx'))<.1)&(abs(col('gy'))<.1)).mean()>.2)
+words=[(10,10.6),(20,20.5)]; talk=np.array([any(a<=t<=b for a,b in words) for t in T]); m=np.array([s["mouth"] is not None for s in st])
+check("mouth moves only while words play (per-syllable)", (m[talk&(T<30)].mean()>.95) and (m[~talk&(T<30)].mean()<.05))
+shapes={s["mouth"] for s,tt in zip(st,talk) if tt}; check("mouth cycles several shapes", len(shapes)>=3, str(shapes))
+sh=[s for s,t in zip(st,T) if 30.3<t<30.5][0]; check("shock beat: face changes + brows pop + gaze to camera", sh["expr"]=="shock" and sh["brow"]>.9 and sh["gx"]==0)
+check("reaction faces vary across the video (chill/shock/think/happy)", len({s['expr'] for s in st})>=2 and len({round(s['tilt']) for s in st})>=6)
+# --- rendered pixels ---
+tmp=tempfile.mkdtemp(prefix="rig_"); tl2={"fps":5,"duration":3,"fit":"none","seed":7,"words":[{"w":"x","start":0.4,"end":1.4}],"beats":[{"t":0,"emotion":"chill"},{"t":2,"emotion":"shock"}]}
+json.dump(tl2,open(tmp+"/tl.json","w"))
+try:
+    r=subprocess.run(["node",os.path.join(HERE,"render_rig.js"),tmp+"/tl.json",tmp+"/o","360"],env=dict(os.environ,SEED="3"),capture_output=True,text=True)
+    fr=[np.asarray(Image.open(f"{tmp}/o/f{i:05d}.png").convert("RGBA")).astype(int) for i in range(15)]
+    check("frames render with transparency", fr[0][...,3].min()==0 and (fr[0][...,3]>0).mean()>.2)
+    px=lambda x,y:(int((x+550)*360/1100),int((y+550)*360/1100))
+    def reg(f,x0,y0,x1,y1): a,b=px(x0,y0),px(x1,y1); return f[b[1]:b[1]+1 and a[1]:b[1], a[0]:b[0]]
+    eye=lambda f: f[px(0,-120)[1]:px(0,40)[1], px(-220,0)[0]:px(220,0)[0]]
+    mouth=lambda f: f[px(0,70)[1]:px(0,200)[1], px(-90,0)[0]:px(110,0)[0]]
+    steam=lambda f: f[px(0,-250)[1]:px(0,-110)[1], px(-420,0)[0]:px(-300,0)[0]]
+    d=lambda a,b: np.abs(a-b).sum()/max(1,a.size)
+    check("face moves between frames (eyes change)", max(d(eye(fr[i]),eye(fr[0])) for i in range(1,15))>1.0, f"{max(d(eye(fr[i]),eye(fr[0])) for i in range(1,15)):.2f}")
+    check("mouth shape changes while talking", max(d(mouth(fr[i]),mouth(fr[0])) for i in range(2,7))>2.0)
+    check("shock reaction visibly changes the face", d(eye(fr[12]),eye(fr[0]))>3.0)
+    check("steam rises/animates above the cup", max(d(steam(fr[i]),steam(fr[0])) for i in range(1,15))>.8, f"{max(d(steam(fr[i]),steam(fr[0])) for i in range(1,15)):.2f}")
+    dark=lambda f: (f[...,3]>0)
+    check("no frame has a stray huge jump (smooth)", max(np.abs(fr[i+1][...,3]-fr[i][...,3]).mean() for i in range(14))<25)
+finally: shutil.rmtree(tmp,ignore_errors=True)
+print(f"\n{sum(R)}/{len(R)} passed"); sys.exit(0 if all(R) else 1)

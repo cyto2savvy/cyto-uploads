@@ -1,6 +1,6 @@
 # Thumbnail format v2 — MrBeast style (Utsha, Nov 9, 2026). Replaces the old thumb.py structure.
 Tool: `python3 studio/branding/rebrand-v2/make_thumb.py out.png --lines "A|B|C" --colors "w,w,y" --expr shock --bg "#ff3b30,#6a00ff" --scene ecg [--arrow] [--object x.png] [--side left|right]`
-Output 1280x720 using the CANON v2 Cyto (never the old rig PNGs).
+Output `--format wide` 1280x720 AND `--format short` 1080x1920 (9:16, the Shorts shelf/feed preview; keep text out of the bottom ~20% and right edge where the Shorts UI buttons sit; `--focus` picks which part of a wide photo the vertical crop keeps). Make both for every Short. Uses the CANON v2 Cyto (never the old rig PNGs).
 1. ONE giant face: Cyto fills ~100% of the height on one side, cropped by the frame, thick white sticker outline + hard drop shadow.
 2. Expression sells the curiosity: `shock` (default, mouth open, wide eyes), `solemn` (serious/Remembrance), `chill` (canon default). Never a neutral face on a normal episode.
 3. Text: <= 4 words total, <= 3 lines, giant, white + ONE colour word (yellow/red), black stroke. A question or a shocking claim, not the title.
