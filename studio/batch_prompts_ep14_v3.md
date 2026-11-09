@@ -11,7 +11,7 @@ Build Ep 14 of Cyto The Cell: "What Two Minutes of Silence Does to Your Body" (S
 - Quiet follow prompt as a text chip (no voice, no jokes) around 40-60%, plus the end card; sources on screen at the end.
 - Length <= 34 s. Title unchanged (45 chars).
 
-3) THUMBNAILS = MrBeast format v2, SOLEMN variant: python3 studio/branding/rebrand-v2/make_thumb.py out.png --lines "..." --expr solemn --bg "#1b2a6b,#0b0f26". Two options already exist in studio/branding/rebrand-v2/assets/ (A "2 MINUTES OF SILENCE", B "SILENCE SLOWS YOUR HEART"); regenerate if the layout changes, pick the stronger, say why. No shock face or arrows on this episode.
+3) THUMBNAILS = MrBeast format v2, SOLEMN variant: python3 studio/branding/rebrand-v2/make_thumb.py out.png --lines "..." --expr solemn --bg "#1b2a6b,#0b0f26" --scene ecg (background must match the topic; A uses --scene stars). Two options already exist in studio/branding/rebrand-v2/assets/ (A "2 MINUTES OF SILENCE", B "SILENCE SLOWS YOUR HEART"); regenerate if the layout changes, pick the stronger, say why. No shock face or arrows on this episode.
 
 COST: ElevenLabs voice ~480-560 credits, ONE take, estimate_only first, say the number to Utsha before generating (voice "Cyto" MDpsT9lfiqWEMyN3A1bk, model eleven_v4, flow 9FCDlyMjCyXT9Z51HIp7); Scribe 0. Everything else $0.
 CHECKS: layout_check.py 0 FAIL; 1-fps frame check (Cyto on model, cup visible, something moving, captions readable on a phone); first-second check; mouth closed when silent; static-run check on the first 8 s; canon tests 19/19+.

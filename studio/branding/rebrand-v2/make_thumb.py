@@ -20,12 +20,50 @@ def cyto_png(expr,fit):
 def main():
     a=argparse.ArgumentParser(); a.add_argument("out"); a.add_argument("--lines",required=True); a.add_argument("--colors",default="w,w,y")
     a.add_argument("--expr",default="shock"); a.add_argument("--bg",default="#ff3b30,#6a00ff"); a.add_argument("--side",default="right")
-    a.add_argument("--fit",default="none"); a.add_argument("--arrow",action="store_true"); a.add_argument("--object"); a=a.parse_args()
+    a.add_argument("--fit",default="none"); a.add_argument("--arrow",action="store_true"); a.add_argument("--object"); a.add_argument("--scene",default=""); a.add_argument("--bg-image",dest="bgimg"); a=a.parse_args()
     c1,c2=[hexc(x) for x in a.bg.split(",")]
     bg=Image.new("RGB",(W,H)); px=bg.load()
     for y in range(H):
         for x in range(0,W):
             t=(x/W*0.6+y/H*0.4); px[x,y]=tuple(int(c1[i]*(1-t)+c2[i]*t) for i in range(3))
+    bg=bg.convert('RGBA')
+
+    # TOPIC BACKGROUND: --scene (ecg|snow|clock|toronto|stars) or --bg-image photo (cover-cropped, saturated, tinted)
+    if a.bgimg:
+        from PIL import ImageEnhance
+        ph=Image.open(a.bgimg).convert("RGB"); r=max(W/ph.width,H/ph.height); ph=ph.resize((int(ph.width*r)+1,int(ph.height*r)+1))
+        ph=ph.crop(((ph.width-W)//2,(ph.height-H)//2,(ph.width-W)//2+W,(ph.height-H)//2+H)); ph=ImageEnhance.Color(ph).enhance(1.6); ph=ImageEnhance.Contrast(ph).enhance(1.2)
+        tint=Image.new("RGB",(W,H),c1); bg=Image.blend(ph,tint,0.30).convert("RGBA")
+    sd=ImageDraw.Draw(bg)
+    if a.scene=="ecg":
+        pts=[];x=0
+        while x<W:
+            if x<W*0.55: pts+= [(x,H*0.5),(x+40,H*0.5),(x+55,H*0.38),(x+75,H*0.74),(x+95,H*0.22),(x+115,H*0.5),(x+170,H*0.5)]; x+=210
+            else: pts+=[(x,H*0.5)]; x+=W  # flatline
+        pts.append((W,H*0.5))
+        for wd,al in ((34,70),(16,255)): 
+            lay=Image.new("RGBA",(W,H),(0,0,0,0)); ImageDraw.Draw(lay).line(pts,fill=(80,255,160,al),width=wd,joint="curve"); bg=Image.alpha_composite(bg,lay.filter(ImageFilter.GaussianBlur(6 if wd>20 else 0)))
+    elif a.scene=="snow":
+        import random; rr=random.Random(5)
+        for _ in range(160): x,y,r_=rr.random()*W,rr.random()*H,rr.choice([3,4,6,9]); sd.ellipse([x-r_,y-r_,x+r_,y+r_],fill=(255,255,255,rr.choice([150,210,255])))
+    elif a.scene=="stars":
+        import random; rr=random.Random(7)
+        for _ in range(120): x,y,r_=rr.random()*W,rr.random()*H,rr.choice([2,3,5]); sd.ellipse([x-r_,y-r_,x+r_,y+r_],fill=(255,255,255,230))
+    elif a.scene=="clock":
+        cx0,cy0,R=W*0.28,H*0.52,300
+        sd.ellipse([cx0-R,cy0-R,cx0+R,cy0+R],outline=(255,255,255,200),width=22,fill=(255,255,255,40))
+        for k in range(12): ang=k*math.pi/6; sd.line([(cx0+(R-30)*math.sin(ang),cy0-(R-30)*math.cos(ang)),(cx0+(R-70)*math.sin(ang),cy0-(R-70)*math.cos(ang))],fill=(255,255,255,230),width=14)
+        sd.line([(cx0,cy0),(cx0+150*math.sin(2.6),cy0-150*math.cos(2.6))],fill=(255,255,255,255),width=22); sd.line([(cx0,cy0),(cx0+220*math.sin(0.4),cy0-220*math.cos(0.4))],fill=(255,214,10,255),width=16)
+    elif a.scene=="toronto":
+        import random; rr=random.Random(11); x=0
+        x=0
+        while x<W:
+            bw=rr.randint(50,110); bh=rr.randint(140,380); sd.rectangle([x,H-bh,x+bw,H],fill=(8,14,40,255))
+            for wy in range(H-bh+14,H-10,26):
+                for wx in range(x+8,x+bw-10,20):
+                    if rr.random()<0.45: sd.rectangle([wx,wy,wx+8,wy+12],fill=(255,214,120,230))
+            x+=bw+rr.randint(0,10)
+        tx0=W*0.45; sd.rectangle([tx0-9,H*0.18,tx0+9,H],fill=(8,14,40,255)); sd.ellipse([tx0-38,H*0.40,tx0+38,H*0.46],fill=(8,14,40,255)); sd.polygon([(tx0-3,H*0.06),(tx0+3,H*0.06),(tx0+9,H*0.2),(tx0-9,H*0.2)],fill=(8,14,40,255))
     # light burst behind face
     fx=W*0.70 if a.side=="right" else W*0.30
     burst=Image.new("RGBA",(W,H),(0,0,0,0)); bd=ImageDraw.Draw(burst)
