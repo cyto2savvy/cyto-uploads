@@ -12,4 +12,5 @@ HAVE photo_skyline_dusk.jpg
 HAVE lf02v3_neutro.mp3
 HAVE lf02v3_cyto3.mp3
 HAVE ep14_raw.mp3
-OK ep14_thumb_bg.png
+HAVE ep14_thumb_bg.png
+OK ep14v3_raw.mp3
