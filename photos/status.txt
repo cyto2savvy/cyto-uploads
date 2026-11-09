@@ -8,4 +8,4 @@ HAVE subway-train-night.jpg
 HAVE bluffs-cliff.jpg
 HAVE bluffs-water.jpg
 HAVE kensington-fruit.jpg
-OK ep15-runner.jpg
+OK ep15-toronto.jpg
