@@ -9,4 +9,4 @@
 - bluffs-cliff.jpg — Maksym Dashko
 - bluffs-water.jpg — Adriano Silva
 - kensington-fruit.jpg — Marquise Kamanke
-- ep15-runner.jpg — Zac Ong (https://unsplash.com/photos/RYvOI54rmPw), Ep 15 thumbnail background
+- ep15-toronto.jpg — Michal Vrba (https://unsplash.com/photos/sTAeDXP6TaY), Ep 15 thumbnail background

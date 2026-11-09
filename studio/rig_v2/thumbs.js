@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // CANON v2 thumbnails: node thumbs.js thumbs.json outDir   -> thumb-<id>-1280x720.jpg + thumb-<id>-1080x1920.jpg (+ feed_check.jpg made by make_episode.py)
-// spec: {fit, thumbs:[{id, headline:["YOUR HEART","SLOWS DOWN"], hot:["SLOWS"], hero:"heart|clock|snow|brain|phone|sugar" or hero_svg:"<g>..</g>", emotion:"shock|think|happy|solemn|chill", gaze:[x,y], glow:"#ff5a4d", series:"6IXTY SECONDS OF SCIENCE"}]}
+// spec: {fit, thumbs:[{id, headline:["YOUR HEART","SLOWS DOWN"], hot:["SLOWS"], hero:"heart|clock|snow|brain|phone|sugar" or hero_svg:"<g>..</g>", emotion:"shock|think|happy|solemn|chill", gaze:[x,y], glow:"#ff5a4d", photo:"/abs/path.jpg" (optional background), series:"6IXTY SECONDS OF SCIENCE"}]}
 process.env.SEED = process.env.SEED || '3';
 const fs = require('fs'), path = require('path');
 const { frameSvg } = require('./cyto_rig.js'); const { chromium } = require('playwright');
@@ -14,6 +14,11 @@ const HERO = { // ~400x400 canon cut-outs centred on 0,0
   phone: `<rect x="-100" y="-175" width="200" height="350" rx="34" fill="#16254f" stroke="${INK}" stroke-width="10"/><rect x="-80" y="-145" width="160" height="270" rx="12" fill="#7fe3d3"/><text x="0" y="-5" text-anchor="middle" font-family="Arial Black" font-size="64" fill="${INK}">3:00</text>`,
   sugar: O('M-120 -40 L0 -110 L120 -40 L120 80 L0 150 L-120 80Z', '#fff') + `<path d="M-120 -40 L0 30 L120 -40 M0 30 V150" stroke="${INK}" stroke-width="9" fill="none"/>`,
 };
+function photoHtml(sp) { // optional free-photo background (Unsplash): sp.photo = path to a jpg; navy wash keeps the headline readable
+  if (!sp.photo) return '';
+  const b64 = fs.readFileSync(path.resolve(__dirname, '..', '..', sp.photo)).toString('base64');
+  return `<div style="position:absolute;inset:0;background:url(data:image/jpeg;base64,${b64}) center/cover"></div><div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,19,48,.78) 0%,rgba(10,19,48,.35) 45%,rgba(10,19,48,.7) 100%)"></div>`;
+}
 function html(sp, fit, W, H) {
   const portrait = H > W, pad = portrait ? 1 : 0.62;
   const hero = sp.hero_svg || HERO[sp.hero] || HERO.heart, glow = sp.glow || '#ff5a4d';
@@ -27,7 +32,7 @@ function html(sp, fit, W, H) {
     : { pill: 'left:50px;top:34px', hl: 'left:44px;top:96px;width:560px;text-align:left;white-space:nowrap', hero: 'left:210px;top:410px', cy: 'left:600px;top:-10px' };
   const hsz = portrait ? 460 : 300;
   return `<body style="margin:0"><div style="position:relative;width:${W}px;height:${H}px;overflow:hidden;background:radial-gradient(circle at ${portrait ? '60% 45%' : '30% 70%'},${sp.bg2 || '#15284a'},${sp.bg1 || '#0a1330'} 75%)">
-<div style="position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at ${portrait ? '60% 45%' : '30% 70%'},rgba(255,255,255,.06) 0 6deg,transparent 6deg 18deg)"></div>
+${photoHtml(sp)}<div style="position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at ${portrait ? '60% 45%' : '30% 70%'},rgba(255,255,255,.06) 0 6deg,transparent 6deg 18deg)"></div>
 <div style="position:absolute;${L.pill};background:${GOLD};color:${INK};border:6px solid ${INK};border-radius:40px;padding:6px 26px;font:900 ${portrait ? 34 : 24}px 'Arial Black',sans-serif">${sp.series || '6IXTY SECONDS OF SCIENCE'}</div>
 <div style="position:absolute;${L.hl};font:900 ${hs}px/1.0 'Arial Black','Inter',Impact,sans-serif;-webkit-text-stroke:${Math.round(hs / 8)}px ${INK};paint-order:stroke fill;text-shadow:8px 11px 0 rgba(10,31,36,.6)">${hl}</div>
 <div style="position:absolute;${L.hero}"><svg viewBox="-220 -220 440 440" width="${hsz}" height="${hsz}" style="overflow:visible;filter:drop-shadow(0 0 40px ${glow})"><defs></defs><g>${hero}</g></svg></div>

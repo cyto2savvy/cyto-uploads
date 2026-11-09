@@ -152,7 +152,8 @@
     "CANCER?"
    ],
    "hero": "heart",
-   "emotion": "shock"
+   "emotion": "shock",
+   "photo": "photos/ep15-toronto.jpg"
   },
   {
    "id": "B",
@@ -164,7 +165,8 @@
     "-28%"
    ],
    "hero": "heart",
-   "emotion": "shock"
+   "emotion": "shock",
+   "photo": "photos/ep15-toronto.jpg"
   }
  ],
  "stronger": "B",
