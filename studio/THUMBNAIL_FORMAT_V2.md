@@ -10,3 +10,9 @@ Output 1280x720 using the CANON v2 Cyto (never the old rig PNGs).
 7. Tone exceptions: Remembrance Day / grief / serious topics use `solemn` + navy palette; no shock face, no arrows.
 8. No real brands/logos, no politics. The cup stays generic.
 Note: Shorts viewed in the feed ignore thumbnails (the first frame matters); thumbnails drive search, channel page, browse and Shorts-shelf clicks.
+
+## Photo backgrounds (MrBeast = real scenes of the topic; procedural --scene is only a fallback)
+- Looks to copy: full real-world scene of the topic behind a huge face; SPLIT-SCREEN contrast (`--bg-image A --bg2 B --labels "57C|-71C"`); a corner BADGE ("DAY 115", "100 COPS": `--badge`); 0-3 words of text.
+- Source A (Utsha chose this Nov 9): AI-generate ONE photoreal 16:9 scene per episode with ElevenLabs `creative_generate_image` (model bytedance-seedream-5-pro, generations_count=1, ~818 credits ~ $0.16; say the cost first, estimate_only first). Prompt: "photorealistic cinematic wide shot of <topic scene>, rich saturated colours, shallow depth of field, large empty space on the left third, no people, no text, no logos". The sandbox cannot download from ElevenLabs/Unsplash: bring the file in via a fetch GitHub Action list (like audio/list.txt) or have Utsha download it from the flow link and attach it.
+- Source B ($0): free Unsplash photos through `photos/list.txt` + the fetch-photos GitHub Action (already in the repo, files land in `photos/`), then `--bg-image photos/<name>.jpg`.
+- Split-screen is the strongest format for myth/vs/before-after topics (loud vs quiet, hot vs cold): 2 images.
