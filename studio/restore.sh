@@ -8,7 +8,7 @@ mkdir -p $H/cyto2 $H/hf $H/thumbs
 cp $S/pipeline/*.py $H/cyto2/
 cp -r $S/rig $H/cyto2/rig
 mkdir -p $H/cyto2/photos && cp $S/photos/* $H/cyto2/photos/
-cp $S/branding/* $H/cyto2/
+cp -r $S/branding/* $H/cyto2/
 cp $S/thumbs/* $H/thumbs/
 # episodes: ep01 lives in cyto2/, the rest in /home/claude/epN
 cp $S/episodes/ep01/* $H/cyto2/ 2>/dev/null || true
@@ -37,4 +37,4 @@ for n in 12 13 14 15 16 17 18 19 20; do [ -f $H/ep$n/make_segs.py ] && [ -f $H/e
 echo "Restored. Before rendering with HyperFrames run:"
 echo '  export HYPERFRAMES_BROWSER_PATH=$(ls /opt/pw-browsers/chromium_headless_shell-*/chrome-headless-shell-linux64/chrome-headless-shell | head -1)'
 
-pip install --break-system-packages -q pyworld pedalboard 2>/dev/null; cp studio/pipeline/cyto_voice.py /home/claude/cyto2/ 2>/dev/null
+pip install --break-system-packages -q pyworld pedalboard 2>/dev/null; cp $S/pipeline/cyto_voice.py /home/claude/cyto2/ 2>/dev/null

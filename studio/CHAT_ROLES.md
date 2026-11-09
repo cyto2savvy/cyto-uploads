@@ -6,7 +6,7 @@ Every chat starts the same way: clone the repo, run `studio/restore.sh`, read `s
 - Owns: the standing rules, analytics/weekly report, scheduling decisions, platform rollout, cost approvals, Zapier/Drive, the repo docs.
 - Does NOT: write scripts or build videos.
 - Reads `studio/inbox/manager.md` (reports from the other two). Writes decisions to `studio/PROJECT_INSTRUCTIONS.md` / `SETUP.md`.
-- Carried-over to-dos: publish the IG/FB Zap and delete the `test` row; Ep 14 scheduled Wed Nov 11 9:00 AM ET; fill the Nov 12 slot; LF01 publish time; vidIQ credits are exhausted; upload the new watermark in YouTube Studio; manual IG profile/Business account/AI-info label; get "Viewed vs swiped away" for Ep 14. Do NOT touch `tiktok/queue.json` (friend's Claude).
+- Carried-over to-dos (status Nov 9: Ep 14 DONE; vidIQ exhausted DONE/noted; rest below are open - IG/FB Zap + test row need Zapier editor access, watermark + IG profile/AI label are manual for Utsha, Nov 12 slot needs idea chat, LF01 time needs Utsha's answer, Ep 14 swiped-away after it goes live Nov 11): publish the IG/FB Zap and delete the `test` row; Ep 14 scheduled Wed Nov 11 9:00 AM ET; fill the Nov 12 slot; LF01 publish time; vidIQ credits are exhausted; upload the new watermark in YouTube Studio; manual IG profile/Business account/AI-info label; get "Viewed vs swiped away" for Ep 14. Do NOT touch `tiktok/queue.json` (friend's Claude).
 
 ## 2. IDEA chat (short, one per batch)
 - Owns: Toronto events + trends search, 3 topic pitches, PubMed research, script + scene plan + claims/sources list, title/thumbnail text options.

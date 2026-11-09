@@ -233,4 +233,9 @@ DECISION (Nov 6, Utsha): Eps 9, 12, 13 are already voiced/built, leave them as t
 ### SCHEDULE CHECK (Nov 8, 2026, YouTube): live = Eps 1-11 (Ep 9 id UEAjo09k7WI, Ep 10 -CEltZRO09A, Ep 11 7Xdk-SvGqBY). Only LF01 (MLdcV-vmyXE) is scheduled (publishAt 2026-11-29T14:45:00Z = 9:45 AM ET, check if 6 PM was intended). Ep 12 (Mon Nov 9 6 PM ET), Ep 13 (Tue Nov 10 6 PM ET), Ep 14 (Wed Nov 11 9 AM ET) are BUILT but NOT uploaded/scheduled.
 
 ### INSTAGRAM + FACEBOOK (Nov 8, 2026): see social/PLAN.md and social/queue.json (draft). Post natively from the original mp4, AI label ON, 12:00 ET the day after YouTube, IG/FB safe-zone check (top 220 px / bottom 350 px clear) to be added to layout_check.
-### SCHEDULED Nov 8: Ep 12 = B2kle4wj4A8 (Mon Nov 9 6 PM ET), Ep 13 = Wmcr3C99lwQ (Tue Nov 10 6 PM ET), both private + publishAt + synthetic flag + thumbnail A. (TikTok queue: Utsha does not manage it; the Eps 9/12/13 entries I added were REMOVED Nov 8.) Ep 14 NOT scheduled (rebuild with ep14_addendum.md first).
+### SCHEDULED Nov 8: Ep 12 = B2kle4wj4A8 (Mon Nov 9 6 PM ET), Ep 13 = Wmcr3C99lwQ (Tue Nov 10 6 PM ET), both private + publishAt + synthetic flag + thumbnail A. (TikTok queue: Utsha does not manage it; the Eps 9/12/13 entries I added were REMOVED Nov 8.) 
+
+### SCHEDULE (manager, Nov 9, 2026, verified from the YouTube uploads playlist)
+Live: Eps 1-11. Private+scheduled: Ep 12 `B2kle4wj4A8` (Mon Nov 9 6 PM ET), Ep 13 `Wmcr3C99lwQ` (Tue Nov 10 6 PM ET), **Ep 14 `Xwv_JKtNFgY` (Wed Nov 11 9:00 AM ET; uploaded Nov 9, synthetic=true, in playlist `PLIU9ZD7rP0Ss`, thumbnail B set; kept as-is, v3 build)**, LF01 `MLdcV-vmyXE` (Sun Nov 29 9:45 AM ET, still to confirm). **Thu Nov 12 slot: EMPTY (needs an idea chat -> episode.json).**
+Playlist "6ixty Seconds of Science" id `PLIU9ZD7rP0Ss`. YouTube PUT `videos?part=status` REPLACES the status: always resend embeddable/publicStatsViewable/license with publishAt + containsSyntheticMedia. Thumbnails now work via Zapier (phone-verified).
+vidIQ credits: 1 left, 0 renewable until Nov 30 (cap 150) -> no vidIQ voice/thumbnail/video tools. ElevenLabs Starter is the voice.
