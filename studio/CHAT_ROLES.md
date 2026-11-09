@@ -23,3 +23,5 @@ Every chat starts the same way: clone the repo, run `studio/restore.sh`, read `s
 - Rules live in the repo, not in prompts. If a rule changes, edit the repo doc, not the prompt.
 - One chat per episode for build; start a fresh one when context gets long.
 - Ep 14 stays as-is. The `ledge`/cup-down option in the Ep 14 rig must NOT be used again.
+
+- [DONE Nov 9, manager] studio/make_episode.py built + tested on Ep 14 data (see EPISODE_SCHEMA.md). IDEA chat writes episode.json; BUILD chat runs it.

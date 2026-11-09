@@ -239,3 +239,6 @@ DECISION (Nov 6, Utsha): Eps 9, 12, 13 are already voiced/built, leave them as t
 Live: Eps 1-11. Private+scheduled: Ep 12 `B2kle4wj4A8` (Mon Nov 9 6 PM ET), Ep 13 `Wmcr3C99lwQ` (Tue Nov 10 6 PM ET), **Ep 14 `Xwv_JKtNFgY` (Wed Nov 11 9:00 AM ET; uploaded Nov 9, synthetic=true, in playlist `PLIU9ZD7rP0Ss`, thumbnail B set; kept as-is, v3 build)**, LF01 `MLdcV-vmyXE` (Sun Nov 29 9:45 AM ET, still to confirm). **Thu Nov 12 slot: EMPTY (needs an idea chat -> episode.json).**
 Playlist "6ixty Seconds of Science" id `PLIU9ZD7rP0Ss`. YouTube PUT `videos?part=status` REPLACES the status: always resend embeddable/publicStatsViewable/license with publishAt + containsSyntheticMedia. Thumbnails now work via Zapier (phone-verified).
 vidIQ credits: 1 left, 0 renewable until Nov 30 (cap 150) -> no vidIQ voice/thumbnail/video tools. ElevenLabs Starter is the voice.
+
+### make_episode.py (manager, Nov 9, 2026): see studio/EPISODE_SCHEMA.md
+episode.json -> voice -> canon rig (rig_v2/compose.js) -> captions -> A/B thumbs (rig_v2/thumbs.js) -> contact-sheet checks -> package -> schedule_request.json. Stops at gate 1 (plan + credit estimate) and gate 2 (final package). Spends no credits itself. Build chat: use it instead of hand-building v3/build.py; fix content in episode.json, not the script. Ep 14's hand-built v3 stays as the reference.
