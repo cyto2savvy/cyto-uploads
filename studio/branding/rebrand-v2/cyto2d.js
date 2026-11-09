@@ -225,3 +225,8 @@ const sheet=`<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1100" 
 fs.writeFileSync('fits.svg',sheet);
 
 if(ANIM){ fs.writeFileSync('pfp_anim.svg', pfp); }
+
+// TRANSPARENT CANON ASSETS (for video rig, thumbnails, watermark, end cards): cyto_<fit>.svg, 1100x1100, Cyto centred
+for(const f of ['none','jersey','hoodie','puffer']){
+ fs.writeFileSync(`cyto_${f}.svg`,`<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1100" viewBox="-550 -550 1100 1100">${defs}<g>${cyto(f)}</g></svg>`);
+}
