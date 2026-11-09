@@ -364,5 +364,4 @@ if(RIG){
   fs.writeFileSync(`cyto_rig_${f}${EXPR==='chill'?'':'_'+EXPR}.svg`,`<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1100" viewBox="-550 -550 1100 1100" overflow="visible">${defs}${rig(f,{pin:EXPR==='solemn'})}</svg>`);
  }
 }
-=======
 if(!MAIN) module.exports={cyto,defs,G,reset:()=>{rs=5;_os=SEED0;_ai=0;},setExpr:(e)=>{EXPR=e;}};
