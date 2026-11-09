@@ -45,7 +45,8 @@ function headlineHtml(sc, lt, dur) {
   if (!sc.headline) return '';
   const lines = sc.headline.split('\n'), mx = Math.max(...lines.map(l => l.length));
   const fs_ = Math.round(clamp(820 / (mx * 0.76), 56, 150)), hot = (sc.hot || []).map(s => s.toUpperCase());
-  const p = backOut((lt - 0.12) / 0.38), fade = clamp((dur - lt) / 0.25, 0, 1) * clamp((lt - 0.1) / 0.1, 0, 1);
+  const inst = !!sc.instant; // hook-first: scene 0 headline is fully on screen at frame 0 (no pop, no fade-in)
+  const p = inst ? 1 : backOut((lt - 0.12) / 0.38), fade = clamp((dur - lt) / 0.25, 0, 1) * (inst ? 1 : clamp((lt - 0.1) / 0.1, 0, 1));
   const body = lines.map(l => `<div>${l.split(' ').map(w => `<span style="color:${hot.includes(w.toUpperCase().replace(/[^A-Z0-9%']/g, '')) || hot.includes(w.toUpperCase()) ? GOLD : '#fff'}">${w}</span>`).join(' ')}</div>`).join('');
   return `<div data-chk="headline" data-s="${p >= 0.98 ? 1 : 0}" style="font:900 ${fs_}px/1.02 'Arial Black','Inter',Impact,sans-serif;text-align:center;letter-spacing:1px;-webkit-text-stroke:${Math.round(fs_ / 9)}px ${INK};paint-order:stroke fill;text-shadow:7px 10px 0 rgba(10,31,36,.55);transform:scale(${Math.max(.01, p).toFixed(3)});opacity:${fade.toFixed(2)}">${body}</div>`;
 }

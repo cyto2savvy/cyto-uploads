@@ -79,7 +79,7 @@
  ],
  "scenes": [
   {
-   "bg": "lake",
+   "bg": "skyline",
    "headline": "COMEBACK RISK\n-28%",
    "hot": [
     "-28%"
@@ -88,7 +88,7 @@
    "transition": "zoom"
   },
   {
-   "bg": "lake",
+   "bg": "skyline",
    "headline": "NOT JUST\nPATIENTS?",
    "hot": [
     "PATIENTS"
@@ -124,7 +124,7 @@
    "transition": "doors"
   },
   {
-   "bg": "lake",
+   "bg": "skyline",
    "headline": "HOW MUCH DO YOU\nMOVE A WEEK?",
    "hot": [
     "MOVE"
