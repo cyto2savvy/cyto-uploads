@@ -19,18 +19,26 @@ const defs=`
 const O='stroke="#0a1f24" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"';
 
 function sparkle(x,y,r,c='#fff'){return `<path d="M${x} ${y-r} Q${x+r*.15} ${y-r*.15} ${x+r} ${y} Q${x+r*.15} ${y+r*.15} ${x} ${y+r} Q${x-r*.15} ${y+r*.15} ${x-r} ${y} Q${x-r*.15} ${y-r*.15} ${x} ${y-r}Z" fill="${c}"/>`}
+const EXPR=process.env.EXPR||'chill'; // chill (canon default) | shock (thumbnails) | solemn (Remembrance / serious)
 function eye(x,side){ // side -1 left, 1 right
  const id='e'+(side<0?'L':'R');
+ const shock=EXPR==='shock', sol=EXPR==='solemn';
+ const pupil=shock?`<circle cx="0" cy="4" r="30" fill="#0b0b12"/><circle cx="-9" cy="-8" r="11" fill="#fff"/><circle cx="10" cy="14" r="4" fill="#fff" opacity=".8"/>`
+  :`<circle cx="5" cy="${sol?24:14}" r="25" fill="#0b0b12"/><circle cx="-4" cy="${sol?12:2}" r="9" fill="#fff"/><circle cx="14" cy="${sol?32:22}" r="4" fill="#fff" opacity=".8"/>`;
+ const lid=shock?'':`<path d="M-70 -80 L70 -80 L70 ${sol?-14:2} Q0 ${(sol?-22:-8)-side*5} -70 ${sol?-14:2}Z" fill="#2fae9b"/>
+  <path d="M-70 ${sol?-12:0} Q0 ${(sol?-22:-10)-side*5} 70 ${sol?-12:0}" fill="none" stroke="#0a1f24" stroke-width="8"/>`;
+ const brow=shock?`M-56 -84 Q0 ${side<0?-124:-112} 58 ${side<0?-96:-86}`
+  :sol?`M-56 ${side<0?-60:-84} Q0 ${side<0?-84:-96} 58 ${side<0?-92:-62}`
+  :`M-56 -66 Q0 ${side<0?-98:-86} 58 ${side<0?-72:-62}`;
  return `<g transform="translate(${x},-8)">
- <clipPath id="${id}"><ellipse rx="50" ry="55"/></clipPath>
- <ellipse rx="50" ry="55" fill="#fff"/>
+ <clipPath id="${id}"><ellipse rx="${shock?56:50}" ry="${shock?64:55}"/></clipPath>
+ <ellipse rx="${shock?56:50}" ry="${shock?64:55}" fill="#fff"/>
  <g clip-path="url(#${id})">
-  <circle cx="5" cy="14" r="25" fill="#0b0b12"/><circle cx="-4" cy="2" r="9" fill="#fff"/><circle cx="14" cy="22" r="4" fill="#fff" opacity=".8"/>
-  <path d="M-70 -80 L70 -80 L70 2 Q0 ${-8-side*5} -70 2Z" fill="#2fae9b"/>
-  <path d="M-70 0 Q0 ${-10-side*5} 70 0" fill="none" stroke="#0a1f24" stroke-width="8"/>
+  ${pupil}
+  ${lid}
  </g>
- <ellipse rx="50" ry="55" fill="none" ${O}/>
- <path d="M-56 -66 Q0 ${side<0?-98:-86} 58 ${side<0?-72:-62}" fill="none" stroke="#0a1f24" stroke-width="9" stroke-linecap="round"/>
+ <ellipse rx="${shock?56:50}" ry="${shock?64:55}" fill="none" ${O}/>
+ <path d="${brow}" fill="none" stroke="#0a1f24" stroke-width="9" stroke-linecap="round"/>
 </g>`}
 function cup(){return `<g transform="translate(-362,92) rotate(-9) scale(1.38)" filter="url(#cut)">
  <path d="M-72 -105 L72 -105 L54 108 Q0 122 -54 108Z" fill="url(#cupw)" ${O}/>
@@ -116,9 +124,9 @@ function cyto(fit='none'){
  <ellipse rx="308" ry="292" fill="none" ${O}/>
  ${eye(-100,-1)}${eye(100,1)}
  <ellipse cx="-196" cy="70" rx="30" ry="18" fill="#ff9aa8" opacity=".55"/><ellipse cx="196" cy="70" rx="30" ry="18" fill="#ff9aa8" opacity=".55"/>
- <path d="M-62 112 Q0 138 84 92" fill="none" stroke="#0a1f24" stroke-width="11" stroke-linecap="round"/>
+${EXPR==='shock'?`<ellipse cx="10" cy="122" rx="58" ry="66" fill="#5a1530" ${O}/><ellipse cx="10" cy="156" rx="34" ry="20" fill="#ff7a8a"/><path d="M-30 78 Q10 94 50 78" fill="#fff" stroke="#0a1f24" stroke-width="5"/>`:EXPR==='solemn'?`<path d="M-46 124 Q10 110 66 124" fill="none" stroke="#0a1f24" stroke-width="11" stroke-linecap="round"/>`:` <path d="M-62 112 Q0 138 84 92" fill="none" stroke="#0a1f24" stroke-width="11" stroke-linecap="round"/>
  <path d="M84 92 Q100 82 106 98" fill="none" stroke="#0a1f24" stroke-width="8" stroke-linecap="round"/>
- <path d="M-40 126 Q10 146 60 118" fill="none" stroke="#1f8f86" stroke-width="7" stroke-linecap="round" opacity=".55"/>
+ <path d="M-40 126 Q10 146 60 118" fill="none" stroke="#1f8f86" stroke-width="7" stroke-linecap="round" opacity=".55"/>`}
  <g transform="translate(-176,124) rotate(-12)"><rect x="-56" y="-22" width="112" height="44" rx="22" fill="#ff9b3d" ${O}/><rect x="-52" y="-18" width="104" height="14" rx="7" fill="#ffc07a" opacity=".8"/><path d="M-34 8 L-20 -6 L-6 8 L8 -6 L22 8 L34 -4" fill="none" stroke="#c4541a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>
  ${chain()}
  <g transform="rotate(-7 0 -150)">
@@ -228,5 +236,5 @@ if(ANIM){ fs.writeFileSync('pfp_anim.svg', pfp); }
 
 // TRANSPARENT CANON ASSETS (for video rig, thumbnails, watermark, end cards): cyto_<fit>.svg, 1100x1100, Cyto centred
 for(const f of ['none','jersey','hoodie','puffer']){
- fs.writeFileSync(`cyto_${f}.svg`,`<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1100" viewBox="-550 -550 1100 1100">${defs}<g>${cyto(f)}</g></svg>`);
+ fs.writeFileSync(`cyto_${f}${EXPR==='chill'?'':'_'+EXPR}.svg`,`<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1100" viewBox="-550 -550 1100 1100">${defs}<g>${cyto(f)}</g></svg>`);
 }

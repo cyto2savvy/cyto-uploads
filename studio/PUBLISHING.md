@@ -54,7 +54,7 @@ Tags are a **small** signal now (YouTube reads the title, description and spoken
 | Playlist | Series playlist (+ "All Shorts") | Keeps viewers watching the next one (session time) |
 | Related video (Shorts) | Next episode in the series | Turns a viewer into a binge |
 | Cards + end screen (long-form) | Card at the first mention of a related video; end screen last 20s | Session time |
-| Thumbnail | Always (see the thumbnail system `hf/thumbs/thumb.py`) | Shows in search, channel page and browse |
+| Thumbnail | Always — MrBeast style, see `THUMBNAIL_FORMAT_V2.md` + `branding/rebrand-v2/make_thumb.py` (old `hf/thumbs/thumb.py` is retired) | Shows in search, channel page and browse |
 
 ---
 ## SHORTS (≤ 60s vertical; our target ~30s)
