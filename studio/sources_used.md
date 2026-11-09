@@ -14,3 +14,4 @@ Every Short must use NEW PubMed source(s) (ideally 2+, substantive: RCTs, cohort
 | 12 | Movember | 10.1158/1940-6207.CAPR-26-0125; 10.1016/j.jpurol.2026.106295 |
 | 13 | Neutro vs flu | 10.3390/vaccines9060597; 10.1155/2019/8028725; 10.1186/s12931-017-0630-x |
 | 14 | Silence (Remembrance Day) | 10.1136/hrt.2005.064600; 10.1007/s00429-013-0679-3 |
+| 15 | Exercise and cancer risk | 10.1056/NEJMoa2502760; 10.1001/jamainternmed.2016.1548 (pinned-comment only: 10.1200/JCO-26-00765) |

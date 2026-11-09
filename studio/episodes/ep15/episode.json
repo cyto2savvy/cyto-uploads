@@ -1,0 +1,68 @@
+{
+ "ep": 15,
+ "status": "scripted_awaiting_ok",
+ "format": "short",
+ "series": "6ixty Seconds of Science",
+ "topic": "Can exercise actually lower your cancer risk?",
+ "why_this_topic": "Universal 'can you actually' body question (the pattern of the hits: Eps 2, 3, 5, 9). One shocking, true number in the first 4 s (28%), a Canadian-led NEJM randomized trial (home-team angle), no time-locked hook. Two NEW PubMed sources, neither used in any earlier Short.",
+ "toronto_this_week": "Royal Winter Fair (Nov 6-15); 'Run Terry Run' doc at Hot Docs (Nov 7-14); Leafs Nov 10/12/14. Topic is evergreen; Toronto lives in the payoff (TTC, Bloor-Yonge). Terry Fox is NOT named or drawn.",
+ "suggested_publish_et": "Thu 2026-11-12 18:00 (UTC 2026-11-12T23:00:00Z). Manager confirms the slot.",
+ "length_target_s": "33-35 (hard cap 36). ~96 words at ~2.8 w/s.",
+ "hook_first_test": {
+  "variable": "same hook-first pattern as Ep 14 (voice + claim + visual on frame 1, catchphrase AFTER the hook, re-hook at 4 s). Compare 'Stayed to watch' vs the 50% baseline (target >= 60%).",
+  "frame1": "Cyto talking on frame 0. Huge on-screen claim: EXERCISE -> CANCER'S COMEBACK -28% (opacity 1, no fade). Two bars (80 vs 74) already half drawn. Cup in hand with steam.",
+  "loop": "Last spoken word is 'because...' and the caption ends 'because...'; the loop lands on frame 1 so it reads 'Comment it, because in a Canadian-led trial, exercise cut...'. Last visual frame = frame 1 state. If the TTS take of 'because' sounds cut off, drop the word and keep the caption."
+ },
+ "script": [
+  {"id": "hook", "t": "0-4", "line": "In a Canadian-led trial, exercise cut colon cancer's comeback risk by about 28 percent.", "on_screen_big": "EXERCISE vs CANCER'S COMEBACK: -28%", "mood": "hype, eyes wide"},
+  {"id": "rehook", "t": "4-6", "line": "And it's not just for patients, fam.", "on_screen_big": "NOT JUST PATIENTS?", "mood": "smirk, skeptic brow"},
+  {"id": "catch", "t": "6-9", "line": "Yo, it's ya boy Cyto, live from the 6ix... inside your body.", "on_screen_big": "", "mood": "chill, small nod"},
+  {"id": "trial", "t": "9-18", "line": "Colon cancer survivors did a three-year exercise plan after chemo. Five years on, 80 percent were disease-free, versus 74 percent with pamphlets.", "on_screen_big": "5 YEARS LATER", "figure": "two cut-out bars: EXERCISE 80% vs PAMPHLETS 74%; sub-label 'colon cancer, after chemo'", "mood": "explain, point at bars"},
+  {"id": "zoomout", "t": "18-26", "line": "Zoom out. Across 1.44 million adults, the most active had lower risk of 13 cancers. Linked, not proven, styll.", "on_screen_big": "13 CANCERS LOWER", "figure": "1.44 MILLION adults counter, 13 small organ icons light up; chip: 'LINKED, NOT PROVEN'; quiet follow chip", "mood": "think -> shrug on 'not proven'"},
+  {"id": "payoff", "t": "26-31", "line": "So hop off the TTC early and walk. Say less.", "on_screen_big": "WALK IT", "figure": "Toronto payoff: Cyto steps off a TTC streetcar / Bloor-Yonge platform one stop early and walks with the cup; steam trails", "mood": "hype on 'Say less'"},
+  {"id": "outro", "t": "31-35", "line": "Not medical advice. How much do you move a week? Comment it, because", "on_screen_big": "HOW MUCH DO YOU MOVE A WEEK?", "figure": "sources card (>=34px, max 2): 'Courneya 2025 · Moore 2016'; pinned-comment prompt", "mood": "curious, lean to camera"}
+ ],
+ "caption_spellings": {"6ix": "6ix", "styll": "styll", "TTC": "TTC", "numbers": "digits (28%, 80%, 74%, 1.44 million, 13)"},
+ "tts": {
+  "voice": "Cyto - Toronto (A) MDpsT9lfiqWEMyN3A1bk, model eleven_v4, 1-2 takes (build chat asks Utsha before spending)",
+  "text": "In a Canadian-led trial, exercise cut colon cancer's comeback risk by about twenty-eight percent. And it's not just for patients, fam. Yo, it's ya boy Cyto, live from the six… inside your body. Colon cancer survivors did a three-year exercise plan after chemo. Five years on, eighty percent were disease-free, versus seventy-four percent with pamphlets. Zoom out. Across one point four four million adults, the most active had lower risk of thirteen cancers. Linked, not proven, stiiill. So hop off the T-T-C early and walk. Say less. Not medical advice. How much do you move a week? Comment it, because",
+  "est_chars": 610,
+  "est_credits_per_take": "~700 (run estimate_only first; ~1.1 credit per char, same as Ep 9/14 reads)"
+ },
+ "voice_check": {"slang": ["fam", "styll", "say less"], "toronto_reference": "TTC / Bloor-Yonge", "body_map": "n/a (no organ-as-place joke needed); keep it clean", "never_list": "no drink/high slang, no brands, no real-person quotes, Terry Fox not used"},
+ "outfit": "Toque + hoodie, flush with the body and clipped to the outline (Canon v2 / SpongeBob rule), light running-warmup feel. Canon coffee cup ALWAYS in his mitten hand with steam; he jogs in place with it on the hook (cup + hand = one rigid group, no twitch).",
+ "style_menu_pick": "(a) Street Cyto: shoulder-bounce nod on the beat, point on the bars, shrug on 'not proven'. One idea, a new visual every 2 s in the first 8 s.",
+ "toronto_background_plan": [
+  "Hook 0-4: cut-out Toronto trail/waterfront at dawn with skyline + CN Tower silhouette (art.skyline), Cyto jogging in place.",
+  "Re-hook + catchphrase 4-9: same set, push-in only, no new props.",
+  "Trial 9-18: hospital row cut-out (art.univ_ave) behind a calm figure card with the two bars.",
+  "Zoom-out 18-26: soft navy/teal field, 13 organ icons lighting up; small Easter egg: raccoon on a bin in the corner.",
+  "Payoff 26-31: TTC streetcar stop + Bloor-Yonge platform sign (art.streetcar / art.subway_platform), Cyto hops off and walks.",
+  "Outro 31-35: skyline frame matching frame 1 for the loop."
+ ],
+ "frame_1_and_motion_rules": "Voice at 0.02 s, claim on screen at 0.00 s, one big text at a time, nothing within 40 px of the edge, safe zone x 60-940 / y 200-1480, IG/FB top 220 / bottom 350 px clear, face moves all video, pupils parallel, run run_tests.sh 19/19 + test_rig.py 15/15 + layout_check 0 FAIL before showing.",
+ "title": "Can Exercise Actually Lower Your Cancer Risk?",
+ "title_chars": 45,
+ "keyword": "exercise cancer risk",
+ "thumbnails": {
+  "A": {"lines": "GYM|VS|CANCER?", "colors": "w,y,w", "expr": "shock", "note": "reads fastest at 160 px"},
+  "B": {"lines": "CANCER'S|COMEBACK|-28%", "colors": "w,w,y", "expr": "shock", "note": "STRONGER: specific number + curiosity gap; 'comeback' keeps it accurate to the trial (not 28% less cancer in general)"},
+  "background": "real topic scene, free Unsplash route ($0): runner on a city trail at dawn, saturated red/teal; fallback --scene toronto. Both sizes: 1280x720 and vertical 1080x1920. Optional split-screen: couch vs trail.",
+  "pick": "B"
+ },
+ "description": "Can exercise actually lower your cancer risk? In a big Canadian-led trial, a structured exercise plan cut colon cancer's comeback risk by about 28%. Cyto breaks it down from the 6ix.\n\nWhat the trial did: 889 people who had finished surgery and chemo for stage III or high-risk stage II colon cancer were randomly assigned to a 3-year structured exercise program or health-education materials. After a median 7.9 years, disease-free survival (no recurrence, new primary cancer or death) was better with exercise (HR 0.72). At 5 years: 80.3% vs 73.9% disease-free. More muscle and joint injuries happened in the exercise group (18.5% vs 11.5%).\n\nWhat the bigger picture says: pooling 12 cohorts (1.44 million adults), the most active people had lower risk of 13 of 26 cancers. That is a link, not proof, and melanoma and prostate cancer risk were slightly HIGHER in active people. The trial was in colon cancer patients, not healthy people.\n\nSources (via PubMed):\nCourneya et al., N Engl J Med 2025 (CHALLENGE) - https://doi.org/10.1056/NEJMoa2502760\nMoore et al., JAMA Intern Med 2016 - https://doi.org/10.1001/jamainternmed.2016.1548\n\nNot medical advice. Talk to your care team before starting an exercise plan, especially during or after cancer treatment.\n\n#exercise #cancer #science #toronto #6ix #shorts",
+ "tags": ["can exercise lower cancer risk", "exercise and cancer", "does exercise prevent cancer", "colon cancer exercise", "cancer prevention", "exercise oncology", "physical activity", "cyto the cell", "the body is the 6ix", "toronto", "6ixty seconds of science"],
+ "category_id": 27,
+ "made_for_kids": false,
+ "synthetic": true,
+ "health": true,
+ "playlist": "6ixty Seconds of Science",
+ "pinned_comment": "How many days a week do you actually move? Be honest, no judgment 👇\n\nSources: Courneya et al., NEJM 2025 (CHALLENGE trial, colon cancer patients after chemo) https://doi.org/10.1056/NEJMoa2502760 | Moore et al., JAMA Intern Med 2016 (1.44M adults, observational) https://doi.org/10.1001/jamainternmed.2016.1548\nBonus nuance: a 2026 cost analysis of the same Canadian trial found the exercise program cost less overall than pamphlets alone https://doi.org/10.1200/JCO-26-00765\nNot medical advice.",
+ "sources": [
+  {"cite": "Courneya KS et al. Structured Exercise after Adjuvant Chemotherapy for Colon Cancer. N Engl J Med 2025;393:13-25", "pmid": "40450658", "doi": "10.1056/NEJMoa2502760"},
+  {"cite": "Moore SC et al. Association of Leisure-Time Physical Activity With Risk of 26 Types of Cancer in 1.44 Million Adults. JAMA Intern Med 2016;176:816-25", "pmid": "27183032", "doi": "10.1001/jamainternmed.2016.1548"},
+  {"cite": "Chan KKW et al. Structured Exercise Program After Adjuvant Chemotherapy for Colon Cancer: cost-utility of CHALLENGE. J Clin Oncol 2026;44:2130-2139 (pinned comment only)", "pmid": "42218651", "doi": "10.1200/JCO-26-00765"}
+ ],
+ "claims_file": "studio/episodes/ep15/claims.md",
+ "cost_notes": "$0 for the idea stage. Build chat must ask before: ElevenLabs voice (~700 credits/take), any AI thumbnail image (~820 credits; free Unsplash route recommended). No vidIQ credits."
+}
