@@ -74,9 +74,9 @@ def main():
     burst=Image.new("RGBA",(W,H),(0,0,0,0)); bd=ImageDraw.Draw(burst)
     for k in range(24):
         a0=k*math.pi/12; a1=a0+math.pi/24; R=1400
-        bd.polygon([(fx,H*0.5),(fx+R*math.cos(a0),H*0.5+R*math.sin(a0)),(fx+R*math.cos(a1),H*0.5+R*math.sin(a1))],fill=(255,255,255,38))
+        bd.polygon([(fx,H*0.5),(fx+R*math.cos(a0),H*0.5+R*math.sin(a0)),(fx+R*math.cos(a1),H*0.5+R*math.sin(a1))],fill=(255,255,255,(14 if a.bgimg else 38)))
     bg=Image.alpha_composite(bg.convert("RGBA"),burst)
-    glow=Image.new("RGBA",(W,H),(0,0,0,0)); ImageDraw.Draw(glow).ellipse([fx-420,H*0.5-420,fx+420,H*0.5+420],fill=(255,255,255,90)); glow=glow.filter(ImageFilter.GaussianBlur(110)); bg=Image.alpha_composite(bg,glow)
+    glow=Image.new("RGBA",(W,H),(0,0,0,0)); ImageDraw.Draw(glow).ellipse([fx-420,H*0.5-420,fx+420,H*0.5+420],fill=(255,255,255,(40 if a.bgimg else 90))); glow=glow.filter(ImageFilter.GaussianBlur(110)); bg=Image.alpha_composite(bg,glow)
     cy=cyto_png(a.expr,a.fit); h=int(H*1.02); cy=cy.resize((int(h*cy.width/cy.height),h),Image.LANCZOS)
     cx=int(fx-cy.width/2); cyy=int(H-h+30)
     al=cy.split()[3]; st=al.filter(ImageFilter.MaxFilter(31)); st=st.filter(ImageFilter.GaussianBlur(1.2))
