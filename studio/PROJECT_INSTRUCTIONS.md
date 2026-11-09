@@ -1,4 +1,5 @@
 # The Body is the 6ix — standing brief for every chat
+> Read studio/HARD_RULES.md and studio/INDEX.md first; they override everything below. Ignore /archive/.
 
 ## Start of every chat
 1. Clone and restore the studio: `git clone https://github.com/cyto2savvy/cyto-uploads && bash cyto-uploads/studio/restore.sh`, then read `studio/SETUP.md`. It covers the pipeline, the IDs and the known gotchas.

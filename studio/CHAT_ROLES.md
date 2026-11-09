@@ -1,4 +1,5 @@
 # Three-chat setup (from Nov 9)
+> All chats: studio/HARD_RULES.md overrides older notes. Read studio/INDEX.md, ignore /archive/.
 
 Every chat starts the same way: clone the repo, run `studio/restore.sh`, read `studio/SETUP.md`. Chats talk to each other ONLY through files in the repo (never by pasting long prompts).
 

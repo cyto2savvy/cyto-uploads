@@ -1,4 +1,5 @@
 # Everything in the video uses Cyto's canon cut-out style (Utsha: "you did not apply Cyto's animation style to the rest of the video")
+> HARD RULES (studio/HARD_RULES.md) override this file: props in every scene, no repeated backdrops, smooth transitions, whole cup on screen.
 No photo or generic stock footage as the main visual; no generic slides. Every scene is a flat 2D cut-out illustration in the SAME language as Cyto:
 - Thick dark outline #0a1f24, 7 px (scaled), round joins; flat fills + 1 soft highlight + hard drop shadow (dx 7, dy 10, 38% black); white sticker outline around hero objects.
 - Palette: teal #3fd0bb / #2fae9b, navy #0a1330-#2b4180, hat blue #2c63d6, gold #ffc83a, warm red #c62828, white. Toronto night/dawn skyline, CN Tower, streetcar, snow as backdrops (functions in cyto2d.js: skyline, tower, extras).

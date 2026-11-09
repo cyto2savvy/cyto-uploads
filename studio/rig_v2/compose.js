@@ -99,7 +99,7 @@ function frameHtml(t, tl, chunks, cyto) {
   const sc = S[i], lt = t - sc.start, dur = sc.end - sc.start;
   const bg = transitionHtml(t, tl, i) || sceneLayer(sc, t, tl);
   const stack = `<div style="position:absolute;left:60px;top:240px;width:880px;display:flex;flex-direction:column;align-items:center;gap:34px">${headlineHtml(sc, lt, dur)}${cardHtml(sc, lt, dur)}</div>`;
-  const cy = `<div data-chk="cyto" style="position:absolute;left:${tl.cytoX ?? -80}px;top:${tl.cytoY ?? 990}px;width:${tl.cytoSize ?? 800}px;height:${tl.cytoSize ?? 800}px">${cyto}</div>`;
+  const cy = `<div data-chk="cyto" style="position:absolute;left:${tl.cytoX ?? 0}px;top:${tl.cytoY ?? 990}px;width:${tl.cytoSize ?? 800}px;height:${tl.cytoSize ?? 800}px">${cyto}</div>`;
   return `<div id="f" style="position:relative;width:${W}px;height:${H}px;overflow:hidden;background:#0a1330">${bg}${stack}${cy}${captionsHtml(tl, t, chunks)}</div>`;
 }
 
@@ -132,7 +132,7 @@ function frameHtml(t, tl, chunks, cyto) {
     if (i % 90 === 0) console.log('frame', i, '/', n);
   }
   ff.stdin.end(); await new Promise(r => ff.on('close', r)); await br.close();
-  layout.longest_static_run_frames = maxRun; layout.frames = n;
+  layout.longest_static_run_frames = maxRun; layout.frames = n; layout.props_rendered = 0; // TODO(build chat): scene.props renderer; count rendered props here (HARD_RULES 5)
   fs.writeFileSync(outF.replace(/\.mp4$/, '') + '.layout.json', JSON.stringify(layout, null, 1));
   console.log('done', n, 'frames; layout fails', layout.fails.length, '; longest static run', maxRun);
 })();

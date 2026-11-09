@@ -64,6 +64,18 @@ def validate(E):
     for i, t in enumerate(T):
         if not t.get("headline") or len(t["headline"]) > 2 or sum(len(l.split()) for l in t["headline"]) > 4: errs.append(f"thumbnails[{i}].headline: max 2 lines / 4 words")
         if not (t.get("hero") in HEROES or t.get("hero_svg")): errs.append(f"thumbnails[{i}].hero must be one of {sorted(HEROES)} or hero_svg")
+    title_words = {w for w in re.findall(r"[a-z]+", E["title"].lower()) if len(w) > 3} | {k.lower() for k in E.get("topic_words", [])}
+    for i, t in enumerate(T):
+        subj = (t.get("bg_subject") or "").lower()
+        if not t.get("photo") and not t.get("scene"): errs.append(f"thumbnails[{i}] needs 'photo' (or drawn 'scene') showing the topic (HARD_RULES 1)")
+        if "+" not in subj: errs.append(f"thumbnails[{i}].bg_subject must be '<topic> + <Toronto place>' (HARD_RULES 2)")
+        elif not any(w in subj for w in title_words): errs.append(f"thumbnails[{i}].bg_subject '{subj}' names no topic word from the title (add topic_words to episode.json if the title is indirect)")
+        if re.search(r"skyline|cn tower|downtown", subj) and not E.get("city_topic"): errs.append(f"thumbnails[{i}] generic Toronto skyline background is banned unless the topic is the city (city_topic:true)")
+    for i, s in enumerate(SC):
+        if len(s.get("props", [])) < 2: errs.append(f"scenes[{i}] needs >= 2 'props' (drawn visuals, HARD_RULES 5)")
+        wc = len((s.get("headline") or "").split()) + len((s.get("card") or "").split())
+        if wc > 8: errs.append(f"scenes[{i}] has {wc} words of text (max 8, HARD_RULES 5)")
+        if i and s.get("bg") == SC[i - 1].get("bg"): errs.append(f"scenes[{i}] reuses the previous backdrop '{s.get('bg')}' (HARD_RULES 6)")
     if E.get("stronger") not in {t.get("id") for t in T}: errs.append("'stronger' must name one thumbnail id (say which is stronger)")
     for i, s in enumerate(E["sources"]):
         if not (s.get("short") and s.get("full")): errs.append(f"sources[{i}] needs 'short' and 'full' (full has the doi/PubMed link)")
@@ -221,6 +233,24 @@ def checks(ep, E, plan):
         a = np.asarray(Image.open(os.path.join(cs, fr[i])).convert("RGB").resize((1080, 1920))).astype(int)[cy0:cy1, max(0, cx0):cx1]
         red += int((((a[..., 0] > 150) & (a[..., 1] < 90) & (a[..., 2] < 90)).sum() + ((a[..., 0] > 235) & (a[..., 1] > 235) & (a[..., 2] > 235)).sum()) > 400)
     chk("cup visible (white body + red band) in >= 95% of 1 fps frames", red >= 0.95 * len(keep), f"{red}/{len(keep)} (frames inside transitions skipped)")
+    # HARD_RULES 8: frame-diff series around every cut must be one continuous motion (no stall, no one-frame pop)
+    g = np.frombuffer(subprocess.run(["ffmpeg", "-v", "error", "-i", vid, "-vf", "scale=108:192,format=gray", "-f", "rawvideo", "-"], capture_output=True, check=True).stdout, np.uint8).reshape(-1, 192, 108).astype(float)
+    dd = np.abs(np.diff(g, axis=0)).mean((1, 2)); bad = []
+    for sc in plan["scenes"][1:]:
+        i = int(sc["start"] * FPS); w = dd[max(0, i - 1): i + int((sc.get("transitionDur", .35) + .15) * FPS)]
+        if len(w) < 4: continue
+        pk = int(np.argmax(w > 3)); core = w[pk:]
+        stall = any(all(x < 0.5 for x in core[j:j + 3]) and core[:j].max(initial=0) > 3 and core[j + 3:].max(initial=0) > 3 for j in range(len(core) - 3))
+        pop = any(core[j] > 8 and core[j] > 2 * max(core[j - 1] if j else 0, core[j + 1] if j + 1 < len(core) else 0) for j in range(len(core)))
+        if stall or pop: bad.append(f"{sc['id']}@{sc['start']:.1f}s {'stall' if stall else 'pop'}")
+    chk("transitions smooth (no stall, no one-frame pop)", not bad, ", ".join(bad) or "all cuts continuous")
+    # HARD_RULES 10: whole cup inside the frame (no cup-coloured pixels touching the left edge band)
+    edge = 0
+    for i in keep:
+        a = np.asarray(Image.open(os.path.join(cs, fr[i])).convert("RGB").resize((1080, 1920))).astype(int)[cy0:cy1, :24]
+        edge += int((((a[..., 0] > 230) & (a[..., 1] > 230) & (a[..., 2] > 230)).sum()) > 60)
+    chk("cup + Cyto fully inside the frame (nothing clipped at the left edge)", edge == 0, f"{edge} frames clipped")
+    chk("scene props rendered (HARD_RULES 5)", lay.get("props_rendered", 0) >= 2 * len(plan["scenes"]), f"{lay.get('props_rendered', 0)} rendered / {2 * len(plan['scenes'])} required")
     chk("captions >= 60 px (readable on a phone)", True, "74 px, white + ink stroke")
     chk("sources card >= 34 px", plan["scenes"][-1].get("cardSize", 46) >= 34)
     # canon + rig tests, meta checker

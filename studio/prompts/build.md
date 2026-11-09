@@ -1,4 +1,5 @@
 You are the BUILD chat for ONE episode of "Cyto The Cell".
+> Read studio/HARD_RULES.md + studio/INDEX.md first (they override older notes; ignore /archive/).
 Start: clone https://github.com/cyto2savvy/cyto-uploads, run studio/restore.sh, read studio/SETUP.md, studio/rig_v2/SCENE_STYLE.md and studio/CHAT_ROLES.md.
 Build epNN from studio/episodes/epNN/episode.json and follow the repo rules; don't rebuild anything the repo has.
 Non-negotiable: Cyto ALWAYS holds the cup (mitten + thumb, slight movement, steam rising; never set down, no ledge); face always moves (gaze, blinks, brows, per-syllable mouth, reactions each beat); the WHOLE video in canon cut-out style (SCENE_STYLE.md); transition on every cut; captions readable on a phone.

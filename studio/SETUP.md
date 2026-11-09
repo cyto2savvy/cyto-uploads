@@ -1,244 +1,28 @@
-# Cyto studio: how it works (read this first in a new chat)
+# Cyto studio: read this first (lean version, Nov 9, 2026). Old history: archive/studio-docs/SETUP_history_to_Nov9.md (do NOT read unless Utsha asks).
+**Order of authority:** studio/HARD_RULES.md > this file > the other docs listed in studio/INDEX.md. Anything in archive/ is dead.
 
-**Restore:** `git clone https://github.com/cyto2savvy/cyto-uploads && bash cyto-uploads/studio/restore.sh`
-The scripts expect the original paths (`/home/claude/cyto2`, `/home/claude/epN`, `/home/claude/hf`), and restore.sh recreates them.
+## Restore
+`git clone https://github.com/cyto2savvy/cyto-uploads && bash cyto-uploads/studio/restore.sh` (recreates /home/claude/{cyto2,hf,epN}). Pushing needs `add_repo` with access `push`.
 
-**Publishing:** read `studio/PUBLISHING.md` (separate Shorts vs long-form rules: titles ≤ 60 / hard 70 chars, keyword in first 40, no hashtags in titles, chapters for long-form…). Every episode gets `epNN/meta.json`; run `python3 /home/claude/cyto2/check_meta.py epNN/meta.json` and fix all FAILs **before** showing Utsha the final package and before uploading. Required from Nov 1, 2026.
+## Make an episode (one command)
+`python3 studio/make_episode.py epNN` (spec: studio/EPISODE_SCHEMA.md). IDEA chat writes studio/episodes/epNN/{episode.json,claims.md,plan.md}; BUILD chat runs it; stops at gate 1 (`--ok plan`: plan + credit estimate) and gate 2 (`--ok final`). It spends no credits; it writes voice_request.json for the chat to run. Fix problems in episode.json or the compositor, never by hand-building a one-off.
+Tests: `bash studio/branding/rebrand-v2/run_tests.sh` (29/29), `python3 -I studio/rig_v2/test_rig.py` (15/15), `python3 -I studio/test_make_episode.py` (9/9).
 
-**Scripts:** read `studio/VOICE.md` before writing any script (Toronto slang bank, references, body map, checklist). Required from Oct 30, 2026.
+## Look (canon v2)
+Flat 2D cut-out Cyto, mitten hands, generic paper cup with steam + Cyto-face logo, gold "6" chain, toque. Built from studio/branding/rebrand-v2/cyto2d.js + rig in studio/rig_v2/ (cyto_rig.js, compose.js, thumbs.js). Style rules: HARD_RULES.md + rig_v2/SCENE_STYLE.md. Safe zone x 60-940, y 200-1480 (IG/FB: top 220 / bottom 350 clear); captions at y~900, 74 px.
 
-### CYTO'S VOICE NOW = ELEVENLABS (Nov 2, 2026, Ep 9 onward) — replaces vidIQ Liam
-- Plan: ElevenLabs **Starter** (renews Dec 2; 30,000 credits/mo; commercial license, ONLY for audio generated while subscribed). Never publish audio made on the free tier.
-- Voice: **"Cyto - Toronto (A)"**, voice_id `MDpsT9lfiqWEMyN3A1bk` (designed: young Toronto male, chill, slightly raspy). Model `eleven_v4` (supports tags like [pause], [laughs softly], [whispering]). Cost ~636 credits per 40s read per take; use 2 takes and pick.
-- Spell for the ear in the TTS text only (captions keep the real word): "ah-lie", "stiiill", "the six". Full table: `studio/VOICE.md` > "TTS pronunciation".
-- Flow: ElevenLabs connector `creative_generate_speech` (poll `creative_get_flow_run_status`) -> Utsha downloads the mp3 from the ElevenLabs link and drags it into the chat (the sandbox cannot download elevenlabsusercontent.com) -> save `epN/raw.mp3` -> silencedetect -> `segs.json` -> `build_voice2.py`. Do NOT use vidIQ voice (costs credits) and do not use `cyto_voice.py` unless Utsha records his own voice.
-- Ask Utsha before spending credits; `estimate_only` first; never re-call a generation to retry (double charge).
-- Length: let the idea set it, up to 60s for scripts written from Nov 2 on (Ep 9 read = ~41.5s; Eps 10-14 reads are 36-43s and stay as is).
+## Voice
+ElevenLabs Starter (30,000 credits/mo, renews Dec 2), voice "Cyto - Toronto (A)" id `MDpsT9lfiqWEMyN3A1bk`, model `eleven_v4`. `estimate_only` first, say the cost, never re-call a generation to retry. Spell for the ear in `tts` only; captions keep real spelling. Fetch audio via `audio/list.txt` + the fetch-audio GitHub workflow (sandbox cannot download from ElevenLabs/Unsplash). Word timings: Scribe (0 credits) -> words_scribe.json. Script rules: studio/VOICE.md. vidIQ credits are exhausted (1 left until Nov 30): do not use vidIQ tools.
 
-### Cyto's voice = Utsha, disguised (Nov 1, 2026 — replaces vidIQ Liam once approved)
-- Utsha records each script on his phone and drops the file in chat → save as `/home/claude/epN/rec.m4a`.
-- `python3 cyto2/cyto_voice.py epN/rec.m4a epN/raw.wav [cyto|cartoon|gruff]` (source: `studio/pipeline/cyto_voice.py`; needs `pip install --break-system-packages pyworld pedalboard`). WORLD vocoder shifts pitch AND formants so it doesn't sound like him, then a character EQ/comp/grit chain.
-- Then the usual: silencedetect → segs.json → build_voice2.py → timing.json. $0, no vidIQ credits.
+## Publishing (Zapier YouTube, connection `02a2f56e-1e01-8a41-9364-13e401f8bd6b`)
+Rules + metadata: studio/PUBLISHING.md; `python3 studio/pipeline/check_meta.py epNN/meta.json` must show 0 FAIL. Upload private + publish_at, then PUT status with `containsSyntheticMedia:true` and RESEND embeddable/publicStatsViewable/license (the PUT replaces status), add to playlist `PLIU9ZD7rP0Ss`, set thumbnail A/B (stronger first). `youtube_make_api_get_request` needs `fail_on_errors:"true"`, `method`, `querystring` as a dict. Calendar = studio/schedule.json. Credits log = studio/costs.md. No reused sources: studio/sources_used.md.
+Ep 14 = Xwv_JKtNFgY (Wed Nov 11 9:00 AM ET). Ep 15 slot: Thu Nov 12 6 PM ET. LF01 MLdcV-vmyXE is set for Nov 29 9:45 AM ET (time unconfirmed).
 
-## CYTO LOOK = CANON v2 (read first)
-All art/rig work follows `studio/branding/CYTO_CANON_v2.md` and builds from `studio/branding/rebrand-v2/cyto2d.js`. Verify with `bash studio/branding/rebrand-v2/run_tests.sh` (19 checks, must all pass).
+## Platforms
+YouTube Shorts 1/day. TikTok: friend's Claude owns tiktok/queue.json. NEVER touch it. IG/FB: social/PLAN.md (post natively, AI label on, 12:00 ET next day); Zap + watermark + IG profile still open.
 
-## Pipeline (all $0)
-1. **Research:** PubMed connector for the sources, and WebSearch for Toronto events and trends.
-2. **Voice:** vidIQ voiceover, voice **Liam** (`voiceId TX3LPaxmHKxFdv7VOQHJ`). **Charged 14 credits per started 1,000 characters** — a 600-char script costs the full 14. Ask Utsha before spending. Spell for the ear: "three A M", "six" (captions come from `segs.json`, so they can still say 3AM / 6ix). The cloud workspace can't download the vidIQ MP3 (S3 is blocked), so Utsha drags it into chat.
-   - Neither this workspace nor Utsha's Mac (`~/Claude/cyto-voice`, connected) can reach the S3 link — send Utsha the link and he saves it to `~/Claude/cyto-voice/` or drags it into chat.
-   - Save it as `/home/claude/epN/raw.mp3`.
-   - Find the speech segments with ffmpeg `silencedetect`, then write `segs.json`: `{"tempo":x,"segs":[[start,end,line,"phrase"],...]}`.
-   - Run `python3 cyto2/build_voice2.py /home/claude/epN`. It writes `voice.wav` and `timing.json` (per-word times).
-3. **Animation (current method, from Ep 7 on): HyperFrames + puppet rig.**
-   - `cyto2/rig.py` exports the layered PNG rig to `cyto2/rig/`: body, toque, 2 eyes, 4 mouths, both arms and hands, cups (red, orange-pumpkin, blue) and the jersey outfit. `rig.json` holds the pivots.
-   - `hf/cytohf.py` holds the shared helpers: `place()`, `mouth_track()`, `rig_html/css/js` (blinks, waves, points, tilts, shrugs, raises, sips), `cup_down()`, `captions()` and `transition()` (whip, membrane, doors, zoom).
-   - **From Ep 8 on, every episode = v2 layout + v3 rig.** Start from `hf/template/build.py` (the standard: layout, vector rig, lip sync, acting, sip sound). Use `hf/ep07/build.py` only for full-episode structure ideas (hook, outro). **Never use the old PNG rig (`C.rig_html`/`C.rig_js`) for new episodes.** Copy the template to `hf/epNN/`, edit the scenes and timings, run `python3 build.py`, then `npx hyperframes lint`, then `npx hyperframes snapshot --at ...` (look at the frames!), then `npx hyperframes render --output X.mp4 --fps 30 --workers 4`.
-   - Set `HYPERFRAMES_BROWSER_PATH` to the Playwright chrome-headless-shell (see restore.sh).
-   - Episode audio: reuse an existing mix, or build voice + beat + SFX the way `cyto2/engine.py make_audio` does.
-   - The old method (Eps 1–6) was a PIL frame renderer: `cyto2/render.py`, `engine.py`, `epN.py`. It's kept for reference.
-   - **Frame check (v2):** after `npx hyperframes snapshot --at ... -o snaps`, run `python3 -c "import sys;sys.path.insert(0,'/home/claude/hf');import cytohf as C;C.safe_sheet('snaps','safe.jpg')"` and look at `safe.jpg`. It overlays YouTube's Shorts UI (grey shapes); no caption, card, number or face may sit under them.
+## Chats
+manager / idea / build, talking only through repo files: studio/CHAT_ROLES.md, studio/inbox/*.md, studio/prompts/*.md.
 
-### v3 rig (approved Oct 30, 2026 — Ep 8 onward) — `hf/cyto3.py`
-Vector Cyto on the same canvas/pivots/cup PNGs as the old rig (outfits and cup rules unchanged). Before/after: `hf/v3test/compare_v3.mp4`.
-- **Lip sync:** `R.viseme_track(voice.wav, words)` → 8 mouth shapes from the sounds (rest, M/B/P, small, A, E, O, U, F/V).
-- **Acting every episode:** at least one `expr` per scene (`shock` on "bro WHAT" beats, `hype` on punchlines, `skeptic` on myths/rivals, `squint`, `sad` for serious parts) and `looks` so he glances at the figure. Gestures snap in, hold, settle; the pom-pom follows through automatically.
-- **Organelles** (nucleus, nucleolus, mito, ER, golgi, ribosomes, vesicles) drift the whole time and pulse on his loud words — automatic. Outfits that cover the lower body hide some of them; prefer outfits that leave the middle visible.
-- **Sip sound:** every sip in `gest["sips"]` gets a slurp via `R.mix_sips(base.wav, sip_times, audio.wav)`; the music dips under it. Always run it.
-
-### v2 rules (approved Oct 30, 2026 — Ep 8 onward)
-Why: in Eps 1–7 the captions sat under YouTube's title text, fact cards ran under the like/comment buttons, Cyto shrank to a corner sticker for ~18s, and the Mermaid diagram was default white boxes clipped off the edge. Before/after: `hf/v2test/compare.mp4`.
-1. **Safe zone:** everything readable inside x 60–940, y 200–1480 (`C.SAFE`). Bottom ~440px and right ~140px belong to YouTube's UI. Captions at `C.CAP_Y_V2` (880), just under the figure panel.
-2. **Cyto big, always on screen:** `C.CYTO_V2` (lower-left, scale 0.56) during science scenes; fact card to his right (`.card` in `V2_CSS`). He can go bigger for hook/joke/outro scenes, but never the old 0.40 corner placement.
-3. **Diagrams:** Mermaid in the Cyto theme via `C.mermaid_svg(src, out)` (navy boxes, teal borders, yellow arrows), inlined in a `.mmd` div and built box-by-box on the voice with `C.mermaid_js`. Max 3 levels / 5 boxes, short ALL-CAPS labels.
-4. **Lottie:** one LottieFiles animation per science scene where it fits. Find it with the LottieFiles MCP (`searchPublicAnimations`, use `jsonUrl`), add `name url` to `lottie/list.txt` (repo root) and push; the `fetch-lottie` workflow downloads it (check `lottie/status.txt`). Drive it with `C.lottie_js` (frame-locked to the timeline). Prefer animations close to the brand palette.
-5. **Length (changed Nov 2, 2026):** series is now "6ixty Seconds of Science"; Shorts may run up to 60s (`C.MAX_T_V2` = 60, ~140-165 words at ~2.8 w/s). Only fill the time with real content (a new visual every 2-3s, one idea + payoff); never pad, because completion rate is what Shorts distribution rewards. Must still loop into the start. The pill label on every frame reads `6IXTY SECONDS OF SCIENCE`. Eps 10-14 are already scripted/voiced at 36-43s and stay that way.
-
-4. **Photos:** Unsplash search works, but direct downloads are blocked.
-   - Add a line to `photos/list.txt` (repo root) (filename + images.unsplash.com URL) and push. The GitHub Action `fetch-photos` downloads it into `photos/`.
-   - Always call Unsplash `download_asset` for each photo you use, and credit the photographer in the description.
-   - Blur or avoid readable real company signs.
-5. **Hosting:** commit the final mp4 and thumbnails to `epNN/` in this repo. Public raw URL: `https://raw.githubusercontent.com/cyto2savvy/cyto-uploads/main/epNN/<file>`.
-6. **Upload (Zapier, YouTube app `YouTubeV4CLIAPI`).** Only after `check_meta.py` passes. Title/description/tags come straight from `meta.json`.
-   - Before upload: `python3 /home/claude/cyto2/make_srt.py /home/claude/epN` → `captions.srt` (exact captions from timing.json; add the intro offset if the voice doesn't start at 0s). Set `captions_srt` in meta.json. Utsha uploads it in Studio → Subtitles (the API route needs file upload, which Zapier can't do).
-   - After it goes live: pinned comment + related video (Studio, manual) and reply to comments in the first hour.
-   Always pass `connection_id` `02a2f56e-1e01-8a41-9364-13e401f8bd6b`.
-   - `upload_video` with `privacy_status: private` and `publish_at` (UTC), `category_id: 27`, `made_for_kids: false` and PubMed links in the description.
-   - Then `_zap_raw_request` (tool `youtube_make_api_mutating_request`): PUT `videos?part=status` with `containsSyntheticMedia: true`, and keep `publishAt` + `privacyStatus: private`.
-   - GET requests use `execute_zapier_read_action` with tool `youtube_make_api_get_request`.
-   - Uploads playlist: `UUJRfXFQKUTWj-2LfA1cAWtA`.
-   - **"Throttled" errors:** check the uploads playlist before retrying, since sometimes it did succeed. Space retries about 1 hour apart.
-   - **Thumbnails:** they fail with a 429 until the channel is phone-verified (youtube.com/verify). Until then Utsha sets them in Studio.
-7. **TikTok:** add the approved episode to `tiktok/queue.json`. Utsha's friend's Claude posts from it (see `tiktok/INSTRUCTIONS.md`).
-
-### Thumbnails (Nov 1, 2026 — Ep 8 onward) — `hf/thumbs/thumb.py`
-Old thumbnails were paused mid-video frames (tiny Cyto, fact cards, unreadable charts). Every thumbnail now uses ONE structure:
-- **Series pill** (same spot every time) → **headline** max 4 words / 2 lines, white + ONE gold word, must ADD to the title (never repeat it) → **one hero object** that asks the question (phone at 3:00, a heart at 114 BPM…) → **huge reacting Cyto** (shock/skeptic/hype/tired face, looking at the hero, cup visible, white rim light).
-- Bottom ~280px is YouTube's title overlay: background only. Everything that matters sits in the centre 1080x1350 so the 4:5 feed crop still shows headline + hero + face.
-- Flat brand gradient + light rays from the hero. Never a photo, never a fact card.
-- Make 2 options as a JSON spec (`hf/ep08/thumbs.json` is the example) → `python3 hf/thumbs/thumb.py spec.json outdir`. It also writes `feed_check.jpg` (full / 4:5 crop / phone-grid size) — look at it before showing Utsha.
-
-### 3D (Nov 2, 2026 — Ep 9 onward) — `hf/three3d.js` (three.js r149, `assets/three.min.js`)
-Real 3D renders inside HyperFrames (WebGL via the headless shell). Style = cel-shaded ("toon") + ink outlines so it matches the cutout rig.
-- Factories: `C3D.earth()` (winter-tilted Earth, sun, Toronto pin label), `C3D.bars()` (growing 3D bar chart, labels projected onto bar tops), `C3D.capsulesDna()` (vitamin capsules bounce, DNA helix rises). Each returns `render(t)`.
-- Drive from the timeline with the `three()` helper in `hf/ep09/build.py` (onUpdate → render(t)) so seeks are frame-exact. Canvas needs `preserveDrawingBuffer:true` (the factories do it).
-- Add new 3D pieces to `three3d.js`, not inside an episode. Keep lighting low (ambient ≤ 0.35) or toon colours wash out.
-- Target mix per Short: ~3 × 3D shots, the rest 2D cutout + Lottie; max one chart, everything else is action (things moving, changing, reacting).
-
-### Art library — `hf/art.py`
-Flat cutout set pieces in the rig's style: `skyline()`, `city_hall()`, `night_bus()`, `streetcar()`, `stop_pole()`, `window()`, `lamp()`, `phone()`, `body_clock()`, `hypnogram()`, `moon()`, `stars()`. Outfits so far: jersey, PJ + sleep mask, puffer vest. Add new Toronto pieces here (not inside an episode) so every episode can reuse them.
-Outfits/accessories: `rig3_html(outfit, cup, acc)` — `acc` is an optional layer drawn ON TOP of the toque (e.g. `acc_sleepmask`). Drawn as SVG in `hf/outfits/`, exported to `rig/*.png`.
-
-### Build gotchas (learned on Ep 8)
-- HyperFrames renders by **seeking**, and GSAP skips `tl.call()` on seek. Never swap text with callbacks: put both versions on screen and swap opacity with `tl.set`.
-- Lottie files often start on blank frames: drive them from a frame offset (see Ep 8's Zzz) if they're on screen at t=0.
-- Loop: the last frame should match frame 1 (same background, same Cyto pose/eyes).
-- `segs.json` takes optional `line_gap` / `in_gap` (default 0.26 / 0.11) — tighten gaps before raising the tempo above ~1.2.
-
-## Posted so far (YouTube times are Eastern)
-| Ep | Topic | YouTube ID | Go-live |
-|---|---|---|---|
-| 1 | Goosebumps | gm4Jgs3vvT4 | live |
-| 2 | Scared to death (Halloween) | qy5GwZ3PMeo | live Oct 30 |
-| 4 | Clocks fall back | etwgExzRMW8 | Oct 31, 7 PM |
-| 3 | Sugar rush myth | M1_ZMi-Dceg | Nov 1, 11 AM |
-| 5 | Cold season | Y8pJ4GNJ60s | Nov 2, 6 PM |
-| 6 | Procrastination | OO9AceZh2tc | Nov 3, 6 PM |
-| 7 | Leafs overtime (first rig episode) | Sd47GFmiTFg | Nov 4, 7 PM |
-| 8 | Why you wake up at 3AM | kcKDLS1b-tE | Nov 5, 6 PM |
-| 9 | Is winter killing your vitamin D? (first 3D episode, ElevenLabs voice) | — | built, awaiting OK (Nov 6, 6 PM) |
-| 8 | Why you wake up at 3am (first v2+v3 episode, new thumbnail system) | — | built, awaiting OK (Nov 5, 6 PM) |
-| 11 | Diwali food coma (Scarborough-led, kurta outfit) | — | built, awaiting OK (Nov 8, 3 PM) |
-| 12 | Movember: does checking yourself save lives? (first Scribe-timed + ElevenLabs-SFX episode) | — | built, awaiting OK (Nov 9, 6 PM) |
-| 14 | What two minutes of silence does to your body (HOOK-FIRST test #1) | — | built, awaiting OK (Nov 11, 9 AM) |
-
-## Next ideas already researched
-- Diwali (Nov 8): mithai and the sugar crash, with Mito (Mantantzis 2019, doi 10.1016/j.neubiorev.2019.03.016)
-- "Why do you wake up at 3am" (about 19.7k searches/month, still needs a source)
-- Royal Winter Fair (Nov 6–15)
-- Remembrance Day (Nov 11)
-- First long-form (with vidIQ Boost): "Cyto vs the Flu", which debuts Neutro and Platelet Pete
-
-## Improvement log (one change per week, check it worked in the weekly report)
-| Date | Change | Expected effect | Result |
-|---|---|---|---|
-| Oct 30, 2026 | v2 layout from Ep 8: safe-zone captions, big Cyto, themed Mermaid, Lottie, ≤30s | Fewer swipe-aways; captions readable over YouTube's UI | check after Ep 8–10 |
-| Oct 30, 2026 | Toronto voice guide (`VOICE.md`): ≥3 slang + 1 Toronto reference per script | More comments/shares from Toronto viewers | check after first episodes using it |
-| Oct 30, 2026 | **v3 rig TEST** (`hf/cyto3.py`, `hf/v3test/compare_v3.mp4`): vector Cyto, brows/lids/pupils, 8 mouth shapes from sounds, moving organelles, pom-pom, snappy pose-to-pose, sip SFX | Cyto feels alive; better retention | approved Oct 30 — standard from Ep 8 |
-
-| Nov 1, 2026 | Thumbnail system (`hf/thumbs/thumb.py`): fixed headline / hero / big reacting Cyto structure, feed-crop safe | Higher CTR from the Shorts feed | compare Ep 8+ CTR vs Eps 2–7 in the weekly report |
-| Nov 1, 2026 | Publishing rules (`PUBLISHING.md`) + `check_meta.py`: titles ≤ 60 (Shorts) / 50–60 (long), keyword first, no #shorts in titles, pinned comment + related video, separate long-form rules; tag recipe; exact captions file (`make_srt.py`) | Better search reach; titles not cut off | compare search traffic share before/after in the weekly report |
-| Nov 8, 2026 | **CYTO CANON v2** (`branding/CYTO_CANON_v2.md`, `branding/rebrand-v2/`): flat 2D cut-out, generic coffee cup, mitten hands, parallel pupils, chain, clipped random-drift organelles + `run_tests.sh` (19 checks) | Consistent, higher-quality Cyto everywhere; no cup/brand risk | approved Nov 8 — standard for all future builds |
-
-## Watch: vidIQ credits
-Nov 1, 2026: 26 credits left after Ep 8 (14), 0 renewable until Nov 30 → only ~1 more Liam voiceover. Boost is needed for daily episodes. Spend credits on voice only until Boost is active.
-
-### Ep 9 lessons (Nov 2, 2026 — apply to every build)
-- **Eyes looked "off":** glances were +-12..18px, pushing the pupils out of the eye and never recentring. Fixed in `cyto3.py` (glances are now clamped to ~+-7px / -6px and ease back to centre after ~1s). Don't pass big look values; use `looks` sparingly (1 per scene max).
-- **Text and animations colliding:** give each scene three fixed zones and keep them apart: (1) top = figure/Lottie/3D, (2) middle = ONE headline or stamp at a time, (3) bottom = captions (C.CAP_Y_V2) + Cyto. Rules: max ONE big text element on screen at once (fade the previous one out before the next lands, >=0.15s gap); chips/cards must not overlap a stamp or the 3D label; Lottie sits beside text, never under it; no element within 40px of the caption band.
-- **Check at 1 fps, not just key frames:** `npx hyperframes snapshot --at 0.5,1.5,2.5,...` for EVERY second (a 40s short = ~40 frames), build a contact sheet, and fix any frame where two text/graphic elements touch or Cyto's pupils leave the eye. Show Utsha only after this pass.
-
-### SOURCE RULE (Nov 2, 2026): never reuse a PubMed source across Shorts
-Each Short needs its own NEW source(s) from PubMed (ideally 2+ substantive ones). Check `studio/sources_used.md` and run `python3 studio/check_sources.py` before scripting. If a topic overlaps an earlier episode, pick a different angle with different papers. Long-form may cite earlier sources.
-
-### TORONTO BACKGROUND RULE (Nov 2, 2026, from Utsha after Ep 10). City of Toronto only (Scarborough, Etobicoke, North York, East York, York, old Toronto all count); NO Brampton, Mississauga or other GTA cities. Ep 11 is Scarborough-led.
-Every scene's background/props must be Toronto-specific or topic-specific, never random filler. Use niche local detail: TTC streetcars and Line 1 platforms (Bloor-Yonge, Union), Union Station, the CN Tower silhouette, Nathan Phillips Square rink, the Toronto Island ferry, Gerrard India Bazaar, Queen's Park, Kensington, raccoons, condo cranes, snow/slush. Use generic shapes only: no real logos, store names, brands or people. Each brief has a "Toronto background plan" section: follow it scene by scene, and add one extra small Toronto Easter egg per scene if it doesn't clutter the frame (still max ONE big text at a time).
-
-### MANDATORY AUTOMATIC CHECK: `layout_check.py` (added Nov 2, 2026 after Ep 10's overlaps and fake score)
-After `python3 epNN/build.py`, run from /home/claude/hf: `python3 layout_check.py epNN --brief <path to studio/episodes/epNN/EPNN_brief.md>`. It loads the page, seeks the timeline every 0.25s and FAILS on: text overlapping text or captions, text cut off by the screen edge, text covered by a Lottie animation, pupils off-centre (>8px), and on-screen score-like text or numbers that are not in the brief. **0 FAIL is required before you show Utsha anything**; read every WARN and fix or justify it. Fix, rebuild, re-run. It does NOT replace the 1-fps visual contact-sheet review, which is still required (it can't see graphics-vs-graphics clashes or a stat chart that looks wrong).
-**Content rule:** never put an invented number, score, quote or record on screen. A scoreboard for a game that hasn't happened shows "TONIGHT 7:00", never a score. Every figure on screen must come from the brief's sources or script.
-
-### Ep 11 lessons (Nov 2, 2026)
-- **Some Lotties render blank in the final HyperFrames video** even though they show in a plain browser: `zzz-a` (PNG image layers) and the thin-stroke `fireworks-1/2`. Check the real mp4 (ffmpeg frame grabs), not just `snapshot`. For Zzz and fireworks use native SVG + GSAP instead (`zzz()` / `burst()` in `hf/ep11/build.py`); vector Lotties like `diya-1` and `rangoli-1` render fine.
-- **`wt()` matches by prefix**: `wt("say")` hit "says", `wt("So")` hit "solid", `wt("Yo")` hit "you're". Always pass the `after=` time for short words.
-- **GSAP x/y on an SVG `<g transform="translate(...)">` replaces the translate.** Wrap it: outer `<g transform>` for placement, inner `<g id>` for the animation.
-- New art.py pieces: `scarb_skyline`, `balcony` (+raccoon), `diya`, `bluffs_view`, `platform_view`, `hallway`, `il1_cell`, `mithai_plate`, `couch`, `rangoli`, `string_lights`, `stomach`. Outfit `outfit_kurta`. `three3d.js` bars take `floorW` for 3 bars.
-- Python Playwright for `layout_check.py`: `pip install --break-system-packages playwright==1.63.0` (must match the preinstalled browser build).
-
-### Ep 11 review: rules for Eps 12+ (manager review, Nov 2, 2026)
-Ep 11 passed layout_check but a human review of the 1-fps sheet still found these. They are now hard rules:
-- **Nothing within 40px of any screen edge**, including meters, labels, stamps and bars (Ep 11's "TIRED" meter label sat on the left edge and looked clipped). Treat every layout_check safe-zone WARN as a FAIL unless it is a deliberate slide-in/out of a moving object (e.g. a bus entering).
-- **On-screen sources card: text at least 34px tall at 1080 wide**, max 2 sources, short form ("Orr 1997 · Lehrskov 2018"). Full citations live in the description and pinned comment. Small unreadable text defeats the point of crediting.
-- **Hook (0-3s): at most 3 moving things** (e.g. background, one caption, Cyto). No bus + diyas + raccoon + caption pile-up. The first caption is the hook.
-- **Use the space.** Cyto sits low-left; put the science figure/card in the upper-middle (y 300-1100) at full size. Do not leave the bottom third empty AND the figure tiny. Figures should fill their card.
-- Check Lotties in the REAL rendered mp4 (ffmpeg frame grabs), never just in the preview. Blank Lotties: replace with native SVG + GSAP.
-- No captioning tool is available: match the audio to the script line by line using segs.json pauses, then listen once and fix drift over 0.3s.
-- Say in the final post: layout_check result (FAIL/WARN counts and what each WARN is), and the three things you are least sure about.
-
-### Ep 12 lessons (Nov 3, 2026): test upgrades that worked, roll into Eps 13+
-- **No drag-and-drop needed for ElevenLabs audio.** The sandbox can't reach elevenlabsusercontent.com, but GitHub Actions can: add `name url` (the signed `full_res_url` from `creative_get_generations`) to `audio/list.txt` and push. The `fetch-audio` workflow commits it within ~1 min (check `audio/status.txt`). Find an existing read with `creative_list_flows` → `creative_get_flow` → `creative_get_flow_node` (generations).
-- **Word timing = ElevenLabs Scribe, 0 credits.** `creative_add_flow_asset_node(generation_id)` returns the TTS node itself; pass it as `connect_from` to `creative_transcribe_audio` (eleven_scribe_v1). Save the words as `epN/words_scribe.json` (caption spellings: 6ix, styll, 95%) and use `epN/make_segs.py` (`segs` builds segs.json from silencedetect + words; `remap` shifts the Scribe times through build_voice2's re-spacing into timing.json). Captions and visemes then land on the real word onsets instead of syllable-split guesses.
-- **SFX via `creative_generate_in_flow` node_type `sfx`, model `eleven_text_to_sound_v2`, generations_count 1.** estimate_only said 50 cr, the real bill was ~16.7 cr each. Fetch them the same way (audio/list.txt). Mix each at unit RMS × voice RMS × -18 dB (hits -15) so they sit under the voice; music bed at -24 dB. Trim the 2s pop to 0.35s.
-- **rig3_html now takes `face_extra` / `toque_extra`** (inline SVG on the face/toque, moves with Cyto). Ep 12 uses `art.handlebar()` (moustache sticker) and `art.awareness_ribbon()`. `thumb.py` passes the same keys from the spec.
-- New art.py pieces: `univ_ave` (hospital row + Queen's Park), `subway_platform` (Bloor-Yonge hanging sign + NEXT TRAIN board, `{idp}Train`), `clinic_street` (Danforth-style walk-in clinic), `ferry_view` (skyline from the Island ferry), `handlebar`, `awareness_ribbon`.
-- layout_check gotchas: an en-dash range like "15–45" is read as a score, so write "15 TO 45". Wall text hidden behind a semi-opaque panel still counts as overlapping text; move it, don't hide it.
-- Lotties that came out blank even in a plain browser: ribbon-1/2, calendar-1; stache-2 was blank in the HyperFrames frames → used SVG + GSAP. Fine in the real mp4: shield-2, steth-1, heart-beat.
-- `thumb.py` needs an ABSOLUTE out_dir (a relative path gives blank white PNGs).
-
-### Cup rule (Nov 2, 2026, from Utsha)
-The red cup is ALWAYS drawn IN FRONT of Cyto's hand and body, never behind the hand. `cyto3.py` now draws the hand first and the cup on top. In every build, check frames where the cup is held, raised and tipped: the cup must be fully visible and the hand must not sit on top of it.
-
-### Ep 13 lessons (Nov 3, 2026)
-- **Neutro** (neutrophil bouncer) is a vector rig: `hf/neutro.py` (source `studio/rig/neutro/neutro.py`, design frame `neutro_design.png`). `neutro_html(idp, pose)` + `neutro_js(idp, poses, mouths, brows, nods, looks, blinks)`; poses idle/cross/flex. Wrap him in an outer div for placement (CSS scale); never `pop()` that wrapper (GSAP scale overrides the CSS scale) — tween to the wrapper's own scale instead.
-- New outfit `outfit_hoodie` (hf/outfits/hoodie.svg -> studio/rig/outfit_hoodie.png). New art: `union_station`, `raccoon`, `go_train`, `queen_snow`, `pharmacy_nps(py=, shop=)`, `virus`, `lungs`.
-- **Playwright gotcha:** `page.evaluate("window.__timelines.main.seek(t)")` HANGS (it tries to serialise the timeline). Use `void (...)`. In a plain browser all `.clip` scenes are visible; toggle visibility from data-start/duration for contact sheets.
-- **Frame 0:** the last zoom/whip transition's fromTo rendered its from-values at t=0 (1.5x zoom) and `#cytoPos` wasn't placed until the playhead moved. Fix: `immediateRender:false` on transition fromTo + `gsap.set("#cytoPos", POS_HOOK)` at build time.
-- Cards slide in from x:90 with a fade (the old x:600 slide was flagged as cut off). Big headlines: left 60 / width 880 to stay inside the safe zone (right edge 940).
-- Hidden art still counts in layout_check (off-screen svg text = safe-zone WARN); use `display:none`, not a translate.
-
-### LONG-FORM + ANIMATION LESSONS (LF01 + LF02, Nov 3-5, 2026): APPLY TO EVERY EPISODE (Shorts too where it fits)
-Source: Utsha's reviews of LF02 v1 -> v2 -> v3 plus a non-science friend's watch test. Full detail: `batch_prompts_lf02_v3.md`, `hf/lf02/`.
-1. **STORY FIRST.** One question threads the video (a visible "case" sticker with clue 1/2/3). Every scene change is motivated and announced by a character ("Follow me", "Next stop..."). Subway-doors transition ONLY for place/chapter changes; everything else is a straight cut on action. Never a transition mid-sentence. Each new place opens on a 0.6-1.0 s wide shot with a location card. 4-second recap after each chapter. **Friend test** before showing a draft: write a plain-English synopsis from frames + captions only; if a beat needs science knowledge or you can't tell who/where, fix it.
-2. **CONVERSATIONS.** Tight audio cuts (first word -0.03 s, last word +0.05 s). Normal reply gap 0.12-0.18 s, banter 0-0.08 s with overlap only for real interruptions (not everywhere, it felt rushed). No speaker gap > 1.0 s except named action beats <= 2.0 s. J-cut/L-cut at every scene change. Camera follows the speaker; listener gets a reaction on the key word; the NOT-speaking character has a CLOSED mouth. Shot-reverse-shot: same screen side for each character, eyelines match.
-3. **AUDIO MIX (Nov 5 bug).** The room-tone bed was set relative to the voices and came out ~15 dB too loud (audible hum/hiss = "weird background noise"). Defaults now: room tone -50 dB (use `ROOMDB`), synth music beds -14 dB (`MUSG`), no hum tones. Never ship synthetic noise beds at audible levels. Always listen-check or measure the quietest 10% of the track (target <= -45 dB) before showing a draft.
-4. **CHARACTERS.** Limb-based rig: short two-part arms with real mitten hands (hands never float); arms swing on arcs, hand lags the wrist 2-3 frames; gestures on key words only. Mito = round body, headband, sneakers, half-lid eyes (no tube/bunny-ear arms). Neutro's mouth sits on the lower face >= 6 px above the collar and never behind the notepad/desk. Eyes: pupils inside the eye mask, eyes lead head turns by ~0.1 s, listener looks at the speaker, <= 1 glance away per scene, blink every 2-4 s. Check programmatically (mouth/collar/prop overlap = 0, pupils in mask = 100%, closed mouth when silent = 100%).
-5. **BIG MOMENTS ARE REAL ANIMATION** (dunk, achoo, slam): anticipation (crouch/squash) -> launch (stretch, arc) -> hang (slow-mo) -> impact (shake, flash, rim/net reaction) -> landing squash + dust. Everything fully in frame with headroom, no letterbox bars. Dribble = bounce loop with ball squash and shadow, never a slide.
-6. **PROPS ACT.** Props that matter to a joke enter with motion (alarm drops from the top on a spring) and react. Signs/props stay for the whole scene or exit with an animation (no flicker). Nothing static > 0.5 s.
-7. **CLEAN 3D.** No floating blobs, camera never clips through geometry, titles never collide with geometry.
-8. **REAL PHOTOS FOR LOCATIONS** (Unsplash, credited in description + pinned comment, no real signs/brands in frame); grade them to the scene (night/snow) so they match the characters; characters stay in cartoon art.
-9. **FRAMING.** Heads/hands inside a 6% safe margin; no half-cropped characters; no overlapping cards/characters (layout_check 0 FAIL, re-run after every late fix).
-10. **PROCESS/COST.** Render each scene <= 2 times; mux once; re-measure the same numbers before/after; hard-stop the cloud budget at (balance - $3). Credits are the limit: put expensive work (new voice takes) in the chat, build sessions only render.
-11. **FILE SIZE.** GitHub caps files at 100 MB and releases are blocked in sessions. Keep ~8 Mbps video masters OUT of git: deliver masters via Drive "Final Cuts"; for the YouTube upload keep the mp4 < 100 MB (a 5-min 1080p at ~2 Mbps is ~80 MB) or split. Don't re-encode audio when only the video is trimmed.
-12. **POSTING.** Pinned comments can't be posted/pinned via the API or on private videos: write the text in meta.json `pinned_comment`, Utsha pastes + pins it right after the video goes public.
-
-### PERFORMANCE ANALYSIS (Nov 6, 2026, 7 Shorts, YouTube Analytics): apply to Eps 9+
-Facts: 20 subs, 4,671 views total, ~11.6 watch hours, $0 revenue (not in YPP: needs 500 subs + 3,000 h / 3M Shorts views for early access, 1,000 subs + 4,000 h / 10M Shorts views for ads; new-applicant bar doubles Feb 1, 2027). 86% of views = Shorts feed, search only 2%, subscribers 0.5%.
-Pattern: Eps 2/3/5 each got ~1,100-1,400 views on day 1 then 1-3% of that the next day (Shorts "test batch" ceiling, the seed audience didn't engage enough to expand). Eps 1/4/6/7 never left the small batch (60-250 views).
-Retention (Ep 2 curve): starts average vs similar-length Shorts, drops to bottom quarter by 20-30% of the video (first ~6 s), recovers at the loop end. Avg view 16-19 s on ~30 s (57-65%). Comments ~0, likes ~1-2%.
-Rules for next Shorts:
-1. Test ONE variable per video and log it: hook-first (visual/claim in 0-2 s), catchphrase moved AFTER the hook.
-2. Cut to 20-25 s where possible; kill anything slow before 8 s.
-3. Every Short ends on a question that needs an answer in the comments; pin it as soon as it is public and reply to every comment in the first hour.
-4. Topics: broad "why does my body..." questions that map to a trending moment (the 3 hits: Halloween fear, sugar myth, cold weather). Local/time-boxed titles (clock change, "Toronto,") underperformed.
-5. Put a subscribe prompt at the payoff (~20 s), not only in the outro.
-6. Check Studio "Viewed vs swiped away" for each Short (not in the API) and paste into the chat.
-Studio export (Oct 9-Nov 6): "Stayed to watch" is 43-54% on EVERY Short (Ep2 53.9, Ep3 53.4, Ep5 42.9, Ep1 51.4, Ep4 46.2, Ep6 46.5, Ep7 52.5, Ep8 53.2) and does NOT separate the hits from the misses. About half of viewers swipe away in the first second or two on every video; people who stay watch a lot (Ep1 87.6% avg viewed). Informal creator rule (not official): ~50% average, ~70% good. BASELINE to beat = 50%; target >= 60-65% on the hook-first test (Ep 9+). Ep7 (35 s) had the lowest avg viewed (35%): keep Shorts <= 30 s. Thumbnail CTR is irrelevant for feed views (ignore it). Total so far: 13.2 watch hours, 13 subs in 4 weeks.
-DECISION (Nov 6, Utsha): Eps 9, 12, 13 are already voiced/built, leave them as they are. The hook-first test (Cyto talks on frame 1, most surprising claim first, big on-screen claim, catchphrase AFTER the hook, <= 30 s) starts with the first episode that has no recorded voice yet = Ep 14 (Remembrance Day, tts.txt only). Compare its "Stayed to watch" with the 50% baseline.
-
-### Ep 14 (Nov 6, 2026): HOOK-FIRST TEST #1 build notes (reuse for every hook-first Short)
-- **Voice from frame 1:** `segs.json` now takes `"lead": 0` (default 0.12 s of silence) and an optional 5th item per seg = the gap after it (s). Ep 14's voice onset in the final mp4 = 0.02 s. `build_voice2.py` changed; old segs.json files still build the same.
-- **Scribe -> segs:** Scribe word END times run into the pauses and soft words ("down.", "forget.") sit under -35 dB. Build one segment per script line from Scribe START times and clip each line's end at the first silencedetect start (-45 dB) after its last word (`studio/episodes/ep14/make_segs.py`).
-- **Frame 1:** the big claim (`opacity:1` in the HTML, no fade), the figure (ECG already half drawn via a static dashoffset) and the first caption words (`tl.set` at 0, no pop) are all on screen at 0.00 s. The loop scene is the same `hook()` markup in its frame-1 state.
-- **Respectful mode:** soft cross-fades (each scene's clip window overlaps the next by 0.45 s, the next fades 0->1), a slow push-in on each scene div (not #cam), Cyto glides between marks under the fade, no shake/whip/punch/pop, cup set down all video (`#cup` 0 / `#cupTable` 1), eyes closed for the held beat. Fade the outgoing scene's big text ~0.4 s before each cut so the cross-fade never stacks two titles.
-- Caption hygiene: hide caption words while the same words are a big title, and `tl.set` the previous caption chunk to 0 when a hidden stretch starts (otherwise it lingers).
-- New art: `poppy()` (generic felt poppy, no logo/text), `old_city_hall()` (clock hands `{idp}H`/`{idp}M`, centre = (cx, base-720*s)), `cenotaph()` (plain pylon + poppy wreaths). Outfit `outfit_coat` (dark coat + poppy pin). `thumb.py`: face `calm`, spec `cup_down: true`.
-- Checks run: layout_check 0 FAIL / 0 WARN; 1-fps sheet from the REAL mp4; first 8 s longest static run = 0 frames; mouth closed when silent 162/163 frames.
-
-### CUP + MOTION + TREND RULES (Nov 8, 2026, from Utsha): REPLACES the old double-stacked party-cup rule
-1. Cup = generic Toronto-style paper COFFEE cup (cream body, brown sleeve, dome lid, small Cyto-face logo on the sleeve). No Tim Hortons name/logo/lookalike branding or any real brand. Native SVG, one rigid group with the hand (fingers over the cup). Never show inside. See studio/ep14_addendum.md for the full no-twitch motion rules, expression library, jitter check and style menu.
-2. Trends: use trending FORMATS and phrases (e.g. "Why would I deceive you?" myth-bust, "Answer in one word", zombie-outbreak serial, slow-mo entrance), NOT copyrighted audio (Content ID claims on a monetized channel; our uploads can't attach YouTube's licensed Sounds). Never use memes on solemn episodes. Don't draw known characters from memes (e.g. the Randy Marsh cutout).
-3. Source quality: trend lists from SEO blogs are weak evidence; check Studio's Trending / Shorts 'Sounds' page and vidIQ trending (needs credits) before building around one.
-4. OUTFIT = SpongeBob-style (Nov 8): clothes flush with the body silhouette, clipped to the body outline, arms/hands always in front of the outfit, never covering the sides/face/cup. Details: ep14_addendum.md item 5.
-
-### SCHEDULE CHECK (Nov 8, 2026, YouTube): live = Eps 1-11 (Ep 9 id UEAjo09k7WI, Ep 10 -CEltZRO09A, Ep 11 7Xdk-SvGqBY). Only LF01 (MLdcV-vmyXE) is scheduled (publishAt 2026-11-29T14:45:00Z = 9:45 AM ET, check if 6 PM was intended). Ep 12 (Mon Nov 9 6 PM ET), Ep 13 (Tue Nov 10 6 PM ET), Ep 14 (Wed Nov 11 9 AM ET) are BUILT but NOT uploaded/scheduled.
-
-### INSTAGRAM + FACEBOOK (Nov 8, 2026): see social/PLAN.md and social/queue.json (draft). Post natively from the original mp4, AI label ON, 12:00 ET the day after YouTube, IG/FB safe-zone check (top 220 px / bottom 350 px clear) to be added to layout_check.
-### SCHEDULED Nov 8: Ep 12 = B2kle4wj4A8 (Mon Nov 9 6 PM ET), Ep 13 = Wmcr3C99lwQ (Tue Nov 10 6 PM ET), both private + publishAt + synthetic flag + thumbnail A. (TikTok queue: Utsha does not manage it; the Eps 9/12/13 entries I added were REMOVED Nov 8.) 
-
-### SCHEDULE (manager, Nov 9, 2026, verified from the YouTube uploads playlist)
-Live: Eps 1-11. Private+scheduled: Ep 12 `B2kle4wj4A8` (Mon Nov 9 6 PM ET), Ep 13 `Wmcr3C99lwQ` (Tue Nov 10 6 PM ET), **Ep 14 `Xwv_JKtNFgY` (Wed Nov 11 9:00 AM ET; uploaded Nov 9, synthetic=true, in playlist `PLIU9ZD7rP0Ss`, thumbnail B set; kept as-is, v3 build)**, LF01 `MLdcV-vmyXE` (Sun Nov 29 9:45 AM ET, still to confirm). **Thu Nov 12 slot: EMPTY (needs an idea chat -> episode.json).**
-Playlist "6ixty Seconds of Science" id `PLIU9ZD7rP0Ss`. YouTube PUT `videos?part=status` REPLACES the status: always resend embeddable/publicStatsViewable/license with publishAt + containsSyntheticMedia. Thumbnails now work via Zapier (phone-verified).
-vidIQ credits: 1 left, 0 renewable until Nov 30 (cap 150) -> no vidIQ voice/thumbnail/video tools. ElevenLabs Starter is the voice.
-
-### make_episode.py (manager, Nov 9, 2026): see studio/EPISODE_SCHEMA.md
-episode.json -> voice -> canon rig (rig_v2/compose.js) -> captions -> A/B thumbs (rig_v2/thumbs.js) -> contact-sheet checks -> package -> schedule_request.json. Stops at gate 1 (plan + credit estimate) and gate 2 (final package). Spends no credits itself. Build chat: use it instead of hand-building v3/build.py; fix content in episode.json, not the script. Ep 14's hand-built v3 stays as the reference.
+## Commits
+End with `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>` + the Claude-Session line.

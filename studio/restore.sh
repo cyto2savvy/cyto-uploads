@@ -9,7 +9,7 @@ cp $S/pipeline/*.py $H/cyto2/
 cp -r $S/rig $H/cyto2/rig
 mkdir -p $H/cyto2/photos && cp $S/photos/* $H/cyto2/photos/
 cp -r $S/branding/* $H/cyto2/
-cp $S/thumbs/* $H/thumbs/
+cp $S/thumbs/* $H/thumbs/ 2>/dev/null || true
 # episodes: ep01 lives in cyto2/, the rest in /home/claude/epN
 cp $S/episodes/ep01/* $H/cyto2/ 2>/dev/null || true
 for d in $S/episodes/ep[0-9]*; do
