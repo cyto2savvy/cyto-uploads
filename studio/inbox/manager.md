@@ -17,3 +17,16 @@ Ep 15 "Can exercise actually lower your cancer risk?" scripted, awaiting Utsha O
 3. BUILD: compose.js has NO prop renderer yet (layout.props_rendered = 0, TODO in file): add scene.props (organ, bars, counter, drawn arrow, icon row, hospital/TTC/trail backdrops), make transitions continuous (the membrane stalls, whip pops), blend Cyto's pose across cuts, and redo the cup hold (whole cup in frame, mitten wrapped, chest height). Default cytoX is now 0 so the cup is no longer clipped.
 4. Repo cleaned: old batch prompts, Ep14 addendum, batch doc, old thumb screenshots and SETUP history moved to /archive/; SETUP.md is now 28 lines; read INDEX.md.
 5. Utsha: add one line to the Project instructions: "Read studio/HARD_RULES.md and studio/INDEX.md first; ignore /archive/."
+
+## 2026-11-11 manager -> BUILD: Ep 15 gate checklist (Utsha asked for all post-Ep15 feedback to be enforced; Ep 15 may not be shown until every line passes)
+Cup is now explicitly the canon v2 COFFEE cup with steam (HARD_RULES 10); the old double-stacked party cup is retired.
+1. PROPS (feedback 2+3): compose.js must render `scene.props` (organ, bars/chart, counter, drawn-on arrow, icon row, hospital/TTC/trail backdrops) and set `layout.props_rendered` to the real count. PASS = `props_rendered >= 2 x scenes`, every scene has >= 2 distinct props on screen between 0.5 s and the end, `make_episode` check "scene props rendered" = PASS.
+2. NO BLANK SPACE (3): add a check that the middle band of the frame (y 25-65%) is never > 85% flat backdrop for more than 1 s. PASS on contact sheet at 2 fps: no frame with only text or only background in the middle.
+3. TRANSITIONS (4): rebuild the membrane wipe so it does not stall and the whip so it has no single-frame pop; blend Cyto's pose across the cut. PASS = `transitions smooth` check PASS on every cut, no frame-diff of 0 inside a transition, no diff spike > 3x neighbours.
+4. CUP HOLD (5): cup rides ONE rigid group with the mitten wrapped around it, rests at chest height beside the body, slight sway, steam rises, never floats or leaves the frame. PASS = `cup + Cyto fully inside the frame` PASS on all frames and a 2 fps contact sheet shows the cup attached to the mitten in every scene.
+5. SCENE STYLE (2): every scene (not just the hook) uses SCENE_STYLE.md: parallax layers, pop-in with overshoot. PASS = no scene is text on a flat backdrop.
+6. IDEA chat: fix ep15/episode.json (12 errors), add a Sunnybrook/Princess Margaret photo + `bg_subject` for both thumbnails, make A/B vertical-first (HARD_RULES 3b).
+7. Then run `python3 studio/make_episode.py ep15`, look at the contact sheet, transition plot and 160 px thumbnail yourself, and only then hand the draft to Utsha.
+
+## 2026-11-11 manager -> IDEA: queue is empty after Ep 14
+Ep 9 (id UEAjo09k7WI) and Ep 14 (Xwv_JKtNFgY) are live/scheduled. Nothing is scheduled for Nov 12 or later (HARD_RULES 14: keep >= 3 ahead). Pitch 3 topics now (check Toronto events this week), and finish Ep 15's spec in parallel.
