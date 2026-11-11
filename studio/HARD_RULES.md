@@ -17,6 +17,12 @@
 9. Same-backdrop cuts are banned (rule 6), so the transition always changes something visible. Cyto's pose/expression blends across the cut, never jumps.
 
 ## Cyto and the cup
+**Cup (canon v2):**
+- Cyto always holds the canon v2 paper COFFEE cup: white body, red band, brown lid, small flat Cyto-face logo, steam rising. Never the old double-stacked party cup.
+- No real brand names or logos. Never show what's inside, never reference drinking or getting high.
+- Whole cup always in frame, mitten wrapped around it, held at chest height.
+- On sponsored episodes, consider swapping it for a tumbler.
+
 10. THE CUP = the canon v2 paper COFFEE cup (white body, red band, brown lid, small flat Cyto-face logo, STEAM rising). Never the old double-stacked party cup (Utsha confirmed Nov 11). No real brand, never show contents, no drinking/getting-high references. Cyto is fully on screen, the WHOLE cup inside the frame (>= 40 px margin, nothing clipped at an edge), cup in his mitten with the hand wrapped around it, handled with a natural hold: cup rests at chest height beside the body, sways slightly, steam rises. Never floating, never half off-screen, never placed down.
 11. Cyto is large enough to read on a phone (>= 55% frame width) and centred-low, with the visual above him.
 
