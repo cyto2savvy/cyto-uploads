@@ -32,105 +32,456 @@
   {
    "say": "Yo, it's ya boy Cyto, live from the 6ix... inside your body.",
    "tts": "Yo, it's ya boy Cyto, live from the six… inside your body.",
-   "scene": 1,
+   "scene": 2,
    "emotion": "chill",
    "pause_after": 0.3
   },
   {
    "say": "Colon cancer survivors did a three-year exercise plan after chemo.",
-   "scene": 2,
+   "scene": 3,
    "emotion": "chill",
    "pause_after": 0.15
   },
   {
    "say": "Five years on, 80 percent were disease-free, versus 74 percent with pamphlets.",
    "tts": "Five years on, eighty percent were disease-free, versus seventy-four percent with pamphlets.",
-   "scene": 2,
+   "scene": 4,
    "emotion": "happy",
    "pause_after": 0.3
   },
   {
    "say": "Across 1.44 million adults, the most active had lower risk of 13 cancers.",
    "tts": "Across one point four four million adults, the most active had lower risk of thirteen cancers.",
-   "scene": 3,
+   "scene": 5,
    "emotion": "shock",
    "pause_after": 0.15
   },
   {
    "say": "Linked, not proven, styll.",
    "tts": "Linked, not proven, stiiill.",
-   "scene": 3,
+   "scene": 6,
    "emotion": "think",
    "pause_after": 0.3
   },
   {
    "say": "So hop off the TTC early and walk. Say less.",
    "tts": "So hop off the T-T-C early and walk. Say less.",
-   "scene": 4,
+   "scene": 7,
    "emotion": "happy",
    "pause_after": 0.25
   },
   {
    "say": "Not medical advice. How much do you move a week? Comment it, because",
-   "scene": 5,
+   "scene": 8,
    "emotion": "think",
    "pause_after": 0.0
   }
  ],
  "scenes": [
   {
-   "bg": "skyline",
+   "bg": "trail",
+   "transition": "zoom",
    "headline": "COMEBACK RISK\n-28%",
    "hot": [
     "-28%"
    ],
    "card": "",
-   "transition": "zoom"
+   "props": [
+    {
+     "t": "organ",
+     "kind": "colon",
+     "label": "COLON",
+     "at": [
+      175,
+      0.13
+     ],
+     "in": 2.4,
+     "fill": 0.24
+    },
+    {
+     "t": "runner",
+     "at": [
+      215,
+      0.56
+     ],
+     "in": -0.35,
+     "fill": 0.62
+    },
+    {
+     "t": "arrowStat",
+     "label": "-28%",
+     "at": [
+      730,
+      0.5
+     ],
+     "in": 0.2,
+     "fill": 0.86
+    },
+    {
+     "t": "icons",
+     "glyph": "shoe",
+     "n": 4,
+     "cols": 4,
+     "at": [
+      470,
+      0.93
+     ],
+     "spread": 1.4,
+     "in": 3.6,
+     "fill": 0.13
+    }
+   ]
+  },
+  {
+   "bg": "hospital",
+   "transition": "whip",
+   "headline": "NOT JUST\nPATIENTS?",
+   "hot": [
+    "PATIENTS?"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "peopleGrid",
+     "n": 36,
+     "cols": 12,
+     "hi": 9,
+     "label": "889 PATIENTS",
+     "at": [
+      540,
+      0.34
+     ],
+     "spread": 1.2,
+     "in": 0.0,
+     "fill": 0.62
+    },
+    {
+     "t": "organ",
+     "kind": "colon",
+     "label": "COLON",
+     "at": [
+      205,
+      0.82
+     ],
+     "in": 0.3,
+     "fill": 0.34
+    },
+    {
+     "t": "icons",
+     "glyph": "person",
+     "n": 5,
+     "cols": 5,
+     "at": [
+      740,
+      0.82
+     ],
+     "fill": 0.26,
+     "spread": 0.6,
+     "in": 1.0
+    }
+   ]
   },
   {
    "bg": "skyline",
-   "headline": "NOT JUST\nPATIENTS?",
+   "transition": "zoom",
+   "headline": "LIVE FROM\nTHE 6IX",
    "hot": [
-    "PATIENTS"
+    "6IX"
    ],
    "card": "",
-   "transition": "whip"
+   "props": [
+    {
+     "t": "runner",
+     "at": [
+      225,
+      0.52
+     ],
+     "in": 0.0,
+     "fill": 0.72
+    },
+    {
+     "t": "icons",
+     "glyph": "cell",
+     "n": 6,
+     "cols": 6,
+     "at": [
+      700,
+      0.12
+     ],
+     "spread": 2.6,
+     "in": 0.35,
+     "fill": 0.24
+    },
+    {
+     "t": "stamp",
+     "text": "THE 6IX",
+     "at": [
+      700,
+      0.8
+     ],
+     "in": 3.6,
+     "fill": 0.26
+    }
+   ]
+  },
+  {
+   "bg": "lab",
+   "transition": "membrane",
+   "headline": "3-YEAR PLAN\nAFTER CHEMO",
+   "hot": [
+    "3-YEAR"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "card",
+     "title": "36 MONTHS",
+     "ticks": 36,
+     "cols": 12,
+     "foot": "AFTER CHEMO",
+     "at": [
+      540,
+      0.34
+     ],
+     "in": 0.0,
+     "fill": 0.66
+    },
+    {
+     "t": "organ",
+     "kind": "colon",
+     "label": "COLON",
+     "at": [
+      195,
+      0.8
+     ],
+     "in": 0.35,
+     "fill": 0.46
+    },
+    {
+     "t": "peopleGrid",
+     "n": 24,
+     "cols": 12,
+     "label": "889",
+     "at": [
+      734,
+      0.8
+     ],
+     "spread": 1.4,
+     "in": 1.8,
+     "fill": 0.38
+    }
+   ]
   },
   {
    "bg": "plain",
-   "headline": "5 YEARS LATER\n80% vs 74%",
+   "transition": "whip",
+   "headline": "80% vs 74%\nDISEASE-FREE",
    "hot": [
     "80%"
    ],
-   "card": "EXERCISE 80%\nPAMPHLETS 74%",
-   "transition": "membrane"
+   "card": "",
+   "props": [
+    {
+     "t": "stamp",
+     "text": "5 YEARS LATER",
+     "at": [
+      370,
+      0.08
+     ],
+     "in": 0.0,
+     "fill": 0.18
+    },
+    {
+     "t": "bars",
+     "values": [
+      80,
+      74
+     ],
+     "labels": [
+      "EXERCISE",
+      "PAMPHLETS"
+     ],
+     "at": [
+      540,
+      0.56
+     ],
+     "in": 0.3,
+     "fill": 0.72
+    },
+    {
+     "t": "icons",
+     "glyph": "check",
+     "n": 6,
+     "cols": 6,
+     "at": [
+      783,
+      0.1
+     ],
+     "spread": 1.5,
+     "in": 3.2,
+     "fill": 0.16
+    }
+   ]
   },
   {
-   "bg": "plain",
+   "bg": "streetcar",
+   "transition": "zoom",
    "headline": "13 CANCERS\nLOWER RISK",
    "hot": [
     "13"
    ],
-   "card": "1.44M ADULTS\nLINKED, NOT PROVEN",
-   "transition": "whip"
+   "card": "",
+   "props": [
+    {
+     "t": "counter",
+     "to": 1.44,
+     "suffix": "M",
+     "decimals": 2,
+     "label": "ADULTS",
+     "at": [
+      540,
+      0.32
+     ],
+     "in": 0.0,
+     "fill": 0.62
+    },
+    {
+     "t": "icons",
+     "glyph": "organ",
+     "n": 13,
+     "cols": 7,
+     "label": "13 CANCERS",
+     "at": [
+      540,
+      0.8
+     ],
+     "spread": 4.4,
+     "in": 0.3,
+     "fill": 0.48
+    }
+   ]
   },
   {
-   "bg": "streetcar",
+   "bg": "lab",
+   "transition": "membrane",
+   "headline": "LINKED,\nNOT PROVEN",
+   "hot": [
+    "NOT"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "organ",
+     "kind": "colon",
+     "label": "COLON",
+     "at": [
+      270,
+      0.5
+     ],
+     "in": 0.0,
+     "fill": 0.76
+    },
+    {
+     "t": "stamp",
+     "text": "OBSERVATIONAL",
+     "at": [
+      750,
+      0.28
+     ],
+     "in": 0.3,
+     "fill": 0.26
+    },
+    {
+     "t": "icons",
+     "glyph": "person",
+     "n": 5,
+     "cols": 5,
+     "at": [
+      746,
+      0.76
+     ],
+     "spread": 0.8,
+     "in": 1.4,
+     "fill": 0.24
+    }
+   ]
+  },
+  {
+   "bg": "subway",
+   "transition": "doors",
    "headline": "GET OFF EARLY\nWALK IT",
    "hot": [
     "WALK"
    ],
    "card": "",
-   "transition": "doors"
+   "props": [
+    {
+     "t": "stopSign",
+     "title": "TTC",
+     "text": "WALK IT",
+     "at": [
+      238,
+      0.52
+     ],
+     "in": 0.0,
+     "fill": 0.88
+    },
+    {
+     "t": "shoe",
+     "at": [
+      760,
+      0.34
+     ],
+     "in": 0.3,
+     "fill": 0.4
+    },
+    {
+     "t": "icons",
+     "glyph": "shoe",
+     "n": 4,
+     "cols": 4,
+     "at": [
+      760,
+      0.82
+     ],
+     "spread": 1.4,
+     "in": 1.6,
+     "fill": 0.22
+    }
+   ]
   },
   {
-   "bg": "skyline",
+   "bg": "trail",
+   "transition": "whip",
    "headline": "HOW MUCH DO YOU\nMOVE A WEEK?",
    "hot": [
     "MOVE"
    ],
    "card": "",
-   "transition": "zoom"
+   "props": [
+    {
+     "t": "runner",
+     "at": [
+      240,
+      0.5
+     ],
+     "in": 0.0,
+     "fill": 0.84
+    },
+    {
+     "t": "icons",
+     "glyph": "shoe",
+     "n": 7,
+     "cols": 7,
+     "at": [
+      711,
+      0.3
+     ],
+     "spread": 2.6,
+     "in": 0.3,
+     "fill": 0.26
+    }
+   ]
   }
  ],
  "keys": {
@@ -151,32 +502,46 @@
    "hot": [
     "CANCER?"
    ],
-   "hero": "heart",
+   "hero_svg": "<g transform=\"translate(0,26) scale(1.18)\"><path d=\"M-170 60 L-170 -20 Q-96 -46 -40 -2 Q24 50 170 44 L170 74 Q0 104 -170 60Z\" fill=\"none\" stroke=\"#fff\" stroke-width=\"26\" stroke-linejoin=\"round\"/><path d=\"M-170 60 L-170 -20 Q-96 -46 -40 -2 Q24 50 170 44 L170 74 Q0 104 -170 60Z\" fill=\"#fff\" stroke=\"#0a1f24\" stroke-width=\"10\" stroke-linejoin=\"round\"/><path d=\"M-170 60 Q0 104 170 74 L170 92 Q0 122 -170 80Z\" fill=\"#c62828\" stroke=\"#0a1f24\" stroke-width=\"10\" stroke-linejoin=\"round\"/><path d=\"M-108 -12 L-88 44 M-62 6 L-40 60 M-18 30 L2 74\" stroke=\"#0a1f24\" stroke-width=\"10\" stroke-linecap=\"round\"/></g>",
    "emotion": "shock",
-   "photo": "photos/ep15-toronto.jpg"
+   "gaze": [
+    -0.5,
+    -0.4
+   ],
+   "scene": "hospital",
+   "sceneSeed": 5,
+   "bg_subject": "cancer centre + University Ave hospital row, Toronto",
+   "glow": "#ffc83a"
   },
   {
    "id": "B",
    "headline": [
-    "CANCER'S",
-    "COMEBACK -28%"
+    "COMEBACK RISK",
+    "-28%"
    ],
    "hot": [
     "-28%"
    ],
-   "hero": "heart",
+   "hero_svg": "<g transform=\"translate(-10,0)\"><path d=\"M-60 -170 Q-96 30 70 90\" fill=\"none\" stroke=\"#fff\" stroke-width=\"54\" stroke-linecap=\"round\"/><path d=\"M-60 -170 Q-96 30 70 90\" fill=\"none\" stroke=\"#0a1f24\" stroke-width=\"36\" stroke-linecap=\"round\"/><path d=\"M-60 -170 Q-96 30 70 90\" fill=\"none\" stroke=\"#c62828\" stroke-width=\"18\" stroke-linecap=\"round\"/><path d=\"M118 112 L22 124 L52 40Z\" fill=\"none\" stroke=\"#fff\" stroke-width=\"26\" stroke-linejoin=\"round\"/><path d=\"M118 112 L22 124 L52 40Z\" fill=\"#c62828\" stroke=\"#0a1f24\" stroke-width=\"10\" stroke-linejoin=\"round\"/></g>",
    "emotion": "shock",
-   "photo": "photos/ep15-toronto.jpg"
+   "gaze": [
+    -0.5,
+    -0.3
+   ],
+   "scene": "hospital",
+   "sceneSeed": 11,
+   "bg_subject": "cancer comeback risk + University Ave hospital row, Toronto",
+   "glow": "#ff5a4d"
   }
  ],
- "stronger": "B",
+ "stronger": "A",
  "sources": [
   {
    "short": "Courneya 2025 · Moore 2016",
    "full": "Courneya KS et al., Structured Exercise after Adjuvant Chemotherapy for Colon Cancer, N Engl J Med 2025, PMID 40450658, https://doi.org/10.1056/NEJMoa2502760 | Moore SC et al., Leisure-Time Physical Activity and Risk of 26 Types of Cancer in 1.44 Million Adults, JAMA Intern Med 2016, PMID 27183032, https://doi.org/10.1001/jamainternmed.2016.1548"
   }
  ],
- "description": "Can exercise actually lower your cancer risk? In a big Canadian-led trial, a structured exercise plan cut colon cancer's comeback risk by about 28%. Cyto breaks it down from the 6ix.\n\nWhat the trial did: 889 people who had finished surgery and chemo for stage III or high-risk stage II colon cancer were randomly assigned to a 3-year structured exercise program or health-education materials. After a median 7.9 years, disease-free survival (no recurrence, new primary cancer or death) was better with exercise (HR 0.72). At 5 years: 80.3% vs 73.9% disease-free. More muscle and joint injuries happened in the exercise group (18.5% vs 11.5%).\n\nWhat the bigger picture says: pooling 12 cohorts (1.44 million adults), the most active people had lower risk of 13 of 26 cancers. That is a link, not proof, and melanoma and prostate cancer risk were slightly HIGHER in active people. The trial was in colon cancer patients, not healthy people.\n\nSources (via PubMed):\nCourneya et al., N Engl J Med 2025 (CHALLENGE) - https://doi.org/10.1056/NEJMoa2502760\nMoore et al., JAMA Intern Med 2016 - https://doi.org/10.1001/jamainternmed.2016.1548\n\nNot medical advice. Talk to your care team before starting an exercise plan, especially during or after cancer treatment.",
+ "description": "Can exercise actually lower your cancer risk? In a big Canadian-led trial, a structured exercise plan cut colon cancer's comeback risk by about 28%. Cyto breaks it down from the 6ix.\n\nWhat the trial did: 889 people who had finished surgery and chemo for stage III or high-risk stage II colon cancer were randomly assigned to a 3-year structured exercise program or health-education materials. After a median 7.9 years, disease-free survival (no recurrence, new primary cancer or death) was better with exercise (HR 0.72). At 5 years: 80.3% vs 73.9% disease-free. More muscle and joint injuries happened in the exercise group (18.5% vs 11.5%).\n\nWhat the bigger picture says: pooling 12 cohorts (1.44 million adults), the most active people had lower risk of 13 of 26 cancers. That is a link, not proof, and melanoma and prostate cancer risk were slightly HIGHER in active people. The trial was in colon cancer patients, not healthy people.\n\nNot medical advice. Talk to your care team before starting an exercise plan, especially during or after cancer treatment.",
  "tags": [
   "can exercise lower cancer risk",
   "exercise and cancer",
@@ -193,5 +558,5 @@
  "pinned_comment": "How many days a week do you actually move? Be honest, no judgment 👇\n\nSources in the description: Courneya NEJM 2025 (colon cancer patients after chemo) and Moore JAMA Intern Med 2016 (1.44M adults, observational).\nBonus nuance: a 2026 cost analysis of the same Canadian trial found the exercise program cost less overall than pamphlets alone https://doi.org/10.1200/JCO-26-00765\nNot medical advice.",
  "related_video": "Ep 12: Movember (B2kle4wj4A8)",
  "playlist": "6ixty Seconds of Science",
- "outfit_note": "Toque + hoodie, flush with the body and clipped to the outline (Canon v2). Coffee cup ALWAYS in his mitten hand with steam; jogs in place with it on the hook. Full plan: studio/episodes/ep15/plan.md"
+ "outfit_note": "Toque + hoodie (Canon v2), flush with the body and clipped to the outline. Canon v2 paper COFFEE cup (white body, red band, brown lid, small Cyto-face logo) held in the mitten at chest height with steam rising, the whole cup inside the frame."
 }

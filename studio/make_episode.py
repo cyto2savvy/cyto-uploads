@@ -11,9 +11,10 @@ Never touches tiktok/queue.json (friend's Claude). Schema: studio/EPISODE_SCHEMA
 import argparse, json, os, re, subprocess, sys, shutil
 STUDIO = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(STUDIO); HOME = os.environ.get("CYTO_HOME", "/home/claude")
 RIG = os.path.join(STUDIO, "rig_v2"); PIPE = os.path.join(HOME, "cyto2")
-FPS = 30; VOICE_ID = "MDpsT9lfiqWEMyN3A1bk"; MODEL = "eleven_v4"
+FPS = 30; CYTO_SIZE = 840; CYTO_X = 64; CYTO_Y = 1110; RIG_BOX = (-579, -570, 482, 410)  # rig content bbox in its 1100 viewBox
+VOICE_ID = "MDpsT9lfiqWEMyN3A1bk"; MODEL = "eleven_v4"
 EMOTIONS = {"chill", "happy", "shock", "think", "solemn", "laugh"}
-BGS = {"skyline", "streetcar", "snow", "subway", "lake", "plain"}; TRANS = {"whip", "doors", "zoom", "membrane"}
+BGS = {"skyline", "streetcar", "snow", "subway", "lake", "plain", "trail", "hospital", "lab"}; TRANS = {"whip", "doors", "zoom", "membrane"}
 HEROES = {"heart", "clock", "snow", "brain", "phone", "sugar"}; FITS = {"none", "jersey", "hoodie", "puffer"}
 BANNED = ["tim hortons", "timmy", "tims ", "starbucks", "coca", "pepsi", "nike", "adidas", "mcdonald"]
 class Stop(Exception): pass
@@ -160,7 +161,10 @@ def make_plan(ep, E, tm):
         t = t0 + 2.4  # a fresh beat at least every ~2.5 s (re-triggers brow pop + head tilt)
         while t < t1 - 0.6:
             beats.append(dict(t=round(t, 3), emotion=l.get("emotion2") or emo)); t += 2.4
-    return dict(fps=FPS, duration=total, fit=E.get("fit", "hoodie"), seed=E.get("seed", 7), words=words, beats=sorted(beats, key=lambda b: b["t"]), keys=E.get("keys", {}), scenes=scenes)
+    # Cyto's drawn content spans x -579..482, y -570..410 of his 1100 viewBox (held cup + steam + raised arm).
+    # CYTO_* keeps that whole box inside the frame with >= 40 px margin and his body >= 55% of the width.
+    return dict(fps=FPS, duration=total, fit=E.get("fit", "hoodie"), seed=E.get("seed", 7), words=words, beats=sorted(beats, key=lambda b: b["t"]),
+                keys=E.get("keys", {}), scenes=scenes, cytoX=CYTO_X, cytoY=CYTO_Y, cytoSize=CYTO_SIZE)
 
 def make_audio(ep, plan):
     import numpy as np
@@ -196,9 +200,12 @@ def thumbs(ep, E):
     json.dump(spec, open(ep.p("thumbs.json"), "w"), indent=1)
     subprocess.run(["node", os.path.join(RIG, "thumbs.js"), ep.p("thumbs.json"), ep.p("thumbs")], check=True, env=dict(os.environ, SEED="3"))
     from PIL import Image
-    for t in E["thumbnails"]:  # feed check: full / 4:5 crop / phone-grid tile
+    for t in E["thumbnails"]:  # feed check: full / 4:5 crop / phone-grid tile / 160 px readability (HARD_RULES 3)
         im = Image.open(ep.p("thumbs", f"thumb-{t['id']}-1080x1920.jpg")); full = im.resize((270, 480)); crop = im.crop((0, 285, 1080, 1635)).resize((288, 360)); tile = im.resize((100, 178))
-        sheet = Image.new("RGB", (270 + 288 + 100 + 40, 480), "white"); sheet.paste(full, (10, 0)); sheet.paste(crop, (290, 0)); sheet.paste(tile, (590, 0)); sheet.save(ep.p("thumbs", f"feed_check-{t['id']}.jpg"))
+        small = im.resize((160, 284)); small.save(ep.p("thumbs", f"thumb160-{t['id']}.jpg"), quality=92)
+        sheet = Image.new("RGB", (270 + 288 + 100 + 160 + 60, 480), "white")
+        for img, x in ((full, 10), (crop, 290), (tile, 590), (small, 710)): sheet.paste(img, (x, 0))
+        sheet.save(ep.p("thumbs", f"feed_check-{t['id']}.jpg"))
 
 # ------------------------------------------------------------------ 5. checks (automated; the contact sheet is for human eyes too)
 def checks(ep, E, plan):
@@ -212,23 +219,24 @@ def checks(ep, E, plan):
     dur = float(sh(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", vid]).stdout)
     chk("duration <= 60 s", dur <= 60, f"{dur:.1f}s"); chk("title <= 60 chars", len(E["title"]) <= 60, str(len(E["title"])))
     # contact sheet from the REAL mp4 at 1 fps
+    CFPS = 2  # HARD_RULES 13: contact sheet at 2 fps
     cs = ep.p("contact_sheet"); os.makedirs(cs, exist_ok=True)
     for f in os.listdir(cs): os.remove(os.path.join(cs, f))
-    sh(["ffmpeg", "-y", "-v", "error", "-i", vid, "-vf", "fps=1,scale=216:-1", os.path.join(cs, "f%03d.png")])
-    fr = sorted(os.listdir(cs)); ims = [Image.open(os.path.join(cs, f)) for f in fr]; cols = 8; rows = (len(ims) + cols - 1) // cols
+    sh(["ffmpeg", "-y", "-v", "error", "-i", vid, "-vf", f"fps={CFPS},scale=216:-1", os.path.join(cs, "f%03d.png")])
+    fr = sorted(os.listdir(cs)); ims = [Image.open(os.path.join(cs, f)) for f in fr]; cols = 10; rows = (len(ims) + cols - 1) // cols
     sheet = Image.new("RGB", (cols * 216, rows * 384), "black")
     for i, im in enumerate(ims): sheet.paste(im, ((i % cols) * 216, (i // cols) * 384))
     sheet.save(ep.p("contact_sheet.jpg"), quality=85)
     # face moves in every 1 s window + cup visible in 1 fps frames (pixels of the real mp4)
-    size = plan.get("cytoSize", 800); cx = plan.get("cytoX", -80) + size / 2; cy = plan.get("cytoY", 990) + size / 2; k = size / 1100
+    size = plan.get("cytoSize", CYTO_SIZE); cx = plan.get("cytoX", CYTO_X) + size / 2; cy = plan.get("cytoY", CYTO_Y) + size / 2; k = size / 1100
     box = lambda x0, y0, x1, y1: (int(cx + x0 * k), int(cy + y0 * k), int(cx + x1 * k), int(cy + y1 * k))
     fx0, fy0, fx1, fy1 = box(-230, -160, 230, 60)
     raw = subprocess.run(["ffmpeg", "-v", "error", "-i", vid, "-vf", f"crop={fx1 - fx0}:{fy1 - fy0}:{fx0}:{fy0},fps=10,format=gray", "-f", "rawvideo", "-"], capture_output=True, check=True).stdout
     w_, h_ = fx1 - fx0, fy1 - fy0; F = np.frombuffer(raw, np.uint8)[: (len(raw) // (w_ * h_)) * w_ * h_].reshape(-1, h_, w_).astype(float)
     d = np.abs(np.diff(F, axis=0)).mean(axis=(1, 2)); win = [d[i:i + 10].max() for i in range(0, len(d) - 9, 10)]
     chk("face moves in every 1 s window (gaze/blink/mouth/brows)", all(x > 0.15 for x in win), f"min window motion {min(win):.2f}")
-    cx0, cy0, cx1, cy1 = box(-420, -130, -170, 230); red = 0
-    cuts = [sc["start"] for sc in plan["scenes"][1:]]; keep = [i for i in range(len(ims)) if all(abs(i + 0.5 - c) > 0.4 for c in cuts)]  # skip frames inside a transition
+    cx0, cy0, cx1, cy1 = box(-500, -200, -150, 260); red = 0
+    cuts = [sc["start"] for sc in plan["scenes"][1:]]; keep = [i for i in range(len(ims)) if all(abs(i / CFPS + 0.5 / CFPS - c) > 0.45 for c in cuts)]  # skip frames inside a transition
     for i in keep:
         a = np.asarray(Image.open(os.path.join(cs, fr[i])).convert("RGB").resize((1080, 1920))).astype(int)[cy0:cy1, max(0, cx0):cx1]
         red += int((((a[..., 0] > 150) & (a[..., 1] < 90) & (a[..., 2] < 90)).sum() + ((a[..., 0] > 235) & (a[..., 1] > 235) & (a[..., 2] > 235)).sum()) > 400)
@@ -244,13 +252,47 @@ def checks(ep, E, plan):
         pop = any(core[j] > 8 and core[j] > 2 * max(core[j - 1] if j else 0, core[j + 1] if j + 1 < len(core) else 0) for j in range(len(core)))
         if stall or pop: bad.append(f"{sc['id']}@{sc['start']:.1f}s {'stall' if stall else 'pop'}")
     chk("transitions smooth (no stall, no one-frame pop)", not bad, ", ".join(bad) or "all cuts continuous")
+    try:
+        import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
+        cuts_ = plan["scenes"][1:]; fig, axes = plt.subplots(1, len(cuts_), figsize=(2.6 * len(cuts_), 2.6), sharey=True)
+        for ax, scn in zip(np.atleast_1d(axes), cuts_):
+            i0 = int(scn["start"] * FPS); w = dd[max(0, i0 - 6): i0 + int((scn.get("transitionDur", .42) + .3) * FPS)]
+            ax.plot(np.arange(len(w)) / FPS, w, marker="o", ms=2.5); ax.axhline(0.5, color="r", ls=":", lw=.8)
+            ax.set_title(f"{scn['id']} {scn.get('transition', 'whip')}", fontsize=8); ax.set_xlabel("s", fontsize=7); ax.tick_params(labelsize=6)
+        np.atleast_1d(axes)[0].set_ylabel("frame diff", fontsize=7); fig.suptitle("transition frame-diff (0 = frozen frame)", fontsize=9)
+        fig.tight_layout(); fig.savefig(ep.p("transition_plot.png"), dpi=110); plt.close(fig)
+    except Exception as e: say("WARN  transition plot:", e)
     # HARD_RULES 10: whole cup inside the frame (no cup-coloured pixels touching the left edge band)
     edge = 0
     for i in keep:
         a = np.asarray(Image.open(os.path.join(cs, fr[i])).convert("RGB").resize((1080, 1920))).astype(int)[cy0:cy1, :24]
         edge += int((((a[..., 0] > 230) & (a[..., 1] > 230) & (a[..., 2] > 230)).sum()) > 60)
-    chk("cup + Cyto fully inside the frame (nothing clipped at the left edge)", edge == 0, f"{edge} frames clipped")
-    chk("scene props rendered (HARD_RULES 5)", lay.get("props_rendered", 0) >= 2 * len(plan["scenes"]), f"{lay.get('props_rendered', 0)} rendered / {2 * len(plan['scenes'])} required")
+    gx0, gy0, gx1, gy1 = box(*RIG_BOX)   # whole Cyto + whole cup + steam, from the rig's real content bbox
+    marg = min(gx0, gy0, 1080 - gx1, 1920 - gy1)
+    body = (482 - -340) * k / 1080       # body width without the held cup, as a fraction of the frame
+    chk("cup + Cyto fully inside the frame (>= 40 px margin, nothing clipped)", marg >= 40 and edge == 0,
+        f"margin {marg}px, box {(gx0, gy0, gx1, gy1)}, {edge} frames with cup colour at the left edge")
+    chk("Cyto >= 55% of frame width (HARD_RULES 11)", body >= 0.55, f"{body * 100:.0f}%")
+    need = 2 * len(plan["scenes"]); conc = lay.get("props_concurrent_min", {}); gapd = lay.get("new_element_gap_s", {})
+    thin = [k_ for k_, v in conc.items() if v < 2]; slow = [f"{k_} {v}s" for k_, v in gapd.items() if v > 2.0]
+    chk("scene props rendered (HARD_RULES 5)", lay.get("props_rendered", 0) >= need and not thin,
+        f"{lay.get('props_rendered', 0)}/{need} drawn; min concurrent per scene {json.dumps(conc)}" + (f"; THIN {thin}" if thin else ""))
+    chk("a new thing moves in every <= 2 s (HARD_RULES 5)", not slow, ", ".join(slow) or f"max gap {max(gapd.values()) if gapd else 0}s")
+    # HARD_RULES 5: the middle band (y 25-65%) is never > 85% flat backdrop for more than 1 s
+    bw_, bh_ = 540, 960  # own 2 fps pass at half res: the 216 px contact sheet is too coarse to tell flat fill from drawn detail
+    braw = subprocess.run(["ffmpeg", "-v", "error", "-i", vid, "-vf", f"fps={CFPS},scale={bw_}:{bh_},crop={bw_}:{int(.40 * bh_)}:0:{int(.25 * bh_)},format=gray", "-f", "rawvideo", "-"], capture_output=True, check=True).stdout
+    bhh = int(.40 * bh_); B = np.frombuffer(braw, np.uint8)[:(len(braw) // (bw_ * bhh)) * bw_ * bhh].reshape(-1, bhh, bw_).astype(float)
+    band = [float((b[:(bhh // 8) * 8, :(bw_ // 8) * 8].reshape(bhh // 8, 8, bw_ // 8, 8).std(axis=(1, 3)) < 6).mean()) for b in B]
+    runlen, worst = 0, 0
+    for v in band:
+        runlen = runlen + 1 if v > 0.85 else 0; worst = max(worst, runlen)
+    chk("no blank middle: y25-65% never > 85% flat backdrop for > 1 s", worst <= CFPS,
+        f"worst flat run {worst / CFPS:.1f}s, max flat {max(band) * 100:.0f}%, median {sorted(band)[len(band) // 2] * 100:.0f}%")
+    tr = json.load(open(ep.p("thumbs", "thumb_report.json"))) if os.path.exists(ep.p("thumbs", "thumb_report.json")) else []
+    vert = [r for r in tr if r["size"] == "1080x1920"]
+    chk("thumbnail: whole Cyto + cup inside, >= 40 px margin, headline off his face (HARD_RULES 3b)",
+        bool(vert) and all(r["cyto_margin_px"] >= 40 and not r["headline_over_face"] and r["cyto_frac_width"] <= 0.78 for r in vert),
+        "; ".join(f"{r['id']} margin {r['cyto_margin_px']}px width {r['cyto_frac_width'] * 100:.0f}% headline_over_face={r['headline_over_face']}" for r in vert))
     chk("captions >= 60 px (readable on a phone)", True, "74 px, white + ink stroke")
     chk("sources card >= 34 px", plan["scenes"][-1].get("cardSize", 46) >= 34)
     # canon + rig tests, meta checker

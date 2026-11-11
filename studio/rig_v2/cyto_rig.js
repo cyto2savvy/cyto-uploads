@@ -21,28 +21,33 @@ function schedule(tl){ // deterministic blink + gaze-saccade schedule
  return {blinks,sacc};
 }
 function beatAt(tl,t){let b=null;for(const k of tl.beats||[])if(k.t<=t)b=k;return b;}
+function beatPair(tl,t){let p=null,b=null;for(const k of tl.beats||[]){if(k.t<=t){p=b;b=k;}}return [p,b];}
 function mouthAt(tl,t,rest){
  for(const w of tl.words||[]) if(t>=w.start&&t<=w.end){const k=Math.floor((t-w.start)/.085);return ['small','wide','o','small','wide','small'][k%6];}
  return rest;
 }
 function state(t,tl){
- const sc=tl._sched||(tl._sched=schedule(tl)), b=beatAt(tl,t)||{emotion:'chill'}, E=EMO[b.emotion]||EMO.chill;
+ const sc=tl._sched||(tl._sched=schedule(tl)); const [bp,b0]=beatPair(tl,t); const b=b0||{emotion:'chill',t:0};
+ const E=EMO[b.emotion]||EMO.chill, Ep=EMO[(bp||{}).emotion]||E;
+ // pose BLENDS across a beat (0.28 s): tilt used to snap up to 9 deg in one frame, which read as a pop at every cut
+ const u=ease(clamp((t-(b.t||0))/.28,0,1)), lerp=(a,c)=>a+(c-a)*u;
  // gaze
  let gx=0,gy=0; const s=[...sc.sacc].reverse().find(k=>k.t<=t)||sc.sacc[0]; const prev=sc.sacc[Math.max(0,sc.sacc.indexOf(s)-1)]||s;
  const a=ease(clamp((t-s.t)/.12,0,1)); gx=prev.x+(s.x-prev.x)*a; gy=prev.y+(s.y-prev.y)*a;
- const tg=b.gaze||E.gaze; if(tg&&t-b.t<2.2){gx=tg[0];gy=tg[1];}   // beats can pin the gaze (reaction)
+ const tg=b.gaze||E.gaze; if(tg&&t-b.t<2.2){gx=lerp(gx,tg[0]);gy=lerp(gy,tg[1]);}   // beats can pin the gaze (reaction), eased in
  // blink (110 ms down, 110 ms up)
  let blink=0; for(const bt of sc.blinks){const d=t-bt; if(d>=0&&d<.22) blink=d<.11?d/.11:1-(d-.11)/.11;}
  // brow pops on reaction onset
  const since=t-(b.t||0); const pop=since<.25?Math.sin(since/.25*Math.PI)*.5:0;
- return {expr:E.expr,gx,gy,blink,brow:E.brow+pop,mouth:mouthAt(tl,t,E.rest),
-  tilt:E.tilt+Math.sin(t*2*Math.PI*.45)*1.4, bob:Math.sin(t*2*Math.PI*.9)*6,
+ return {expr:u<.5?Ep.expr:E.expr,gx,gy,blink,brow:lerp(Ep.brow,E.brow)+pop,mouth:mouthAt(tl,t,u<.5?Ep.rest:E.rest),
+  tilt:lerp(Ep.tilt,E.tilt)+Math.sin(t*2*Math.PI*.45)*1.4, bob:Math.sin(t*2*Math.PI*.9)*6,
   cupDy:Math.sin(t*2*Math.PI*.7+1)*5, cupRot:Math.sin(t*2*Math.PI*.55)*2.5};
 }
 function frameSvg(t,tl,size=1080){
  const st=state(t,tl); C.setExpr(st.expr); C.reset();
  Object.assign(G,{gx:st.gx,gy:st.gy,blink:st.blink,brow:st.brow,mouth:st.mouth,cupDy:st.cupDy,cupRot:st.cupRot,steam:true});
  const body=cyto(tl.fit||'none');
- return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="-550 -550 1100 1100">${defs}<g transform="translate(0,${st.bob.toFixed(1)}) rotate(${st.tilt.toFixed(2)})">${body}</g></svg>`;
+ // overflow:visible — the held cup + steam reach x -579 / y -570, outside the -550 viewBox (Utsha: "cup clipped"). Geometry is unchanged.
+ return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="-550 -550 1100 1100" style="overflow:visible">${defs}<g transform="translate(0,${st.bob.toFixed(1)}) rotate(${st.tilt.toFixed(2)})">${body}</g></svg>`;
 }
 module.exports={state,frameSvg,EMO};
