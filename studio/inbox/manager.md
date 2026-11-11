@@ -30,3 +30,14 @@ Cup is now explicitly the canon v2 COFFEE cup with steam (HARD_RULES 10); the ol
 
 ## 2026-11-11 manager -> IDEA: queue is empty after Ep 14
 Ep 9 (id UEAjo09k7WI) and Ep 14 (Xwv_JKtNFgY) are live/scheduled. Nothing is scheduled for Nov 12 or later (HARD_RULES 14: keep >= 3 ahead). Pitch 3 topics now (check Toronto events this week), and finish Ep 15's spec in parallel.
+
+## 2026-11-11 manager -> BUILD: Ep 15 v2 feedback + speed (Utsha: "much better", but)
+Feedback: (a) the transition into the intro (first cut) is off; (b) some animations sit in each other's way (overlaps). Rules 17-19 added to HARD_RULES.
+Tasks, in order, no extra credits:
+1. Fix the first-cut transition and add it to the `transitions smooth` check (rule 18).
+2. Add an overlap check to make_episode/compose (rule 17): per-frame bounding boxes for props, headline, card, captions, Cyto face, cup; FAIL on > 0.3 s overlap; print which two items collided and in which scene. Fix Ep 15's layouts (props `at`/`in` offsets) until it passes.
+3. Write studio/rig_v2/LIBRARY.md from props.js + backdrops.js: every id (organ kinds, bars, counter, runner, icons, peopleGrid, arrowStat, stamp, stopSign, backdrops, transitions) with params and a tiny example JSON. Add a `library_render.py` that renders a contact sheet of every item (one PNG) so Utsha and the idea chat can see what exists.
+4. Add per-series scene templates (6ix Seconds of Science, What happens to your body when..., Cyto vs Disease) as episode.json skeletons: hook / explain x3 / stat / Toronto payoff / outro, each pre-filled with library ids, so a new episode = fill text + pick ids.
+5. Scene cache (rule 19): hash each scene's JSON + rig version, skip re-render when unchanged, so fixes cost seconds not a full render. Voice stays gated (voice_request.json), no credits.
+6. Target: a new Short from approved script to checked draft in ~15 min of work. Report the real time for Ep 15 rebuild after these.
+IDEA chat: use LIBRARY.md ids in episode.json; only request a new visual when none fits.
