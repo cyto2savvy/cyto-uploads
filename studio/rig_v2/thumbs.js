@@ -23,13 +23,14 @@ function html(sp, fit, W, H) {
   const portrait = H > W, pad = portrait ? 1 : 0.62;
   const hero = sp.hero_svg || HERO[sp.hero] || HERO.heart, glow = sp.glow || '#ff5a4d';
   const tl = { fps: 30, duration: 1, fit, seed: 7, words: [], beats: [{ t: 0, emotion: sp.emotion || 'shock', gaze: sp.gaze || [-.7, -.4] }] };
-  const csz = portrait ? 980 : 700, cyto = frameSvg(0.1, tl, csz);
+  const csz = Math.round((portrait ? 980 : 700) * (sp.cscale || 1)), cyto = frameSvg(0.1, tl, csz);
   const hot = (sp.hot || []).map(s => s.toUpperCase());
   const hl = sp.headline.map(l => `<div>${l.split(' ').map(w => `<span style="color:${hot.includes(w.toUpperCase()) ? GOLD : '#fff'}">${w}</span>`).join(' ')}</div>`).join('');
   const mx = Math.max(...sp.headline.map(l => l.length)), avail = portrait ? 940 : 560, hs = Math.round(Math.min(portrait ? 170 : 108, Math.max(60, avail / (mx * 0.7))));
   const L = portrait
     ? { pill: 'left:60px;top:225px', hl: 'left:70px;top:300px;width:940px;text-align:center;white-space:nowrap', hero: 'left:640px;top:900px', cy: 'left:-40px;top:940px' }
     : { pill: 'left:50px;top:34px', hl: 'left:44px;top:96px;width:560px;text-align:left;white-space:nowrap', hero: 'left:210px;top:410px', cy: 'left:600px;top:-10px' };
+  if (sp.cscale && portrait) L.cy = `left:${sp.cx != null ? sp.cx : 0}px;top:${sp.cy != null ? sp.cy : 900}px`;
   const hsz = portrait ? 460 : 300;
   return `<body style="margin:0"><div style="position:relative;width:${W}px;height:${H}px;overflow:hidden;background:radial-gradient(circle at ${portrait ? '60% 45%' : '30% 70%'},${sp.bg2 || '#15284a'},${sp.bg1 || '#0a1330'} 75%)">
 ${photoHtml(sp)}<div style="position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at ${portrait ? '60% 45%' : '30% 70%'},rgba(255,255,255,.06) 0 6deg,transparent 6deg 18deg)"></div>
