@@ -21,7 +21,7 @@ Clean and clinical: prostate health and what studies on ejaculation frequency an
 | 1 | lab / zoom | 29 STUDIES 315K MEN | card "29 STUDIES" = the pooled review @review; counter 315K MEN @315 |
 | 2 | lake (least recently used) / membrane | LIVE FROM THE 6IX | none (catchphrase is clean) |
 | 3 | plain / whip | 17% LOWER ODDS | bars 100 vs 83 = relative odds, less vs more often @frequency; arrow "-17%" @17 |
-| 4 | hospital (dim 0.5) / zoom | WHAT IT CAN'T SAY | card "LONG-TERM, YEARS OF HABITS" @long-term; stamp "NOT 1 MONTH" @month; stamp "LINKED, NOT PROVEN" @Linked |
+| 4 | hospital (dim 0.5) / zoom | WHAT IT CAN'T SAY | card "LONG-TERM, YEARS OF HABITS" @long-term; stamp "NOT 1 MONTH" @month; stamp "LINKED" @Linked; stamp "NOT PROVEN" @proven |
 | 5 | streetcar / doors | 50+ ? BOOK THE CHECKUP | stamp "50+" @Fifty; TTC stop sign "CHECKUP" @Hop; 3 checks "BOOK IT" @book |
 | 6 | snow / membrane | SYMPTOMS? SEE A DOCTOR | none (outro is clean); sources card + "Not medical advice" |
 

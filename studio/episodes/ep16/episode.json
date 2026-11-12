@@ -247,17 +247,30 @@
     },
     {
      "t": "stamp",
-     "text": "LINKED,\nNOT PROVEN",
+     "text": "LINKED",
      "rot": -5,
      "color": "#ffc83a",
      "at": [
       540,
-      0.5
+      0.3
      ],
-     "fill": 0.5,
+     "fill": 0.34,
      "anchor": "Linked",
-     "shows": "observational link, not proof",
+     "shows": "an observational link",
      "plate": "#16254f"
+    },
+    {
+     "t": "stamp",
+     "text": "NOT PROVEN",
+     "rot": 4,
+     "plate": true,
+     "at": [
+      540,
+      0.74
+     ],
+     "fill": 0.34,
+     "anchor": "proven",
+     "shows": "a link is not proof of cause"
     }
    ],
    "dim": 0.5
