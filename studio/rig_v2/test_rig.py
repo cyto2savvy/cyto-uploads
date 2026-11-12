@@ -47,4 +47,14 @@ try:
     dark=lambda f: (f[...,3]>0)
     check("no frame has a stray huge jump (smooth)", max(np.abs(fr[i+1][...,3]-fr[i][...,3]).mean() for i in range(14))<25)
 finally: shutil.rmtree(tmp,ignore_errors=True)
+# --- props added Nov 12 (Ep 16): prostate diagram, exit timing (HARD_RULES 21), stamp plate, no ambient layers
+pj=json.loads(node("const {propHtml}=require('./props.js');const b=require('./backdrops.js');const st={top:420,bottom:915};"
+ "const o=propHtml({t:'organ',kind:'prostate',label:'PROSTATE',at:[540,.5],fill:.9,in:0},1,'s0',0,1,st);"
+ "const a=propHtml({t:'stamp',text:'X',at:[540,.5],in:0,out:2},1.9,'s0',0,1,st),g=propHtml({t:'stamp',text:'X',at:[540,.5],in:0,out:2},2.3,'s0',0,1,st);"
+ "const pl=propHtml({t:'stamp',text:'X',plate:true,at:[540,.5],in:0},1,'s0',0,1,st);"
+ "console.log(JSON.stringify({org:o.visible&&o.html.includes('PROSTATE')&&!/finger/i.test(o.html),a:a.visible,g:g.visible,plate:(pl.html.match(/<rect/g)||[]).length,plain:b.bgLayers('plain').length,rings:/stroke=\"#7fe3d3\"/.test(b.bgLayers('plain').map(l=>l.s).join(''))}))"))
+check("prostate organ kind renders with its label chip", pj["org"])
+check("a prop with `out` is on screen before it and gone 0.25 s after (rule 21)", pj["a"] and not pj["g"])
+check("stamp `plate` draws a backing plate", pj["plate"]>=3)
+check("plain backdrop has no decorative rings (rule 21)", pj["plain"]==1 and not pj["rings"])
 print(f"\n{sum(R)}/{len(R)} passed"); sys.exit(0 if all(R) else 1)

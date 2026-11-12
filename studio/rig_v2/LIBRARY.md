@@ -23,7 +23,8 @@ it to props.js/backdrops.js **and to this file plus library.png the same day**, 
 | `headline` / `card` | text, `\n` for a line break. headline + card ≤ 8 words for the whole scene. |
 | `hot` | words in the headline painted gold. |
 | `instant` | `true` on scene 0 only: the headline is fully on screen at frame 1 (hook-first). |
-| `props` | ≥ 2 entries (§2). |
+| `props` | 0+ entries (§2). From Ep 16 every prop needs `shows` + `anchor` (HARD_RULES 21); catchphrase and outro scenes have none. |
+| `dim` | optional 0..1 navy wash over the backdrop so props/headline read on a busy one (hospital, subway). |
 
 ### Every prop takes these
 | key | meaning |
@@ -32,7 +33,11 @@ it to props.js/backdrops.js **and to this file plus library.png the same day**, 
 | `at` | `[x px, y as 0..1 of the prop stage]`. The stage is the band between the headline/card and Cyto's head. |
 | `fill` | share of the stage **height** this prop takes. Hero ≈ 0.6–0.9, mid ≈ 0.3–0.5, accent row ≈ 0.15–0.26. Props scale **up** to this. |
 | `scale` | optional extra multiplier on top of `fill`. |
-| `in` | seconds into the scene when it pops in. Negative = already on screen at the cut. |
+| `shows` | REQUIRED: one line saying what the prop illustrates ("about 17 percent lower odds"). |
+| `anchor` | REQUIRED: the spoken word (in that scene's script) the prop appears on. make_episode turns it into `in`, and into `out` = end of that sentence + 1.5 s. |
+| `lead` | optional, ≤ 1.0 s: arrive this long before the anchor word (e.g. the hook's first prop at frame 1). |
+| `hold` | optional, ≤ 1.5 s: leave sooner after the sentence (use it to clear the stage for the next hero prop). |
+| `in` | set by make_episode from `anchor` (Ep 16+). Only hand-written in pre-Ep 16 episodes. |
 
 **Placing props so they don't collide** (HARD_RULES 17 fails the build on > 0.3 s of overlap): stack them down the stage,
 `at[1]` ≈ `fill/2`, then `fill1 + gap + fill2/2`, etc. Two props side by side need their widths to fit 70–1010 px.
@@ -47,14 +52,14 @@ A scene's first prop should be readable within ~0.2 s of the cut — a grid with
 
 | id | what it is | parameters |
 |---|---|---|
-| `organ` | tube-drawn organ with a label chip, pulses | `kind`: `colon` \| `lungs`; `label` |
+| `organ` | drawn organ with a label chip, pulses | `kind`: `colon` \| `lungs` \| `prostate` (Ep 16: bladder + gold gland diagram); `label` |
 | `bars` | bars that grow with counting values | `values`: `[80,74]`; `labels`: `["EXERCISE","PAMPHLETS"]`; `unit` (default `%`). Tallest bar goes gold. |
 | `counter` | number rolling up over a crowd of dots that fills in | `to`; `suffix` (e.g. `M`); `decimals`; `label`; `dur` (default 1.3) |
 | `arrowStat` | big arrow that draws on, number in a gold stamp at the head | `dir`: `down` \| `up`; `label` |
 | `icons` | row/grid of glyphs popping in one after another | `glyph`: `person` \| `organ` \| `shoe` \| `cell` \| `check`; `n`; `cols`; `spread` (seconds to place them all) or `step`; `label`; `hi` (first N go gold) |
 | `peopleGrid` | crowd of person icons filling in | `n`; `cols`; `hi`; `label`; `spread` |
 | `card` | titled white card with a tick grid that fills | `title`; `ticks`; `cols`; `foot`; `dur` |
-| `stamp` | rubber stamp that slams in and settles | `text` (`\n` ok); `color` (default red); `rot` |
+| `stamp` | rubber stamp that slams in and settles | `text` (`\n` ok); `color` (default red); `rot`; `plate` (`true` = white, or a colour: backing plate so it reads on a busy backdrop) |
 | `shoe` | running shoe with motion lines | — |
 | `runner` | cut-out jogger, limbs cycling | `color` (default gold — deliberately not Cyto's teal) |
 | `stopSign` | TTC-style stop sign on a pole | `title`; `text` |
@@ -110,10 +115,22 @@ Every cut is 0.35–0.5 s, eases in and out, and keeps moving (HARD_RULES 8, 18)
 
 | check | rule |
 |---|---|
-| `scene props rendered` | ≥ 2 props drawn and on screen in every scene |
+| `every declared prop was drawn` | each prop in episode.json shows up in the render |
+| `no floaters` | a prop is on screen only from its anchor word to its sentence end + 1.5 s; catchphrase + outro have none |
+| `variety vs last 3 episodes` | rule 20, see §6 |
 | `a new thing moves in every <= 2 s` | gaps between prop arrivals |
-| `no blank middle` | y 25–65 % is never > 85 % flat backdrop for > 1 s |
+| `no blank middle` | while a prop is up, y 25–65 % is never > 85 % flat backdrop for > 1 s |
 | `no overlaps` | nothing covers anything else for > 0.3 s |
 | `transitions smooth` | every cut including the first: no stall, no pop, Cyto's pose blends |
 | `layout` | all text inside x 60–940, y 200–1480, nothing overlapping |
 | `cup + Cyto fully inside the frame` | ≥ 40 px margin on the whole rig including the cup and steam |
+
+---
+
+## 6. Variety (HARD_RULES 20) and tags
+
+- Tags + scene roles per item: `rig_v2/library_tags.json`. Last use per item: `rig_v2/library_usage.json` (rewritten by make_episode at package time and by `suggest_scenes.py --usage`; never edit by hand).
+- Pick scenes: `python3 studio/suggest_scenes.py --for=epNN <topic tags>` prints 3 backdrop + prop sets per role (hook, explain, stat, limits, payoff, clean), topic fit first, then least recently used, none a combo from the 3 episodes before epNN.
+- make_episode fails the episode before any credits are spent if: more than half the scenes repeat a backdrop+prop combo from the last 3 episodes, the backdrop order equals the previous episode's, there is no new or least-recently-used item, or a prop is reused with identical params.
+- Vary reused items: `at`, `fill`, counts (`n`, `ticks`, `cols`), `color`/`plate`, `rot`, labels, `dur`/`spread`.
+- Ep 16 added: organ kind `prostate`, stamp `plate`, scene `dim`, prop `hold`/`lead`. Removed: decorative rings on `plain`, snow particles on non-snow backdrops (rule 21).

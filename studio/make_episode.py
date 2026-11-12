@@ -52,6 +52,89 @@ def overlap_verdict(lay):
     return (not o_list), ("; ".join(f"{o['pair']} in {o['scene']} for {o['dur']}s @{o['t0']}s" for o in o_list[:6])
                           or "nothing covers anything else")
 
+RULE21_FROM = 16   # HARD_RULES 20/21 apply from Ep 16 (Ep 15 was already scheduled; Ep 17 is cleaned separately)
+def norm_w(w): return re.sub(r"[^a-z0-9%]", "", str(w).lower())
+def clean_scenes(E):
+    """Scenes that carry NO props (rule 21): the catchphrase scene(s) and the outro (last scene)."""
+    c = {len(E["scenes"]) - 1}
+    for l in E["script"]:
+        if "ya boy cyto" in l.get("say", "").lower() and isinstance(l.get("scene"), int): c.add(l["scene"])
+    return c
+def item_id(p):
+    if isinstance(p, str): return p
+    return p["t"] + (":" + str(p.get("kind") or p.get("glyph")) if (p.get("kind") or p.get("glyph")) else "")
+def scene_combo(s): return s.get("bg", "") + "|" + "+".join(sorted({item_id(p) for p in s.get("props", [])}))
+def prop_sig(p):
+    return json.dumps({k: v for k, v in p.items() if k not in ("in", "out", "shows", "anchor", "lead", "_t")}, sort_keys=True) if isinstance(p, dict) else p
+def usage_of(E):
+    S = E.get("scenes", [])
+    return dict(publish_at=E.get("publish_at", ""), backdrops=[s.get("bg") for s in S], transitions=[s.get("transition", "") for s in S[1:]],
+                props=sorted({item_id(p) for s in S for p in s.get("props", [])}), combos=[scene_combo(s) for s in S],
+                sigs=sorted({prop_sig(p) for s in S for p in s.get("props", []) if isinstance(p, dict)}))
+def all_usage(studio=STUDIO):
+    """Every rig_v2 episode's library usage, read from the episode.json files (the source of truth)."""
+    out = {}; root = os.path.join(studio, "episodes")
+    for d in sorted(os.listdir(root)):
+        f = os.path.join(root, d, "episode.json")
+        if re.fullmatch(r"ep\d+", d) and os.path.exists(f):
+            try: out[d] = usage_of(json.load(open(f)))
+            except Exception: pass
+    return out
+def write_usage(studio=STUDIO):
+    U = all_usage(studio); order = sorted(U, key=lambda k: U[k]["publish_at"]); last = {}
+    for k in order:
+        for it in set(U[k]["backdrops"]) | set(U[k]["props"]) | {t for t in U[k]["transitions"] if t}: last[it] = k
+    json.dump(dict(_note="written by make_episode.py (package) and suggest_scenes.py from episodes/*/episode.json; do not edit by hand",
+                   order=order, last_used=dict(sorted(last.items())), episodes={k: {a: b for a, b in U[k].items() if a != "sigs"} for k in order}),
+              open(os.path.join(studio, "rig_v2", "library_usage.json"), "w"), indent=1)
+    return U
+def variety_verdict(name, E, U):
+    """HARD_RULES 20. U = usage of the other episodes. Compared with the 3 episodes published just before this one."""
+    me = usage_of(E); prev = sorted((k for k in U if k != name and U[k]["publish_at"] < me["publish_at"]), key=lambda k: U[k]["publish_at"])
+    last3 = prev[-3:]; bad = []
+    if not last3: return True, "no earlier rig_v2 episodes to compare"
+    seen = {c for k in last3 for c in U[k]["combos"]}; rpt = [c for c in me["combos"] if c in seen and not c.endswith("|")]
+    if len(rpt) > len(me["combos"]) / 2: bad.append(f"{len(rpt)}/{len(me['combos'])} scenes repeat a backdrop+prop combo")
+    if me["backdrops"] == U[last3[-1]]["backdrops"]: bad.append(f"same backdrop order as {last3[-1]}")
+    for k in last3:
+        if me["backdrops"] == U[k]["backdrops"] and me["transitions"] == U[k]["transitions"]: bad.append(f"backdrops+transitions cloned from {k}")
+    used3 = {i for k in last3 for i in set(U[k]["backdrops"]) | set(U[k]["props"])}
+    fresh = sorted((set(me["backdrops"]) | set(me["props"])) - used3)
+    if not fresh: bad.append("no least-recently-used or new library item")
+    same = sorted({s for k in last3 for s in U[k].get("sigs", [])} & set(me["sigs"]))
+    if same: bad.append(f"{len(same)} prop(s) reused with identical params (vary position/scale/count/colour)")
+    return (not bad), ("; ".join(bad) if bad else f"vs {', '.join(last3)}: {len(rpt)}/{len(me['combos'])} repeated combos, fresh items: {', '.join(fresh)}")
+def floater_errors(E):
+    """HARD_RULES 21 at spec level: every prop shows something said in its scene; clean scenes have none."""
+    errs = []; clean = clean_scenes(E)
+    said = {}
+    for l in E["script"]:
+        if isinstance(l.get("scene"), int): said.setdefault(l["scene"], []).extend(norm_w(w) for w in l.get("say", "").split())
+    for i, s in enumerate(E["scenes"]):
+        P = s.get("props", [])
+        if i in clean:
+            if P: errs.append(f"scenes[{i}] is a catchphrase/outro scene: no props allowed (HARD_RULES 21)")
+            continue
+        for j, p in enumerate(P):
+            if not isinstance(p, dict) or not p.get("shows") or not p.get("anchor"): errs.append(f"scenes[{i}].props[{j}] needs 'shows' and 'anchor' (the spoken word it appears on, HARD_RULES 21)"); continue
+            if norm_w(p["anchor"]) not in said.get(i, []): errs.append(f"scenes[{i}].props[{j}] anchor '{p['anchor']}' is not a word said in that scene")
+            if p.get("lead", 0) > 1.0: errs.append(f"scenes[{i}].props[{j}] lead > 1.0 s (a prop may not arrive long before its word)")
+    return errs
+def floater_verdict(plan, lay):
+    """HARD_RULES 21 on the RENDER: nothing on screen outside [anchor - lead, sentence end + 1.5 s]; clean scenes stay clean."""
+    bad = []; S = {s["id"]: s for s in plan["scenes"]}
+    for c in lay.get("census", []):
+        sc = S.get(c["s"]);
+        if not sc: continue
+        lt = c["t"] - sc["start"]
+        for pid in c.get("ids", []):
+            m_ = re.search(r"(\d+)$", pid); p = sc.get("props", [])[int(m_.group(1))] if m_ and int(m_.group(1)) < len(sc.get("props", [])) else None
+            if sc.get("clean") or p is None: bad.append(f"{pid} in clean scene {c['s']}@{c['t']}s"); continue
+            if p.get("sent_end") is not None and lt > p["sent_end"] + 1.5 + 0.12: bad.append(f"{pid} still up {lt - p['sent_end']:.1f}s after its sentence")
+            if lt < p.get("in", 0) - 0.12: bad.append(f"{pid} before its word")
+    bad = list(dict.fromkeys(bad))
+    return (not bad), ("; ".join(bad[:5]) if bad else "every prop sits inside its sentence window; catchphrase + outro clean")
+
 def validate(E):
     errs, warns = [], []
     def need(k, t=None):
@@ -92,10 +175,12 @@ def validate(E):
         elif not any(w in subj for w in title_words): errs.append(f"thumbnails[{i}].bg_subject '{subj}' names no topic word from the title (add topic_words to episode.json if the title is indirect)")
         if re.search(r"skyline|cn tower|downtown", subj) and not E.get("city_topic"): errs.append(f"thumbnails[{i}] generic Toronto skyline background is banned unless the topic is the city (city_topic:true)")
     for i, s in enumerate(SC):
-        if len(s.get("props", [])) < 2: errs.append(f"scenes[{i}] needs >= 2 'props' (drawn visuals, HARD_RULES 5)")
+        if E.get("ep", 0) < RULE21_FROM and len(s.get("props", [])) < 2: errs.append(f"scenes[{i}] needs >= 2 'props' (drawn visuals, HARD_RULES 5)")
         wc = len((s.get("headline") or "").split()) + len((s.get("card") or "").split())
         if wc > 8: errs.append(f"scenes[{i}] has {wc} words of text (max 8, HARD_RULES 5)")
         if i and s.get("bg") == SC[i - 1].get("bg"): errs.append(f"scenes[{i}] reuses the previous backdrop '{s.get('bg')}' (HARD_RULES 6)")
+    if E.get("ep", 0) >= RULE21_FROM: errs += floater_errors(E)
+    if E.get("ep", 0) >= RULE21_FROM and E.get("health", True) and not re.search(r"see (a|your) doctor|talk to (a|your) doctor", E["description"].lower()): warns.append("health topic: no 'see a doctor about symptoms' line in the description")
     if E.get("stronger") not in {t.get("id") for t in T}: errs.append("'stronger' must name one thumbnail id (say which is stronger)")
     for i, s in enumerate(E["sources"]):
         if not (s.get("short") and s.get("full")): errs.append(f"sources[{i}] needs 'short' and 'full' (full has the doi/PubMed link)")
@@ -110,7 +195,8 @@ def validate(E):
 
 def credit_estimate(E):
     tts = " ".join(l.get("tts") or l["say"] for l in E["script"]); ch = len(tts)
-    return dict(chars=ch, credits_per_take=ch, takes=2, total=ch * 2, plan="ElevenLabs Starter 30,000/mo (renews Dec 2); Ep 9's 40 s read cost ~636/take",
+    takes = int(E.get("voice", {}).get("takes", 2))
+    return dict(chars=ch, credits_per_take=ch, takes=takes, total=ch * takes, plan="ElevenLabs Starter 30,000/mo (renews Dec 2); Ep 9's 40 s read cost ~636/take",
                 scribe_words="0 credits", sfx="~17 credits each if any are generated", vidiq="not used (1 credit left until Nov 30)")
 
 # ------------------------------------------------------------------ 2. voice
@@ -118,11 +204,11 @@ def voice(ep, E, force_scribe=False):
     raw = ep.p("raw.mp3"); os.makedirs(ep.dir, exist_ok=True)
     tts = [l.get("tts") or l["say"] for l in E["script"]]
     if not os.path.exists(raw):
-        req = dict(connector="ElevenLabs creative_generate_speech", voice_id=VOICE_ID, model_id=MODEL, text=" ".join(tts), lines=tts, takes=2,
+        req = dict(connector="ElevenLabs creative_generate_speech", voice_id=VOICE_ID, model_id=MODEL, text=" ".join(tts), lines=tts, takes=credit_estimate(E)["takes"],
                    estimate=credit_estimate(E), then=["poll creative_get_flow_run_status", "add `name url` to audio/list.txt + push (fetch-audio workflow) OR Utsha drops the mp3", f"save as {raw}"],
                    rules=["call estimate_only first", "never re-call a generation to retry (double charge)", "spell for the ear in tts only; say keeps the real word"])
         json.dump(req, open(ep.p("voice_request.json"), "w"), indent=1)
-        raise Stop(f"VOICE: no {raw}. Wrote voice_request.json (~{req['estimate']['total']} credits for 2 takes). The chat runs the ElevenLabs call (only after gate 1 is approved), then save the mp3 there and re-run.")
+        raise Stop(f"VOICE: no {raw}. Wrote voice_request.json (~{req['estimate']['total']} credits for {req['estimate']['takes']} take(s)). The chat runs the ElevenLabs call (only after gate 1 is approved), then save the mp3 there and re-run.")
     sc = ep.p("words_scribe.json")
     if not os.path.exists(sc) and force_scribe:
         json.dump(dict(connector="ElevenLabs creative_transcribe_audio (eleven_scribe_v1)", how="creative_add_flow_asset_node(generation_id) -> connect_from", save_as=sc,
@@ -171,6 +257,17 @@ def make_plan(ep, E, tm):
             sc["card"] = (sc.get("card") or "") + (("\n" if sc.get("card") else "") + "Sources: " + extra if extra else ""); sc["cardSize"] = 40
             if E.get("health", True) and "medical advice" not in sc["card"].lower(): sc["card"] += "\nNot medical advice"
         if i == 0: sc["instant"] = True
+        if E.get("ep", 0) >= RULE21_FROM:
+            sc["clean"] = i in clean_scenes(E); W_ = [w for w in tm["words"] if S[w["line"]]["scene"] == i]; props = []
+            for p in s.get("props", []):
+                p = dict(p); k0 = next((k for k, w in enumerate(W_) if norm_w(w["w"]) == norm_w(p.get("anchor", ""))), None)
+                if k0 is not None:
+                    k1 = next((k for k in range(k0, len(W_)) if re.search(r"[.!?\u2026]$", W_[k]["w"]) or k == len(W_) - 1 or W_[k + 1]["line"] != W_[k]["line"]), len(W_) - 1)
+                    p["in"] = round(max(0.0, W_[k0]["t0"] - sc["start"] - 0.1 - p.get("lead", 0)), 3); p["sent_end"] = round(W_[k1]["t1"] - sc["start"], 3)
+                    out = p["sent_end"] + min(1.5, p.get("hold", 1.5)) - 0.25   # fade (0.25 s) finishes at sentence end + hold (max 1.5 s)
+                    if out < sc["end"] - sc["start"] - 0.2: p["out"] = round(max(out, p["in"] + 0.6), 3)
+                props.append(p)
+            sc["props"] = props
         scenes.append(sc)
     beats = []
     for li, l in enumerate(S):
@@ -299,7 +396,14 @@ def checks(ep, E, plan):
     chk("Cyto >= 55% of frame width (HARD_RULES 11)", body >= 0.55, f"{body * 100:.0f}%")
     need = 2 * len(plan["scenes"]); conc = lay.get("props_concurrent_min", {}); gapd = lay.get("new_element_gap_s", {})
     thin = [k_ for k_, v in conc.items() if v < 2]; slow = [f"{k_} {v}s" for k_, v in gapd.items() if v > 2.0]
-    chk("scene props rendered (HARD_RULES 5)", lay.get("props_rendered", 0) >= need and not thin,
+    if E.get("ep", 0) >= RULE21_FROM:
+        decl = {sc["id"]: len(sc.get("props", [])) for sc in plan["scenes"]}; got = lay.get("props_by_scene", {})
+        miss = [f"{k_} {got.get(k_, 0)}/{v}" for k_, v in decl.items() if got.get(k_, 0) < v]
+        chk("every declared prop was drawn (HARD_RULES 12)", not miss, ", ".join(miss) or f"{sum(decl.values())} props across {sum(1 for v in decl.values() if v)} scenes; clean scenes: {[k_ for k_, v in decl.items() if not v]}")
+        chk("no floaters (HARD_RULES 21)", *floater_verdict(plan, lay))
+        chk("variety vs last 3 episodes (HARD_RULES 20)", *variety_verdict(ep.name, E, all_usage(os.path.dirname(os.path.dirname(ep.src)))))
+    else:
+      chk("scene props rendered (HARD_RULES 5)", lay.get("props_rendered", 0) >= need and not thin,
         f"{lay.get('props_rendered', 0)}/{need} drawn; min concurrent per scene {json.dumps(conc)}" + (f"; THIN {thin}" if thin else ""))
     chk("a new thing moves in every <= 2 s (HARD_RULES 5)", not slow, ", ".join(slow) or f"max gap {max(gapd.values()) if gapd else 0}s")
     # HARD_RULES 5: the middle band (y 25-65%) is never > 85% flat backdrop for more than 1 s
@@ -307,10 +411,14 @@ def checks(ep, E, plan):
     braw = subprocess.run(["ffmpeg", "-v", "error", "-i", vid, "-vf", f"fps={CFPS},scale={bw_}:{bh_},crop={bw_}:{int(.40 * bh_)}:0:{int(.25 * bh_)},format=gray", "-f", "rawvideo", "-"], capture_output=True, check=True).stdout
     bhh = int(.40 * bh_); B = np.frombuffer(braw, np.uint8)[:(len(braw) // (bw_ * bhh)) * bw_ * bhh].reshape(-1, bhh, bw_).astype(float)
     band = [float((b[:(bhh // 8) * 8, :(bw_ // 8) * 8].reshape(bhh // 8, 8, bw_ // 8, 8).std(axis=(1, 3)) < 6).mean()) for b in B]
+    def prop_up(t):
+        if E.get("ep", 0) < RULE21_FROM: return True
+        sc = next((s for s in plan["scenes"] if s["start"] <= t < s["end"]), None)
+        return bool(sc) and any(p.get("in", 0) + 0.5 <= t - sc["start"] <= (p["out"] if p.get("out") is not None else 1e9) for p in sc.get("props", []))
     runlen, worst = 0, 0
-    for v in band:
-        runlen = runlen + 1 if v > 0.85 else 0; worst = max(worst, runlen)
-    chk("no blank middle: y25-65% never > 85% flat backdrop for > 1 s", worst <= CFPS,
+    for fi, v in enumerate(band):
+        runlen = runlen + 1 if (v > 0.85 and prop_up(fi / CFPS)) else 0; worst = max(worst, runlen)
+    chk("no blank middle: y25-65% never > 85% flat backdrop for > 1 s" + (" while a prop is up" if E.get("ep", 0) >= RULE21_FROM else ""), worst <= CFPS,
         f"worst flat run {worst / CFPS:.1f}s, max flat {max(band) * 100:.0f}%, median {sorted(band)[len(band) // 2] * 100:.0f}%")
     tr = json.load(open(ep.p("thumbs", "thumb_report.json"))) if os.path.exists(ep.p("thumbs", "thumb_report.json")) else []
     vert = [r for r in tr if r["size"] == "1080x1920"]
@@ -338,6 +446,7 @@ def package(ep, E, plan):
                 video_file=f"ep{ep.n:02d}/cyto-ep{ep.n:02d}-{E.get('slug', 'episode')}.mp4", outfit=E.get("outfit_note", E.get("fit", "hoodie")),
                 thumbnail_note=f"Upload {E['stronger']} (stronger); add the other in Test & Compare.", test=E.get("test", ""))
     json.dump(meta, open(ep.p("meta.json"), "w"), indent=1, ensure_ascii=False)
+    write_usage(os.path.dirname(os.path.dirname(ep.src)))   # HARD_RULES 20: rig_v2/library_usage.json
     r = subprocess.run([sys.executable, os.path.join(PIPE, "check_meta.py"), ep.p("meta.json")], capture_output=True, text=True); say(r.stdout.strip().splitlines()[-1] if r.stdout.strip() else r.stderr[-200:])
     dst = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(ep.src))), f"ep{ep.n:02d}"); os.makedirs(dst, exist_ok=True)  # <repo>/epNN, relative to --studio
     shutil.copy(ep.p("video.mp4"), os.path.join(dst, os.path.basename(meta["video_file"])))
@@ -372,15 +481,18 @@ def main(argv=None):
         for w in warns: say("WARN ", w)
         for e in errs: say("ERROR", e)
         if errs: raise Stop(f"episode.json has {len(errs)} error(s): fix them (idea chat) and re-run")
+        if E.get("ep", 0) >= RULE21_FROM:
+            okv, notev = variety_verdict(ep.name, E, all_usage(a.studio)); say(("PASS " if okv else "FAIL ") + "variety vs last 3 episodes: " + notev)
+            if not okv: raise Stop("HARD_RULES 20: pick different scenes (python3 studio/suggest_scenes.py <tags>)")
         est = credit_estimate(E)
-        say(f"VALID. words {sum(len(l['say'].split()) for l in E['script'])}, voice estimate ~{est['credits_per_take']} credits/take x2 = {est['total']} ({est['plan']})")
+        say(f"VALID. words {sum(len(l['say'].split()) for l in E['script'])}, voice estimate ~{est['credits_per_take']} credits/take x{est['takes']} = {est['total']} ({est['plan']})")
         if a.dry_run: say("DRY RUN: would run ->", " > ".join(w for w in want if w != 'validate'), "| gate 1 approved:", bool(st.get("approved_plan")), "| gate 2 approved:", bool(st.get("approved_final"))); return 0
         if a.ok == "plan": ep.save(approved_plan=True); say("GATE 1 recorded: plan + credit estimate approved"); st = ep.state()
         if a.ok == "final":
             if not os.path.exists(ep.p("report.json")): raise Stop("gate 2 needs a finished build (run to the end first)")
             ep.save(approved_final=True); say("GATE 2 recorded: final package approved"); st = ep.state()
         if any(w in want for w in ("voice", "build", "thumbs", "checks", "package")) and not st.get("approved_plan"):
-            raise Stop(f"GATE 1 (plan OK): show Utsha the script/scene plan and the voice estimate (~{est['total']} credits, 2 takes), then run: make_episode.py {a.ep} --ok plan")
+            raise Stop(f"GATE 1 (plan OK): show Utsha the script/scene plan and the voice estimate (~{est['total']} credits, {est['takes']} take(s)), then run: make_episode.py {a.ep} --ok plan")
         plan = None
         if "voice" in want: voice(ep, E, a.force_scribe); say("voice ok:", ep.p("timing.json"))
         if "build" in want: plan = build(ep, E); say("video ok:", ep.p("video.mp4"))

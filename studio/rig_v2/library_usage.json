@@ -1,0 +1,175 @@
+{
+ "_note": "written by make_episode.py (package) and suggest_scenes.py from episodes/*/episode.json; do not edit by hand",
+ "order": [
+  "ep15",
+  "ep17",
+  "ep16"
+ ],
+ "last_used": {
+  "arrowStat": "ep16",
+  "bars": "ep16",
+  "card": "ep16",
+  "counter": "ep16",
+  "doors": "ep16",
+  "hospital": "ep16",
+  "icons:cell": "ep17",
+  "icons:check": "ep16",
+  "icons:organ": "ep15",
+  "icons:person": "ep15",
+  "icons:shoe": "ep17",
+  "lab": "ep16",
+  "lake": "ep16",
+  "membrane": "ep16",
+  "organ:colon": "ep15",
+  "organ:lungs": "ep17",
+  "organ:prostate": "ep16",
+  "peopleGrid": "ep17",
+  "plain": "ep16",
+  "runner": "ep17",
+  "shoe": "ep17",
+  "skyline": "ep15",
+  "snow": "ep16",
+  "stamp": "ep16",
+  "stopSign": "ep16",
+  "streetcar": "ep16",
+  "subway": "ep15",
+  "trail": "ep15",
+  "whip": "ep16",
+  "zoom": "ep16"
+ },
+ "episodes": {
+  "ep15": {
+   "publish_at": "2026-11-12T23:00:00Z",
+   "backdrops": [
+    "trail",
+    "hospital",
+    "skyline",
+    "lab",
+    "plain",
+    "streetcar",
+    "lab",
+    "subway",
+    "trail"
+   ],
+   "transitions": [
+    "whip",
+    "zoom",
+    "membrane",
+    "whip",
+    "zoom",
+    "membrane",
+    "doors",
+    "whip"
+   ],
+   "props": [
+    "arrowStat",
+    "bars",
+    "card",
+    "counter",
+    "icons:cell",
+    "icons:check",
+    "icons:organ",
+    "icons:person",
+    "icons:shoe",
+    "organ:colon",
+    "peopleGrid",
+    "runner",
+    "shoe",
+    "stamp",
+    "stopSign"
+   ],
+   "combos": [
+    "trail|arrowStat+icons:shoe+organ:colon+runner",
+    "hospital|icons:person+organ:colon+peopleGrid",
+    "skyline|icons:cell+runner+stamp",
+    "lab|card+organ:colon+peopleGrid",
+    "plain|bars+icons:check+stamp",
+    "streetcar|counter+icons:organ",
+    "lab|icons:person+organ:colon+stamp",
+    "subway|icons:shoe+shoe+stopSign",
+    "trail|icons:shoe+runner"
+   ]
+  },
+  "ep17": {
+   "publish_at": "2026-11-13T23:00:00Z",
+   "backdrops": [
+    "hospital",
+    "lab",
+    "hospital",
+    "lab",
+    "plain",
+    "streetcar",
+    "hospital"
+   ],
+   "transitions": [
+    "whip",
+    "membrane",
+    "whip",
+    "zoom",
+    "doors",
+    "whip"
+   ],
+   "props": [
+    "bars",
+    "card",
+    "icons:cell",
+    "icons:check",
+    "icons:shoe",
+    "organ:lungs",
+    "peopleGrid",
+    "runner",
+    "shoe",
+    "stamp",
+    "stopSign"
+   ],
+   "combos": [
+    "hospital|icons:cell+organ:lungs+stamp",
+    "lab|icons:cell+organ:lungs",
+    "hospital|card+icons:check",
+    "lab|bars+stamp",
+    "plain|peopleGrid+stamp",
+    "streetcar|icons:shoe+shoe+stopSign",
+    "hospital|icons:shoe+runner"
+   ]
+  },
+  "ep16": {
+   "publish_at": "2026-11-14T23:00:00Z",
+   "backdrops": [
+    "snow",
+    "lab",
+    "lake",
+    "plain",
+    "hospital",
+    "streetcar",
+    "snow"
+   ],
+   "transitions": [
+    "zoom",
+    "membrane",
+    "whip",
+    "zoom",
+    "doors",
+    "membrane"
+   ],
+   "props": [
+    "arrowStat",
+    "bars",
+    "card",
+    "counter",
+    "icons:check",
+    "organ:prostate",
+    "stamp",
+    "stopSign"
+   ],
+   "combos": [
+    "snow|card+organ:prostate",
+    "lab|card+counter",
+    "lake|",
+    "plain|arrowStat+bars",
+    "hospital|card+stamp",
+    "streetcar|icons:check+stamp+stopSign",
+    "snow|"
+   ]
+  }
+ }
+}

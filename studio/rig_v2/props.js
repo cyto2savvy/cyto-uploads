@@ -115,6 +115,14 @@ const PROPS = {
       `<path d="${d}" fill="none" stroke="${WHITE}" stroke-width="12" stroke-linecap="round" opacity=".35" transform="translate(-9,-11)"/>`;
     let body;
     if (kind === 'lungs') body = O('M-14 -120 L14 -120 L14 -30 L-14 -30Z', PINK, 9) + O('M-20 -70 Q-150 -40 -140 90 Q-134 160 -70 150 Q-20 142 -20 60Z', PINK, 9) + O('M20 -70 Q150 -40 140 90 Q134 160 70 150 Q20 142 20 60Z', PINK, 9);
+    else if (kind === 'prostate') {   // clinical diagram: bladder above, the gland (gold = the subject) below, urethra through it. Ep 16.
+      const pp = 1 + Math.sin(lt * 3.2) * .03;
+      body = O('M-96 -150 Q-128 -62 -70 -22 Q0 14 70 -22 Q128 -62 96 -150 Q0 -182 -96 -150Z', '#ffd9e3', 9) +
+        `<path d="M-58 -128 Q-78 -78 -50 -44" stroke="${WHITE}" stroke-width="12" fill="none" stroke-linecap="round" opacity=".55"/>` +
+        `<path d="M0 96 L0 150" stroke="${INK}" stroke-width="30" stroke-linecap="round"/><path d="M0 96 L0 150" stroke="${PINK}" stroke-width="14" stroke-linecap="round"/>` +
+        `<g transform="translate(0,52) scale(${pp.toFixed(3)})">` + sticker(O('M-74 -44 Q-104 6 -58 46 Q0 74 58 46 Q104 6 74 -44 Q0 -68 -74 -44Z', GOLD, 9)) +
+        `<path d="M-44 -26 Q-60 4 -36 26" stroke="${WHITE}" stroke-width="10" fill="none" stroke-linecap="round" opacity=".6"/><path d="M0 -40 L0 50" stroke="${INK}" stroke-width="7" stroke-linecap="round" stroke-dasharray="4 14"/></g>`;
+    }
     else body = tube('M-130 150 L-130 -40 Q-130 -118 -52 -118 L52 -118 Q130 -118 130 -40 L130 92 Q130 140 76 140 L40 140', PINK);
     return {
       svg: `<g transform="translate(${W / 2},${H / 2 - (p.label ? 24 : 0)}) scale(${pulse.toFixed(3)})">${body}</g>` +
@@ -131,6 +139,7 @@ const PROPS = {
     const rot = (p.rot == null ? -7 : p.rot) + Math.sin(lt * 1.6) * 1.2, col = p.color || RED;
     return {
       svg: `<g transform="translate(${W / 2},${H / 2}) rotate(${rot.toFixed(2)}) scale(${Math.max(.01, sc).toFixed(3)})">` +
+        (p.plate ? `<rect x="${-W / 2 + 4}" y="${-H / 2 + 2}" width="${W - 8}" height="${H - 4}" rx="24" fill="${p.plate === true ? WHITE : p.plate}" stroke="${INK}" stroke-width="8"/>` : '') +
         `<rect x="${-W / 2 + 10}" y="${-H / 2 + 8}" width="${W - 20}" height="${H - 16}" rx="20" fill="none" stroke="${col}" stroke-width="12"/>` +
         `<rect x="${-W / 2 + 24}" y="${-H / 2 + 20}" width="${W - 48}" height="${H - 40}" rx="12" fill="none" stroke="${col}" stroke-width="5" opacity=".7"/>` +
         lines.map((l, i) => txt(0, -H / 2 + 60 + i * 62, l, 46, col, 900, 'middle', 0)).join('') + `</g>`,
@@ -224,18 +233,19 @@ function propHtml(prop, lt, scId, i, n, stage) {
   if (!fn) return null;
   const r = fn(p, lt);
   const vis = clamp((lt - p.in) / 0.14, 0, 1), pop = backOut((lt - p.in) / 0.44);
-  if (vis <= 0) return { html: '', events: r.events.map(e => e), id: `${scId}:${p.t}${i}`, visible: false };
+  const OUT = 0.25, gone = p.out != null ? clamp((p.out + OUT - lt) / OUT, 0, 1) : 1;   // HARD_RULES 21: leaves <= 1.5 s after its sentence
+  if (vis <= 0 || gone <= 0) return { html: '', events: r.events.map(e => e), id: `${scId}:${p.t}${i}`, visible: false };
   // props FILL the stage (scale up, not just down): `fill` = share of the stage height this prop takes.
   const stageH = stage.bottom - stage.top;
   let auto = ((p.fill == null ? 0.5 : p.fill) * stageH) / r.h;
   if (r.w * auto > 900) auto = 900 / r.w;
-  const s = auto * (p.scale || 1) * (0.9 + 0.1 * pop);
+  const s = auto * (p.scale || 1) * (0.9 + 0.1 * pop) * (0.8 + 0.2 * gone);
   const hw = (r.w * s) / 2, hh = (r.h * s) / 2;
   const x = clamp(p.at[0], 70 + hw, 1010 - hw), y = clamp(stage.top + stageH * p.at[1], stage.top + hh, stage.bottom - hh);
   const dy = Math.sin(lt * 1.5 + i) * 5;
   return {
     id: `${scId}:${p.t}${i}`, visible: true, events: r.events,
-    html: `<div data-prop="${scId}:${p.t}${i}" style="position:absolute;left:${x.toFixed(1)}px;top:${(y + dy).toFixed(1)}px;width:${r.w}px;height:${r.h}px;margin-left:${(-r.w / 2).toFixed(1)}px;margin-top:${(-r.h / 2).toFixed(1)}px;transform:scale(${s.toFixed(4)});opacity:${vis.toFixed(2)};filter:drop-shadow(7px 10px 0 rgba(10,31,36,.38))">` +
+    html: `<div data-prop="${scId}:${p.t}${i}" style="position:absolute;left:${x.toFixed(1)}px;top:${(y + dy).toFixed(1)}px;width:${r.w}px;height:${r.h}px;margin-left:${(-r.w / 2).toFixed(1)}px;margin-top:${(-r.h / 2).toFixed(1)}px;transform:scale(${s.toFixed(4)});opacity:${(vis * gone).toFixed(2)};filter:drop-shadow(7px 10px 0 rgba(10,31,36,.38))">` +
       `<svg width="${r.w}" height="${r.h}" viewBox="0 0 ${r.w} ${r.h}" style="overflow:visible">${r.svg}</svg></div>`
   };
 }

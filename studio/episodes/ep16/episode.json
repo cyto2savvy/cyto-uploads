@@ -25,8 +25,8 @@
    "pause_after": 0.2
   },
   {
-   "say": "A giant study just checked 315 thousand men.",
-   "tts": "A giant study just checked three hundred fifteen thousand men.",
+   "say": "A giant review just pooled 29 studies, 315 thousand men.",
+   "tts": "A giant review just pooled twenty-nine studies, three hundred fifteen thousand men.",
    "scene": 1,
    "emotion": "think",
    "pause_after": 0.25
@@ -60,7 +60,7 @@
    "pause_after": 0.25
   },
   {
-   "say": "Not medical advice. Hot take on the challenge? Comment it, because",
+   "say": "Not medical advice. Got symptoms? See a doctor. Your take? Comment it, because",
    "scene": 6,
    "emotion": "think",
    "pause_after": 0.0
@@ -68,8 +68,9 @@
  ],
  "scenes": [
   {
-   "bg": "hospital",
+   "bg": "snow",
    "transition": "zoom",
+   "instant": true,
    "headline": "NO NUT NOVEMBER\nVS PROSTATE",
    "hot": [
     "PROSTATE"
@@ -77,122 +78,91 @@
    "card": "",
    "props": [
     {
-     "t": "stamp",
+     "t": "card",
+     "title": "NOVEMBER",
+     "ticks": 30,
+     "cols": 10,
+     "foot": "30 DAYS",
+     "dur": 0.9,
      "at": [
       540,
-      0.2
+      0.5
      ],
-     "fill": 0.24,
-     "in": 0.0,
-     "text": "NNN"
+     "fill": 0.8,
+     "anchor": "November",
+     "lead": 0.9,
+     "shows": "the month-long November challenge",
+     "hold": 0.3
     },
     {
-     "t": "icons",
+     "t": "organ",
+     "kind": "prostate",
+     "label": "PROSTATE",
      "at": [
       540,
-      0.55
+      0.5
      ],
-     "fill": 0.3,
-     "in": 0.3,
-     "glyph": "person",
-     "n": 6,
-     "cols": 6,
-     "spread": 1.6
-    },
-    {
-     "t": "icons",
-     "at": [
-      540,
-      0.8
-     ],
-     "fill": 0.22,
-     "in": 1.8,
-     "glyph": "check",
-     "n": 6,
-     "cols": 6,
-     "spread": 1.6
+     "fill": 0.96,
+     "anchor": "prostate",
+     "lead": 0.1,
+     "shows": "the prostate, the gland this episode is about"
     }
-   ],
-   "instant": true
+   ]
   },
   {
    "bg": "lab",
-   "transition": "whip",
-   "headline": "315K MEN\n29 STUDIES",
+   "transition": "zoom",
+   "headline": "29 STUDIES\n315K MEN",
    "hot": [
     "315K"
    ],
    "card": "",
    "props": [
     {
-     "t": "peopleGrid",
+     "t": "card",
+     "title": "29 STUDIES",
+     "ticks": 29,
+     "cols": 10,
+     "foot": "ONE BIG REVIEW",
+     "dur": 1.0,
      "at": [
       540,
-      0.34
+      0.27
      ],
-     "fill": 0.6,
-     "in": 0.0,
-     "n": 36,
-     "cols": 12,
-     "hi": 12,
-     "label": "29 STUDIES",
-     "spread": 2.2
+     "fill": 0.52,
+     "anchor": "review",
+     "shows": "the review that pooled 29 studies"
     },
     {
      "t": "counter",
-     "at": [
-      540,
-      0.82
-     ],
-     "fill": 0.3,
-     "in": 0.3,
      "to": 315,
      "suffix": "K",
      "decimals": 0,
      "label": "MEN",
-     "dur": 1.4
-    }
-   ]
-  },
-  {
-   "bg": "hospital",
-   "transition": "membrane",
-   "headline": "THE BIG\nCHECK",
-   "hot": [
-    "BIG"
-   ],
-   "card": "",
-   "props": [
-    {
-     "t": "card",
+     "dur": 1.1,
      "at": [
       540,
-      0.3
+      0.79
      ],
-     "fill": 0.58,
-     "in": 0.0,
-     "title": "BMC CANCER 2025",
-     "ticks": 36,
-     "cols": 12,
-     "foot": "315,193 MEN"
-    },
-    {
-     "t": "icons",
-     "at": [
-      760,
-      0.84
-     ],
-     "fill": 0.26,
-     "in": 0.3,
-     "glyph": "check",
-     "n": 6,
-     "cols": 6,
-     "spread": 1.8
+     "fill": 0.44,
+     "anchor": "315",
+     "lead": 0.2,
+     "shows": "315,193 men across those studies"
     }
    ]
   },
   {
-   "bg": "lab",
+   "bg": "lake",
+   "transition": "membrane",
+   "headline": "LIVE FROM\nTHE 6IX",
+   "hot": [
+    "6IX"
+   ],
+   "card": "",
+   "props": []
+  },
+  {
+   "bg": "plain",
    "transition": "whip",
    "headline": "17% LOWER\nODDS",
    "hot": [
@@ -202,12 +172,6 @@
    "props": [
     {
      "t": "bars",
-     "at": [
-      540,
-      0.56
-     ],
-     "fill": 0.74,
-     "in": 0.0,
      "values": [
       100,
       83
@@ -215,54 +179,88 @@
      "labels": [
       "LESS OFTEN",
       "MORE OFTEN"
-     ]
+     ],
+     "at": [
+      330,
+      0.5
+     ],
+     "fill": 0.7,
+     "anchor": "frequency",
+     "lead": 0.3,
+     "shows": "relative odds: higher vs lower ejaculation frequency (OR 0.83)"
     },
     {
-     "t": "stamp",
+     "t": "arrowStat",
+     "label": "-17%",
+     "dir": "down",
      "at": [
-      380,
-      0.06
+      815,
+      0.5
      ],
-     "fill": 0.16,
-     "in": 0.3,
-     "text": "-17%"
+     "fill": 0.8,
+     "anchor": "17",
+     "lead": 0.1,
+     "shows": "about 17 percent lower odds"
     }
    ]
   },
   {
-   "bg": "plain",
+   "bg": "hospital",
    "transition": "zoom",
-   "headline": "LINKED,\nNOT PROVEN",
+   "headline": "WHAT IT\nCAN'T SAY",
    "hot": [
-    "PROVEN"
+    "CAN'T"
    ],
    "card": "",
    "props": [
     {
-     "t": "counter",
+     "t": "card",
+     "title": "LONG-TERM",
+     "ticks": 24,
+     "cols": 12,
+     "foot": "YEARS OF HABITS",
+     "dur": 0.8,
      "at": [
       540,
       0.3
      ],
-     "fill": 0.54,
-     "in": 0.0,
-     "to": 17,
-     "suffix": "%",
-     "decimals": 0,
-     "label": "LOWER ODDS",
-     "dur": 1.2
+     "fill": 0.56,
+     "anchor": "long-term",
+     "lead": 0.3,
+     "shows": "the studies measured habits over years",
+     "hold": 0.25
     },
     {
      "t": "stamp",
+     "text": "NOT 1 MONTH",
+     "rot": -3,
      "at": [
       540,
-      0.8
+      0.82
      ],
-     "fill": 0.22,
-     "in": 0.4,
-     "text": "NOT 1 MONTH"
+     "fill": 0.3,
+     "anchor": "month",
+     "lead": 0.2,
+     "shows": "not a one-month challenge",
+     "plate": true,
+     "hold": 0.25
+    },
+    {
+     "t": "stamp",
+     "text": "LINKED,\nNOT PROVEN",
+     "rot": -5,
+     "color": "#ffc83a",
+     "at": [
+      540,
+      0.5
+     ],
+     "fill": 0.5,
+     "anchor": "Linked",
+     "shows": "observational link, not proof",
+     "plate": "#16254f"
     }
-   ]
+   ],
+   "dim": 0.5
   },
   {
    "bg": "streetcar",
@@ -274,80 +272,68 @@
    "card": "",
    "props": [
     {
-     "t": "stopSign",
+     "t": "stamp",
+     "text": "50+",
+     "rot": -8,
+     "color": "#ffc83a",
      "at": [
-      238,
-      0.52
+      300,
+      0.28
      ],
-     "fill": 0.86,
-     "in": 0.0,
-     "title": "TTC",
-     "text": "CHECKUP"
+     "fill": 0.26,
+     "anchor": "Fifty",
+     "shows": "men aged fifty plus",
+     "plate": "#16254f"
     },
     {
-     "t": "shoe",
+     "t": "stopSign",
+     "title": "TTC",
+     "text": "CHECKUP",
      "at": [
-      760,
-      0.36
+      800,
+      0.5
      ],
-     "fill": 0.38,
-     "in": 0.3
+     "fill": 0.96,
+     "anchor": "Hop",
+     "lead": 0.0,
+     "shows": "hop on the TTC to a checkup"
     },
     {
      "t": "icons",
+     "glyph": "check",
+     "n": 3,
+     "cols": 3,
+     "spread": 0.8,
+     "label": "BOOK IT",
      "at": [
-      760,
-      0.82
+      300,
+      0.76
      ],
-     "fill": 0.2,
-     "in": 1.6,
-     "glyph": "shoe",
-     "n": 4,
-     "cols": 4,
-     "spread": 1.2
+     "fill": 0.34,
+     "anchor": "book",
+     "shows": "book the checkup"
     }
    ]
   },
   {
-   "bg": "hospital",
-   "transition": "whip",
-   "headline": "YOUR TAKE\nON NNN?",
+   "bg": "snow",
+   "transition": "membrane",
+   "headline": "SYMPTOMS?\nSEE A DOCTOR",
    "hot": [
-    "TAKE"
+    "DOCTOR"
    ],
    "card": "",
-   "props": [
-    {
-     "t": "runner",
-     "at": [
-      245,
-      0.5
-     ],
-     "fill": 0.78,
-     "in": 0.0
-    },
-    {
-     "t": "icons",
-     "at": [
-      711,
-      0.3
-     ],
-     "fill": 0.26,
-     "in": 0.3,
-     "glyph": "shoe",
-     "n": 7,
-     "cols": 7,
-     "spread": 2.4
-    }
-   ]
+   "props": []
   }
  ],
  "keys": {
   "17": "#ffd23f",
   "315": "#ffd23f",
+  "29": "#ffd23f",
   "fam": "#4de0c8",
   "styll": "#4de0c8",
-  "TTC": "#ff5a5f"
+  "ttc": "#ff5a5f",
+  "doctor": "#ffd23f"
  },
  "thumbnails": [
   {
@@ -359,7 +345,7 @@
    "hot": [
     "PROSTATE?"
    ],
-   "hero": "phone",
+   "hero_svg": "<rect x=\"-150\" y=\"-160\" width=\"300\" height=\"320\" rx=\"30\" fill=\"#fff\" stroke=\"#0a1f24\" stroke-width=\"12\"/><path d=\"M-150 -70 V-130 Q-150 -160 -120 -160 H120 Q150 -160 150 -130 V-70Z\" fill=\"#c62828\" stroke=\"#0a1f24\" stroke-width=\"12\"/><text x=\"0\" y=\"-88\" text-anchor=\"middle\" font-family=\"Arial Black,Inter,Impact,sans-serif\" font-weight=\"900\" font-size=\"62\" fill=\"#fff\">NOV</text><text x=\"0\" y=\"95\" text-anchor=\"middle\" font-family=\"Arial Black,Inter,Impact,sans-serif\" font-weight=\"900\" font-size=\"170\" fill=\"#0a1f24\">30</text><rect x=\"-96\" y=\"-196\" width=\"26\" height=\"70\" rx=\"12\" fill=\"#9fb0c0\" stroke=\"#0a1f24\" stroke-width=\"9\"/><rect x=\"70\" y=\"-196\" width=\"26\" height=\"70\" rx=\"12\" fill=\"#9fb0c0\" stroke=\"#0a1f24\" stroke-width=\"9\"/>",
    "emotion": "shock",
    "gaze": [
     -0.5,
@@ -367,7 +353,8 @@
    ],
    "scene": "hospital",
    "sceneSeed": 5,
-   "bg_subject": "prostate checkup + Toronto hospital row",
+   "series": "CYTO VS DISEASE",
+   "bg_subject": "prostate checkup + University Ave hospital row (drawn canon scene)",
    "glow": "#ffc83a"
   },
   {
@@ -379,15 +366,16 @@
    "hot": [
     "-17%"
    ],
-   "hero": "phone",
-   "emotion": "shock",
+   "hero_svg": "<rect x=\"-140\" y=\"-170\" width=\"280\" height=\"350\" rx=\"26\" fill=\"#fff\" stroke=\"#0a1f24\" stroke-width=\"12\"/><rect x=\"-60\" y=\"-200\" width=\"120\" height=\"64\" rx=\"18\" fill=\"#9fb0c0\" stroke=\"#0a1f24\" stroke-width=\"10\"/><circle cx=\"-86\" cy=\"-70\" r=\"22\" fill=\"#3fd0bb\" stroke=\"#0a1f24\" stroke-width=\"8\"/><path d=\"M-96 -70 l8 9 l14 -17\" stroke=\"#0a1f24\" stroke-width=\"7\" fill=\"none\" stroke-linecap=\"round\"/><rect x=\"-44\" y=\"-82\" width=\"150\" height=\"24\" rx=\"10\" fill=\"#c3cedb\" stroke=\"#0a1f24\" stroke-width=\"6\"/><circle cx=\"-86\" cy=\"10\" r=\"22\" fill=\"#3fd0bb\" stroke=\"#0a1f24\" stroke-width=\"8\"/><path d=\"M-96 10 l8 9 l14 -17\" stroke=\"#0a1f24\" stroke-width=\"7\" fill=\"none\" stroke-linecap=\"round\"/><rect x=\"-44\" y=\"-2\" width=\"150\" height=\"24\" rx=\"10\" fill=\"#c3cedb\" stroke=\"#0a1f24\" stroke-width=\"6\"/><circle cx=\"-86\" cy=\"90\" r=\"22\" fill=\"#3fd0bb\" stroke=\"#0a1f24\" stroke-width=\"8\"/><path d=\"M-96 90 l8 9 l14 -17\" stroke=\"#0a1f24\" stroke-width=\"7\" fill=\"none\" stroke-linecap=\"round\"/><rect x=\"-44\" y=\"78\" width=\"150\" height=\"24\" rx=\"10\" fill=\"#c3cedb\" stroke=\"#0a1f24\" stroke-width=\"6\"/>",
+   "emotion": "think",
    "gaze": [
-    -0.5,
+    -0.4,
     -0.3
    ],
    "scene": "lab",
    "sceneSeed": 11,
-   "bg_subject": "prostate health + Bloor-Yonge subway platform",
+   "series": "CYTO VS DISEASE",
+   "bg_subject": "prostate study + Toronto research lab bench (drawn canon scene)",
    "glow": "#ff5a4d"
   }
  ],
@@ -398,7 +386,7 @@
    "full": "Raeisvandi A et al., Updated dose-response meta-analysis of sexual activity and prostate cancer risk, BMC Cancer 2025, PMID 41345847, https://doi.org/10.1186/s12885-025-15410-3 | Firsty NN et al., Preceding sexual behavior in younger years and prostate cancer occurrence, Asian Pac J Cancer Prev 2025, PMID 40952273, https://doi.org/10.31557/APJCP.2025.26.9.3193"
   }
  ],
- "description": "No Nut November vs your prostate: what does the science actually say? Cyto breaks it down from the 6ix.\n\nA 2025 meta-analysis pooled 29 studies (315,193 men). Higher ejaculation frequency was linked to lower prostate cancer risk (OR 0.83, 95% CI 0.77-0.90). Masturbation frequency alone was not significantly linked (OR 1.12, 95% CI 0.82-1.54), and most other sexual behaviours showed no significant link. A 2025 systematic review (10 studies) found the same pattern for intercourse (5-12+ times a month) but a possible risk increase with very frequent masturbation (2-7+ times a week) and more lifetime partners.\n\nThe catch: these are observational long-term habits, not a one-month challenge. Linked, not proven. Nothing here says a month of the challenge is harmful.\n\nSources (via PubMed):\nRaeisvandi et al., BMC Cancer 2025 - https://doi.org/10.1186/s12885-025-15410-3\nFirsty et al., Asian Pac J Cancer Prev 2025 - https://doi.org/10.31557/APJCP.2025.26.9.3193\n\nNot medical advice. Men over 50 (or with family history) can ask their doctor about prostate screening.\n\n#shorts #science #toronto #6ix #nonutnovember #nnn #prostate #movember",
+ "description": "No Nut November vs your prostate: what does the science actually say? Cyto breaks it down from the 6ix.\n\nA 2025 meta-analysis pooled 29 studies (315,193 men). Higher ejaculation frequency was linked to lower prostate cancer risk (OR 0.83, 95% CI 0.77-0.90). Masturbation frequency alone was not significantly linked (OR 1.12, 95% CI 0.82-1.54), and intercourse frequency, number of partners and age at first intercourse showed no significant link. A 2025 systematic review (10 studies) found lower risk with more frequent intercourse (5-12+ times a month) but a possible risk increase with very frequent masturbation (2-7+ times a week) and with more lifetime partners.\n\nThe limits: these are observational studies of long-term habits, not a one-month challenge. Linked, not proven. Nothing here says a month of the challenge is good or bad for you.\n\nSources (via PubMed):\nRaeisvandi et al., BMC Cancer 2025 - https://doi.org/10.1186/s12885-025-15410-3\nFirsty et al., Asian Pac J Cancer Prev 2025 - https://doi.org/10.31557/APJCP.2025.26.9.3193\n\nNot medical advice. Urinary symptoms that worry you (trouble peeing, blood in your urine)? See a doctor. Men over 50, or with a family history, can ask their doctor about prostate screening.",
  "tags": [
   "no nut november",
   "no nut november prostate cancer",
@@ -413,8 +401,16 @@
   "toronto",
   "cyto vs disease"
  ],
- "pinned_comment": "Hot take on No Nut November? Be honest 👇\n\nSources in the description: Raeisvandi, BMC Cancer 2025 (29 studies, 315K men) and Firsty, APJCP 2025. Linked, not proven.\nNot medical advice.",
+ "pinned_comment": "Your take on the challenge? 👇\n\nSources: BMC Cancer 2025 https://doi.org/10.1186/s12885-025-15410-3 | APJCP 2025 https://doi.org/10.31557/APJCP.2025.26.9.3193\nLinked, not proven. Not medical advice.",
  "related_video": "Ep 12: Movember (B2kle4wj4A8)",
  "playlist": "Cyto vs Disease",
- "outfit_note": "Toque + puffer (cold snap, Canon v2). Canon v2 paper coffee cup with steam in the mitten, whole cup in frame. Plan: studio/episodes/ep16/plan.md"
+ "outfit_note": "Toque + puffer (cold snap). Canon v2 paper coffee cup with steam in the mitten, whole cup in frame.",
+ "topic_words": [
+  "prostate",
+  "checkup"
+ ],
+ "voice": {
+  "takes": 1
+ },
+ "series": "Cyto vs Disease"
 }

@@ -73,10 +73,10 @@ function sceneComposite(sc, t, tl) {
   const lt = t - sc.start, dur = sc.end - sc.start, k = clamp(lt / dur, 0, 1);
   const L = layers(sc.bg, sc.seed || 5);
   const bg = L.map(l => `<div style="position:absolute;inset:0;transform:translateX(${(-26 * k * l.d).toFixed(2)}px) scale(${(1 + 0.085 * k * l.d).toFixed(4)});transform-origin:50% 58%">${l.s}</div>`).join('');
-  const snow = (sc.snow === true || (sc.snow !== false && ['snow', 'skyline', 'streetcar', 'trail'].includes(sc.bg))) ? snowDots(t) : '';
+  const snow = (sc.snow === true || (sc.snow !== false && sc.bg === 'snow')) ? snowDots(t) : '';
   const st = sceneStage(sc);
   const props = (sc.props || []).map((p, i) => propHtml(p, lt, sc.id, i, (sc.props || []).length, st));
-  return `<div style="position:absolute;inset:0;overflow:hidden">${bg}${snow}${props.map(r => r ? r.html : '').join('')}` +
+  return `<div style="position:absolute;inset:0;overflow:hidden">${bg}${snow}${sc.dim ? `<div style="position:absolute;inset:0;background:rgba(10,19,48,${+sc.dim})"></div>` : ''}${props.map(r => r ? r.html : '').join('')}` +
     `${headlineHtml(sc, lt, dur, st.hy, hasNext)}${cardHtml(sc, lt, dur, st.cy, hasNext)}</div>`;
 }
 
@@ -256,7 +256,8 @@ async function renderSegment(pg, tl, chunks, i0, i1, outFile) {
   }
   const gaps = {};
   for (const sc of tl.scenes) {
-    const dur = sc.end - sc.start, ev = [0];
+    const P_ = sc.props || []; if (!P_.length) { gaps[sc.id] = 0; continue; }   // rule 21: clean scenes carry no props
+    const dur = Math.min(sc.end - sc.start, Math.max(...P_.map(p => (p && p.out != null) ? p.out : 1e9))), ev = [0];
     (sc.props || []).forEach((p, i) => { const q = normalize(p, i, (sc.props || []).length); const r = PROPS[q.t]; if (r) r(q, 0).events.forEach(e => ev.push(e)); });
     if (sc.card) ev.push(0.45);
     const u = [...new Set(ev.filter(e => e >= 0 && e <= dur).map(e => +e.toFixed(2)))].sort((a, b) => a - b);

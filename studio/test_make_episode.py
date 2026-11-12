@@ -54,4 +54,23 @@ def _cache_key_test():
     finally:
         os.path.exists(shim) and os.remove(shim)
 
+# ---- HARD_RULES 20 / 21 (from Ep 16)
+def _g16(**kw):
+    E = copy.deepcopy(G); E.update(ep=16, description="Test. Not medical advice. See a doctor.",
+        script=[dict(say="Big number fam.", scene=0), dict(say="Yo, it's ya boy Cyto.", scene=1), dict(say="Not medical advice.", scene=2)],
+        scenes=[dict(bg="snow", headline="HI", props=[dict(t="stamp", text="X", shows="the big number", anchor="number")]), dict(bg="lake", headline="YO", props=[]), dict(bg="snow", headline="BYE", props=[])])
+    E.update(kw); return E
+def _u(bgs, props=("stamp",), tr="whip", pub="2026-01-01"):
+    return M.usage_of(dict(publish_at=pub, scenes=[dict(bg=b, transition=tr, props=[dict(t=p, at=[1, .5]) for p in props]) for b in bgs]))
+T += [("r21: anchored prop + clean scenes pass", lambda: M.validate(_g16())[0] == []),
+ ("r21: prop without shows/anchor fails", lambda: any("shows" in e for e in M.validate(_g16(scenes=[dict(bg="snow", headline="HI", props=[dict(t="stamp")]), dict(bg="lake", headline="YO", props=[]), dict(bg="snow", headline="BYE", props=[])]))[0])),
+ ("r21: anchor must be a word said in the scene", lambda: any("not a word said" in e for e in M.validate(_g16(scenes=[dict(bg="snow", headline="HI", props=[dict(t="stamp", shows="x", anchor="banana")]), dict(bg="lake", headline="YO", props=[]), dict(bg="snow", headline="BYE", props=[])]))[0])),
+ ("r21: catchphrase/outro props fail", lambda: sum("no props allowed" in e for e in M.validate(_g16(scenes=[dict(bg="snow", headline="HI", props=[]), dict(bg="lake", headline="YO", props=[dict(t="runner", shows="x", anchor="yo")]), dict(bg="snow", headline="BYE", props=[dict(t="shoe", shows="x", anchor="not")])]))[0]) == 2),
+ ("r21 render: prop past sentence + 1.5 s fails", lambda: not M.floater_verdict(dict(scenes=[dict(id="s0", start=0, end=9, props=[dict(t="stamp", **{"in": 1.0}, sent_end=2.0)])]), dict(census=[dict(t=4.0, s="s0", ids=["s0:stamp0"])]))[0]),
+ ("r21 render: prop inside its window passes", lambda: M.floater_verdict(dict(scenes=[dict(id="s0", start=0, end=9, props=[dict(t="stamp", **{"in": 1.0}, sent_end=2.0)])]), dict(census=[dict(t=3.0, s="s0", ids=["s0:stamp0"])]))[0]),
+ ("r21 render: any prop in a clean scene fails", lambda: not M.floater_verdict(dict(scenes=[dict(id="s2", start=0, end=5, clean=True, props=[])]), dict(census=[dict(t=1.0, s="s2", ids=["s2:runner0"])]))[0]),
+ ("r20: clone of the previous episode fails", lambda: not M.variety_verdict("ep16", dict(publish_at="2026-02-01", scenes=[dict(bg=b, transition="whip", props=[dict(t="stamp", at=[1, .5])]) for b in ("lab", "plain")]), {"ep15": _u(("lab", "plain"))})[0]),
+ ("r20: fresh mix with a new item passes", lambda: M.variety_verdict("ep16", dict(publish_at="2026-02-01", scenes=[dict(bg=b, transition="zoom", props=[dict(t="card", at=[2, .4])]) for b in ("snow", "lake")]), {"ep15": _u(("lab", "plain"))})[0]),
+ ("r20: no new/least-recently-used item fails", lambda: any("least-recently-used" in x for x in [M.variety_verdict("ep16", dict(publish_at="2026-02-01", scenes=[dict(bg=b, transition="zoom", props=[dict(t="stamp", at=[9, .9])]) for b in ("plain", "lab")]), {"ep15": _u(("lab", "plain"))})[1]]))]
+
 bad = [n for n, f in T if not f()]; print(f"{len(T) - len(bad)}/{len(T)} passed", bad or ""); sys.exit(1 if bad else 0)

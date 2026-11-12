@@ -1,5 +1,5 @@
 {
- "_template": "6ix Seconds of Science skeleton. Fill: title, script[].say, each scene's headline/hot (<= 8 words of text per scene), thumbnails, sources, description, tags, pinned_comment, publish_at. Swap bg/props ids from studio/rig_v2/LIBRARY.md (picture: library.png). Keep >= 2 props per scene and no two backdrops in a row.",
+ "_template": "6ix Seconds of Science skeleton. Fill: title, script[].say, each scene's headline/hot (<= 8 words of text per scene), thumbnails, sources, description, tags, pinned_comment, publish_at. Swap bg/props ids from studio/rig_v2/LIBRARY.md (picture: library.png). HARD_RULES 21: every prop needs `shows` + `anchor` (a word said in that scene); catchphrase (scene 2) and outro (last) have NO props; zero props is fine. HARD_RULES 20: pick scenes with `python3 studio/suggest_scenes.py --for=epNN <tags>`, never copy the last episode. No two backdrops in a row.",
  "ep": "epNN",
  "series": "6ix Seconds of Science",
  "title": "TODO title (<= 60 chars)",
@@ -64,8 +64,9 @@
       0.5
      ],
      "fill": 0.84,
-     "in": -0.2,
-     "label": "-00%"
+     "label": "-00%",
+     "shows": "TODO what this shows",
+     "anchor": "TODO-word"
     },
     {
      "t": "organ",
@@ -74,9 +75,10 @@
       0.22
      ],
      "fill": 0.3,
-     "in": 0.3,
      "kind": "colon",
-     "label": "TODO"
+     "label": "TODO",
+     "shows": "TODO what this shows",
+     "anchor": "TODO-word"
     },
     {
      "t": "icons",
@@ -85,11 +87,12 @@
       0.93
      ],
      "fill": 0.14,
-     "in": 2.2,
      "glyph": "cell",
      "n": 5,
      "cols": 5,
-     "spread": 1.4
+     "spread": 1.4,
+     "shows": "TODO what this shows",
+     "anchor": "TODO-word"
     }
    ],
    "instant": true
@@ -110,11 +113,12 @@
       0.3
      ],
      "fill": 0.56,
-     "in": 0.0,
      "title": "TODO",
      "ticks": 24,
      "cols": 12,
-     "foot": "TODO"
+     "foot": "TODO",
+     "shows": "TODO what this shows",
+     "anchor": "TODO-word"
     },
     {
      "t": "organ",
@@ -123,9 +127,10 @@
       0.82
      ],
      "fill": 0.36,
-     "in": 0.3,
      "kind": "colon",
-     "label": "TODO"
+     "label": "TODO",
+     "shows": "TODO what this shows",
+     "anchor": "TODO-word"
     }
    ]
   },
@@ -137,32 +142,7 @@
     "SECOND"
    ],
    "card": "",
-   "props": [
-    {
-     "t": "peopleGrid",
-     "at": [
-      540,
-      0.34
-     ],
-     "fill": 0.6,
-     "in": 0.0,
-     "n": 36,
-     "cols": 12,
-     "hi": 9,
-     "label": "TODO",
-     "spread": 2.0
-    },
-    {
-     "t": "stamp",
-     "at": [
-      750,
-      0.86
-     ],
-     "fill": 0.2,
-     "in": 0.3,
-     "text": "TODO"
-    }
-   ]
+   "props": []
   },
   {
    "bg": "plain",
@@ -180,7 +160,6 @@
       0.54
      ],
      "fill": 0.72,
-     "in": 0.0,
      "values": [
       0,
       0
@@ -188,7 +167,9 @@
      "labels": [
       "TODO",
       "TODO"
-     ]
+     ],
+     "shows": "TODO what this shows",
+     "anchor": "TODO-word"
     },
     {
      "t": "icons",
@@ -197,11 +178,12 @@
       0.08
      ],
      "fill": 0.15,
-     "in": 0.3,
      "glyph": "check",
      "n": 5,
      "cols": 5,
-     "spread": 1.5
+     "spread": 1.5,
+     "shows": "TODO what this shows",
+     "anchor": "TODO-word"
     }
    ]
   },
@@ -221,11 +203,12 @@
       0.3
      ],
      "fill": 0.54,
-     "in": 0.0,
      "to": 0,
      "suffix": "M",
      "decimals": 2,
-     "label": "TODO"
+     "label": "TODO",
+     "shows": "TODO what this shows",
+     "anchor": "TODO-word"
     },
     {
      "t": "icons",
@@ -234,12 +217,13 @@
       0.8
      ],
      "fill": 0.38,
-     "in": 0.3,
      "glyph": "organ",
      "n": 13,
      "cols": 7,
      "label": "TODO",
-     "spread": 3.4
+     "spread": 3.4,
+     "shows": "TODO what this shows",
+     "anchor": "TODO-word"
     }
    ]
   },
@@ -259,31 +243,10 @@
       0.52
      ],
      "fill": 0.86,
-     "in": 0.0,
      "title": "TTC",
-     "text": "TODO"
-    },
-    {
-     "t": "shoe",
-     "at": [
-      760,
-      0.36
-     ],
-     "fill": 0.38,
-     "in": 0.3
-    },
-    {
-     "t": "icons",
-     "at": [
-      760,
-      0.82
-     ],
-     "fill": 0.2,
-     "in": 1.6,
-     "glyph": "shoe",
-     "n": 4,
-     "cols": 4,
-     "spread": 1.2
+     "text": "TODO",
+     "shows": "TODO what this shows",
+     "anchor": "TODO-word"
     }
    ]
   },
@@ -295,30 +258,7 @@
     "YOU"
    ],
    "card": "",
-   "props": [
-    {
-     "t": "runner",
-     "at": [
-      245,
-      0.5
-     ],
-     "fill": 0.78,
-     "in": 0.0
-    },
-    {
-     "t": "icons",
-     "at": [
-      711,
-      0.3
-     ],
-     "fill": 0.26,
-     "in": 0.3,
-     "glyph": "shoe",
-     "n": 7,
-     "cols": 7,
-     "spread": 2.4
-    }
-   ]
+   "props": []
   }
  ],
  "thumbnails": [

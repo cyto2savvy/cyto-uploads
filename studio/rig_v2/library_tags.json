@@ -1,0 +1,312 @@
+{
+ "_note": "Topic tags + scene roles for every library item (HARD_RULES 20). suggest_scenes.py reads this. Add a line here the day a new item is drawn.",
+ "backdrops": {
+  "trail": {
+   "tags": [
+    "exercise",
+    "outdoors",
+    "sport",
+    "morning"
+   ],
+   "roles": [
+    "hook",
+    "explain",
+    "payoff",
+    "clean"
+   ]
+  },
+  "hospital": {
+   "tags": [
+    "cancer",
+    "patients",
+    "diagnosis",
+    "checkup",
+    "disease"
+   ],
+   "roles": [
+    "hook",
+    "explain",
+    "limits",
+    "payoff"
+   ]
+  },
+  "lab": {
+   "tags": [
+    "study",
+    "research",
+    "mechanism",
+    "cancer"
+   ],
+   "roles": [
+    "explain",
+    "stat",
+    "limits"
+   ]
+  },
+  "subway": {
+   "tags": [
+    "toronto",
+    "commute",
+    "ttc"
+   ],
+   "roles": [
+    "payoff",
+    "clean"
+   ]
+  },
+  "streetcar": {
+   "tags": [
+    "toronto",
+    "city",
+    "night",
+    "ttc"
+   ],
+   "roles": [
+    "payoff",
+    "clean"
+   ]
+  },
+  "skyline": {
+   "tags": [
+    "city"
+   ],
+   "roles": [
+    "clean"
+   ]
+  },
+  "lake": {
+   "tags": [
+    "calm",
+    "sleep",
+    "night",
+    "toronto"
+   ],
+   "roles": [
+    "clean",
+    "limits",
+    "explain"
+   ]
+  },
+  "snow": {
+   "tags": [
+    "winter",
+    "cold",
+    "november",
+    "seasonal",
+    "holiday"
+   ],
+   "roles": [
+    "hook",
+    "clean",
+    "payoff"
+   ]
+  },
+  "plain": {
+   "tags": [
+    "stat"
+   ],
+   "roles": [
+    "stat",
+    "limits",
+    "hook"
+   ]
+  }
+ },
+ "props": {
+  "organ:colon": {
+   "tags": [
+    "gut",
+    "colon",
+    "cancer",
+    "food"
+   ],
+   "roles": [
+    "hook",
+    "explain"
+   ]
+  },
+  "organ:lungs": {
+   "tags": [
+    "lungs",
+    "smoking",
+    "breathing",
+    "cancer"
+   ],
+   "roles": [
+    "hook",
+    "explain"
+   ]
+  },
+  "organ:prostate": {
+   "tags": [
+    "prostate",
+    "men",
+    "cancer",
+    "checkup"
+   ],
+   "roles": [
+    "hook",
+    "explain"
+   ]
+  },
+  "bars": {
+   "tags": [
+    "compare",
+    "trial",
+    "stat"
+   ],
+   "roles": [
+    "stat"
+   ]
+  },
+  "counter": {
+   "tags": [
+    "count",
+    "people",
+    "stat"
+   ],
+   "roles": [
+    "stat",
+    "explain"
+   ]
+  },
+  "arrowStat": {
+   "tags": [
+    "change",
+    "risk",
+    "stat"
+   ],
+   "roles": [
+    "stat",
+    "hook"
+   ]
+  },
+  "peopleGrid": {
+   "tags": [
+    "people",
+    "patients",
+    "trial"
+   ],
+   "roles": [
+    "explain"
+   ]
+  },
+  "icons:person": {
+   "tags": [
+    "people"
+   ],
+   "roles": [
+    "explain"
+   ]
+  },
+  "icons:organ": {
+   "tags": [
+    "organs",
+    "cancer"
+   ],
+   "roles": [
+    "explain",
+    "stat"
+   ]
+  },
+  "icons:cell": {
+   "tags": [
+    "cells",
+    "immune"
+   ],
+   "roles": [
+    "explain"
+   ]
+  },
+  "icons:check": {
+   "tags": [
+    "checklist",
+    "steps"
+   ],
+   "roles": [
+    "explain",
+    "payoff",
+    "limits"
+   ]
+  },
+  "icons:shoe": {
+   "tags": [
+    "exercise",
+    "walking"
+   ],
+   "roles": [
+    "payoff"
+   ]
+  },
+  "card": {
+   "tags": [
+    "time",
+    "calendar",
+    "study",
+    "plan"
+   ],
+   "roles": [
+    "hook",
+    "explain",
+    "limits"
+   ]
+  },
+  "stamp": {
+   "tags": [
+    "caveat",
+    "label",
+    "verdict"
+   ],
+   "roles": [
+    "limits",
+    "hook",
+    "payoff"
+   ]
+  },
+  "shoe": {
+   "tags": [
+    "exercise",
+    "walking"
+   ],
+   "roles": [
+    "payoff"
+   ]
+  },
+  "runner": {
+   "tags": [
+    "exercise",
+    "sport"
+   ],
+   "roles": [
+    "hook",
+    "payoff"
+   ]
+  },
+  "stopSign": {
+   "tags": [
+    "toronto",
+    "ttc"
+   ],
+   "roles": [
+    "payoff"
+   ]
+  }
+ },
+ "transitions": {
+  "whip": [
+   "energy"
+  ],
+  "zoom": [
+   "detail",
+   "stat"
+  ],
+  "membrane": [
+   "body",
+   "inside"
+  ],
+  "doors": [
+   "ttc",
+   "payoff"
+  ]
+ }
+}

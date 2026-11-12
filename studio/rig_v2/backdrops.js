@@ -60,8 +60,7 @@ function bgLayers(kind, seed = 5) {
         `<g transform="translate(880,1240)"><rect x="-70" y="-168" width="140" height="168" rx="14" fill="#fff" stroke="${INK}" stroke-width="9"/><path d="M-70 -110 H70" stroke="${INK}" stroke-width="7"/><rect x="-44" y="-86" width="88" height="54" fill="#cfe6ff"/></g>`)
     }];
   if (kind === 'plain') return [
-    { d: .2, s: svg(`<rect width="${W}" height="${H}" fill="url(#sky)"/><circle cx="540" cy="760" r="640" fill="url(#glow)"/>`, C.defs) },
-    { d: .9, s: svg(`<g opacity=".5">${[0, 1, 2, 3, 4].map(i => `<circle cx="${120 + i * 210}" cy="${300 + (i % 2) * 1200}" r="${54 + (i % 3) * 22}" fill="none" stroke="#7fe3d3" stroke-width="9"/>`).join('')}</g>`) }];
+    { d: .2, s: svg(`<rect width="${W}" height="${H}" fill="url(#sky)"/><circle cx="540" cy="760" r="640" fill="url(#glow)"/>`, C.defs) } ];   // decorative rings removed (HARD_RULES 21: no ambient floaters)
   return [{ d: .2, s: svg(`<rect width="${W}" height="${H}" fill="url(#sky)"/>`, C.defs) },
   { d: .9, s: svg(C.extras(W, H, 1500, false, seed + 9).replace(/<rect y="[^"]*" width="[^"]*" height="[^"]*" fill="#0d1a40"\/>/, ''), C.defs) }];
 }
