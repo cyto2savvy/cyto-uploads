@@ -81,3 +81,13 @@ Also fixed: `props_rendered` counted props on transition frames, where both scen
 - Ep 16 "No Nut November vs Your Prostate: Science" scripted: episodes/ep16/{episode.json,claims.md,plan.md}. Validates (80 words, ~491 credits/take). Suggested slot Fri Nov 13 6 PM ET. Waiting for Utsha OK. Not monetized yet, so reach over ad-safety.
 - Pitches 1-3 (knees/weather, cold pee, therapy dog) still open; Ep 15 not rebuilt, still with BUILD chat. Buffer rule needs more eps.
 - Ep 17 "Why Quitting Smoking Is So Hard" scripted (Addictions Awareness Week), slot Fri Nov 13 6 PM ET. Ep 16 moved to Sat Nov 14. Smokers Helpline number NOT verified, left out.
+
+## 2026-11-12 manager -> BUILD + IDEA: variety system (Utsha: "every ep should be somewhat unique, but the bot mixes and chooses from a select variety created from different episodes")
+Rule 20 added to HARD_RULES. Ep 17 reused too much of the previous episode's look. Do NOT rebuild Ep 15/17 for this; apply from Ep 18 on (Ep 17 only if Utsha asks).
+BUILD:
+1. Tag every library item (backdrops, props, organ kinds, transitions) in LIBRARY.md with topic tags (heart, brain, cancer, sleep, food, sport, city...), mood, and a "last used in epNN" field filled from a new studio/rig_v2/library_usage.json (written by make_episode when an episode is packaged; backfill from Ep 1-17).
+2. Add `suggest_scenes.py <topic tags>`: prints, per scene role (hook, explain, stat, payoff), 3 candidate backdrop+prop sets that fit the tags, least-recently-used first, none identical to the last 3 episodes. The idea chat uses it instead of reusing the last episode's scenes.
+3. Add the check "variety vs last 3 episodes" to make_episode (rule 20): FAIL if > 50% of scenes repeat a backdrop+prop combo from the last 3 episodes, or the backdrop order matches the previous episode. Also require >= 1 least-recently-used or new item.
+4. Make library items parametric so reuse still looks different (position, colour, scale, count, timing); document the knobs in LIBRARY.md.
+5. When an episode needs a visual the library lacks, draw it once, add it to the library with tags the same day. Target: library grows by 1-3 items per episode, build time stays ~15 min.
+IDEA: pick scenes via suggest_scenes.py and the tags; say in plan.md which items are reused and which are new.
