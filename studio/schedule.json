@@ -217,6 +217,22 @@
    "publish_time": "18:00 ET",
    "publish_at": "2026-11-29T23:00:00Z",
    "format": "long"
+  },
+  {
+   "ep": 15,
+   "publish_date": "2026-11-12",
+   "publish_time": "18:00",
+   "series": "6ixty Seconds of Science",
+   "topic": "Exercise and cancer risk",
+   "outfit": "toque + hoodie",
+   "status": "scheduled",
+   "title": "Can Exercise Actually Lower Your Cancer Risk?",
+   "youtube_id": "5VERZ-Bh0jI",
+   "tiktok_queued": false,
+   "sources": [
+    "Courneya NEJM 2025",
+    "Moore JAMA Intern Med 2016"
+   ]
   }
  ],
  "backlog": [
