@@ -1,0 +1,412 @@
+{
+ "ep": 17,
+ "slug": "quitting-smoking-hard",
+ "title": "Why Quitting Smoking Is So Hard (And What Helps)",
+ "health": true,
+ "fit": "puffer",
+ "seed": 3,
+ "publish_at": "2026-11-13T23:00:00Z",
+ "keyword": "why is quitting smoking so hard",
+ "hashtags": [
+  "#quitsmoking",
+  "#lungcancer",
+  "#addiction"
+ ],
+ "script": [
+  {
+   "say": "Quitting smoking is hard, and your brain's the reason, fam.",
+   "scene": 0,
+   "emotion": "shock",
+   "gaze": [
+    0,
+    0
+   ],
+   "pause_after": 0.2
+  },
+  {
+   "say": "Nicotine locks onto brain receptors, so cravings hit louder than a TTC delay.",
+   "tts": "Nicotine locks onto brain receptors, so cravings hit louder than a T-T-C delay.",
+   "scene": 1,
+   "emotion": "think",
+   "pause_after": 0.25
+  },
+  {
+   "say": "Yo, it's ya boy Cyto, live from the 6ix... inside your body.",
+   "tts": "Yo, it's ya boy Cyto, live from the six… inside your body.",
+   "scene": 2,
+   "emotion": "chill",
+   "pause_after": 0.3
+  },
+  {
+   "say": "In an Italian lung screening program, half of smokers who chose the plant-based medicine cytisine quit. Counselling alone: 8 percent.",
+   "tts": "In an Italian lung screening program, half of smokers who chose the plant-based medicine cytisine quit. Counselling alone: eight percent.",
+   "scene": 3,
+   "emotion": "happy",
+   "pause_after": 0.25
+  },
+  {
+   "say": "But they picked it themselves, so it's not a fair race. Linked, not proven, styll.",
+   "tts": "But they picked it themselves, so it's not a fair race. Linked, not proven, stiiill.",
+   "scene": 4,
+   "emotion": "think",
+   "pause_after": 0.3
+  },
+  {
+   "say": "So ask your doctor or pharmacist what fits. Every try counts, bro.",
+   "scene": 5,
+   "emotion": "happy",
+   "pause_after": 0.25
+  },
+  {
+   "say": "Not medical advice. Know someone quitting? Send this, because",
+   "scene": 6,
+   "emotion": "think",
+   "pause_after": 0.0
+  }
+ ],
+ "scenes": [
+  {
+   "bg": "hospital",
+   "transition": "zoom",
+   "headline": "QUITTING SMOKING\nIS HARD",
+   "hot": [
+    "HARD"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "organ",
+     "at": [
+      270,
+      0.46
+     ],
+     "fill": 0.7,
+     "in": -0.2,
+     "kind": "lungs",
+     "label": "LUNGS"
+    },
+    {
+     "t": "stamp",
+     "at": [
+      780,
+      0.26
+     ],
+     "fill": 0.24,
+     "in": 0.3,
+     "text": "QUIT?"
+    },
+    {
+     "t": "icons",
+     "at": [
+      756,
+      0.78
+     ],
+     "fill": 0.22,
+     "in": 1.8,
+     "glyph": "cell",
+     "n": 6,
+     "cols": 6,
+     "spread": 1.6
+    }
+   ],
+   "instant": true
+  },
+  {
+   "bg": "lab",
+   "transition": "whip",
+   "headline": "CRAVINGS\nARE LOUD",
+   "hot": [
+    "LOUD"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "organ",
+     "at": [
+      540,
+      0.34
+     ],
+     "fill": 0.6,
+     "in": 0.0,
+     "kind": "lungs",
+     "label": "RECEPTORS"
+    },
+    {
+     "t": "icons",
+     "at": [
+      540,
+      0.82
+     ],
+     "fill": 0.3,
+     "in": 0.4,
+     "glyph": "cell",
+     "n": 8,
+     "cols": 8,
+     "spread": 2.0
+    }
+   ]
+  },
+  {
+   "bg": "hospital",
+   "transition": "membrane",
+   "headline": "THE BIG\nCHECK",
+   "hot": [
+    "BIG"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "card",
+     "at": [
+      540,
+      0.3
+     ],
+     "fill": 0.58,
+     "in": 0.0,
+     "title": "RISP 2026",
+     "ticks": 36,
+     "cols": 12,
+     "foot": "7,805 SMOKERS"
+    },
+    {
+     "t": "icons",
+     "at": [
+      760,
+      0.84
+     ],
+     "fill": 0.26,
+     "in": 0.3,
+     "glyph": "check",
+     "n": 6,
+     "cols": 6,
+     "spread": 1.8
+    }
+   ]
+  },
+  {
+   "bg": "lab",
+   "transition": "whip",
+   "headline": "50% VS 8%\nQUIT",
+   "hot": [
+    "50%"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "bars",
+     "at": [
+      540,
+      0.56
+     ],
+     "fill": 0.74,
+     "in": 0.0,
+     "values": [
+      50.1,
+      8.1
+     ],
+     "labels": [
+      "CYTISINE",
+      "COUNSELLING"
+     ]
+    },
+    {
+     "t": "stamp",
+     "at": [
+      380,
+      0.06
+     ],
+     "fill": 0.16,
+     "in": 0.3,
+     "text": "QUIT RATE"
+    }
+   ]
+  },
+  {
+   "bg": "plain",
+   "transition": "zoom",
+   "headline": "THEY PICKED IT\nNOT RANDOM",
+   "hot": [
+    "PICKED"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "peopleGrid",
+     "at": [
+      540,
+      0.34
+     ],
+     "fill": 0.6,
+     "in": 0.0,
+     "n": 36,
+     "cols": 12,
+     "hi": 12,
+     "label": "CHOSE IT",
+     "spread": 2.2
+    },
+    {
+     "t": "stamp",
+     "at": [
+      540,
+      0.8
+     ],
+     "fill": 0.22,
+     "in": 0.4,
+     "text": "NOT PROVEN"
+    }
+   ]
+  },
+  {
+   "bg": "streetcar",
+   "transition": "doors",
+   "headline": "ASK YOUR\nPHARMACIST",
+   "hot": [
+    "PHARMACIST"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "stopSign",
+     "at": [
+      238,
+      0.52
+     ],
+     "fill": 0.86,
+     "in": 0.0,
+     "title": "TTC",
+     "text": "ASK FOR HELP"
+    },
+    {
+     "t": "shoe",
+     "at": [
+      760,
+      0.36
+     ],
+     "fill": 0.38,
+     "in": 0.3
+    },
+    {
+     "t": "icons",
+     "at": [
+      760,
+      0.82
+     ],
+     "fill": 0.2,
+     "in": 1.6,
+     "glyph": "shoe",
+     "n": 4,
+     "cols": 4,
+     "spread": 1.2
+    }
+   ]
+  },
+  {
+   "bg": "hospital",
+   "transition": "whip",
+   "headline": "KNOW SOMEONE\nQUITTING?",
+   "hot": [
+    "QUITTING"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "runner",
+     "at": [
+      245,
+      0.5
+     ],
+     "fill": 0.78,
+     "in": 0.0
+    },
+    {
+     "t": "icons",
+     "at": [
+      711,
+      0.3
+     ],
+     "fill": 0.26,
+     "in": 0.3,
+     "glyph": "shoe",
+     "n": 7,
+     "cols": 7,
+     "spread": 2.4
+    }
+   ]
+  }
+ ],
+ "keys": {
+  "50": "#ffd23f",
+  "8": "#ffd23f",
+  "fam": "#4de0c8",
+  "styll": "#4de0c8",
+  "TTC": "#ff5a5f"
+ },
+ "thumbnails": [
+  {
+   "id": "A",
+   "headline": [
+    "QUITTING",
+    "IS HARD"
+   ],
+   "hot": [
+    "HARD"
+   ],
+   "hero": "brain",
+   "emotion": "shock",
+   "gaze": [
+    -0.5,
+    -0.4
+   ],
+   "scene": "hospital",
+   "sceneSeed": 5,
+   "bg_subject": "quitting smoking + Toronto hospital row",
+   "glow": "#ffc83a"
+  },
+  {
+   "id": "B",
+   "headline": [
+    "50% VS 8%",
+    "QUIT"
+   ],
+   "hot": [
+    "50%"
+   ],
+   "hero": "brain",
+   "emotion": "shock",
+   "gaze": [
+    -0.5,
+    -0.3
+   ],
+   "scene": "lab",
+   "sceneSeed": 11,
+   "bg_subject": "quit smoking + Bloor-Yonge subway platform",
+   "glow": "#ff5a4d"
+  }
+ ],
+ "stronger": "B",
+ "sources": [
+  {
+   "short": "Cani 2026 · Diana 2026",
+   "full": "Cani M et al., Cytisine for Smoking Cessation Within a Lung Cancer Screening Program (Italian RISP trial), J Thorac Oncol 2026, PMID 42409118, https://doi.org/10.1016/j.jtho.2026.104071 | Diana C et al., Cytisine for Smoking Cessation: A Narrative Review of an Underutilized Therapy, Pulm Ther 2026, PMID 43000578, https://doi.org/10.1007/s41030-026-00402-w"
+  }
+ ],
+ "description": "Why is quitting smoking so hard, and what actually helps? Cyto breaks it down from the 6ix for Addictions Awareness Week and Lung Cancer Awareness Month.\n\nIn the Italian RISP lung cancer screening program, 7,805 current smokers were offered a quit program. Among 1,375 who chose the plant-based medicine cytisine, 50.1% quit, versus 8.1% of 2,173 who had counselling alone (adjusted OR 14.5). Common side effects were nausea (36%), insomnia (19%) and abdominal discomfort (18%).\n\nThe catch: this was NOT a randomized trial. People chose cytisine themselves and were more motivated, so the gap overstates the drug. A 2026 review says cytisine works better than placebo in randomized trials, is broadly similar to varenicline, and was added to the WHO Essential Medicines list in 2025. Availability differs by country, so ask your doctor or pharmacist what is available to you.\n\nSources (via PubMed):\nCani et al., J Thorac Oncol 2026 - https://doi.org/10.1016/j.jtho.2026.104071\nDiana et al., Pulm Ther 2026 - https://doi.org/10.1007/s41030-026-00402-w\n\nNot medical advice. Free quit support in Canada: search Smokers' Helpline (Canadian Cancer Society) or ask your pharmacist.\n\n#shorts #science #toronto #6ix #quitsmoking #lungcancer #addiction",
+ "tags": [
+  "why is quitting smoking so hard",
+  "how to quit smoking",
+  "quit smoking science",
+  "nicotine addiction",
+  "cytisine",
+  "smoking cessation",
+  "lung cancer awareness month",
+  "addictions awareness week",
+  "cyto the cell",
+  "the body is the 6ix",
+  "toronto",
+  "6ixty seconds of science"
+ ],
+ "pinned_comment": "Know someone trying to quit? Send them this 👇\n\nSources in the description: Cani, J Thorac Oncol 2026 and Diana, Pulm Ther 2026. Not a randomized trial, so linked, not proven.\nNot medical advice.",
+ "related_video": "Ep 15: Exercise and cancer risk",
+ "playlist": "6ixty Seconds of Science",
+ "outfit_note": "Toque + puffer (Canon v2). Canon v2 paper coffee cup with steam in the mitten, whole cup in frame. No smoking props or visuals; lungs organ prop only. Plan: studio/episodes/ep17/plan.md"
+}

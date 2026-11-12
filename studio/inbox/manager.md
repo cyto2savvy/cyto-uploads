@@ -80,3 +80,4 @@ Also fixed: `props_rendered` counted props on transition frames, where both scen
 ## IDEA chat, Nov 11 (late)
 - Ep 16 "No Nut November vs Your Prostate: Science" scripted: episodes/ep16/{episode.json,claims.md,plan.md}. Validates (80 words, ~491 credits/take). Suggested slot Fri Nov 13 6 PM ET. Waiting for Utsha OK. Not monetized yet, so reach over ad-safety.
 - Pitches 1-3 (knees/weather, cold pee, therapy dog) still open; Ep 15 not rebuilt, still with BUILD chat. Buffer rule needs more eps.
+- Ep 17 "Why Quitting Smoking Is So Hard" scripted (Addictions Awareness Week), slot Fri Nov 13 6 PM ET. Ep 16 moved to Sat Nov 14. Smokers Helpline number NOT verified, left out.

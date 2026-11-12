@@ -16,3 +16,4 @@ Every Short must use NEW PubMed source(s) (ideally 2+, substantive: RCTs, cohort
 | 14 | Silence (Remembrance Day) | 10.1136/hrt.2005.064600; 10.1007/s00429-013-0679-3 |
 | 15 | Exercise and cancer risk | 10.1056/NEJMoa2502760; 10.1001/jamainternmed.2016.1548 (pinned-comment only: 10.1200/JCO-26-00765) |
 | 16 | No Nut November vs prostate | 10.1186/s12885-025-15410-3; 10.31557/APJCP.2025.26.9.3193 |
+| 17 | Why quitting smoking is so hard | 10.1016/j.jtho.2026.104071; 10.1007/s41030-026-00402-w |
