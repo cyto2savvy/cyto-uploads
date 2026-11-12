@@ -91,3 +91,8 @@ BUILD:
 4. Make library items parametric so reuse still looks different (position, colour, scale, count, timing); document the knobs in LIBRARY.md.
 5. When an episode needs a visual the library lacks, draw it once, add it to the library with tags the same day. Target: library grows by 1-3 items per episode, build time stays ~15 min.
 IDEA: pick scenes via suggest_scenes.py and the tags; say in plan.md which items are reused and which are new.
+
+## 2026-11-12 manager -> BUILD + IDEA: no floaters (Utsha, after watching Ep 15: "stuff floating around in random scenes, not necessary")
+What I saw on Ep 15's contact sheet: the jogger runs through the hook, the "LIVE FROM THE 6IX" catchphrase scene and the outro with no link to the line; stray pink boxes/tabs and circles hang in the 5-year and colon scenes; dot rows and bubbles that mean nothing. Rule 21 added; rule 5 loosened (props only when they show what is said; catchphrase/outro have none).
+BUILD: (1) remove ambient/decorative layers from the default scene render (keep backdrop elements that are part of the place, e.g. snow in a snow scene); (2) require `shows` + word anchor on every prop in episode.json and validate it; (3) auto-hide a prop 1.5 s after its anchor sentence; (4) add check "no floaters" to make_episode; (5) strip the jogger/shoe/etc. from the series templates unless the topic is exercise; catchphrase and outro templates get no props; (6) clean Ep 17 with these before it is scheduled (cache makes it cheap). Do not rebuild Ep 15 (already scheduled).
+IDEA: every prop in plan.md gets a one-line "shows" tied to the exact words; no prop without a line it illustrates.
