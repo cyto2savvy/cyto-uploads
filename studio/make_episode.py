@@ -33,6 +33,25 @@ class Ep:
         st = s.state(); st.update(kv); json.dump(st, open(s.state_f, "w"), indent=1)
 
 # ------------------------------------------------------------------ 1. validate
+
+def pose_verdict(lay):
+    """HARD_RULES 9/18: a cut may not break Cyto's pose. A real snap is ~8+; an eased beat blend peaks ~1.7."""
+    pj = lay.get("pose_jerk_in_cut")
+    if pj is None:
+        return [], "pose continuity not measured (layout.json predates the check; applies from the next episode)"
+    rough = {k: v for k, v in pj.items() if v > 3.0}
+    bad = ["pose jumps at " + ", ".join(f"{k} ({v})" for k, v in sorted(rough.items()))] if rough else []
+    return bad, f"pose jerk max {max(pj.values()) if pj else 0} (limit 3.0)"
+
+
+def overlap_verdict(lay):
+    """HARD_RULES 17: nothing covers anything else for more than 0.3 s."""
+    o_list = lay.get("overlaps")
+    if o_list is None:
+        return True, "not measured (layout.json predates the check; applies from the next episode)"
+    return (not o_list), ("; ".join(f"{o['pair']} in {o['scene']} for {o['dur']}s @{o['t0']}s" for o in o_list[:6])
+                          or "nothing covers anything else")
+
 def validate(E):
     errs, warns = [], []
     def need(k, t=None):
@@ -251,7 +270,12 @@ def checks(ep, E, plan):
         stall = any(all(x < 0.5 for x in core[j:j + 3]) and core[:j].max(initial=0) > 3 and core[j + 3:].max(initial=0) > 3 for j in range(len(core) - 3))
         pop = any(core[j] > 8 and core[j] > 2 * max(core[j - 1] if j else 0, core[j + 1] if j + 1 < len(core) else 0) for j in range(len(core)))
         if stall or pop: bad.append(f"{sc['id']}@{sc['start']:.1f}s {'stall' if stall else 'pop'}")
-    chk("transitions smooth (no stall, no one-frame pop)", not bad, ", ".join(bad) or "all cuts continuous")
+    # HARD_RULES 18: the first cut (hook -> intro) is checked exactly like the rest - it is scenes[1], always in this list.
+    pbad, pose_note = pose_verdict(lay); bad += pbad
+    chk("transitions smooth, every cut incl. the first (no stall, no pop, pose blends)", not bad,
+        ", ".join(bad) or f"all {len(plan['scenes']) - 1} cuts continuous; {pose_note}")
+    ok_ov, ov_note = overlap_verdict(lay)   # HARD_RULES 17
+    chk("no overlaps: props / headline / card / captions / Cyto face / cup", ok_ov, ov_note)
     try:
         import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
         cuts_ = plan["scenes"][1:]; fig, axes = plt.subplots(1, len(cuts_), figsize=(2.6 * len(cuts_), 2.6), sharey=True)

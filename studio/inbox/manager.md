@@ -41,3 +41,38 @@ Tasks, in order, no extra credits:
 5. Scene cache (rule 19): hash each scene's JSON + rig version, skip re-render when unchanged, so fixes cost seconds not a full render. Voice stays gated (voice_request.json), no credits.
 6. Target: a new Short from approved script to checked draft in ~15 min of work. Do not rebuild Ep 15. Time the next episode instead.
 IDEA chat: use LIBRARY.md ids in episode.json; only request a new visual when none fits.
+
+## 2026-11-11 BUILD -> manager: tasks 1-6 done (Ep 15 NOT rebuilt, 0 credits)
+1. **First cut fixed + checked.** Three real causes, all in the engine: cuts used linear progress so the motion stopped
+   dead on the last frame; the outgoing headline dissolved *before* the cut while everything else slid; and the incoming
+   headline waited until 0.5 s *after* the cut, so the new scene arrived wordless. Now every cut eases in and out, the
+   outgoing text rides off with the cut, the incoming text lands at 60% through it, and Cyto leans into the whip instead
+   of sitting frozen. Two rig bugs behind the "pose jumps": the gaze pin was released instantly at 2.2 s, and it was
+   dropped outright when the next beat had no pin. Both now ease. The check (`transitions smooth, every cut incl. the
+   first`) covers scenes[1..n] — the first cut was always in that list — and now also fails on a pose break: it measures
+   per-frame pose *jerk*, so a fast-but-smooth head turn passes and a one-frame snap does not. Ep 15 measures 1.0–1.7
+   against a limit of 3.0.
+2. **Overlap check added (rule 17).** compose.js measures bounding boxes every 0.1 s for props, headline, card, captions,
+   Cyto's face and his cup, tracks how long each pair overlaps, and fails on > 0.3 s, naming both items and the scene.
+   Frames inside a cut are skipped (both scenes are on screen by design). On a layout.json from before this change the
+   check reports "not measured" rather than passing silently. **Ep 15 has 6 real overlaps** (it is not being rebuilt):
+   s0 arrowStat×icons 1.97 s, s0 organ×runner 0.37 s, s1 organ×peopleGrid 0.4 s, s3 card×organ 3.33 s,
+   s3 card×peopleGrid 1.93 s, s5 counter×icons 5.33 s. That is what Utsha saw. LIBRARY.md documents how to stack props
+   so it does not happen again.
+3. **LIBRARY.md + library_render.py.** Every id with parameters and copy-paste JSON: 11 prop types (17 variants),
+   9 backdrops, 4 transitions, plus the placement/timing rules and the checks each one can fail.
+   `python3 studio/rig_v2/library_render.py` → `studio/rig_v2/library.png`, one sheet of everything that exists.
+4. **Series templates** in `studio/templates/`: 6ix-seconds-of-science, what-happens-when, cyto-vs-disease. Seven scenes
+   each (hook / explain ×3 / stat / Toronto payoff / outro), pre-filled with library ids, backdrops that never repeat
+   back to back, and props already spaced so the ≤ 2 s and no-overlap rules hold. Copy one, fill the TODOs. A template
+   passes `--stage validate` as-is, so the structure is never the thing that breaks.
+5. **Scene cache (rule 19).** Rendering is per scene, keyed by the scene + the previous scene (its composite shows during
+   the incoming cut) + the words/beats in range + plan globals + a hash of the engine source, cached in
+   `<episode dir>/.scene_cache`. Measured on Ep 15's plan: **cold 2m31s, unchanged re-render 1.3 s, one-scene edit 46 s**
+   (that scene plus the next, whose cut shows it). `CYTO_NOCACHE=1` forces a full render.
+6. **~15 min target.** Not claimed yet — it needs a real episode and I was told not to rebuild Ep 15. The build steps now
+   cost: validate ~1 s, render 2m30s cold (seconds for a fix), thumbnails ~25 s, checks ~70 s, package ~15 s. The gap is
+   the voice gate, which still waits for Utsha. I will time the next episode end to end and report the real number.
+
+Also fixed: `props_rendered` counted props on transition frames, where both scenes are on screen, so it over-reported
+(50 vs the true 26 for Ep 15). Tests: 18/18 offline (adds overlap, pose and cache-key cases), rig 15/15, canon 29/29.

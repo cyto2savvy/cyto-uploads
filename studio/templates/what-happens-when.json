@@ -1,0 +1,366 @@
+{
+ "_template": "What happens to your body when... skeleton. Fill: title, script[].say, each scene's headline/hot (<= 8 words of text per scene), thumbnails, sources, description, tags, pinned_comment, publish_at. Swap bg/props ids from studio/rig_v2/LIBRARY.md (picture: library.png). Keep >= 2 props per scene and no two backdrops in a row.",
+ "ep": "epNN",
+ "series": "What happens to your body when...",
+ "title": "What Happens To Your Body When TODO?",
+ "fit": "hoodie",
+ "canon_seed": 3,
+ "health": true,
+ "topic_words": [
+  "TODO"
+ ],
+ "keys": {},
+ "script": [
+  {
+   "scene": 0,
+   "emotion": "shock",
+   "say": "TODO hook: what changes, and how fast."
+  },
+  {
+   "scene": 1,
+   "emotion": "think",
+   "say": "TODO the surprising part."
+  },
+  {
+   "scene": 2,
+   "emotion": "chill",
+   "say": "Yo, it's ya boy Cyto, live from the 6ix... inside your body."
+  },
+  {
+   "scene": 3,
+   "emotion": "chill",
+   "say": "TODO minute one to hour one."
+  },
+  {
+   "scene": 4,
+   "emotion": "happy",
+   "say": "TODO the measurable change."
+  },
+  {
+   "scene": 5,
+   "emotion": "happy",
+   "say": "TODO the Toronto payoff."
+  },
+  {
+   "scene": 6,
+   "emotion": "think",
+   "say": "Not medical advice. TODO question to the comments, because"
+  }
+ ],
+ "scenes": [
+  {
+   "bg": "plain",
+   "transition": "zoom",
+   "headline": "HOOK LINE\nTHE NUMBER",
+   "hot": [
+    "THE NUMBER"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "counter",
+     "at": [
+      540,
+      0.28
+     ],
+     "fill": 0.52,
+     "in": -0.2,
+     "to": 0,
+     "label": "TODO"
+    },
+    {
+     "t": "organ",
+     "at": [
+      230,
+      0.8
+     ],
+     "fill": 0.34,
+     "in": 0.3,
+     "kind": "lungs",
+     "label": "TODO"
+    }
+   ],
+   "instant": true
+  },
+  {
+   "bg": "lab",
+   "transition": "whip",
+   "headline": "FIRST POINT",
+   "hot": [
+    "FIRST"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "organ",
+     "at": [
+      280,
+      0.5
+     ],
+     "fill": 0.74,
+     "in": 0.0,
+     "kind": "lungs",
+     "label": "TODO"
+    },
+    {
+     "t": "stamp",
+     "at": [
+      750,
+      0.3
+     ],
+     "fill": 0.24,
+     "in": 0.3,
+     "text": "TODO"
+    },
+    {
+     "t": "icons",
+     "at": [
+      746,
+      0.78
+     ],
+     "fill": 0.22,
+     "in": 1.4,
+     "glyph": "cell",
+     "n": 5,
+     "cols": 5,
+     "spread": 1.2
+    }
+   ]
+  },
+  {
+   "bg": "hospital",
+   "transition": "membrane",
+   "headline": "SECOND POINT",
+   "hot": [
+    "SECOND"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "card",
+     "at": [
+      540,
+      0.32
+     ],
+     "fill": 0.56,
+     "in": 0.0,
+     "title": "TODO",
+     "ticks": 12,
+     "cols": 12,
+     "foot": "TODO"
+    },
+    {
+     "t": "icons",
+     "at": [
+      540,
+      0.84
+     ],
+     "fill": 0.26,
+     "in": 0.3,
+     "glyph": "person",
+     "n": 7,
+     "cols": 7,
+     "label": "TODO",
+     "spread": 2.0
+    }
+   ]
+  },
+  {
+   "bg": "lab",
+   "transition": "whip",
+   "headline": "THIRD POINT",
+   "hot": [
+    "THIRD"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "bars",
+     "at": [
+      540,
+      0.56
+     ],
+     "fill": 0.72,
+     "in": 0.0,
+     "values": [
+      0,
+      0
+     ],
+     "labels": [
+      "TODO",
+      "TODO"
+     ]
+    },
+    {
+     "t": "stamp",
+     "at": [
+      400,
+      0.06
+     ],
+     "fill": 0.16,
+     "in": 0.3,
+     "text": "TODO"
+    }
+   ]
+  },
+  {
+   "bg": "plain",
+   "transition": "zoom",
+   "headline": "THE BIG STAT",
+   "hot": [
+    "STAT"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "arrowStat",
+     "at": [
+      700,
+      0.48
+     ],
+     "fill": 0.8,
+     "in": 0.0,
+     "label": "+00%",
+     "dir": "up"
+    },
+    {
+     "t": "icons",
+     "at": [
+      230,
+      0.84
+     ],
+     "fill": 0.24,
+     "in": 0.3,
+     "glyph": "check",
+     "n": 4,
+     "cols": 4,
+     "spread": 1.4
+    }
+   ]
+  },
+  {
+   "bg": "subway",
+   "transition": "doors",
+   "headline": "TORONTO PAYOFF",
+   "hot": [
+    "PAYOFF"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "stopSign",
+     "at": [
+      238,
+      0.52
+     ],
+     "fill": 0.86,
+     "in": 0.0,
+     "title": "TTC",
+     "text": "TODO"
+    },
+    {
+     "t": "runner",
+     "at": [
+      760,
+      0.48
+     ],
+     "fill": 0.52,
+     "in": 0.3
+    }
+   ]
+  },
+  {
+   "bg": "plain",
+   "transition": "whip",
+   "headline": "WHAT DO YOU THINK?",
+   "hot": [
+    "YOU"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "runner",
+     "at": [
+      245,
+      0.5
+     ],
+     "fill": 0.78,
+     "in": 0.0
+    },
+    {
+     "t": "icons",
+     "at": [
+      711,
+      0.3
+     ],
+     "fill": 0.26,
+     "in": 0.3,
+     "glyph": "shoe",
+     "n": 7,
+     "cols": 7,
+     "spread": 2.4
+    }
+   ]
+  }
+ ],
+ "thumbnails": [
+  {
+   "id": "A",
+   "headline": [
+    "FOUR WORDS",
+    "MAX"
+   ],
+   "hot": [
+    "MAX"
+   ],
+   "hero": "clock",
+   "emotion": "shock",
+   "gaze": [
+    -0.5,
+    -0.4
+   ],
+   "scene": "plain",
+   "sceneSeed": 5,
+   "bg_subject": "TODO topic word + TODO Toronto place",
+   "glow": "#ffc83a"
+  },
+  {
+   "id": "B",
+   "headline": [
+    "THE NUMBER",
+    "-00%"
+   ],
+   "hot": [
+    "-00%"
+   ],
+   "hero": "clock",
+   "emotion": "shock",
+   "gaze": [
+    -0.5,
+    -0.3
+   ],
+   "scene": "lab",
+   "sceneSeed": 11,
+   "bg_subject": "TODO topic word + TODO Toronto place",
+   "glow": "#ff5a4d"
+  }
+ ],
+ "stronger": "A",
+ "sources": [
+  {
+   "short": "TODO Author 2026",
+   "full": "TODO Author et al., Title, Journal 2026, PMID 00000000, https://doi.org/TODO"
+  }
+ ],
+ "description": "TODO one-line hook. TODO what the study did and the numbers. TODO the caveat.\n\nNot medical advice. Talk to your care team before changing anything.",
+ "tags": [
+  "TODO",
+  "shorts",
+  "science",
+  "toronto",
+  "6ix"
+ ],
+ "pinned_comment": "TODO source line with the link.",
+ "publish_at": "2026-01-01T23:00:00Z",
+ "outfit_note": "Toque + hoodie (Canon v2). Canon v2 paper COFFEE cup (white body, red band, brown lid, small Cyto-face logo) in the mitten at chest height with steam, whole cup inside the frame."
+}

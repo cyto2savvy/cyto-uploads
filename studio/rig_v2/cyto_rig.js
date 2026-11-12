@@ -34,11 +34,19 @@ function state(t,tl){
  // gaze
  let gx=0,gy=0; const s=[...sc.sacc].reverse().find(k=>k.t<=t)||sc.sacc[0]; const prev=sc.sacc[Math.max(0,sc.sacc.indexOf(s)-1)]||s;
  const a=ease(clamp((t-s.t)/.12,0,1)); gx=prev.x+(s.x-prev.x)*a; gy=prev.y+(s.y-prev.y)*a;
- const tg=b.gaze||E.gaze; if(tg&&t-b.t<2.2){gx=lerp(gx,tg[0]);gy=lerp(gy,tg[1]);}   // beats can pin the gaze (reaction), eased in
+ // beats pin the gaze (reaction): eased in over .28 s and eased back OUT over the last .4 s - releasing it
+ // instantly at 2.2 s snapped the eyes, which landed as a pose jump whenever a cut sat near that moment
+ // Gaze pins hand over between beats. Dropping the old beat's pin the instant a pin-less beat starts snapped the eyes,
+ // so the outgoing pin is released on the same eased weight that fades the new pose in.
+ const pinOf=bb=>{if(!bb)return null; const g=bb.gaze||(EMO[bb.emotion]||{}).gaze; if(!g)return null;
+  const a2=t-(bb.t||0); return {g,w:ease(clamp(a2/.34,0,1))*ease(clamp((2.2-a2)/.5,0,1))};};
+ const pPin=pinOf(bp), cPin=pinOf(b0);
+ if(pPin){const w=pPin.w*(1-u); gx+=(pPin.g[0]-gx)*w; gy+=(pPin.g[1]-gy)*w;}
+ if(cPin){const w=cPin.w*u;     gx+=(cPin.g[0]-gx)*w; gy+=(cPin.g[1]-gy)*w;}
  // blink (110 ms down, 110 ms up)
  let blink=0; for(const bt of sc.blinks){const d=t-bt; if(d>=0&&d<.22) blink=d<.11?d/.11:1-(d-.11)/.11;}
  // brow pops on reaction onset
- const since=t-(b.t||0); const pop=since<.25?Math.sin(since/.25*Math.PI)*.5:0;
+ const since=t-(b.t||0); const pop=since<.25?Math.pow(Math.sin(since/.25*Math.PI),2)*.5:0;
  return {expr:u<.5?Ep.expr:E.expr,gx,gy,blink,brow:lerp(Ep.brow,E.brow)+pop,mouth:mouthAt(tl,t,u<.5?Ep.rest:E.rest),
   tilt:lerp(Ep.tilt,E.tilt)+Math.sin(t*2*Math.PI*.45)*1.4, bob:Math.sin(t*2*Math.PI*.9)*6,
   cupDy:Math.sin(t*2*Math.PI*.7+1)*5, cupRot:Math.sin(t*2*Math.PI*.55)*2.5};
