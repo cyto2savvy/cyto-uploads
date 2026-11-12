@@ -76,3 +76,7 @@ IDEA chat: use LIBRARY.md ids in episode.json; only request a new visual when no
 
 Also fixed: `props_rendered` counted props on transition frames, where both scenes are on screen, so it over-reported
 (50 vs the true 26 for Ep 15). Tests: 18/18 offline (adds overlap, pose and cache-key cases), rig 15/15, canon 29/29.
+
+## IDEA chat, Nov 11 (late)
+- Ep 16 "No Nut November vs Your Prostate: Science" scripted: episodes/ep16/{episode.json,claims.md,plan.md}. Validates (80 words, ~491 credits/take). Suggested slot Fri Nov 13 6 PM ET. Waiting for Utsha OK. Not monetized yet, so reach over ad-safety.
+- Pitches 1-3 (knees/weather, cold pee, therapy dog) still open; Ep 15 not rebuilt, still with BUILD chat. Buffer rule needs more eps.
