@@ -15,4 +15,5 @@ HAVE ep14_raw.mp3
 HAVE ep14_thumb_bg.png
 HAVE ep14v3_raw.mp3
 HAVE ep15_raw.mp3
-OK ep17_raw.mp3
+HAVE ep17_raw.mp3
+OK ep16_raw.mp3
