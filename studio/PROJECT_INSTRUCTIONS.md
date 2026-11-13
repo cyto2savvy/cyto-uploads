@@ -6,7 +6,7 @@
 2. Don't rebuild anything from scratch that the repo already has.
 
 ## The channel
-- YouTube "Cyto The Cell" (@thebodyisthe6ix), branded "The Body is the 6ix". Monetized Shorts, 1 episode per day. TikTok is run by a friend's Claude from `tiktok/queue.json`.
+- YouTube "Cyto The Cell" (@thebodyisthe6ix), branded "The Body is the 6ix". Monetized Shorts, 1 episode per day.
 - Cyto is an original Toronto cell, drawn in the CANON v2 look (`studio/branding/CYTO_CANON_v2.md`: flat 2D cut-out South Park style, mitten hands, NO fingers, parallel pupils, gold chain with 6 medallion). He wears a blue-and-white toque, has chill half-lid eyes and talks in casual Toronto/youth slang (never professional). His voice is vidIQ "Liam".
 - Catchphrase: "Yo, it's ya boy Cyto, live from the 6ix… inside your body."
 - Recurring cast, introduced slowly: Mito (tired mitochondria, gym energy), Neutro (neutrophil security guard), Platelet Pete (TTC-worker energy).
@@ -55,7 +55,7 @@
 7. Show the final video, title, description, thumbnail (2 options, say which is stronger) and outfit.
 8. Wait for Utsha's OK.
 9. Schedule on YouTube via Zapier: private + publish time, then flag it as altered/synthetic.
-10. Add the episode to the TikTok queue.
+10. Add the episode to the IG/FB sheet queue (social post).
 
 ## Upload checklist
 - Title under 60 characters.

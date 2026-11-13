@@ -7,7 +7,7 @@ Stops at the two OK gates. Spends NO credits itself (ElevenLabs/Zapier are chat 
   python3 studio/make_episode.py ep15 --ok final      # gate 2: Utsha approved the final package -> writes schedule_request.json
   python3 studio/make_episode.py ep15 --dry-run       # validate + estimate + what would run, writes nothing
   python3 studio/make_episode.py ep15 --stage thumbs  # one stage: validate|voice|build|thumbs|checks|package|schedule
-Never touches tiktok/queue.json (friend's Claude). Schema: studio/EPISODE_SCHEMA.md."""
+Schema: studio/EPISODE_SCHEMA.md."""
 import argparse, json, os, re, subprocess, sys, shutil
 STUDIO = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(STUDIO); HOME = os.environ.get("CYTO_HOME", "/home/claude")
 RIG = os.path.join(STUDIO, "rig_v2"); PIPE = os.path.join(HOME, "cyto2")
@@ -464,9 +464,8 @@ def schedule_request(ep, E):
                       dict(tool="youtube_add_video_to_playlist", params=dict(playlist_id="PLIU9ZD7rP0Ss", video_id="<VIDEO_ID>")),
                       dict(tool="youtube_update_video_thumbnail", params=dict(video_id="<VIDEO_ID>", thumbnail=raw.rsplit("/", 1)[0] + f"/thumb-ep{ep.n:02d}-{E['stronger']}-1280x720.jpg"))],
                manual=["upload captions.srt in Studio > Subtitles", "paste + pin pinned_comment once public", "add related video", "reply to comments in the first hour"],
-               tiktok="NOT touched: Utsha's friend's Claude owns tiktok/queue.json. Caption/hook proposal in tiktok_entry.json for Utsha to hand over if he wants.")
+               social="IG/FB: add a row to the Cyto IG+FB Post Queue sheet (with thumbnail_url).")
     json.dump(req, open(ep.p("schedule_request.json"), "w"), indent=1)
-    json.dump(dict(episode=f"ep{ep.n:02d}", caption=E["script"][0]["say"] + "\n\n" + m["title"], video=raw, hashtags=["#science", "#toronto", "#6ix"]), open(ep.p("tiktok_entry.json"), "w"), indent=1)
 
 # ------------------------------------------------------------------ main
 def main(argv=None):

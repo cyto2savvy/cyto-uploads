@@ -2,7 +2,7 @@
 One command per stage; stops at Utsha's two OK gates. `python3 studio/make_episode.py epNN [--ok plan|final] [--dry-run] [--stage validate|voice|build|thumbs|checks|package|schedule]`
 Flow: IDEA chat writes `studio/episodes/epNN/episode.json` (+ claims.md) -> `--dry-run` -> Utsha OKs plan + credit estimate -> `--ok plan` -> voice -> build -> thumbs -> checks -> package (STOP, gate 2) -> Utsha OKs -> `--ok final` -> `schedule_request.json` (the chat runs it via Zapier).
 Credits: the script spends NONE. It prints the ElevenLabs estimate (chars x 2 takes) and writes `voice_request.json` / `scribe_request.json` for the chat to run (Scribe = 0 credits). Never retry a generation call (double charge).
-Never touches tiktok/queue.json (writes `tiktok_entry.json` only for Utsha to hand over).
+No TikTok output (TikTok dropped Nov 13).
 
 ```
 { "ep":15, "slug":"short-slug", "title":"<=60 chars", "health":true, "fit":"hoodie|jersey|puffer|none", "seed":7,

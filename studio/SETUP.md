@@ -19,7 +19,7 @@ Rules + metadata: studio/PUBLISHING.md; `python3 studio/pipeline/check_meta.py e
 Ep 14 = Xwv_JKtNFgY (Wed Nov 11 9:00 AM ET). Ep 15 slot: Thu Nov 12 6 PM ET. LF01 MLdcV-vmyXE is set for Nov 29 9:45 AM ET (time unconfirmed).
 
 ## Platforms
-YouTube Shorts 1/day. TikTok: friend's Claude owns tiktok/queue.json. NEVER touch it. IG/FB: social/PLAN.md (post natively, AI label on, 12:00 ET next day); Zap + watermark + IG profile still open.
+YouTube Shorts 1/day. TikTok: no longer part of the plan (friend collaboration ended Nov 13, tiktok/ removed). IG/FB: social/PLAN.md (post natively, AI label on, 12:00 ET next day); Zap + watermark + IG profile still open.
 
 ## Chats
 manager / idea / build, talking only through repo files: studio/CHAT_ROLES.md, studio/inbox/*.md, studio/prompts/*.md.
