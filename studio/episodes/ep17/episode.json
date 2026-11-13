@@ -76,43 +76,35 @@
    "props": [
     {
      "t": "organ",
-     "at": [
-      270,
-      0.46
-     ],
-     "fill": 0.7,
-     "in": -0.2,
      "kind": "lungs",
-     "label": "LUNGS"
+     "label": "LUNGS",
+     "at": [
+      300,
+      0.5
+     ],
+     "fill": 0.66,
+     "anchor": "smoking",
+     "lead": 0.3,
+     "shows": "the lungs: what smoking hits and why people want to quit"
     },
     {
-     "t": "stamp",
+     "t": "organ",
+     "kind": "brain",
+     "label": "BRAIN",
      "at": [
-      780,
-      0.26
+      790,
+      0.5
      ],
-     "fill": 0.24,
-     "in": 0.3,
-     "text": "QUIT?"
-    },
-    {
-     "t": "icons",
-     "at": [
-      800,
-      0.8
-     ],
-     "fill": 0.28,
-     "in": 1.8,
-     "glyph": "cell",
-     "n": 6,
-     "cols": 3,
-     "spread": 1.6
+     "fill": 0.66,
+     "anchor": "brain's",
+     "lead": 0.2,
+     "shows": "the brain is the reason quitting is hard"
     }
    ],
    "instant": true
   },
   {
-   "bg": "lab",
+   "bg": "streetcar",
    "transition": "whip",
    "headline": "CRAVINGS\nARE LOUD",
    "hot": [
@@ -121,28 +113,47 @@
    "card": "",
    "props": [
     {
-     "t": "icons",
+     "t": "stamp",
+     "text": "NICOTINE",
+     "rot": -4,
+     "plate": true,
      "at": [
-      700,
-      0.45
+      760,
+      0.84
      ],
-     "fill": 0.56,
-     "in": 0.0,
+     "fill": 0.2,
+     "anchor": "Nicotine",
+     "lead": 0.1,
+     "shows": "nicotine, the thing doing the locking"
+    },
+    {
+     "t": "icons",
      "glyph": "cell",
      "n": 8,
      "cols": 4,
-     "spread": 3.6,
-     "label": "RECEPTORS"
+     "spread": 1.2,
+     "label": "RECEPTORS",
+     "at": [
+      760,
+      0.36
+     ],
+     "fill": 0.5,
+     "anchor": "receptors",
+     "lead": 0.5,
+     "shows": "brain receptors filling up as nicotine locks on"
     },
     {
-     "t": "stamp",
+     "t": "stopSign",
+     "title": "TTC",
+     "text": "DELAY",
      "at": [
-      270,
-      0.3
+      240,
+      0.5
      ],
-     "fill": 0.26,
-     "in": 0.3,
-     "text": "NICOTINE"
+     "fill": 0.8,
+     "anchor": "TTC",
+     "lead": 0.1,
+     "shows": "cravings louder than a TTC delay"
     }
    ]
   },
@@ -154,34 +165,7 @@
     "BIG"
    ],
    "card": "",
-   "props": [
-    {
-     "t": "card",
-     "at": [
-      540,
-      0.3
-     ],
-     "fill": 0.58,
-     "in": 0.0,
-     "title": "RISP 2026",
-     "ticks": 36,
-     "cols": 12,
-     "foot": "7,805 SMOKERS"
-    },
-    {
-     "t": "icons",
-     "at": [
-      760,
-      0.84
-     ],
-     "fill": 0.26,
-     "in": 0.3,
-     "glyph": "check",
-     "n": 6,
-     "cols": 6,
-     "spread": 2.6
-    }
-   ]
+   "props": []
   },
   {
    "bg": "lab",
@@ -193,13 +177,41 @@
    "card": "",
    "props": [
     {
-     "t": "bars",
+     "t": "card",
+     "title": "ITALY 2026",
+     "ticks": 10,
+     "cols": 10,
+     "foot": "LUNG SCREENING",
+     "dur": 0.9,
      "at": [
       540,
-      0.56
+      0.22
      ],
-     "fill": 0.74,
-     "in": 0.0,
+     "fill": 0.42,
+     "anchor": "Italian",
+     "lead": 0.2,
+     "hold": 0.0,
+     "shows": "the Italian RISP lung screening program"
+    },
+    {
+     "t": "peopleGrid",
+     "n": 10,
+     "cols": 5,
+     "hi": 5,
+     "label": "HALF QUIT",
+     "spread": 3.2,
+     "at": [
+      540,
+      0.74
+     ],
+     "fill": 0.46,
+     "anchor": "half",
+     "lead": 0.1,
+     "hold": 0.1,
+     "shows": "half of the smokers who chose cytisine quit (50.1%)"
+    },
+    {
+     "t": "bars",
      "values": [
       50.1,
       8.1
@@ -207,20 +219,15 @@
      "labels": [
       "CYTISINE",
       "COUNSELLING"
-     ]
-    },
-    {
-     "t": "icons",
+     ],
      "at": [
       540,
-      0.05
+      0.54
      ],
-     "fill": 0.14,
-     "in": 0.3,
-     "glyph": "check",
-     "n": 8,
-     "cols": 8,
-     "spread": 6.0
+     "fill": 0.76,
+     "anchor": "Counselling",
+     "lead": 0.2,
+     "shows": "quit rate 50.1% with cytisine vs 8.1% with counselling alone"
     }
    ]
   },
@@ -235,45 +242,52 @@
    "props": [
     {
      "t": "peopleGrid",
+     "n": 24,
+     "cols": 8,
+     "hi": 9,
+     "label": "CHOSE IT",
+     "spread": 1.4,
      "at": [
       540,
-      0.34
+      0.32
      ],
-     "fill": 0.6,
-     "in": 0.0,
-     "n": 36,
-     "cols": 12,
-     "hi": 12,
-     "label": "CHOSE IT",
-     "spread": 2.6
+     "fill": 0.56,
+     "anchor": "picked",
+     "lead": 0.2,
+     "shows": "people picked cytisine themselves, so the groups were not random"
     },
     {
      "t": "stamp",
+     "text": "LINKED",
+     "rot": -6,
+     "color": "#ffc83a",
+     "plate": "#16254f",
      "at": [
-      540,
-      0.8
+      300,
+      0.83
      ],
      "fill": 0.22,
-     "in": 0.4,
-     "text": "NOT PROVEN"
+     "anchor": "Linked",
+     "shows": "an observational link"
     },
     {
-     "t": "icons",
+     "t": "stamp",
+     "text": "NOT PROVEN",
+     "rot": 3,
+     "plate": true,
      "at": [
-      180,
-      0.8
+      745,
+      0.83
      ],
-     "fill": 0.18,
-     "in": 4.2,
-     "glyph": "person",
-     "n": 4,
-     "cols": 2,
-     "spread": 1.4
+     "fill": 0.22,
+     "anchor": "proven",
+     "shows": "a link is not proof the drug caused it",
+     "lead": -0.12
     }
    ]
   },
   {
-   "bg": "streetcar",
+   "bg": "snow",
    "transition": "doors",
    "headline": "ASK YOUR\nPHARMACIST",
    "hot": [
@@ -282,41 +296,36 @@
    "card": "",
    "props": [
     {
-     "t": "stopSign",
-     "at": [
-      238,
-      0.52
-     ],
-     "fill": 0.86,
-     "in": 0.0,
-     "title": "TTC",
-     "text": "ASK"
-    },
-    {
      "t": "icons",
-     "at": [
-      790,
-      0.4
-     ],
-     "fill": 0.34,
-     "in": 0.3,
-     "glyph": "check",
-     "n": 4,
+     "glyph": "person",
+     "n": 2,
      "cols": 2,
-     "spread": 1.0
+     "spread": 0.5,
+     "label": "ASK THEM",
+     "at": [
+      300,
+      0.46
+     ],
+     "fill": 0.62,
+     "anchor": "doctor",
+     "lead": 0.2,
+     "shows": "your doctor or pharmacist, the two people to ask"
     },
     {
      "t": "icons",
+     "glyph": "check",
+     "n": 3,
+     "cols": 3,
+     "spread": 0.8,
+     "label": "EVERY TRY",
      "at": [
-      790,
-      0.8
+      770,
+      0.46
      ],
-     "fill": 0.2,
-     "in": 1.9,
-     "glyph": "cell",
-     "n": 4,
-     "cols": 4,
-     "spread": 1.4
+     "fill": 0.5,
+     "anchor": "try",
+     "lead": 0.1,
+     "shows": "every quit attempt counts"
     }
    ]
   },
@@ -328,35 +337,7 @@
     "QUITTING"
    ],
    "card": "",
-   "props": [
-    {
-     "t": "peopleGrid",
-     "at": [
-      540,
-      0.56
-     ],
-     "fill": 0.48,
-     "in": 0.0,
-     "n": 12,
-     "cols": 6,
-     "hi": 3,
-     "label": "SEND IT",
-     "spread": 2.4
-    },
-    {
-     "t": "icons",
-     "at": [
-      540,
-      0.93
-     ],
-     "fill": 0.12,
-     "in": 0.4,
-     "glyph": "person",
-     "n": 5,
-     "cols": 5,
-     "spread": 3.8
-    }
-   ]
+   "props": []
   }
  ],
  "keys": {
@@ -415,7 +396,7 @@
    "full": "Cani M et al., Cytisine for Smoking Cessation Within a Lung Cancer Screening Program (Italian RISP trial), J Thorac Oncol 2026, PMID 42409118, https://doi.org/10.1016/j.jtho.2026.104071 | Diana C et al., Cytisine for Smoking Cessation: A Narrative Review of an Underutilized Therapy, Pulm Ther 2026, PMID 43000578, https://doi.org/10.1007/s41030-026-00402-w"
   }
  ],
- "description": "Why is quitting smoking so hard, and what actually helps? Cyto breaks it down from the 6ix for Addictions Awareness Week and Lung Cancer Awareness Month.\n\nIn the Italian RISP lung cancer screening program, 7,805 current smokers were offered a quit program. Among 1,375 who chose the plant-based medicine cytisine, 50.1% quit, versus 8.1% of 2,173 who had counselling alone (adjusted OR 14.5). Common side effects were nausea (36%), insomnia (19%) and abdominal discomfort (18%).\n\nThe catch: this was NOT a randomized trial. People chose cytisine themselves and were more motivated, so the gap overstates the drug. A 2026 review: cytisine beats placebo in randomized trials, is broadly similar to varenicline, and joined the WHO Essential Medicines list in 2025. Availability differs by country, so ask your doctor or pharmacist.\n\nNot medical advice. Free quit support in Canada: search Smokers' Helpline (Canadian Cancer Society) or ask your pharmacist.",
+ "description": "Why is quitting smoking so hard, and what actually helps? Cyto breaks it down from the 6ix for Addictions Awareness Week and Lung Cancer Awareness Month.\n\nIn the Italian RISP lung cancer screening program, 7,805 current smokers were offered a quit program. Among 1,375 who chose the plant-based medicine cytisine, 50.1% quit, versus 8.1% of 2,173 who had counselling alone (adjusted OR 14.5). Common side effects were nausea (36%), insomnia (19%) and abdominal discomfort (18%).\n\nThe catch: this was NOT a randomized trial. People chose cytisine themselves and were more motivated, so the gap overstates the drug. A 2026 review: cytisine beats placebo in randomized trials, is broadly similar to varenicline, and joined the WHO Essential Medicines list in 2025. Availability differs by country, so talk to your doctor or pharmacist.\n\nNot medical advice. Free quit support in Canada: search Smokers' Helpline (Canadian Cancer Society) or ask your pharmacist.",
  "tags": [
   "why is quitting smoking so hard",
   "how to quit smoking",

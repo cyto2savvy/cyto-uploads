@@ -52,7 +52,7 @@ A scene's first prop should be readable within ~0.2 s of the cut — a grid with
 
 | id | what it is | parameters |
 |---|---|---|
-| `organ` | drawn organ with a label chip, pulses | `kind`: `colon` \| `lungs` \| `prostate` (Ep 16: bladder + gold gland diagram); `label` |
+| `organ` | drawn organ with a label chip, pulses | `kind`: `colon` \| `lungs` \| `prostate` (Ep 16: bladder + gold gland diagram) \| `brain` (Ep 17: the thumbnail-hero brain as a scene prop); `label` |
 | `bars` | bars that grow with counting values | `values`: `[80,74]`; `labels`: `["EXERCISE","PAMPHLETS"]`; `unit` (default `%`). Tallest bar goes gold. |
 | `counter` | number rolling up over a crowd of dots that fills in | `to`; `suffix` (e.g. `M`); `decimals`; `label`; `dur` (default 1.3) |
 | `arrowStat` | big arrow that draws on, number in a gold stamp at the head | `dir`: `down` \| `up`; `label` |
@@ -133,4 +133,5 @@ Every cut is 0.35–0.5 s, eases in and out, and keeps moving (HARD_RULES 8, 18)
 - Pick scenes: `python3 studio/suggest_scenes.py --for=epNN <topic tags>` prints 3 backdrop + prop sets per role (hook, explain, stat, limits, payoff, clean), topic fit first, then least recently used, none a combo from the 3 episodes before epNN.
 - make_episode fails the episode before any credits are spent if: more than half the scenes repeat a backdrop+prop combo from the last 3 episodes, the backdrop order equals the previous episode's, there is no new or least-recently-used item, or a prop is reused with identical params.
 - Vary reused items: `at`, `fill`, counts (`n`, `ticks`, `cols`), `color`/`plate`, `rot`, labels, `dur`/`spread`.
+- Ep 17 added: organ kind `brain`.
 - Ep 16 added: organ kind `prostate`, stamp `plate`, scene `dim`, prop `hold`/`lead`. Removed: decorative rings on `plain`, snow particles on non-snow backdrops (rule 21).

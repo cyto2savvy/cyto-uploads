@@ -15,6 +15,7 @@ OUT = os.path.join(HERE, "library.png")
 PROPS = [
     {"t": "organ", "kind": "colon", "label": "COLON"},
     {"t": "organ", "kind": "lungs", "label": "LUNGS"},
+    {"t": "organ", "kind": "brain", "label": "BRAIN"},
     {"t": "bars", "values": [80, 74], "labels": ["EXERCISE", "PAMPHLETS"]},
     {"t": "counter", "to": 1.44, "suffix": "M", "decimals": 2, "label": "ADULTS"},
     {"t": "arrowStat", "label": "-28%", "dir": "down"},

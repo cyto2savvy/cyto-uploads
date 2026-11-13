@@ -57,4 +57,11 @@ check("prostate organ kind renders with its label chip", pj["org"])
 check("a prop with `out` is on screen before it and gone 0.25 s after (rule 21)", pj["a"] and not pj["g"])
 check("stamp `plate` draws a backing plate", pj["plate"]>=3)
 check("plain backdrop has no decorative rings (rule 21)", pj["plain"]==1 and not pj["rings"])
+
+# --- prop added Nov 13 (Ep 17): brain organ kind
+bj=json.loads(node("const {propHtml}=require('./props.js');const st={top:420,bottom:915};"
+ "const o=propHtml({t:'organ',kind:'brain',label:'BRAIN',at:[540,.5],fill:.9,in:0},1,'s0',0,1,st);"
+ "const c=propHtml({t:'organ',kind:'colon',at:[540,.5],fill:.9,in:0},1,'s0',0,1,st);"
+ "console.log(JSON.stringify({org:o.visible&&o.html.includes('BRAIN')&&o.html.includes('C-140 -160')&&!/finger/i.test(o.html),other:!c.html.includes('C-140 -160')}))"))
+check("brain organ kind renders with its label chip and does not leak into other kinds", bj["org"] and bj["other"])
 print(f"\n{sum(R)}/{len(R)} passed"); sys.exit(0 if all(R) else 1)

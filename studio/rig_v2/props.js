@@ -123,6 +123,10 @@ const PROPS = {
         `<g transform="translate(0,52) scale(${pp.toFixed(3)})">` + sticker(O('M-74 -44 Q-104 6 -58 46 Q0 74 58 46 Q104 6 74 -44 Q0 -68 -74 -44Z', GOLD, 9)) +
         `<path d="M-44 -26 Q-60 4 -36 26" stroke="${WHITE}" stroke-width="10" fill="none" stroke-linecap="round" opacity=".6"/><path d="M0 -40 L0 50" stroke="${INK}" stroke-width="7" stroke-linecap="round" stroke-dasharray="4 14"/></g>`;
     }
+    else if (kind === 'brain') body = `<g transform="scale(.92)">` +   // same cut-out brain as the thumbnail hero (thumbs.js). Ep 17.
+      O('M-20 -140 C-140 -160 -190 -40 -140 20 C-190 80 -130 160 -40 130 C0 170 70 160 90 120 C170 130 200 40 150 -10 C190 -70 130 -150 40 -120 C20 -150 0 -145 -20 -140Z', PINK, 9) +
+      `<path d="M0 -130 V120 M-80 -60 Q-40 -30 0 -50 M80 -40 Q40 0 0 20 M-90 50 Q-40 70 0 40" stroke="${INK}" stroke-width="9" fill="none" stroke-linecap="round"/>` +
+      `<path d="M-110 -70 Q-120 -110 -70 -118" stroke="${WHITE}" stroke-width="12" fill="none" stroke-linecap="round" opacity=".5"/></g>`;
     else body = tube('M-130 150 L-130 -40 Q-130 -118 -52 -118 L52 -118 Q130 -118 130 -40 L130 92 Q130 140 76 140 L40 140', PINK);
     return {
       svg: `<g transform="translate(${W / 2},${H / 2 - (p.label ? 24 : 0)}) scale(${pulse.toFixed(3)})">${body}</g>` +

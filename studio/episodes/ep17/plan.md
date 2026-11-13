@@ -1,5 +1,5 @@
 # Ep 17 plan: "Why Quitting Smoking Is So Hard (And What Helps)" (IDEA chat, Nov 11, 2026)
-Status: BUILT and approved by Utsha at gate 2 on Nov 12, but **NOT schedulable as-is**. HARD_RULES 20/21 landed later that day and apply from Ep 16, so this spec now fails validation with 15 errors (every prop lacks `shows`/`anchor`; s2 catchphrase and s6 outro must carry no props). This is manager task 6, "clean Ep 17 for rule 21", still open.
+Status: REBUILT for HARD_RULES 20/21 on Nov 13 (0 FAIL / 0 WARN), awaiting Utsha's new gate-2 OK. The Nov 12 approval covered the pre-rule-21 cut.
 Voice = 1 take, 550 ElevenLabs credits, already generated — the rule-21 rebuild costs 0 extra credits. Claims: `claims.md`. Spec: `episode.json`.
 
 ## Why
@@ -19,13 +19,16 @@ Voice = 1 take, 550 ElevenLabs credits, already generated — the rule-21 rebuil
 ## Scene table
 | # | Backdrop / transition | Props |
 |---|---|---|
-| 0 | hospital / zoom (instant) | organ lungs LUNGS, stamp QUIT?, icons cell (3x2) |
-| 1 | lab / whip | icons cell x8 RECEPTORS, stamp NICOTINE |
-| 2 | hospital / membrane | card RISP 2026 / 7,805 SMOKERS, icons check |
-| 3 | lab / whip | bars 50.1 vs 8.1, icons check x8 (top strip) |
-| 4 | plain / zoom | peopleGrid CHOSE IT, stamp NOT PROVEN, icons person |
-| 5 | streetcar / doors | stopSign TTC/ASK, icons check, icons cell |
-| 6 | hospital / whip | peopleGrid SEND IT, icons person |
+| 0 | hospital / zoom (instant) | organ lungs @"smoking"; organ brain (NEW) @"brain's" |
+| 1 | streetcar / whip | stamp NICOTINE @"Nicotine"; icons cell RECEPTORS @"receptors"; stopSign TTC/DELAY @"TTC" |
+| 2 | hospital / membrane | none (catchphrase, clean) |
+| 3 | lab / whip | card ITALY 2026 @"Italian"; peopleGrid HALF QUIT (5 of 10) @"half"; bars 50.1 vs 8.1 @"Counselling" |
+| 4 | plain / zoom | peopleGrid CHOSE IT @"picked"; stamp LINKED @"Linked"; stamp NOT PROVEN @"proven" |
+| 5 | snow / doors | icons person ASK THEM @"doctor"; icons check EVERY TRY @"try" |
+| 6 | hospital / whip | none (outro, clean; sources card only) |
+
+### Rule 20/21 rebuild (BUILD chat, Nov 13) — supersedes the Nov 12 notes below
+Every prop now has `shows` + a word `anchor` and leaves with its sentence; catchphrase and outro are prop-free. Reused: lungs, stamps, icons, peopleGrid, bars, card, stopSign (all with new params). New: organ kind `brain` (added to props.js, LIBRARY.md, library_tags.json, test_rig). Backdrop order hospital/streetcar/hospital/lab/plain/snow/hospital. 0 extra credits (same voice take).
 
 ### BUILD chat prop changes (Nov 12, Ep 17 draft 1 -> final)
 Props are all existing LIBRARY.md ids; only parameters changed, so nothing new to add to the library.

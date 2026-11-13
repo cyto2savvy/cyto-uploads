@@ -149,6 +149,20 @@
     "explain"
    ]
   },
+  "organ:brain": {
+   "tags": [
+    "brain",
+    "addiction",
+    "smoking",
+    "nicotine",
+    "mind",
+    "sleep"
+   ],
+   "roles": [
+    "hook",
+    "explain"
+   ]
+  },
   "bars": {
    "tags": [
     "compare",
