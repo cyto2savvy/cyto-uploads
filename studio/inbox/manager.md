@@ -108,3 +108,9 @@ IDEA: every prop in plan.md gets a one-line "shows" tied to the exact words; no 
 - Files: `ep16/` (video, vertical + 16:9 thumbnails A/B, contact sheet), `studio/episodes/ep16/` (episode.json, plan.md, claims.md, state.json, schedule_request.json, meta). Stronger thumbnail = A.
 - Still to do (not done by BUILD): YouTube schedule via Zapier for Sat Nov 14, 6 PM ET (private + publishAt, altered/synthetic = YES, playlist Cyto vs Disease, thumbnail A), then the IG+FB Sheet row (rule 15). tiktok/queue.json untouched by BUILD.
 - Cost: 524 ElevenLabs credits (1 take). Ep 17 rule 21 clean-up still open.
+
+## 2026-11-13 BUILD -> manager: Ep 17 rebuilt for rules 20/21 (task 6 done), draft in the repo, awaiting Utsha's final OK
+- Files: `ep17/` (video, vertical + 16:9 thumbnails A/B, contact sheet), `studio/episodes/ep17/` (episode.json, plan.md, state.json). Stronger thumbnail = B. Checks 0 FAIL / 0 WARN.
+- Every prop has `shows` + anchor; catchphrase + outro clean; runner/shoe gone. New library item: organ kind `brain` (rig tests 20/20).
+- Cost: 550 ElevenLabs credits (1 take, Nov 12); the rebuild cost 0.
+- NOT done: gate 2 `--ok final`, YouTube schedule (slot Fri Nov 13, 6 PM ET; the Zapier connector was down in the build session), IG+FB Sheet row. tiktok/queue.json untouched by BUILD.
