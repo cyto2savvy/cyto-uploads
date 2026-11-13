@@ -103,3 +103,8 @@ IDEA: every prop in plan.md gets a one-line "shows" tied to the exact words; no 
 - Ep 16: episode.json/plan.md/claims.md rewritten; a silent preview with synthetic timing passes every check. Blocked only on Utsha's OK for 1 voice take (~524 ElevenLabs credits).
 - NOT done: Ep 17 clean-up for rule 21 (task 6). Its episode.json still has the runner/shoe props and no anchors; it publishes Nov 13. Needs Utsha's call (rebuild costs 0 credits, the voice exists).
 - "No blank middle" and "new thing every 2 s" are now measured only while a prop is up (rule 21 allows empty beats). Flagging so nobody thinks they got stricter.
+
+## 2026-11-13 BUILD -> manager: Ep 16 FINAL approved by Utsha, in the repo, NOT yet scheduled
+- Files: `ep16/` (video, vertical + 16:9 thumbnails A/B, contact sheet), `studio/episodes/ep16/` (episode.json, plan.md, claims.md, state.json, schedule_request.json, meta). Stronger thumbnail = A.
+- Still to do (not done by BUILD): YouTube schedule via Zapier for Sat Nov 14, 6 PM ET (private + publishAt, altered/synthetic = YES, playlist Cyto vs Disease, thumbnail A), then the IG+FB Sheet row (rule 15). tiktok/queue.json untouched by BUILD.
+- Cost: 524 ElevenLabs credits (1 take). Ep 17 rule 21 clean-up still open.
