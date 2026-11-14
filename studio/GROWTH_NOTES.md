@@ -82,3 +82,42 @@ underperformed. Weak evidence (Oct 30 had two and Ep 2 won), but don't double up
 - Duds were time-locked/niche or vague; hits were universal myth/"can you actually" questions.
 - TODO each episode: Studio > Content > the Short > Reach > "Viewed vs swiped away" (not in
   the API). Under ~70% viewed = hook problem.
+
+## Nov 14, 2026: Kurzgesagt benchmark (Utsha sent Y1vEGsnNYek)
+Channel: 25.8M subs, 4.0B views, since 2013. Their recent Shorts (all 71-79 s):
+
+| Short | Len | Views | Like rate | Comments |
+|---|---|---|---|---|
+| Humans Can Regrow an Organ | 74s | 1,592,482 | 4.42% | 3,018 |
+| Your Brain on Magic Mushrooms | 71s | 1,386,603 | 3.61% | 1,161 |
+| What If We Cool Down the Sun? | 79s | 1,014,193 | 3.69% | 1,073 |
+| How Does Ketamine Work? | 72s | 931,787 | 3.69% | 758 |
+| Your Skeleton Is Electric | 72s | 551,463 | 4.74% | 325 |
+| **What Is Food Fortification?** | 79s | **306,839** (36 h old) | **5.32%** | 380 |
+
+- The video Utsha flagged is their LOWEST recent Short by views, ~1/3 of their ~970k median.
+  It is also only 36 h old, so it may climb. Either way it is not an outlier for them: 307k is
+  roughly the floor for a 25.8M-sub channel. Total views do not transfer as a lesson.
+- What DOES transfer: **like rate**. Theirs is 3.6-5.3%; ours is 0.7-2.1% on seeded episodes.
+  3-5x us on the exact signal that makes the feed widen. That is the real gap.
+- **Length is not the lever.** Every one of their Shorts is 71-79 s and they hold it. Our cap of
+  24 s (rule 22) is a workaround for a 15-17 s hold, not a principle. The real fix is making
+  second 15 worth staying for. Revisit rule 22 once avg seconds held clears ~20 s.
+- Hook shape: theirs is a **paradox** ("Can you eat enough and still starve?"), ours are
+  statements ("Quitting smoking is hard, and your brain's the reason"). Cheapest thing to copy.
+- Their Shorts contain no channel self-intro, no catchphrase and no spoken like/subscribe.
+  Supports rules 23 and 24.
+
+## Nov 14, 2026: subscription-status export (Oct 16 - Nov 13)
+| | Views | Avg sec held | Avg % viewed | Watch h |
+|---|---|---|---|---|
+| Total | 9,661 | 17 s | 51.7% | 27.01 |
+| Not subscribed | 9,163 (94.8%) | 17 s | 51.0% | 25.48 (94.3%) |
+| Subscribed | 500 (5.2%) | 21 s | 65.9% | 1.53 (5.7%) |
+
+- 95% of the audience is strangers, and strangers leave at 17 s. Subscribers hold 21 s / 66%,
+  so the format works on people who know Cyto — there just aren't any of them yet.
+- Subscriber watch time per day has collapsed: 0.32 h (Oct 30) -> 0.008 h (Nov 12). The 22 subs
+  have largely stopped showing up, so a daily cadence is not building a returning audience.
+- Practical consequence: asking for a subscribe is near-worthless at this size. The ask should
+  be a send (rule 24).
