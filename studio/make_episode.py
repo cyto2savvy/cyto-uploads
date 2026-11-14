@@ -14,7 +14,7 @@ RIG = os.path.join(STUDIO, "rig_v2"); PIPE = os.path.join(HOME, "cyto2")
 FPS = 30; CYTO_SIZE = 840; CYTO_X = 64; CYTO_Y = 1110; RIG_BOX = (-579, -570, 482, 410)  # rig content bbox in its 1100 viewBox
 VOICE_ID = "MDpsT9lfiqWEMyN3A1bk"; MODEL = "eleven_v4"
 EMOTIONS = {"chill", "happy", "shock", "think", "solemn", "laugh"}
-BGS = {"skyline", "streetcar", "snow", "subway", "lake", "plain", "trail", "hospital", "lab"}; TRANS = {"whip", "doors", "zoom", "membrane"}
+BGS = {"skyline", "streetcar", "snow", "subway", "lake", "plain", "trail", "hospital", "lab", "gym", "chestcavity"}; TRANS = {"whip", "doors", "zoom", "membrane"}
 HEROES = {"heart", "clock", "snow", "brain", "phone", "sugar"}; FITS = {"none", "jersey", "hoodie", "puffer"}
 BANNED = ["tim hortons", "timmy", "tims ", "starbucks", "coca", "pepsi", "nike", "adidas", "mcdonald"]
 class Stop(Exception): pass
@@ -69,7 +69,7 @@ def prop_sig(p):
 def usage_of(E):
     S = E.get("scenes", [])
     return dict(publish_at=E.get("publish_at", ""), backdrops=[s.get("bg") for s in S], transitions=[s.get("transition", "") for s in S[1:]],
-                props=sorted({item_id(p) for s in S for p in s.get("props", [])}), combos=[scene_combo(s) for s in S],
+                props=sorted({item_id(p) for s in S for p in s.get("props", [])}), combos=[scene_combo(s) for s in S], intro=E.get("intro", ""),
                 sigs=sorted({prop_sig(p) for s in S for p in s.get("props", []) if isinstance(p, dict)}))
 def all_usage(studio=STUDIO):
     """Every rig_v2 episode's library usage, read from the episode.json files (the source of truth)."""
@@ -83,7 +83,7 @@ def all_usage(studio=STUDIO):
 def write_usage(studio=STUDIO):
     U = all_usage(studio); order = sorted(U, key=lambda k: U[k]["publish_at"]); last = {}
     for k in order:
-        for it in set(U[k]["backdrops"]) | set(U[k]["props"]) | {t for t in U[k]["transitions"] if t}: last[it] = k
+        for it in set(U[k]["backdrops"]) | set(U[k]["props"]) | {t for t in U[k]["transitions"] if t} | ({"intro:" + U[k]["intro"]} if U[k].get("intro") else set()): last[it] = k
     json.dump(dict(_note="written by make_episode.py (package) and suggest_scenes.py from episodes/*/episode.json; do not edit by hand",
                    order=order, last_used=dict(sorted(last.items())), episodes={k: {a: b for a, b in U[k].items() if a != "sigs"} for k in order}),
               open(os.path.join(studio, "rig_v2", "library_usage.json"), "w"), indent=1)
@@ -104,6 +104,49 @@ def variety_verdict(name, E, U):
     same = sorted({s for k in last3 for s in U[k].get("sigs", [])} & set(me["sigs"]))
     if same: bad.append(f"{len(same)} prop(s) reused with identical params (vary position/scale/count/colour)")
     return (not bad), ("; ".join(bad) if bad else f"vs {', '.join(last3)}: {len(rpt)}/{len(me['combos'])} repeated combos, fresh items: {', '.join(fresh)}")
+# ---- HARD_RULES 22-25 (from Ep 18)
+RULE22_FROM = 18; SPRINT = range(18, 26)
+def prev_eps(name, E, U, n=None):
+    prev = sorted((k for k in U if k != name and U[k]["publish_at"] < E.get("publish_at", "")), key=lambda k: U[k]["publish_at"])
+    return prev[-n:] if n else prev
+def intro_verdict(name, E, U):
+    """Rule 23: the opening pattern (episode.json `intro`, logged as intro:<pattern>) differs from the last 3 episodes."""
+    me = E.get("intro", "")
+    if not me: return False, "episode.json needs `intro` (opening pattern slug, e.g. stat-stamp)"
+    clash = [k for k in prev_eps(name, E, U, 3) if U[k].get("intro") == me]
+    return (not clash), (f"intro:{me} was used in {', '.join(clash)}" if clash else f"intro:{me}, not used in the last 3 episodes")
+def new_items(name, E, U):
+    """Library ids making their first appearance in this episode (never used by an earlier episode)."""
+    me = usage_of(E); before = set()
+    for k in prev_eps(name, E, U): before |= set(U[k]["backdrops"]) | set(U[k]["props"])
+    return sorted(set(me["backdrops"]) - before), sorted(set(me["props"]) - before)
+def sprint_verdict(name, E, U):
+    """Rule 25 (Eps 18-25): >= 75% of scenes carry a first-appearance element, >= 2 new backdrops and >= 2 new props."""
+    nb, np_ = new_items(name, E, U); new = set(nb) | set(np_); S = E["scenes"]; seen_bg = set(); hit = 0
+    for s_ in S:
+        ids = {item_id(p) for p in s_.get("props", [])} | {s_.get("bg")}
+        hit += bool(ids & new)
+    share = hit / len(S); ok = share >= 0.75 and len(nb) >= 2 and len(np_) >= 2
+    return ok, f"{hit}/{len(S)} scenes ({share * 100:.0f}%) carry a new element; new backdrops: {', '.join(nb) or 'none'}; new props: {', '.join(np_) or 'none'}"
+def send_ask_verdict(E):
+    """Rule 24: exactly one ask, a send to a specific person, spoken AND on screen in the last scene."""
+    last = len(E["scenes"]) - 1; spoken = " ".join(l.get("say", "") for l in E["script"] if l.get("scene") == last).lower()
+    screen = ((E["scenes"][last].get("headline") or "") + " " + (E["scenes"][last].get("card") or "")).lower(); allsaid = " ".join(l.get("say", "") for l in E["script"]).lower()
+    bad = []
+    if not re.search(r"\bsend (this|it)\b.*\b(to|the one|your)\b", spoken): bad.append("no spoken send-ask in the last scene")
+    if "send" not in screen: bad.append("send-ask not on screen in the last scene")
+    if re.search(r"\b(subscribe|like and|hit like|follow)\b", allsaid): bad.append("a second ask (like/subscribe/follow) is spoken")
+    return (not bad), ("; ".join(bad) or "one send-ask, spoken and on screen in the last scene")
+def catchphrase_start(E, tm):
+    """Start time (s) of the catchphrase ('ya boy Cyto'), or None if it is not in the script."""
+    W = tm["words"]
+    for i in range(len(W) - 2):
+        if [norm_w(W[i + j]["w"]) for j in range(3)] == ["ya", "boy", "cyto"]:
+            j = i
+            while j > 0 and norm_w(W[j - 1]["w"]) in ("yo", "its") and W[j - 1]["line"] == W[i]["line"]: j -= 1
+            return W[j]["t0"]
+    return None
+
 def floater_errors(E):
     """HARD_RULES 21 at spec level: every prop shows something said in its scene; clean scenes have none."""
     errs = []; clean = clean_scenes(E)
@@ -180,6 +223,13 @@ def validate(E):
         if wc > 8: errs.append(f"scenes[{i}] has {wc} words of text (max 8, HARD_RULES 5)")
         if i and s.get("bg") == SC[i - 1].get("bg"): errs.append(f"scenes[{i}] reuses the previous backdrop '{s.get('bg')}' (HARD_RULES 6)")
     if E.get("ep", 0) >= RULE21_FROM: errs += floater_errors(E)
+    if E.get("ep", 0) >= RULE22_FROM:   # HARD_RULES 22-24 at spec level
+        if est > 28: errs.append(f"~{est:.0f}s of speech (> 28 s, HARD_RULES 22: cut a beat)")
+        if SC[0].get("bg") != SC[-1].get("bg"): errs.append("last scene backdrop must equal scene 0's (HARD_RULES 22: the end loops into the start)")
+        if not E.get("intro"): errs.append("missing 'intro' (opening pattern slug, logged as intro:<pattern>, HARD_RULES 23)")
+        okk, note = send_ask_verdict(E)
+        if not okk: errs.append(f"{note} (HARD_RULES 24)")
+        if any("ya boy cyto" in l.get("say", "").lower() for l in S[:1]): errs.append("catchphrase in the first line (HARD_RULES 23: never in the first 6 s)")
     if E.get("ep", 0) >= RULE21_FROM and E.get("health", True) and not re.search(r"see (a|your) doctor|talk to (a|your) doctor", E["description"].lower()): warns.append("health topic: no 'see a doctor about symptoms' line in the description")
     if E.get("stronger") not in {t.get("id") for t in T}: errs.append("'stronger' must name one thumbnail id (say which is stronger)")
     for i, s in enumerate(E["sources"]):
@@ -280,7 +330,8 @@ def make_plan(ep, E, tm):
     # Cyto's drawn content spans x -579..482, y -570..410 of his 1100 viewBox (held cup + steam + raised arm).
     # CYTO_* keeps that whole box inside the frame with >= 40 px margin and his body >= 55% of the width.
     return dict(fps=FPS, duration=total, fit=E.get("fit", "hoodie"), seed=E.get("seed", 7), words=words, beats=sorted(beats, key=lambda b: b["t"]),
-                keys=E.get("keys", {}), scenes=scenes, cytoX=CYTO_X, cytoY=CYTO_Y, cytoSize=CYTO_SIZE)
+                keys=E.get("keys", {}), scenes=scenes, cytoX=CYTO_X, cytoY=CYTO_Y, cytoSize=CYTO_SIZE,
+                loop=bool(E.get("ep", 0) >= RULE22_FROM and len(SC) > 1 and SC[0].get("bg") == SC[-1].get("bg")))   # HARD_RULES 22: last frame = first frame
 
 def make_audio(ep, plan):
     import numpy as np
@@ -312,7 +363,7 @@ def build(ep, E):
 
 # ------------------------------------------------------------------ 4. thumbnails
 def thumbs(ep, E):
-    spec = dict(fit=E.get("fit", "hoodie"), thumbs=E["thumbnails"]); os.makedirs(ep.p("thumbs"), exist_ok=True)
+    spec = dict(fit=E.get("fit", "hoodie"), thumbs=[dict(t, **({"series": E["series"].upper()} if E.get("series") and not t.get("series") else {})) for t in E["thumbnails"]]); os.makedirs(ep.p("thumbs"), exist_ok=True)
     json.dump(spec, open(ep.p("thumbs.json"), "w"), indent=1)
     subprocess.run(["node", os.path.join(RIG, "thumbs.js"), ep.p("thumbs.json"), ep.p("thumbs")], check=True, env=dict(os.environ, SEED="3"))
     from PIL import Image
@@ -405,6 +456,17 @@ def checks(ep, E, plan):
     else:
       chk("scene props rendered (HARD_RULES 5)", lay.get("props_rendered", 0) >= need and not thin,
         f"{lay.get('props_rendered', 0)}/{need} drawn; min concurrent per scene {json.dumps(conc)}" + (f"; THIN {thin}" if thin else ""))
+    if E.get("ep", 0) >= RULE22_FROM:   # HARD_RULES 22-25
+        chk("duration 22-28 s target 24 (HARD_RULES 22)", dur <= 28.0, f"{dur:.1f}s" + ("" if dur >= 22 else " (under 22 s: fine for retention, noted)"))
+        f0 = np.asarray(Image.open(__import__("io").BytesIO(sh_bytes(["ffmpeg", "-v", "error", "-i", vid, "-frames:v", "1", "-f", "image2pipe", "-c:v", "png", "-"]))).convert("RGB")).astype(float)
+        sh(["ffmpeg", "-y", "-v", "error", "-sseof", "-0.5", "-i", vid, "-update", "1", ep.p("last_frame.png")]); fl = np.asarray(Image.open(ep.p("last_frame.png")).convert("RGB")).astype(float)   # -update 1 keeps overwriting: the file ends as the true last frame
+        dl = np.abs(f0 - fl); chk("loop: last frame matches the first (HARD_RULES 22)", bool(plan.get("loop")) and dl.mean() < 1.5 and (dl.max(axis=2) > 40).mean() < 0.004, f"mean abs diff {dl.mean():.2f}/255, {(dl.max(axis=2) > 40).mean() * 100:.2f}% of pixels differ")
+        U_ = all_usage(os.path.dirname(os.path.dirname(ep.src)))
+        chk("intro pattern differs from the last 3 episodes (HARD_RULES 23)", *intro_verdict(ep.name, E, U_))
+        cp = catchphrase_start(E, json.load(open(ep.p("timing.json"))))
+        chk("catchphrase start >= 6.0 s (HARD_RULES 23)", cp is None or cp >= 6.0, "no catchphrase in this script" if cp is None else f"starts at {cp:.1f}s")
+        chk("send-ask present, spoken + on screen (HARD_RULES 24)", *send_ask_verdict(E))
+        if E.get("ep", 0) in SPRINT: chk("library sprint: new-element share >= 75%, >= 2 new backdrops + 2 new props (HARD_RULES 25)", *sprint_verdict(ep.name, E, U_))
     chk("a new thing moves in every <= 2 s (HARD_RULES 5)", not slow, ", ".join(slow) or f"max gap {max(gapd.values()) if gapd else 0}s")
     # HARD_RULES 5: the middle band (y 25-65%) is never > 85% flat backdrop for more than 1 s
     bw_, bh_ = 540, 960  # own 2 fps pass at half res: the 216 px contact sheet is too coarse to tell flat fill from drawn detail
@@ -483,6 +545,12 @@ def main(argv=None):
         if E.get("ep", 0) >= RULE21_FROM:
             okv, notev = variety_verdict(ep.name, E, all_usage(a.studio)); say(("PASS " if okv else "FAIL ") + "variety vs last 3 episodes: " + notev)
             if not okv: raise Stop("HARD_RULES 20: pick different scenes (python3 studio/suggest_scenes.py <tags>)")
+        if E.get("ep", 0) >= RULE22_FROM:
+            oki, notei = intro_verdict(ep.name, E, all_usage(a.studio)); say(("PASS " if oki else "FAIL ") + "intro pattern: " + notei)
+            if not oki: raise Stop("HARD_RULES 23: pick an opening pattern none of the last 3 episodes used")
+            if E.get("ep", 0) in SPRINT:
+                oks, notes = sprint_verdict(ep.name, E, all_usage(a.studio)); say(("PASS " if oks else "FAIL ") + "library sprint: " + notes)
+                if not oks: raise Stop("HARD_RULES 25: Eps 18-25 need >= 75% new-element scenes, >= 2 new backdrops and >= 2 new props")
         est = credit_estimate(E)
         say(f"VALID. words {sum(len(l['say'].split()) for l in E['script'])}, voice estimate ~{est['credits_per_take']} credits/take x{est['takes']} = {est['total']} ({est['plan']})")
         if a.dry_run: say("DRY RUN: would run ->", " > ".join(w for w in want if w != 'validate'), "| gate 1 approved:", bool(st.get("approved_plan")), "| gate 2 approved:", bool(st.get("approved_final"))); return 0

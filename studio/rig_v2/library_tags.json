@@ -110,6 +110,35 @@
     "limits",
     "hook"
    ]
+  },
+  "gym": {
+   "tags": [
+    "exercise",
+    "muscle",
+    "strength",
+    "sport",
+    "heart"
+   ],
+   "roles": [
+    "hook",
+    "explain",
+    "payoff",
+    "clean"
+   ]
+  },
+  "chestcavity": {
+   "tags": [
+    "heart",
+    "chest",
+    "lungs",
+    "inside",
+    "body"
+   ],
+   "roles": [
+    "explain",
+    "stat",
+    "hook"
+   ]
   }
  },
  "props": {
@@ -302,6 +331,58 @@
     "ttc"
    ],
    "roles": [
+    "payoff"
+   ]
+  },
+  "ecgLine": {
+   "tags": [
+    "heart",
+    "pulse",
+    "heartbeat",
+    "monitor"
+   ],
+   "roles": [
+    "hook",
+    "explain"
+   ]
+  },
+  "bicepHeart": {
+   "tags": [
+    "muscle",
+    "bicep",
+    "trend",
+    "exercise",
+    "heart"
+   ],
+   "roles": [
+    "hook",
+    "payoff"
+   ]
+  },
+  "cellSlice:heartCell": {
+   "tags": [
+    "cells",
+    "mitochondria",
+    "heart",
+    "muscle",
+    "energy"
+   ],
+   "roles": [
+    "explain",
+    "stat"
+   ]
+  },
+  "fatigueMeter": {
+   "tags": [
+    "compare",
+    "fatigue",
+    "muscle",
+    "energy",
+    "stat"
+   ],
+   "roles": [
+    "explain",
+    "stat",
     "payoff"
    ]
   }

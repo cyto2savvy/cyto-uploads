@@ -221,6 +221,100 @@ const PROPS = {
     if (p.label) s += txt(W / 2, H - 8, p.label, 36, WHITE);
     return { svg: s, w: W, h: H, events };
   },
+
+  // ---- Ep 18 (library sprint, HARD_RULES 25) ----
+  // ECG trace that draws on left to right, then keeps sweeping like a monitor: a new beat (spike + heart blip) every `period` s
+  ecgLine(p, lt) {
+    const t0 = p.in || 0, W = 560, H = 250, mid = 150, period = p.period || 1.1, beats = 3, bw = (W - 60) / beats;
+    let d = `M30 ${mid}`;
+    for (let i = 0; i < beats; i++) { const x = 30 + i * bw; d += ` L${x + bw * .30} ${mid} L${x + bw * .38} ${mid - 16} L${x + bw * .46} ${mid} L${x + bw * .52} ${mid + 22} L${x + bw * .60} ${mid - 104} L${x + bw * .68} ${mid + 42} L${x + bw * .76} ${mid} L${x + bw} ${mid}`; }
+    const L = 1150, a = lt - t0, first = ease(a / 0.8), col = p.color || '#ff5a5f';
+    const ph = a < 0.8 ? first : ((a - 0.8) % period) / period, sweeping = a >= 0.8;       // after the first draw-on, an erase bar sweeps across and the trace redraws behind it
+    const dash = sweeping ? `stroke-dasharray="${(L * ph).toFixed(0)} ${(L * .12).toFixed(0)} ${L}"` : `stroke-dasharray="${L}" stroke-dashoffset="${(L * (1 - first)).toFixed(0)}"`;
+    const beat = Math.floor(Math.max(0, a) / (period / 1)) , bp = ((Math.max(0, a) % period) / period), pulse = 1 + .28 * Math.pow(Math.max(0, Math.sin(bp * Math.PI)), 6);
+    const events = []; for (let e = t0; e <= t0 + 9; e += period) events.push(+e.toFixed(2));
+    return {
+      svg: `<rect x="6" y="20" width="${W - 12}" height="${H - 40}" rx="26" fill="#0f2238" stroke="${INK}" stroke-width="9"/>` +
+        [1, 2, 3].map(i => `<path d="M24 ${20 + i * (H - 40) / 4} H${W - 24}" stroke="#27496b" stroke-width="3"/>`).join('') + [1, 2, 3, 4, 5].map(i => `<path d="M${i * W / 6} 34 V${H - 34}" stroke="#27496b" stroke-width="3"/>`).join('') +
+        `<path d="${d}" fill="none" stroke="${col}" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" ${dash}/>` +
+        `<g transform="translate(${W - 74},66) scale(${(pulse * .2).toFixed(3)})">${O('M0 150 C-190 20 -150 -170 -45 -165 C-15 -160 0 -130 0 -110 C0 -130 15 -160 45 -165 C150 -170 190 20 0 150Z', col, 34)}</g>`,
+      w: W, h: H, events
+    };
+  },
+
+  // the #BicepHeart pose: a cut-out arm flexes (fist up), the other hand presses the inside of the bicep, and the shape pops into a heart
+  bicepHeart(p, lt) {
+    const t0 = p.in || 0, W = 420, H = 420, a = lt - t0, col = p.color || GOLD, col2 = p.color2 || '#e2a51c';
+    const flex = backOut(a / 0.45), press = ease((a - 0.5) / 0.3), hp = backOut((a - 0.8) / 0.4), beat = 1 + (hp > .9 ? Math.pow(Math.max(0, Math.sin((a - 1.2) * 5.2)), 4) * .09 : 0);
+    const limb = (d, w2, c = col) => `<path d="${d}" fill="none" stroke="${INK}" stroke-width="${w2 + 18}" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${c}" stroke-width="${w2}" stroke-linecap="round" stroke-linejoin="round"/>`;
+    const heart = 'M0 150 C-190 20 -150 -170 -45 -165 C-15 -160 0 -130 0 -110 C0 -130 15 -160 45 -165 C150 -170 190 20 0 150Z';
+    const fore = -90 * Math.min(1.06, flex) + 40 * (1 - Math.min(1, flex));       // forearm swings up to vertical as the arm flexes
+    const events = [t0, +(t0 + .5).toFixed(2), +(t0 + .8).toFixed(2)]; for (let e = t0 + 1.7; e <= t0 + 6; e += 0.9) events.push(+e.toFixed(2));
+    const bul = 36 + 14 * Math.min(1, flex);
+    return {
+      svg: `<g transform="translate(46,338)">` + limb('M0 0 L214 0', 86) +                                                  // upper arm, shoulder at the left
+        `<g transform="translate(214,0) rotate(${fore.toFixed(1)})">` + limb('M0 0 L176 0', 70) + `<circle cx="196" cy="0" r="54" fill="${col}" stroke="${INK}" stroke-width="9"/><path d="M176 -30 Q200 -44 222 -28" stroke="${WHITE}" stroke-width="9" fill="none" stroke-linecap="round" opacity=".5"/></g>` +
+        (hp < 1 ? `<ellipse cx="104" cy="-46" rx="78" ry="${bul}" fill="${col}" stroke="${INK}" stroke-width="9" opacity="${(1 - clamp(hp, 0, 1)).toFixed(2)}"/>` : '') +
+        // the bicep pops into a heart
+        (hp > 0 ? `<g transform="translate(104,-58) scale(${(Math.max(.01, hp) * beat * .64).toFixed(3)})"><path d="${heart}" fill="none" stroke="${WHITE}" stroke-width="44" stroke-linejoin="round"/><path d="${heart}" fill="#ff5a5f" stroke="${INK}" stroke-width="15" stroke-linejoin="round"/><path d="M-95 -105 Q-120 -50 -85 -10" stroke="${WHITE}" stroke-width="16" fill="none" stroke-linecap="round" opacity=".7"/></g>` : '') +
+        `</g>` +
+        // the other hand: a round mitt (no fingers) that comes down from the upper left and presses the top of the bicep
+        (press > 0 ? `<g transform="translate(${(-70 + 70 * press).toFixed(1)},${(-90 + 90 * press).toFixed(1)})" opacity="${Math.min(1, press * 3).toFixed(2)}">` + limb('M16 52 L122 158', 50, col2) + `<circle cx="138" cy="172" r="38" fill="${col2}" stroke="${INK}" stroke-width="9"/></g>` : ''),
+      w: W, h: H, events
+    };
+  },
+
+  // big rounded muscle-cell cross-section; bean-shaped mitochondria fill in until they cover `fill_share` of the cell, then keep sparking (running nonstop)
+  cellSlice(p, lt) {
+    const t0 = p.in || 0, W = 640, H = 470, a = lt - t0, share = p.fill_share == null ? 0.33 : p.fill_share, spread = p.spread || 1.6;
+    const cw = 560, chh = 300, cx = W / 2, cy = 176, rx = 70, cellArea = cw * chh - (4 - Math.PI) * rx * rx;
+    const bw = 31, bh = 15.5, beanArea = Math.PI * bw * bh, n = Math.round(share * cellArea / beanArea);           // the beans really do cover `share` of the drawn cell
+    const cols = 10, rows = 6, slots = [];
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+      const x = cx - cw / 2 + 50 + c * ((cw - 100) / (cols - 1)), y = cy - chh / 2 + 38 + r * ((chh - 76) / (rows - 1));
+      if (Math.hypot((x - cx) / 1.25, y - cy) < 62) continue;                                                       // keep the nucleus clear
+      slots.push([x, y, (r * 7 + c * 13) % 5]);
+    }
+    let s0 = 7; const rr = () => (s0 = (s0 * 16807) % 2147483647) / 2147483647;
+    const order = slots.map((s, i) => [rr(), i]).sort((x, y) => x[0] - y[0]).slice(0, Math.min(n, slots.length)).map(x => slots[x[1]]);
+    const col = p.kind === 'heartCell' || !p.kind ? '#e8627a' : '#f08fa0', mito = '#ffa93a';
+    let g = `<rect x="${cx - cw / 2}" y="${cy - chh / 2}" width="${cw}" height="${chh}" rx="${rx}" fill="${col}" stroke="${INK}" stroke-width="10"/>` +
+      [-2, -1, 0, 1, 2].map(i => `<path d="M${cx + i * 96} ${cy - chh / 2 + 14} V${cy + chh / 2 - 14}" stroke="#c94863" stroke-width="7" opacity=".55"/>`).join('') +            // striations: it is muscle
+      `<path d="M${cx - cw / 2 + 40} ${cy - chh / 2 + 34} Q${cx - cw / 2 + 22} ${cy} ${cx - cw / 2 + 40} ${cy + 60}" stroke="${WHITE}" stroke-width="12" fill="none" stroke-linecap="round" opacity=".4"/>` +
+      `<ellipse cx="${cx}" cy="${cy}" rx="62" ry="46" fill="#7d3bb0" stroke="${INK}" stroke-width="8"/><ellipse cx="${cx - 14}" cy="${cy - 10}" rx="20" ry="13" fill="#b07fe0" opacity=".8"/>`;
+    order.forEach(([x, y, k], i) => {
+      const st = 0.25 + (i / order.length) * spread, pop = backOut((a - st) / 0.3); if (pop <= 0) return;
+      const spark = Math.pow(Math.max(0, Math.sin((a - st) * 2.6 + i * 1.7)), 8);                                  // each plant keeps firing
+      g += `<g transform="translate(${x.toFixed(1)},${y.toFixed(1)}) rotate(${k * 36 - 70}) scale(${(Math.max(.01, pop) * (1 + .1 * spark)).toFixed(3)})"><rect x="${-bw}" y="${-bh}" width="${bw * 2}" height="${bh * 2}" rx="${bh}" fill="${mito}" stroke="${INK}" stroke-width="6"/>` +
+        `<path d="M-18 6 L-10 -6 L-2 6 L6 -6 L14 6" stroke="${INK}" stroke-width="4" fill="none" stroke-linejoin="round" stroke-linecap="round" opacity=".75"/>` + (spark > .5 ? `<circle cx="0" cy="-22" r="${(5 + 5 * spark).toFixed(1)}" fill="${GOLD}" stroke="${INK}" stroke-width="3"/>` : '') + `</g>`;
+    });
+    // a three-part bar: one part fills = one third (no numerals)
+    const by = H - 104, k3 = ease((a - 0.25) / spread), seg = 150;
+    g += [0, 1, 2].map(i => `<rect x="${cx - 1.5 * seg - 8 + i * (seg + 8)}" y="${by}" width="${seg}" height="30" rx="12" fill="${i === 0 ? mito : '#e6ebf2'}" opacity="${i === 0 ? (0.25 + .75 * k3).toFixed(2) : 1}" stroke="${INK}" stroke-width="7"/>`).join('');
+    if (p.label) g += `<g transform="translate(${cx},${H - 30})"><rect x="-150" y="-36" width="300" height="62" rx="24" fill="${WHITE}" stroke="${INK}" stroke-width="8"/>${txt(0, 10, p.label, 38, INK, 900, 'middle', 0)}</g>`;
+    const events = spanEvents(t0, 0.25 + spread, 0.55); for (let e = t0 + 0.25 + spread + 0.9; e <= t0 + 9; e += 0.9) events.push(+e.toFixed(2));
+    return { svg: g, w: W, h: H, events, beans: order.length, share: +(order.length * beanArea / cellArea).toFixed(3) };
+  },
+
+  // two vertical gauges: the first stays low and steady, the second fills red and "burns". No numerals unless show_numbers.
+  fatigueMeter(p, lt) {
+    const t0 = p.in || 0, W = 460, H = 440, a = lt - t0, labs = p.labels || ['HEART', 'BICEP'], vals = p.values || [20, 90], dur = p.dur || 1.5;
+    const gw = 110, gh = 290, top = 26, xs = [W / 2 - 112, W / 2 + 112];
+    let g = '';
+    xs.forEach((x, i) => {
+      const hot = vals[i] >= 60, k = ease((a - 0.2 - i * 0.15) / (hot ? dur : 0.5)), wob = hot ? (k > .97 ? Math.sin(a * 9) * .012 : 0) : Math.sin(a * 2 * Math.PI / 0.9) * .035;   // heart ticks along steadily; bicep trembles at the top
+      const lvl = clamp(vals[i] / 100 * k + wob, 0, 1), fh = (gh - 16) * lvl, fc = hot ? (lvl > .66 ? RED : lvl > .4 ? '#ff8a3a' : GOLD) : TEAL;
+      g += `<g transform="translate(${x},0)"><rect x="${-gw / 2}" y="${top}" width="${gw}" height="${gh}" rx="30" fill="#e6ebf2" stroke="${INK}" stroke-width="10"/>` +
+        `<rect x="${-gw / 2 + 9}" y="${(top + gh - 8 - fh).toFixed(1)}" width="${gw - 18}" height="${fh.toFixed(1)}" rx="22" fill="${fc}"/>` +
+        [1, 2, 3].map(j => `<path d="M${-gw / 2 + 8} ${top + j * gh / 4} h22" stroke="${INK}" stroke-width="6" stroke-linecap="round"/>`).join('') +
+        `<rect x="${-gw / 2 + 16}" y="${top + 22}" width="14" height="${gh - 60}" rx="7" fill="${WHITE}" opacity=".45"/>` +
+        (hot && k > .92 ? [-1, 0, 1].map(j => `<path d="M${j * 30} ${top - 6 - ((a * 60 + j * 17) % 26)} q-9 -12 0 -22 q9 -10 0 -22" stroke="${RED}" stroke-width="7" fill="none" stroke-linecap="round" opacity="${(.9 - ((a * 60 + j * 17) % 26) / 30).toFixed(2)}"/>`).join('') : '') +
+        (p.show_numbers ? txt(0, top + gh / 2, Math.round(vals[i] * k), 46, INK, 900, 'middle', 0) : '') +
+        `<g transform="translate(0,${top + gh + 50})"><rect x="-98" y="-36" width="196" height="60" rx="22" fill="${WHITE}" stroke="${INK}" stroke-width="8"/>${txt(0, 9, labs[i] || '', 36, INK, 900, 'middle', 0)}</g></g>`;
+    });
+    const events = spanEvents(t0, 0.35 + dur, 0.55); for (let e = t0 + 0.35 + dur + 0.9; e <= t0 + 8; e += 0.9) events.push(+e.toFixed(2));
+    return { svg: g, w: W, h: H + 20, events };
+  },
 };
 
 // ---------------------------------------------------------------- layout + html

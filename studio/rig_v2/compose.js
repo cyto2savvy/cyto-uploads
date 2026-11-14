@@ -4,7 +4,7 @@
 // usage: node compose.js plan.json out.mp4 [audio.wav] [startSec endSec]     -> also out.layout.json (layout + props + static report)
 // plan: {fps,duration,fit,seed,cytoX,cytoY,cytoSize,words:[{w,start,end}],beats:[{t,emotion,gaze?}],keys:{word:color},
 //        scenes:[{id,bg,start,end,headline,hot:[..],card,props:[..],transition,snow}]}
-//   bg: skyline|streetcar|snow|subway|lake|plain|trail|hospital|lab
+//   bg: skyline|streetcar|snow|subway|lake|plain|trail|hospital|lab|gym|chestcavity
 process.env.SEED = process.env.SEED || '3';
 const fs = require('fs'), path = require('path'), crypto = require('crypto'), { spawn } = require('child_process');
 const { frameSvg, state } = require('./cyto_rig.js');
@@ -70,16 +70,25 @@ function sceneStage(sc) {
 }
 function sceneComposite(sc, t, tl) {
   const hasNext = tl.scenes.indexOf(sc) < tl.scenes.length - 1;
-  const lt = t - sc.start, dur = sc.end - sc.start, k = clamp(lt / dur, 0, 1);
-  const L = layers(sc.bg, sc.seed || 5);
+  const lt = t - sc.start, dur = sc.end - sc.start;
+  // HARD_RULES 22 (loop): the last scene shares scene 0's backdrop + seed and runs its parallax BACKWARDS, so it ends exactly where scene 0 starts
+  const loopEnd = !!tl.loop && !hasNext && tl.scenes.length > 1, k = loopEnd ? 1 - clamp(lt / dur, 0, 1) : clamp(lt / dur, 0, 1);
+  const L = layers(sc.bg, loopEnd ? (tl.scenes[0].seed || 5) : (sc.seed || 5));
   const bg = L.map(l => `<div style="position:absolute;inset:0;transform:translateX(${(-26 * k * l.d).toFixed(2)}px) scale(${(1 + 0.085 * k * l.d).toFixed(4)});transform-origin:50% 58%">${l.s}</div>`).join('');
   const snow = (sc.snow === true || (sc.snow !== false && sc.bg === 'snow')) ? snowDots(t) : '';
   const st = sceneStage(sc);
   const props = (sc.props || []).map((p, i) => propHtml(p, lt, sc.id, i, (sc.props || []).length, st));
   return `<div style="position:absolute;inset:0;overflow:hidden">${bg}${snow}${sc.dim ? `<div style="position:absolute;inset:0;background:rgba(10,19,48,${+sc.dim})"></div>` : ''}${props.map(r => r ? r.html : '').join('')}` +
-    `${headlineHtml(sc, lt, dur, st.hy, hasNext)}${cardHtml(sc, lt, dur, st.cy, hasNext)}</div>`;
+    (loopEnd ? `${headlineHtml(sc, lt, dur - LOOP_TAIL, st.hy, false)}${cardHtml(sc, lt, dur - LOOP_TAIL, st.cy, false)}${loopHook(tl, lt, dur)}`
+      : `${headlineHtml(sc, lt, dur, st.hy, hasNext)}${cardHtml(sc, lt, dur, st.cy, hasNext)}`) + `</div>`;
 }
 
+// loop tail: the outro text is gone LOOP_TAIL before the end, then scene 0's hook headline fades in, so the last frame is frame 0
+const LOOP_TAIL = 0.3;
+function loopHook(tl, lt, dur) {
+  const s0 = tl.scenes[0], f = 1 / (tl.fps || 30), o = clamp((lt - (dur - LOOP_TAIL)) / (LOOP_TAIL - f - 1e-6), 0, 1); if (o <= 0) return '';
+  return `<div style="position:absolute;inset:0;opacity:${o.toFixed(3)}">${headlineHtml(Object.assign({}, s0, { instant: true }), 99, 1e9, sceneStage(s0).hy, true).replace('data-chk="headline"', `data-chk="headline" data-s="${o > .3 ? 1 : 0}"`)}</div>`;
+}
 const BL = b => b > 0.25 ? `filter:blur(${b.toFixed(2)}px);` : '';                       // below this, the blur is invisible but still forces a resample
 const TF = (dx, k) => (Math.abs(dx) > 0.3 || Math.abs(k - 1) > 0.0015) ? `transform:translateX(${dx.toFixed(1)}px) scale(${k.toFixed(4)});` : '';
 const TS = k => Math.abs(k - 1) > 0.0015 ? `transform:scale(${k.toFixed(4)});` : '';
@@ -147,7 +156,7 @@ function segKey(tl, i, i0, i1) {
   const inWin = a => (a || []).filter(w => (w.end ?? w.t) >= win[0] && (w.start ?? w.t) <= win[1]);
   return crypto.createHash('sha1').update(JSON.stringify({
     v: 3, engine: ENGINE, scene: S[i], prev: i ? S[i - 1] : null, i0, i1, fps: tl.fps || 30,
-    g: { fit: tl.fit, seed: tl.seed, dur: tl.duration, cx: tl.cytoX, cy: tl.cytoY, cs: tl.cytoSize, keys: tl.keys },
+    g: { loop: !!tl.loop, s0: tl.loop ? tl.scenes[0] : null, fit: tl.fit, seed: tl.seed, dur: tl.duration, cx: tl.cytoX, cy: tl.cytoY, cs: tl.cytoSize, keys: tl.keys },
     words: inWin(tl.words), beats: inWin(tl.beats),
   })).digest('hex').slice(0, 16);
 }
@@ -162,7 +171,7 @@ async function renderSegment(pg, tl, chunks, i0, i1, outFile) {
     const t = i / fps;
     const sc = tl.scenes.find(s => t >= s.start && t < s.end) || tl.scenes[tl.scenes.length - 1];
     const html = frameHtml(t, tl, chunks, frameSvg(t, tl, tl.cytoSize ?? 840));
-    await pg.evaluate(([h, tt]) => { document.body.innerHTML = h; document.querySelectorAll('svg').forEach(e => { try { e.pauseAnimations(); e.setCurrentTime(tt); } catch (_) { } }); }, [html, t]);
+    await pg.evaluate(([h, tt]) => { document.body.innerHTML = h; document.querySelectorAll('svg').forEach(e => { try { e.pauseAnimations(); e.setCurrentTime(e.dataset.t != null ? +e.dataset.t : tt); } catch (_) { } }); }, [html, t]);
     const ps = state(t, tl);                               // pose continuity across cuts (HARD_RULES 9/18)
     // head pose + brow only: eye saccades are meant to be fast, so they are not a "pose jump"
     if (pPose) {
@@ -239,7 +248,7 @@ async function renderSegment(pg, tl, chunks, i0, i1, outFile) {
   const list = (preview ? outF : path.join(cacheDir, 'list')) + '.txt';
   fs.writeFileSync(list, files.map(f => `file '${f.replace(/'/g, "'\\''")}'`).join('\n') + '\n');
   await new Promise((res, rej) => spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', list,
-    ...(audio && audio !== '-' ? ['-i', audio, '-map', '0:v', '-map', '1:a', '-c:a', 'aac', '-b:a', '160k', '-shortest'] : []),
+    ...(audio && audio !== '-' ? ['-i', audio, '-map', '0:v', '-map', '1:a', '-c:a', 'aac', '-b:a', '160k', '-t', String(total / fps)] : []),   // not -shortest: it dropped the final frame, which is the loop frame (HARD_RULES 22)
     '-c:v', 'copy', '-movflags', '+faststart', outF], { stdio: 'inherit' }).on('close', c => c ? rej(new Error('concat failed')) : res()));
   fs.unlinkSync(list); if (preview) fs.existsSync(outF + '.seg.mp4') && fs.unlinkSync(outF + '.seg.mp4');
 

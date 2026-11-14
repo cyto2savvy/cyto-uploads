@@ -31,8 +31,12 @@ PROPS = [
     {"t": "shoe"},
     {"t": "runner"},
     {"t": "stopSign", "title": "TTC", "text": "WALK IT"},
+    {"t": "ecgLine"},
+    {"t": "bicepHeart"},
+    {"t": "cellSlice", "kind": "heartCell", "fill_share": 0.33, "label": "HEART CELL"},
+    {"t": "fatigueMeter", "labels": ["HEART", "BICEP"], "values": [20, 90]},
 ]
-BACKDROPS = ["trail", "hospital", "lab", "subway", "streetcar", "skyline", "lake", "snow", "plain"]
+BACKDROPS = ["trail", "hospital", "lab", "subway", "streetcar", "skyline", "lake", "snow", "plain", "gym", "chestcavity"]
 TRANSITIONS = ["whip", "zoom", "membrane", "doors"]
 
 JS = r"""

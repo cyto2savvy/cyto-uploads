@@ -19,3 +19,4 @@ Nov 3: LF02 voices designed (Neutro, Mito: 2 design rounds) + 4 takes = 4,115 El
 Nov 3 (evening): LF02 v3 re-record = new Neutro voice design (preview rounds) + Neutro take 883 cr + Cyto3 take 142 cr = 1,025 ElevenLabs credits + design credits. Scribe 0 cr.
 | 2026-11-06 | 14 | ElevenLabs voice, 1 take (478 chars, eleven_v4) — estimate 477 cr, billed 477 cr; Scribe 0 cr | 477 (ElevenLabs) |
 | 2026-11-12 | 16 | ElevenLabs voice, 1 take (524 chars, eleven_v4, flow htIpFN38ZaD12kxyv0c1, generation 3pv7pnD27myaREibRuZ6) — estimate 524 cr, billed 524 cr; Scribe 0 cr; no SFX, no vidIQ | 524 (ElevenLabs) |
+| 2026-11-14 | 18 | ElevenLabs voice, 1 take (359 chars, eleven_v4, flow P9bnxl3Mo6ojOKllAfmh, generation S8l79o4nnvdq8Q5rdUYi) — estimate 359 cr, billed 359 cr (348 approved + 11 for ear-spelling 504/styll); Scribe 0 cr; no SFX, no vidIQ | 359 (ElevenLabs) |

@@ -64,4 +64,21 @@ bj=json.loads(node("const {propHtml}=require('./props.js');const st={top:420,bot
  "const c=propHtml({t:'organ',kind:'colon',at:[540,.5],fill:.9,in:0},1,'s0',0,1,st);"
  "console.log(JSON.stringify({org:o.visible&&o.html.includes('BRAIN')&&o.html.includes('C-140 -160')&&!/finger/i.test(o.html),other:!c.html.includes('C-140 -160')}))"))
 check("brain organ kind renders with its label chip and does not leak into other kinds", bj["org"] and bj["other"])
+# --- Ep 18 (Nov 14): sprint props + backdrops, loop pose (HARD_RULES 22, 25)
+ej=json.loads(node("const {propHtml,PROPS}=require('./props.js');const b=require('./backdrops.js');const r=require('./cyto_rig.js');const st={top:400,bottom:915};"
+ "const mk=(p,t)=>propHtml(Object.assign({at:[540,.5],fill:.8,in:0},p),t,'s0',0,1,st);"
+ "const e=mk({t:'ecgLine'},1.5),bh=mk({t:'bicepHeart'},1.6),bh0=mk({t:'bicepHeart'},.3),c=PROPS.cellSlice({fill_share:.33,label:'HEART CELL'},4),c5=PROPS.cellSlice({fill_share:.5},4),f=mk({t:'fatigueMeter',labels:['HEART','BICEP'],values:[20,90]},3),fn=mk({t:'fatigueMeter',show_numbers:true},3);"
+ "const gaps=n=>{const ev=PROPS[n]({in:0},0).events.filter(x=>x<=6);return Math.max(...ev.map((x,i)=>i?x-ev[i-1]:x));};"
+ "const tl={fps:30,duration:20,loop:true,seed:5,words:[],beats:[{t:0,emotion:'shock',gaze:[0,0]},{t:15,emotion:'laugh'}]};const z=r.state(0,tl),l=r.state(20-1/30,tl),m=r.state(19.2,tl);"
+ "console.log(JSON.stringify({vis:[e,bh,f].every(x=>x.visible),heart:bh.html.includes('#ff5a5f')&&!bh0.html.includes('#ff5a5f'),nofinger:!/finger/i.test(bh.html+e.html+f.html),"
+ "share:c.share,share5:c5.share,chip:c.svg.includes('HEART CELL'),nonum:!/>\\d+</.test(f.html),num:/>\\d+</.test(fn.html),gap:Math.max(...['ecgLine','bicepHeart','cellSlice','fatigueMeter'].map(gaps)),"
+ "bgs:['gym','chestcavity'].map(k=>b.bgLayers(k).length),txt:/<text/.test(b.bgLayers('gym').map(x=>x.s).join('')),kinds:b.KINDS.includes('gym')&&b.KINDS.includes('chestcavity'),"
+ "loop:['gx','gy','tilt','bob','cupDy','cupRot','brow','blink'].every(k=>Math.abs(z[k]-l[k])<1e-6)&&z.expr===l.expr,mid:m.expr!=='shock',smil:Math.abs((r.smilTime(20-1/30,tl)/2.4)%1)<1e-6||Math.abs((r.smilTime(20-1/30,tl)/2.4)%1-1)<1e-6}))"))
+check("Ep 18 props render (ecgLine, bicepHeart, fatigueMeter), no fingers", ej["vis"] and ej["nofinger"])
+check("bicepHeart: the heart pops only after the press", ej["heart"])
+check("cellSlice: mitochondria cover the declared share of the cell (0.33 -> ~1/3, 0.5 -> ~1/2) + label chip", abs(ej["share"]-.33)<.03 and abs(ej["share5"]-.5)<.04 and ej["chip"], f"{ej['share']}, {ej['share5']}")
+check("fatigueMeter: no numerals unless show_numbers", ej["nonum"] and ej["num"])
+check("Ep 18 props keep producing a new thing every <= 2 s", ej["gap"]<=2.0, f"max gap {ej['gap']:.2f}s")
+check("gym + chestcavity backdrops: 3 parallax layers each, registered, gym has no signage text", ej["bgs"]==[3,3] and ej["kinds"] and not ej["txt"])
+check("loop: the last frame's pose equals frame 0 and the steam clock is back at phase 0 (HARD_RULES 22)", ej["loop"] and ej["mid"] and ej["smil"])
 print(f"\n{sum(R)}/{len(R)} passed"); sys.exit(0 if all(R) else 1)

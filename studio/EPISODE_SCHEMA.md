@@ -8,7 +8,8 @@ No TikTok output (TikTok dropped Nov 13).
 { "ep":15, "slug":"short-slug", "title":"<=60 chars", "health":true, "fit":"hoodie|jersey|puffer|none", "seed":7,
   "publish_at":"2026-11-12T23:00:00Z", "keyword":"first tag (default: title lower)", "hashtags":["#topic1"],  (brand #shorts #science #toronto #6ix auto-added)
   "script":[{"say":"caption spelling, e.g. 6ix","tts":"optional ear spelling","scene":0,"emotion":"chill|happy|shock|think|solemn|laugh","emotion2":"","gaze":[x,y],"pause_after":0.5}],
-  "scenes":[{"bg":"skyline|streetcar|snow|subway|lake|plain","headline":"LINE1\nLINE2","hot":["WORD"],"card":"text","transition":"whip|doors|zoom|membrane"}],
+  "intro":"opening-pattern-slug (Ep 18+, rule 23; logged as intro:<slug>, must differ from the last 3 episodes)",
+  "scenes":[{"bg":"skyline|streetcar|snow|subway|lake|plain|trail|hospital|lab|gym|chestcavity (full list: rig_v2/LIBRARY.md; a new id is registered in BGS in make_episode.py + backdrops.js)","headline":"LINE1\nLINE2","hot":["WORD"],"card":"text","transition":"whip|doors|zoom|membrane"}],
   "keys":{"word":"#hexcolor"}, "thumbnails":[{"id":"A","headline":["2 MINUTES","OF SILENCE"],"hot":["SILENCE"],"hero":"heart|clock|snow|brain|phone|sugar","emotion":"shock"},{"id":"B",...}], "stronger":"B",
   "sources":[{"short":"Author Year, Journal (on screen)","full":"citation + PubMed link (description)"}],
   "description":"must contain 'Not medical advice' if health", "tags":[...], "pinned_comment":"question + sources in description", "related_video":"Ep N (id)", "playlist":"6ixty Seconds of Science", "outfit_note":"" }
@@ -17,3 +18,5 @@ Rules enforced: script scenes in order, every scene has a line, <=60 s speech, 2
 Checks (report.json, any FAIL stops): layout safe zone/overlap, nothing static >1 s, face moves every 1 s, cup visible (frames inside transitions skipped), captions >=60 px, sources card >=34 px, canon 29/29, rig 15/15. Contact sheet = `contact_sheet.jpg` (1 fps, from the real mp4). Thumbs: A/B in 1280x720 + 1080x1920 plus `feed_check-<id>.jpg`.
 Audio: voice + soft pad (ducked) + whoosh per cut, loudnorm -14. Words need Scribe timings (`words_scribe.json`, token count must equal `say` words).
 Fixture proof: Ep 14 data renders in ~2 min (957 frames), 0 layout fails, 0 FAIL meta.
+
+Ep 18+ (HARD_RULES 22-25): first and last scene share a `bg` -> the plan gets `loop:true` and the render ends on frame 0 (backdrop, hook headline, Cyto's pose). Extra checks: duration <= 28 s, loop frame match, intro differs from the last 3, catchphrase start >= 6.0 s, one send-ask spoken + on screen, and for Eps 18-25 the sprint quota (>= 75% new-element scenes, 2 new backdrops + 2 new props).

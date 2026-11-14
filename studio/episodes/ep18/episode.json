@@ -39,7 +39,8 @@
    "say": "Your bicep isn't built for nonstop. Heart's the 504 streetcar, bicep's a weekend closure, styll.",
    "scene": 2,
    "emotion": "happy",
-   "pause_after": 0.25
+   "pause_after": 0.25,
+   "tts": "Your bicep isn't built for nonstop. Heart's the five-oh-four streetcar, bicep's a weekend closure, stiiill."
   },
   {
    "say": "Not medical advice. Send this to the one who does the bicep heart. Yo, it's ya boy Cyto!",
@@ -120,11 +121,11 @@
     {
      "t": "fatigueMeter",
      "at": [
-      540,
-      0.46
+      325,
+      0.5
      ],
      "fill": 0.8,
-     "anchor": "bicep's",
+     "anchor": "bicep",
      "shows": "a bicep meter climbing to burn while the heart meter stays steady",
      "labels": [
       "HEART",
@@ -136,8 +137,34 @@
      ],
      "show_numbers": false,
      "lead": 0.2
+    },
+    {
+     "t": "stopSign",
+     "at": [
+      800,
+      0.5
+     ],
+     "fill": 0.8,
+     "anchor": "504",
+     "shows": "the heart as the 504 streetcar: running all day",
+     "title": "504",
+     "text": "ALL DAY"
+    },
+    {
+     "t": "stamp",
+     "at": [
+      325,
+      0.45
+     ],
+     "fill": 0.3,
+     "anchor": "closure",
+     "shows": "the bicep as a weekend closure",
+     "text": "CLOSED",
+     "plate": true,
+     "rot": -5
     }
-   ]
+   ],
+   "dim": 0.45
   },
   {
    "bg": "gym",
@@ -192,8 +219,8 @@
     -0.4,
     -0.3
    ],
-   "scene": "lab",
-   "sceneSeed": 9,
+   "scene": "hospital",
+   "sceneSeed": 11,
    "bg_subject": "heart + University Ave hospital row",
    "glow": "#ffc83a"
   }
@@ -227,5 +254,6 @@
  "catchphrase": "1.3 s stinger at the very end (shortened to 'Yo, it's ya boy Cyto')",
  "voice": {
   "takes": 1
- }
+ },
+ "intro": "stat-stamp"
 }

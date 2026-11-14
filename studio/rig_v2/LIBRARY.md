@@ -63,6 +63,10 @@ A scene's first prop should be readable within ~0.2 s of the cut — a grid with
 | `shoe` | running shoe with motion lines | — |
 | `runner` | cut-out jogger, limbs cycling | `color` (default gold — deliberately not Cyto's teal) |
 | `stopSign` | TTC-style stop sign on a pole | `title`; `text` |
+| `ecgLine` | Ep 18: heart-monitor panel; the trace draws on left to right, then keeps sweeping with a heart blip on every beat | `period` (s per beat, default 1.1); `color` |
+| `bicepHeart` | Ep 18: cut-out arm flexes (fist up), the other hand (a mitt, no fingers) presses the bicep and it pops into a beating heart | `color`; `color2` (pressing arm) |
+| `cellSlice` | Ep 18: muscle-cell cross-section with nucleus; bean mitochondria fill in until they really cover `fill_share` of the drawn cell, then keep sparking; three-part bar under it, label chip | `kind`: `heartCell`; `fill_share` (default 0.33); `spread` (s to fill, default 1.6); `label` |
+| `fatigueMeter` | Ep 18: two vertical gauges; values under 60 stay low, teal and tick steadily, values 60+ fill gold to red and tremble with heat lines | `labels`: `["HEART","BICEP"]`; `values`: `[20,90]`; `dur`; `show_numbers` (default off: illustrative, no scale) |
 
 ```json
 {"t":"bars","values":[80,74],"labels":["EXERCISE","PAMPHLETS"],"at":[540,0.56],"fill":0.72,"in":0.3}
@@ -76,6 +80,10 @@ A scene's first prop should be readable within ~0.2 s of the cut — a grid with
 {"t":"shoe","at":[760,0.34],"fill":0.40,"in":0.3}
 {"t":"runner","at":[225,0.52],"fill":0.72,"in":0.0}
 {"t":"stopSign","title":"TTC","text":"WALK IT","at":[238,0.52],"fill":0.88,"in":0.0}
+{"t":"ecgLine","at":[300,0.28],"fill":0.40,"anchor":"heart","shows":"..."}
+{"t":"bicepHeart","at":[760,0.62],"fill":0.78,"anchor":"bicep","shows":"..."}
+{"t":"cellSlice","kind":"heartCell","fill_share":0.33,"label":"HEART CELL","at":[540,0.45],"fill":0.84,"anchor":"third","shows":"..."}
+{"t":"fatigueMeter","labels":["HEART","BICEP"],"values":[20,90],"show_numbers":false,"at":[325,0.5],"fill":0.8,"anchor":"bicep","shows":"..."}
 ```
 
 ---
@@ -95,6 +103,8 @@ Parallax layer sets (far → near) in `backdrops.js`. All take an optional `seed
 | `lake` | waterfront at night, moon | calm, sleep, reflection |
 | `snow` | winter sky and drifts | winter, cold, seasonal |
 | `plain` | glow + rings, neutral stage | a big stat that should carry the frame alone |
+| `gym` | Ep 18: weight room, mirror wall, dumbbell rack, bench, rubber floor (no brands, no text) | muscle, exercise, strength |
+| `chestcavity` | Ep 18: inside the chest, ribs at both sides in parallax, heart silhouette beating in the far layer | heart, lungs, "inside your body" |
 
 ---
 
@@ -119,6 +129,7 @@ Every cut is 0.35–0.5 s, eases in and out, and keeps moving (HARD_RULES 8, 18)
 | `no floaters` | a prop is on screen only from its anchor word to its sentence end + 1.5 s; catchphrase + outro have none |
 | `variety vs last 3 episodes` | rule 20, see §6 |
 | `a new thing moves in every <= 2 s` | gaps between prop arrivals |
+| `duration`, `loop`, `intro`, `catchphrase`, `send-ask`, `library sprint` | rules 22-25 from Ep 18: <= 28 s; last frame = first; intro differs from the last 3; catchphrase starts >= 6.0 s; one send-ask spoken + on screen; Eps 18-25 >= 75% new-element scenes, 2 new backdrops + 2 new props |
 | `no blank middle` | while a prop is up, y 25–65 % is never > 85 % flat backdrop for > 1 s |
 | `no overlaps` | nothing covers anything else for > 0.3 s |
 | `transitions smooth` | every cut including the first: no stall, no pop, Cyto's pose blends |
@@ -133,5 +144,8 @@ Every cut is 0.35–0.5 s, eases in and out, and keeps moving (HARD_RULES 8, 18)
 - Pick scenes: `python3 studio/suggest_scenes.py --for=epNN <topic tags>` prints 3 backdrop + prop sets per role (hook, explain, stat, limits, payoff, clean), topic fit first, then least recently used, none a combo from the 3 episodes before epNN.
 - make_episode fails the episode before any credits are spent if: more than half the scenes repeat a backdrop+prop combo from the last 3 episodes, the backdrop order equals the previous episode's, there is no new or least-recently-used item, or a prop is reused with identical params.
 - Vary reused items: `at`, `fill`, counts (`n`, `ticks`, `cols`), `color`/`plate`, `rot`, labels, `dur`/`spread`.
+- Ep 18 added (sprint, rule 25): backdrops `gym`, `chestcavity`; props `ecgLine`, `bicepHeart`, `cellSlice` (kind `heartCell`), `fatigueMeter`.
+- Ep 18 also added the loop (rule 22): when the last scene's `bg` equals scene 0's, the plan gets `loop:true`; the last scene reuses scene 0's seed, runs its parallax backwards, clears its text 0.3 s before the end, fades scene 0's hook headline in, and Cyto's pose eases to his frame-0 pose, so the last frame equals the first. Opening pattern = `intro` in episode.json, logged as `intro:<pattern>` in library_usage.json (rule 23).
+- A single-event prop (stopSign, stamp, organ, shoe, runner) can sit alone for at most 2 s before the "new thing every 2 s" check fails; pair it with another prop or pick one that keeps producing events (ecgLine, cellSlice, fatigueMeter, bicepHeart, anything with `spread`).
 - Ep 17 added: organ kind `brain`.
 - Ep 16 added: organ kind `prostate`, stamp `plate`, scene `dim`, prop `hold`/`lead`. Removed: decorative rings on `plain`, snow particles on non-snow backdrops (rule 21).

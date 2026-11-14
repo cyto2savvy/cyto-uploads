@@ -73,4 +73,18 @@ T += [("r21: anchored prop + clean scenes pass", lambda: M.validate(_g16())[0] =
  ("r20: fresh mix with a new item passes", lambda: M.variety_verdict("ep16", dict(publish_at="2026-02-01", scenes=[dict(bg=b, transition="zoom", props=[dict(t="card", at=[2, .4])]) for b in ("snow", "lake")]), {"ep15": _u(("lab", "plain"))})[0]),
  ("r20: no new/least-recently-used item fails", lambda: any("least-recently-used" in x for x in [M.variety_verdict("ep16", dict(publish_at="2026-02-01", scenes=[dict(bg=b, transition="zoom", props=[dict(t="stamp", at=[9, .9])]) for b in ("plain", "lab")]), {"ep15": _u(("lab", "plain"))})[1]]))]
 
+# --- HARD_RULES 22-25 (Ep 18+)
+_E18 = dict(ep=18, publish_at="2026-03-01", intro="stat-stamp", script=[dict(say="Your heart works.", scene=0), dict(say="Send this to the one who flexes. Yo, it's ya boy Cyto!", scene=1)],
+            scenes=[dict(bg="gym", headline="A", props=[dict(t="ecgLine"), dict(t="bicepHeart")]), dict(bg="gym", headline="SEND IT", props=[])])
+_U18 = {"ep17": dict(_u(("lab", "plain")), intro="cold-open")}
+T += [
+ ("r23: an intro not used in the last 3 passes; a repeated one or a missing one fails", lambda: M.intro_verdict("ep18", _E18, _U18)[0] and not M.intro_verdict("ep18", _E18, {"ep17": dict(_u(("lab",)), intro="stat-stamp")})[0] and not M.intro_verdict("ep18", dict(_E18, intro=""), _U18)[0]),
+ ("r23: intro is logged as intro:<pattern>", lambda: M.usage_of(_E18)["intro"] == "stat-stamp"),
+ ("r24: send-ask must be spoken AND on screen, and be the only ask", lambda: M.send_ask_verdict(_E18)[0] and not M.send_ask_verdict(dict(_E18, scenes=[_E18["scenes"][0], dict(bg="gym", headline="BYE")]))[0]
+    and not M.send_ask_verdict(dict(_E18, script=[_E18["script"][0], dict(say="Send this to the one who flexes. Like and subscribe.", scene=1)]))[0]),
+ ("r25: sprint needs >= 75% new-element scenes, 2 new backdrops, 2 new props", lambda: not M.sprint_verdict("ep18", _E18, _U18)[0] and M.sprint_verdict("ep18", dict(_E18, scenes=[_E18["scenes"][0], dict(bg="chestcavity", props=[])]), _U18)[0]),
+ ("r23: catchphrase start is read from the word timings", lambda: M.catchphrase_start(_E18, dict(words=[dict(w=w, line=1, t0=10 + i, t1=10.5 + i) for i, w in enumerate("flexes. Yo, it's ya boy Cyto!".split())])) == 11),
+ ("r22: gym + chestcavity are registered backdrops and a matching first/last bg turns the loop on", lambda: {"gym", "chestcavity"} <= M.BGS),
+]
+
 bad = [n for n, f in T if not f()]; print(f"{len(T) - len(bad)}/{len(T)} passed", bad or ""); sys.exit(1 if bad else 0)

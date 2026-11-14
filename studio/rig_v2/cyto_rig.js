@@ -27,6 +27,11 @@ function mouthAt(tl,t,rest){
  return rest;
 }
 function state(t,tl){
+ // HARD_RULES 22 (loop): over the last 0.5 s the pose eases back to the pose of frame 0, so the last frame equals the first.
+ if(tl.loop&&!tl._noLoop){const L=.5,D=tl.duration,f=1/(tl.fps||30),w=ease(clamp((t-(D-L))/(L-f-1e-6),0,1));
+  if(w>0){const tl0=Object.assign({},tl,{_noLoop:true}); tl0._sched=tl._sched0||(tl._sched0=schedule(tl)); const a=state(t,tl0),z=state(0,tl0),o={};
+   for(const k of ['gx','gy','blink','brow','tilt','bob','cupDy','cupRot']) o[k]=a[k]+(z[k]-a[k])*w;
+   o.expr=w<.5?a.expr:z.expr; o.mouth=w<.5?a.mouth:z.mouth; return o;}}
  const sc=tl._sched||(tl._sched=schedule(tl)); const [bp,b0]=beatPair(tl,t); const b=b0||{emotion:'chill',t:0};
  const E=EMO[b.emotion]||EMO.chill, Ep=EMO[(bp||{}).emotion]||E;
  // pose BLENDS across a beat (0.28 s): tilt used to snap up to 9 deg in one frame, which read as a pop at every cut
@@ -51,11 +56,14 @@ function state(t,tl){
   tilt:lerp(Ep.tilt,E.tilt)+Math.sin(t*2*Math.PI*.45)*1.4, bob:Math.sin(t*2*Math.PI*.9)*6,
   cupDy:Math.sin(t*2*Math.PI*.7+1)*5, cupRot:Math.sin(t*2*Math.PI*.55)*2.5};
 }
+// SMIL clock for Cyto's own animations (steam, 2.4 s loop). With tl.loop it is warped over the last second so the steam is back at phase 0 on the last frame.
+function smilTime(t,tl){ if(!tl.loop) return t; const D=tl.duration,f=1/(tl.fps||30),P=2.4,end=Math.round((D-f)/P)*P,a=D-1;
+ if(t<=a) return t; const u=clamp((t-a)/(1-f),0,1); return a+(end-a)*u; }
 function frameSvg(t,tl,size=1080){
  const st=state(t,tl); C.setExpr(st.expr); C.reset();
  Object.assign(G,{gx:st.gx,gy:st.gy,blink:st.blink,brow:st.brow,mouth:st.mouth,cupDy:st.cupDy,cupRot:st.cupRot,steam:true});
  const body=cyto(tl.fit||'none');
  // overflow:visible — the held cup + steam reach x -579 / y -570, outside the -550 viewBox (Utsha: "cup clipped"). Geometry is unchanged.
- return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="-550 -550 1100 1100" style="overflow:visible">${defs}<g transform="translate(0,${st.bob.toFixed(1)}) rotate(${st.tilt.toFixed(2)})">${body}</g></svg>`;
+ return `<svg xmlns="http://www.w3.org/2000/svg" data-t="${smilTime(t,tl).toFixed(4)}" width="${size}" height="${size}" viewBox="-550 -550 1100 1100" style="overflow:visible">${defs}<g transform="translate(0,${st.bob.toFixed(1)}) rotate(${st.tilt.toFixed(2)})">${body}</g></svg>`;
 }
-module.exports={state,frameSvg,EMO};
+module.exports={state,frameSvg,smilTime,EMO};

@@ -265,5 +265,6 @@
  "catchphrase": "1.3 s stinger at the very end (shortened to 'Yo, it's ya boy Cyto')",
  "voice": {
   "takes": 1
- }
+ },
+ "intro": "pov-push-in"
 }

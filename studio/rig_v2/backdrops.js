@@ -3,7 +3,7 @@
 // thumbnail scenes). HARD_RULES 6: backdrops come from the topic (trail, hospital row, lab bench, TTC), not always the skyline.
 const C = require('../branding/rebrand-v2/cyto2d.js');
 const W = 1080, H = 1920, INK = '#0a1f24', GOLD = '#ffc83a', C_RED = '#c62828';
-const KINDS = ['skyline', 'streetcar', 'snow', 'subway', 'lake', 'plain', 'trail', 'hospital', 'lab'];
+const KINDS = ['skyline', 'streetcar', 'snow', 'subway', 'lake', 'plain', 'trail', 'hospital', 'lab', 'gym', 'chestcavity'];
 // ---------------------------------------------------------------- backdrops: parallax layers (far .25 -> near 1)
 function rnd(seed) { let s = seed % 2147483647 || 1; return () => (s = (s * 16807) % 2147483647) / 2147483647; }
 const svg = (inner, defs = '') => `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${defs}${inner}</svg>`;
@@ -59,6 +59,40 @@ function bgLayers(kind, seed = 5) {
         `<g transform="translate(210,1240)"><path d="M-54 0 L-54 -96 L-74 -150 L74 -150 L54 -96 L54 0Z" fill="#9fe8db" stroke="${INK}" stroke-width="9"/><rect x="-54" y="-70" width="108" height="70" fill="#3fd0bb"/></g>` +
         `<g transform="translate(880,1240)"><rect x="-70" y="-168" width="140" height="168" rx="14" fill="#fff" stroke="${INK}" stroke-width="9"/><path d="M-70 -110 H70" stroke="${INK}" stroke-width="7"/><rect x="-44" y="-86" width="88" height="54" fill="#cfe6ff"/></g>`)
     }];
+  if (kind === 'gym') {   // Ep 18: weight room. Mirror wall, dumbbell rack on the far wall, bench silhouette, rubber floor. No brands, no signage text.
+    const r = rnd(seed + 11);
+    const bell = (x, y, s, col) => `<g transform="translate(${x},${y}) scale(${s})"><rect x="-34" y="-9" width="68" height="18" rx="6" fill="#9fb0c0" stroke="${INK}" stroke-width="6"/>` +
+      [-1, 1].map(k => `<path d="M${k * 30} -30 L${k * 58} -30 L${k * 66} -15 L${k * 66} 15 L${k * 58} 30 L${k * 30} 30Z" fill="${col}" stroke="${INK}" stroke-width="7" stroke-linejoin="round"/>`).join('') + `</g>`;
+    const cols = ['#2b3340', '#3a4656', '#c62828', '#2c63d6', '#2fae9b'];
+    const shelf = (y, n, s) => `<rect x="110" y="${y}" width="860" height="24" rx="8" fill="#8a9bb0" stroke="${INK}" stroke-width="8"/>` +
+      Array.from({ length: n }, (_, i) => bell(110 + 860 * (i + .5) / n, y - 30 * s - 4, s, cols[Math.floor(r() * cols.length)])).join('');
+    return [
+      { d: .15, s: svg(`<rect width="${W}" height="${H}" fill="#18304e"/><rect y="0" width="${W}" height="250" fill="#122640"/>` +
+        Array.from({ length: 4 }, (_, i) => `<g transform="translate(${30 + i * 262},270)"><rect width="236" height="690" rx="10" fill="#2a5078" stroke="${INK}" stroke-width="8"/>` +
+          `<path d="M${30 + (i % 2) * 40} 690 L${130 + (i % 2) * 40} 0 h46 L${76 + (i % 2) * 40} 690Z" fill="#fff" opacity=".13"/><path d="M${150 - (i % 2) * 60} 690 L${205 - (i % 2) * 60} 300 h18 L${168 - (i % 2) * 60} 690Z" fill="#fff" opacity=".09"/></g>`).join('')) },
+      { d: .55, s: svg([[-1, 300], [1, 780]].map(([k, x]) => `<rect x="${x - 14}" y="560" width="28" height="470" fill="#5d6c7c" stroke="${INK}" stroke-width="8"/>`).join('') +
+        `<rect x="${140 - 14}" y="560" width="28" height="470" fill="#5d6c7c" stroke="${INK}" stroke-width="8"/><rect x="${940 - 14}" y="560" width="28" height="470" fill="#5d6c7c" stroke="${INK}" stroke-width="8"/>` +
+        shelf(650, 6, .92) + shelf(800, 5, 1.12) + shelf(960, 4, 1.34)) },
+      { d: 1, s: svg(`<rect y="1030" width="${W}" height="${H - 1030}" fill="#232a33"/><rect y="1030" width="${W}" height="16" fill="${INK}"/>` +
+        Array.from({ length: 70 }, () => `<circle cx="${(r() * W).toFixed(0)}" cy="${(1060 + r() * 840).toFixed(0)}" r="${(3 + r() * 4).toFixed(1)}" fill="${r() < .5 ? '#3d4855' : '#56c9b8'}" opacity=".7"/>`).join('') +
+        Array.from({ length: 5 }, (_, i) => `<path d="M${i * 270 - 20} 1046 V${H}" stroke="${INK}" stroke-width="5" opacity=".5"/>`).join('') +
+        // flat bench silhouette, far right, behind where Cyto stands
+        `<g transform="translate(905,1120)"><rect x="-150" y="-34" width="300" height="40" rx="16" fill="#c62828" stroke="${INK}" stroke-width="9"/><rect x="-128" y="6" width="22" height="92" fill="#5d6c7c" stroke="${INK}" stroke-width="8"/><rect x="106" y="6" width="22" height="92" fill="#5d6c7c" stroke="${INK}" stroke-width="8"/><rect x="-150" y="92" width="66" height="18" rx="8" fill="#5d6c7c" stroke="${INK}" stroke-width="8"/><rect x="84" y="92" width="66" height="18" rx="8" fill="#5d6c7c" stroke="${INK}" stroke-width="8"/></g>`) }];
+  }
+  if (kind === 'chestcavity') {   // Ep 18: inside the chest. Warm interior, heart silhouette beating in the far layer (SMIL, 0.9 s), rib arches in parallax.
+    const CG = `<defs><radialGradient id="chest" cx=".5" cy=".42" r=".75"><stop offset="0" stop-color="#e2566a"/><stop offset=".55" stop-color="#a52b46"/><stop offset="1" stop-color="#5a1430"/></radialGradient></defs>`;
+    const heart = 'M0 150 C-190 20 -150 -170 -45 -165 C-15 -160 0 -130 0 -110 C0 -130 15 -160 45 -165 C150 -170 190 20 0 150Z';
+    const rib = (y, sw, col, k, reach) => [-1, 1].map(sd => { const d = `M${540 + sd * 620} ${y - 130 * k} Q${540 + sd * (reach + 90)} ${y - 50 * k} ${540 + sd * reach} ${y + 70 * k}`;
+      return `<path d="${d}" fill="none" stroke="${INK}" stroke-width="${sw + 16}" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${col}" stroke-width="${sw}" stroke-linecap="round"/>` +
+        `<path d="${d}" fill="none" stroke="#fff" stroke-width="${Math.round(sw * .2)}" stroke-linecap="round" opacity=".4" transform="translate(0,${-Math.round(sw * .22)})"/>`; }).join('');
+    return [
+      { d: .15, s: svg(`<rect width="${W}" height="${H}" fill="url(#chest)"/>` +
+        `<g transform="translate(540,700)"><g><animateTransform attributeName="transform" type="scale" values="1;1.07;1;1.035;1;1" keyTimes="0;.12;.3;.42;.6;1" dur="0.9s" repeatCount="indefinite"/>` +
+        `<path d="${heart}" transform="scale(2.5)" fill="#7a1c38" stroke="#4a0f26" stroke-width="5"/><path d="M-95 -105 Q-120 -50 -85 -10" transform="scale(2.5)" stroke="#c2506a" stroke-width="9" fill="none" stroke-linecap="round" opacity=".6"/></g></g>`, CG) },
+      { d: .5, s: svg([330, 560, 790, 1020].map(y => rib(y, 30, '#b98f92', .8, 400)).join('')) },
+      { d: 1, s: svg([200, 470, 740, 1010, 1280].map(y => rib(y, 54, '#ecdccb', 1.1, 455)).join('') +
+        `<path d="M0 1470 Q540 1330 ${W} 1470 L${W} ${H} L0 ${H}Z" fill="#8f2440" stroke="${INK}" stroke-width="9"/><path d="M120 1486 Q540 1380 960 1486" stroke="#c2506a" stroke-width="12" fill="none" stroke-linecap="round" opacity=".7"/>`) }];
+  }
   if (kind === 'plain') return [
     { d: .2, s: svg(`<rect width="${W}" height="${H}" fill="url(#sky)"/><circle cx="540" cy="760" r="640" fill="url(#glow)"/>`, C.defs) } ];   // decorative rings removed (HARD_RULES 21: no ambient floaters)
   return [{ d: .2, s: svg(`<rect width="${W}" height="${H}" fill="url(#sky)"/>`, C.defs) },
