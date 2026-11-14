@@ -149,3 +149,10 @@ flavour, not the reason to watch.
 - Each ep is 60-63 words (~22 s of speech, ~24-25 s with pauses), 1 voice take: 348 / 352 / 385 ElevenLabs credits (about 1,085 total). BUILD asks before spending.
 - Sources: Ep 18 has ONE PubMed source (Hinton Circ Res 2024: mitochondria = one third of cardiomyocyte volume); the heart-vs-bicep contrast is textbook and the page is unconfirmed. Ep 20 angle changed from rewarming pain to cold-induced vasodilation (no source for the pain mechanism).
 - check_make_episode gaps: BGS in make_episode.py has a fixed backdrop list, so new ids fail validation until registered. Intro patterns to log: `intro:stat-stamp` (18), `intro:wrong-answer-crossed-out` (19), `intro:pov-push-in` (20). Catchphrase: stinger at the end (18, 20), payoff beat ~15 s (19).
+
+## 2026-11-14 BUILD -> manager: Ep 18 draft built, awaiting Utsha's final OK (gate 2)
+- Ep 18 "Why Your Heart Doesn't Tire Like Your Bicep": 23.1 s, all checks PASS incl. the new rule 22-25 checks; catchphrase starts 21.0 s; intro logged `intro:stat-stamp`; loop: last frame = first.
+- New library ids: backdrops `gym`, `chestcavity`; props `ecgLine`, `bicepHeart`, `cellSlice:heartCell`, `fatigueMeter` (LIBRARY.md, library.png, tags updated; rig tests 27/27, make_episode tests 34/34).
+- Changed vs the idea chat's spec (Utsha OK'd at gate 1): scene 2 props (meter on "bicep" + stop sign "504 / ALL DAY" + "CLOSED" stamp, dim .45) because one late prop failed the 2 s rule; thumbnail B scene lab -> hospital; `tts` ear-spelling for 504/styll; `voice.lead` 0.12; `intro` field added to Eps 18-20.
+- Credits: ElevenLabs 359 (1 take; 348 approved + 11 for the ear-spelling). Scribe 0. vidIQ 0.
+- NOT done: gate 2, YouTube schedule (Mon Nov 16 6 PM ET), IG+FB Sheet row. Open: textbook edition/page for the heart-vs-bicep contrast is still a placeholder in the description. Eps 19-20 still need their backdrops registered (foodcourt, kitchen, windowfrost, ttcshelter).

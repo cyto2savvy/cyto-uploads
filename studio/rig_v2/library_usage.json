@@ -3,39 +3,63 @@
  "order": [
   "ep15",
   "ep17",
-  "ep16"
+  "ep16",
+  "ep18",
+  "ep19",
+  "ep20"
  ],
  "last_used": {
-  "arrowStat": "ep16",
+  "angerFace": "ep19",
+  "arrowStat": "ep19",
   "bars": "ep16",
+  "bicepHeart": "ep18",
+  "breakfastPlate": "ep19",
   "card": "ep16",
+  "cellSlice:heartCell": "ep18",
+  "chestcavity": "ep18",
   "counter": "ep16",
-  "doors": "ep16",
+  "crossOut": "ep19",
+  "doors": "ep20",
+  "ecgLine": "ep18",
+  "fatigueMeter": "ep18",
+  "foodcourt": "ep19",
+  "gym": "ep18",
   "hospital": "ep16",
   "icons:cell": "ep17",
   "icons:check": "ep16",
   "icons:organ": "ep15",
   "icons:person": "ep17",
   "icons:shoe": "ep15",
-  "lab": "ep16",
+  "intro:pov-push-in": "ep20",
+  "intro:stat-stamp": "ep18",
+  "intro:wrong-answer-crossed-out": "ep19",
+  "kitchen": "ep19",
+  "lab": "ep20",
   "lake": "ep16",
-  "membrane": "ep16",
+  "membrane": "ep20",
+  "mitten": "ep20",
+  "moodDial": "ep19",
   "organ:brain": "ep17",
   "organ:colon": "ep15",
   "organ:lungs": "ep17",
   "organ:prostate": "ep16",
-  "peopleGrid": "ep17",
+  "peopleGrid": "ep20",
   "plain": "ep16",
   "runner": "ep15",
   "shoe": "ep15",
   "skyline": "ep15",
   "snow": "ep16",
-  "stamp": "ep16",
-  "stopSign": "ep16",
+  "stamp": "ep19",
+  "stopSign": "ep18",
   "streetcar": "ep16",
-  "subway": "ep15",
+  "subway": "ep20",
+  "tempCurve": "ep20",
+  "tempDial": "ep20",
   "trail": "ep15",
-  "whip": "ep16",
+  "ttcshelter": "ep20",
+  "vesselHand": "ep20",
+  "whip": "ep20",
+  "windowfrost": "ep20",
   "zoom": "ep16"
  },
  "episodes": {
@@ -89,7 +113,8 @@
     "lab|icons:person+organ:colon+stamp",
     "subway|icons:shoe+shoe+stopSign",
     "trail|icons:shoe+runner"
-   ]
+   ],
+   "intro": ""
   },
   "ep17": {
    "publish_at": "2026-11-13T23:00:00Z",
@@ -130,7 +155,8 @@
     "plain|peopleGrid+stamp",
     "snow|icons:check+icons:person",
     "hospital|"
-   ]
+   ],
+   "intro": ""
   },
   "ep16": {
    "publish_at": "2026-11-14T23:00:00Z",
@@ -169,7 +195,98 @@
     "hospital|card+stamp",
     "streetcar|icons:check+stamp+stopSign",
     "snow|"
-   ]
+   ],
+   "intro": ""
+  },
+  "ep18": {
+   "publish_at": "2026-11-16T23:00:00Z",
+   "backdrops": [
+    "gym",
+    "chestcavity",
+    "subway",
+    "gym"
+   ],
+   "transitions": [
+    "membrane",
+    "whip",
+    "doors"
+   ],
+   "props": [
+    "bicepHeart",
+    "cellSlice:heartCell",
+    "ecgLine",
+    "fatigueMeter",
+    "stamp",
+    "stopSign"
+   ],
+   "combos": [
+    "gym|bicepHeart+ecgLine",
+    "chestcavity|cellSlice:heartCell",
+    "subway|fatigueMeter+stamp+stopSign",
+    "gym|"
+   ],
+   "intro": "stat-stamp"
+  },
+  "ep19": {
+   "publish_at": "2026-11-17T23:00:00Z",
+   "backdrops": [
+    "foodcourt",
+    "kitchen",
+    "lab",
+    "foodcourt"
+   ],
+   "transitions": [
+    "whip",
+    "membrane",
+    "doors"
+   ],
+   "props": [
+    "angerFace",
+    "arrowStat",
+    "breakfastPlate",
+    "crossOut",
+    "moodDial",
+    "peopleGrid",
+    "stamp"
+   ],
+   "combos": [
+    "foodcourt|angerFace+crossOut",
+    "kitchen|moodDial+peopleGrid",
+    "lab|arrowStat+breakfastPlate+stamp",
+    "foodcourt|"
+   ],
+   "intro": "wrong-answer-crossed-out"
+  },
+  "ep20": {
+   "publish_at": "2026-11-18T23:00:00Z",
+   "backdrops": [
+    "windowfrost",
+    "ttcshelter",
+    "lab",
+    "subway",
+    "windowfrost"
+   ],
+   "transitions": [
+    "membrane",
+    "doors",
+    "whip",
+    "membrane"
+   ],
+   "props": [
+    "mitten",
+    "peopleGrid",
+    "tempCurve",
+    "tempDial",
+    "vesselHand"
+   ],
+   "combos": [
+    "windowfrost|vesselHand",
+    "ttcshelter|tempDial+vesselHand",
+    "lab|peopleGrid+tempCurve",
+    "subway|mitten",
+    "windowfrost|"
+   ],
+   "intro": "pov-push-in"
   }
  }
 }

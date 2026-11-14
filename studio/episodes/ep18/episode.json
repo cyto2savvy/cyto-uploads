@@ -232,7 +232,7 @@
    "full": "Hinton A Jr et al., Mitochondrial Structure and Function in Human Heart Failure, Circ Res 2024 (mitochondria comprise one third of cardiomyocyte volume), PMID 38963864, https://doi.org/10.1161/CIRCRESAHA.124.323800 | Textbook for the heart-vs-skeletal-muscle contrast (nonstop work vs intermittent work): Guyton & Hall, Textbook of Medical Physiology, chapters on cardiac and skeletal muscle (BUILD/Utsha to confirm edition + page before publish)"
   }
  ],
- "description": "Your heart works all day without a break, so why does flexing your bicep burn? Cyto breaks it down from the 6ix, riding the #BicepHeart trend.\n\nAccording to a 2024 review in Circulation Research, mitochondria (the cell's power plants) make up about one third of the volume of a heart muscle cell. The heart is built for nonstop work; your bicep is built for work in bursts. That is a design difference, not a fitness verdict.\n\nThe #BicepHeart trend itself is just a pose: flex one arm and press the other hand on the inside of the bicep so it makes a heart shape. No health claim, just a good excuse to talk about muscle.\n\nNot medical advice. Chest pain or an unusual heartbeat? Talk to your doctor or call emergency services.",
+ "description": "Your heart works all day without a break, so why does flexing your bicep burn? Cyto breaks it down from the 6ix, riding the #BicepHeart trend.\n\nAccording to a 2024 review in Circulation Research, mitochondria (the cell's power plants) make up about one third of the volume of a heart muscle cell. The heart is built for nonstop work; your bicep is built for work in bursts. That is a design difference, not a fitness verdict.\n\nThe trend itself is just a pose: flex one arm and press the other hand on the inside of the bicep so it makes a heart shape. No health claim, just a good excuse to talk about muscle.\n\nNot medical advice. Chest pain or an unusual heartbeat? Talk to your doctor or call emergency services.",
  "tags": [
   "why doesn't your heart get tired",
   "heart vs bicep",
@@ -253,7 +253,8 @@
  "intro_pattern": "stat stamp slams in first (ECG + 1/3 stamp at frame 1); loop: last scene = gym backdrop, same Cyto pose as scene 0",
  "catchphrase": "1.3 s stinger at the very end (shortened to 'Yo, it's ya boy Cyto')",
  "voice": {
-  "takes": 1
+  "takes": 1,
+  "lead": 0.12
  },
  "intro": "stat-stamp"
 }
