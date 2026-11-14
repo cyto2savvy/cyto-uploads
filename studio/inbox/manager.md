@@ -114,3 +114,31 @@ IDEA: every prop in plan.md gets a one-line "shows" tied to the exact words; no 
 - Every prop has `shows` + anchor; catchphrase + outro clean; runner/shoe gone. New library item: organ kind `brain` (rig tests 20/20).
 - Cost: 550 ElevenLabs credits (1 take, Nov 12); the rebuild cost 0.
 - NOT done: gate 2 `--ok final`, YouTube schedule (slot Fri Nov 13, 6 PM ET; the Zapier connector was down in the build session), IG+FB Sheet row. tiktok/queue.json untouched by BUILD.
+
+## Views push + library sprint (Nov 14, from the 16-Short analytics pull)
+Read studio/GROWTH_NOTES.md (Nov 14 section) and HARD_RULES 22-26 before building Ep 18.
+Why: 85% of views come from the Shorts feed; we hold ~15 s whatever the length; seeded episodes
+stall at ~1,000 because shares/comments are ~zero.
+
+BUILD tasks, starting Ep 18:
+1. Length: target 24 s, hard fail over 28 s. Cut a beat rather than speeding up the read.
+   Make the last frame match the first so the loop is seamless.
+2. Intro: a different opening pattern from the last 3 episodes, logged as `intro:<pattern>` in
+   library_usage.json. First 2 spoken words = the question or claim. Catchphrase out of the
+   first 6 s — make it a 1-1.5 s stinger over the outro or a beat at the Toronto payoff, and
+   alternate which one.
+3. One ask, and it's a send ("send this to the one who always..."), spoken AND on screen.
+   Closing question on screen too.
+4. Library sprint, Eps 18-25: ~75% of scenes contain a first-appearance element, and at least
+   2 new backdrops + 2 new props per episode, added to backdrops.js/props.js + LIBRARY.md +
+   library.png the same day. New = different silhouette, not a recolour. Expect build time to
+   rise during the sprint; that is accepted.
+5. New make_episode checks to add: `duration <= 28 s`, `loop frame match`, `intro pattern differs
+   from last 3`, `catchphrase start >= 6.0 s`, `send-ask present (spoken + on screen)`,
+   `new-element share >= 75% (Eps 18-25)`.
+6. Report per episode: duration, catchphrase start time, intro pattern used, and the list of new
+   library ids added.
+
+IDEA chat: HARD_RULES 26 topic gate. "Why does your body do X" / "is X real" / "what happens to
+your body when X". No local-sports-only or "does this practice work" openers; Toronto is the
+flavour, not the reason to watch.

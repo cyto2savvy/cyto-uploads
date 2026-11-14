@@ -38,3 +38,43 @@
 20. Mix, don't clone (Utsha, Nov 12): every episode must look somewhat unique. The library (rig_v2/LIBRARY.md) is a pool built from ALL past episodes; each new episode picks from it by topic tags and recency, it never copies the last episode's backdrops and animations wholesale. make_episode check "variety vs last 3 episodes": FAIL if more than half of the scenes use a backdrop+prop combination already used in any of the last 3 episodes, or if two episodes in a row share the same backdrop order. Every episode must use at least one least-recently-used or brand-new item, and reused items must vary their params (position, colour, scale, count, timing). Usage is logged per episode in rig_v2/library_usage.json.
 21. Nothing floats for no reason (Utsha, Nov 12, Ep 15): every element on screen must show something the narrator is saying at that moment. Banned: decorative or ambient floaters (stray circles, bubbles, tabs/boxes, dot rows, a jogger or shoe that illustrates nothing), props carried over from a template or the previous scene, and props that stay after their sentence ends. Each prop in episode.json needs `shows` (what it illustrates, e.g. "28% drop in comeback risk") and an anchor to the spoken words (`at` = word/beat); it appears when the word is said and leaves within 1.5 s of the sentence ending. The catchphrase and outro scenes are clean: Cyto, headline/captions, backdrop only, no props. Zero props is fine when the line has nothing to show; padding a scene to hit a prop count is not. make_episode check "no floaters": FAIL if a prop lacks `shows`/anchor, is on screen > 1.5 s past its anchor, or has no matching word in the scene's script.
 
+## Views (Utsha, Nov 14, after the 16-Short analytics pull — see studio/GROWTH_NOTES.md)
+The data: 85% of views come from the Shorts feed. Every episode holds ~15 seconds no matter how
+long it is, so longer videos just score a worse retention percentage. Seeded episodes stop at
+~1,000 views because shares and comments are ~zero. Rules 22-26 exist to fix those three things.
+
+22. **22-26 seconds, and it loops.** Target 24 s. Over 28 s = FAIL. We hold ~15 s regardless, so
+    15 s of 24 s reads as 63% instead of 38%, and a 24 s Short loops twice in a 48 s sit.
+    Rule 19's "one idea" gets tighter, not faster: cut a beat, don't speed up the read.
+    The last frame matches the first (same backdrop, same Cyto pose) so the loop is seamless —
+    Ep 1 looped and is the only episode that ever held 28 s / 91%.
+23. **A different intro every episode.** The first 2 spoken words are the question or the claim,
+    never setup ("In a Canadian-led trial…" opened Ep 15: 40 views). Scene 0 carries the whole
+    hook on screen at frame 1 (`instant`). Pick an opening pattern that none of the last 3
+    episodes used, and log it in `library_usage.json` as `intro:<pattern>`:
+    cold-open question on a full-frame visual · stat stamp slams in first · Cyto mid-sip
+    reacting · POV push-in through the skin · a wrong answer crossed out · 1-frame before/after
+    tease · Cyto already mid-sentence. New patterns are welcome and get added to LIBRARY.md.
+    **The catchphrase never appears in the first 6 seconds.** It is a 1-1.5 s stinger over the
+    outro, or a beat at the Toronto payoff — and which one it is varies between episodes.
+    (Measured: it sat at 3.4 s in Ep 12, 4.5 s in Ep 13, 4.8 s in Ep 14. Those three have the
+    worst retention in the catalogue.)
+24. **One ask, and it's a send.** Shares are the strongest expansion signal and we have had 0-3
+    per episode, zero on nine of them. Every episode ends on exactly one ask, spoken AND on
+    screen, and it is a send to a specific person: "send this to the one who always…".
+    Like/subscribe may ride along in the outro art but is never the ask. The closing question
+    goes ON SCREEN, not only in the pinned comment, and the pinned comment is posted the hour
+    the episode goes public.
+25. **Library expansion sprint, Eps 18-25.** The library is too small (9 backdrops, ~14 props),
+    which is why recent episodes look alike. For these 8 episodes each build ships ~75% new
+    visual material: at least 75% of scenes contain an element making its first appearance, and
+    at least **2 brand-new backdrops + 2 brand-new props per episode**, all added to
+    backdrops.js/props.js, LIBRARY.md and library.png the same day. New means a different
+    silhouette, not a recolour. That takes the library to roughly 25 backdrops and 30 props.
+    Build time will go back up during the sprint; that is the trade and it is $0 (render only).
+    From Ep 26 the quota drops to >= 1 new item per episode and rule 20 becomes the main test.
+26. **Topic gate.** A topic has to be phrasable as "why does your body do X", "is X real", or
+    "what happens to your body when X" — universal, visceral, searchable. Five of our six
+    non-seeded episodes were local sports, a clock change, or "does this health practice work"
+    opening on a caveat. Toronto is the flavour, never the reason to watch: a local hook is
+    allowed only when the body fact leads and the city follows.
