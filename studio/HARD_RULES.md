@@ -43,11 +43,20 @@ The data: 85% of views come from the Shorts feed. Every episode holds ~15 second
 long it is, so longer videos just score a worse retention percentage. Seeded episodes stop at
 ~1,000 views because shares and comments are ~zero. Rules 22-26 exist to fix those three things.
 
-22. **22-26 seconds, and it loops.** Target 24 s. Over 28 s = FAIL. We hold ~15 s regardless, so
-    15 s of 24 s reads as 63% instead of 38%, and a 24 s Short loops twice in a 48 s sit.
-    Rule 19's "one idea" gets tighter, not faster: cut a beat, don't speed up the read.
-    The last frame matches the first (same backdrop, same Cyto pose) so the loop is seamless —
-    Ep 1 looped and is the only episode that ever held 28 s / 91%.
+22. **Answer the hook, then worry about length** (rewritten Nov 14 after Ep 18 — the first
+    version of this rule produced a 62-word episode whose hook asked "why does flexing your
+    bicep burn?" and which never answered it. Short and empty is worse than long.)
+    - The hook's question MUST be answered in the body, with a mechanism, in plain words.
+      make_episode FAIL: the hook is a question and no later line answers it.
+    - **Minimum 3 explaining lines** between the hook and the payoff. One line of mechanism is
+      not an episode. This floor beats the ceiling: if the idea needs 4 beats, take the seconds.
+    - Narration 24-32 s. Over 34 s = FAIL. Budget it as: hook <= 2 s, 3-4 explaining beats,
+      Toronto payoff, then the outro — and the outro's seconds are NOT part of the body budget.
+    - Still cut a beat rather than speeding the read, and still make the last frame match the
+      first so the loop is seamless (Ep 1 looped and held 28 s / 91%).
+    - Why we are not Kurzgesagt-length yet: their Shorts run 71-79 s and hold it. We hold
+      ~15-17 s. Earning second 15 is the goal; a short runtime is a stopgap, not a principle.
+      Revisit the ceiling once avg seconds held clears ~20 s.
 23. **A different intro every episode.** The first 2 spoken words are the question or the claim,
     never setup ("In a Canadian-led trial…" opened Ep 15: 40 views). Scene 0 carries the whole
     hook on screen at frame 1 (`instant`). Pick an opening pattern that none of the last 3
@@ -55,10 +64,16 @@ long it is, so longer videos just score a worse retention percentage. Seeded epi
     cold-open question on a full-frame visual · stat stamp slams in first · Cyto mid-sip
     reacting · POV push-in through the skin · a wrong answer crossed out · 1-frame before/after
     tease · Cyto already mid-sentence. New patterns are welcome and get added to LIBRARY.md.
-    **The catchphrase never appears in the first 6 seconds.** It is a 1-1.5 s stinger over the
-    outro, or a beat at the Toronto payoff — and which one it is varies between episodes.
-    (Measured: it sat at 3.4 s in Ep 12, 4.5 s in Ep 13, 4.8 s in Ep 14. Those three have the
-    worst retention in the catalogue.)
+    **The catchphrase never appears in the first 6 seconds**, and it gets its OWN beat — a
+    1.5-2 s scene with a visual, placed after the payoff. It is never a stinger tacked onto the
+    end of another line (Ep 18 did that and it read as a blurt: "Not medical advice. Send this
+    to the one who does the bicep heart. Yo, it's ya boy Cyto!" — three jobs in one breath).
+    If there is no room for its own beat, cut it from that episode; it is not mandatory on
+    Shorts. (Measured: it sat at 3.4 s in Ep 12, 4.5 s in Ep 13, 4.8 s in Ep 14. Those three
+    have the worst retention in the catalogue, which is why it moved back.)
+23b. **One line, one job.** No spoken line may carry more than one of: the disclaimer, the ask,
+    the catchphrase. The "not medical advice" line is ON-SCREEN TEXT and is not spoken unless
+    the topic needs it said. make_episode FAIL if any line contains two of the three.
 24. **One ask, and it's a send.** Shares are the strongest expansion signal and we have had 0-3
     per episode, zero on nine of them. Every episode ends on exactly one ask, spoken AND on
     screen, and it is a send to a specific person: "send this to the one who always…".

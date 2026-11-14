@@ -156,3 +156,35 @@ flavour, not the reason to watch.
 - Changed vs the idea chat's spec (Utsha OK'd at gate 1): scene 2 props (meter on "bicep" + stop sign "504 / ALL DAY" + "CLOSED" stamp, dim .45) because one late prop failed the 2 s rule; thumbnail B scene lab -> hospital; `tts` ear-spelling for 504/styll; `voice.lead` 0.12; `intro` field added to Eps 18-20.
 - Credits: ElevenLabs 359 (1 take; 348 approved + 11 for the ear-spelling). Scribe 0. vidIQ 0.
 - NOT done: gate 2, YouTube schedule (Mon Nov 16 6 PM ET), IG+FB Sheet row. Open: textbook edition/page for the heart-vs-bicep contrast is still a placeholder in the description. Eps 19-20 still need their backdrops registered (foodcourt, kitchen, windowfrost, ttcshelter).
+
+## Ep 18 redo (Nov 14) — my rules were wrong, not your build
+Utsha on the Ep 18 draft: "it barely explained the topic and in the end it just blurted out
+'yo it's ya boy Cyto'". You followed rules 22-24 exactly; the rules fought each other. Both are
+rewritten — re-read HARD_RULES 22, 23 and the new 23b before redoing this.
+
+What changed:
+- Rule 22: narration is now 24-32 s (fail over 34), with a MINIMUM of 3 explaining lines, and a
+  new check — if the hook asks a question, a later line must answer it with a mechanism. Ep 18's
+  hook asked "why does flexing your bicep burn?" and claims.md line 5 admits the video never
+  answers it. The outro's seconds no longer count against the body budget.
+- Rule 23: the catchphrase gets its own 1.5-2 s beat with a visual, after the payoff. Never
+  stapled to another line. Cut it entirely if there's no room.
+- Rule 23b: one line, one job. Never disclaimer + ask + catchphrase in one breath.
+
+Ep 18 redo, same slot (Mon Nov 16, 6 PM ET — Utsha said Sun, the date is a Monday, keep Nov 16):
+1. Answer the hook. The payoff is that the heart DOES rest — it rests between every beat
+   (diastole is roughly two thirds of the cardiac cycle at rest), it is almost entirely
+   oxidative and densely capillarised, so it never runs the deficit a bicep does. The bicep
+   burn is metabolite build-up in fast-twitch glycolytic fibres (H+, inorganic phosphate, ADP)
+   — NOT "lactic acid", do not say lactic acid. Source these properly; claims.md currently has
+   one PubMed-verified line (Hinton, Circ Res 2024, mitochondria = 1/3 of cardiomyocyte volume)
+   and the rest is textbook. Get a real source for the diastole and the metabolite lines, or
+   phrase them as the textbook physiology they are.
+2. Structure: hook (the trend + the question) -> 1/3 mitochondria -> it rests between beats ->
+   bicep is built for bursts and accumulates metabolites -> Toronto payoff -> catchphrase beat
+   -> send-ask. That is ~30 s, which is now allowed.
+3. Keep: the #BicepHeart hook, the new library items (gym, chestcavity, ecgLine, bicepHeart,
+   cellSlice, fatigueMeter), the loop, the vertical thumbnails, the no-numbers fatigue meter,
+   and the chest-pain line in the description.
+4. Add the make_episode checks for the rewritten rules: `hook answered`, `>= 3 explaining
+   lines`, `narration <= 34 s`, `catchphrase has its own scene`, `one line one job`.
