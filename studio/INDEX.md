@@ -1,4 +1,5 @@
 # What to read (everything else is reference or archived)
+Repo root `CLAUDE.md` loads automatically in Claude Code and carries the non-negotiables; this file is the full map.
 Always: HARD_RULES.md, SETUP.md, CHAT_ROLES.md, inbox/<your role>.md.
 By job: IDEA -> rig_v2/LIBRARY.md (pick prop/backdrop ids; only ask for a new visual when none fits), templates/ (series skeletons to copy), VOICE.md, PUBLISHING.md, EPISODE_SCHEMA.md, sources_used.md, GROWTH_NOTES.md, schedule.json, prompts/idea.md. BUILD -> EPISODE_SCHEMA.md, rig_v2/LIBRARY.md (+ library.png: every prop/backdrop/transition that already exists), rig_v2/README.md + SCENE_STYLE.md, THUMBNAIL_FORMAT_V2.md, prompts/build.md. MANAGER -> PUBLISHING.md, costs.md, schedule.json, prompts/manager.md. Long-form only -> LF_FORMAT_V2.md.
 Code (not docs): rig_v2/ (renderer; props.js, backdrops.js, compose.js, thumbs.js, library_render.py), branding/rebrand-v2/ (canon Cyto), pipeline/ (voice, srt, meta check), make_episode.py.
