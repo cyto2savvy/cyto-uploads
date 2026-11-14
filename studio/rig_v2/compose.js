@@ -71,8 +71,11 @@ function sceneStage(sc) {
 function sceneComposite(sc, t, tl) {
   const hasNext = tl.scenes.indexOf(sc) < tl.scenes.length - 1;
   const lt = t - sc.start, dur = sc.end - sc.start;
-  // HARD_RULES 22 (loop): the last scene shares scene 0's backdrop + seed and runs its parallax BACKWARDS, so it ends exactly where scene 0 starts
-  const loopEnd = !!tl.loop && !hasNext && tl.scenes.length > 1, k = loopEnd ? 1 - clamp(lt / dur, 0, 1) : clamp(lt / dur, 0, 1);
+  // HARD_RULES 22 (loop): the last scene shares scene 0's backdrop + seed and camera, so it ends exactly where scene 0 starts
+  const loopEnd = !!tl.loop && !hasNext && tl.scenes.length > 1;
+  // rule 22b (motion): the loop scene holds scene 0's frame-0 camera (k = 0) for its whole length - no drift to undo, nothing running backwards at the seam.
+  // Scene 0 eases its push in from rest, so the restart leaves from a standstill instead of at speed.
+  const kk = clamp(lt / dur, 0, 1), k = loopEnd ? 0 : (tl.loop && sc === tl.scenes[0] ? kk * kk * (2 - kk) : kk);
   const L = layers(sc.bg, loopEnd ? (tl.scenes[0].seed || 5) : (sc.seed || 5));
   const bg = L.map(l => `<div style="position:absolute;inset:0;transform:translateX(${(-26 * k * l.d).toFixed(2)}px) scale(${(1 + 0.085 * k * l.d).toFixed(4)});transform-origin:50% 58%">${l.s}</div>`).join('');
   const snow = (sc.snow === true || (sc.snow !== false && sc.bg === 'snow')) ? snowDots(t) : '';

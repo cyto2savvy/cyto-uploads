@@ -20,34 +20,64 @@
  ],
  "script": [
   {
-   "say": "Your heart works all day without a break. So why does flexing your bicep burn?",
+   "role": "hook",
+   "say": "Your heart works all day. So why does flexing your bicep burn?",
    "scene": 0,
    "emotion": "shock",
-   "pause_after": 0.2,
+   "pause_after": 0.15,
    "gaze": [
     0,
     0
    ]
   },
   {
-   "say": "A third of each heart cell is mitochondria, tiny power plants running nonstop, fam.",
+   "role": "explain",
+   "say": "A third of each heart cell is mitochondria, power plants running on oxygen.",
    "scene": 1,
    "emotion": "think",
+   "pause_after": 0.2
+  },
+  {
+   "role": "explain",
+   "say": "And it does rest: between every beat, for more than half of each cycle, fam.",
+   "scene": 2,
+   "emotion": "happy",
+   "pause_after": 0.2
+  },
+  {
+   "role": "explain",
+   "answers_hook": "hold a flex and metabolites build up in the muscle faster than they clear; that build-up is what you feel as the burn",
+   "say": "Your bicep's built for bursts: hold a flex and metabolites pile up. That's the burn.",
+   "scene": 3,
+   "emotion": "shock",
+   "emotion2": "think",
+   "pause_after": 0.2
+  },
+  {
+   "role": "payoff",
+   "say": "Heart's the 504, a quick stop every beat. Bicep's a weekend closure, styll.",
+   "tts": "Heart's the five-oh-four, a quick stop every beat. Bicep's a weekend closure, stiiill.",
+   "scene": 4,
+   "emotion": "happy",
    "pause_after": 0.25
   },
   {
-   "say": "Your bicep isn't built for nonstop. Heart's the 504 streetcar, bicep's a weekend closure, styll.",
-   "scene": 2,
-   "emotion": "happy",
-   "pause_after": 0.25,
-   "tts": "Your bicep isn't built for nonstop. Heart's the five-oh-four streetcar, bicep's a weekend closure, stiiill."
+   "role": "catchphrase",
+   "say": "Yo, it's ya boy Cyto!",
+   "scene": 5,
+   "emotion": "laugh",
+   "pause_after": 0.15,
+   "gaze": [
+    0,
+    0
+   ]
   },
   {
-   "say": "Not medical advice. Send this to the one who does the bicep heart. Yo, it's ya boy Cyto!",
-   "scene": 3,
-   "emotion": "laugh",
-   "pause_after": 0.0,
-   "tts": "Not medical advice. Send this to the one who does the bicep heart. Yo, it's ya boy Cyto!"
+   "role": "ask",
+   "say": "Send this to the one who does the bicep heart.",
+   "scene": 6,
+   "emotion": "happy",
+   "pause_after": 0.0
   }
  ],
  "scenes": [
@@ -110,23 +140,47 @@
    ]
   },
   {
-   "bg": "subway",
-   "transition": "whip",
-   "headline": "BICEP =\nWEEKEND CLOSURE",
+   "bg": "plain",
+   "transition": "zoom",
+   "headline": "IT RESTS\nEVERY BEAT",
    "hot": [
-    "CLOSURE"
+    "EVERY"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "ecgLine",
+     "rest": true,
+     "period": 1.3,
+     "at": [
+      540,
+      0.5
+     ],
+     "fill": 0.6,
+     "anchor": "rest",
+     "shows": "the pause between heartbeats (diastole): the flat stretch after each spike, more than half of the cycle",
+     "lead": 0.2
+    }
+   ]
+  },
+  {
+   "bg": "gym",
+   "transition": "whip",
+   "headline": "METABOLITES =\nTHE BURN",
+   "hot": [
+    "BURN"
    ],
    "card": "",
    "props": [
     {
      "t": "fatigueMeter",
      "at": [
-      325,
+      540,
       0.5
      ],
-     "fill": 0.8,
-     "anchor": "bicep",
-     "shows": "a bicep meter climbing to burn while the heart meter stays steady",
+     "fill": 0.86,
+     "anchor": "bicep's",
+     "shows": "the bicep gauge filling to red as metabolites build up during a held flex, while the heart gauge stays low and steady",
      "labels": [
       "HEART",
       "BICEP"
@@ -136,8 +190,22 @@
       90
      ],
      "show_numbers": false,
+     "dur": 2.6,
      "lead": 0.2
-    },
+    }
+   ],
+   "dim": 0.4
+  },
+  {
+   "bg": "subway",
+   "transition": "doors",
+   "dim": 0.45,
+   "headline": "HEART = THE 504",
+   "hot": [
+    "504"
+   ],
+   "card": "",
+   "props": [
     {
      "t": "stopSign",
      "at": [
@@ -151,24 +219,46 @@
      "text": "ALL DAY"
     },
     {
+     "t": "ecgLine",
+     "rest": "STOP",
+     "period": 0.9,
+     "at": [
+      300,
+      0.26
+     ],
+     "fill": 0.36,
+     "anchor": "stop",
+     "shows": "a quick stop between every beat",
+     "lead": 0.1
+    },
+    {
      "t": "stamp",
      "at": [
-      325,
-      0.45
+      300,
+      0.76
      ],
-     "fill": 0.3,
+     "fill": 0.28,
      "anchor": "closure",
      "shows": "the bicep as a weekend closure",
      "text": "CLOSED",
      "plate": true,
      "rot": -5
     }
+   ]
+  },
+  {
+   "bg": "streetcar",
+   "transition": "whip",
+   "headline": "LIVE FROM THE 6IX",
+   "hot": [
+    "6IX"
    ],
-   "dim": 0.45
+   "card": "",
+   "props": []
   },
   {
    "bg": "gym",
-   "transition": "doors",
+   "transition": "zoom",
    "headline": "SEND IT TO THE\nHEART-POSE FRIEND",
    "hot": [
     "SEND"
@@ -181,7 +271,9 @@
   "fam": "#4de0c8",
   "styll": "#4de0c8",
   "504": "#ff5a5f",
-  "SEND": "#ffd23f"
+  "burn": "#ff5a5f",
+  "rest": "#4de0c8",
+  "metabolites": "#ffd23f"
  },
  "thumbnails": [
   {
@@ -228,11 +320,23 @@
  "stronger": "B",
  "sources": [
   {
-   "short": "Hinton 2024, Circ Res · textbook (cardiac vs skeletal muscle)",
-   "full": "Hinton A Jr et al., Mitochondrial Structure and Function in Human Heart Failure, Circ Res 2024 (mitochondria comprise one third of cardiomyocyte volume), PMID 38963864, https://doi.org/10.1161/CIRCRESAHA.124.323800 | Textbook for the heart-vs-skeletal-muscle contrast (nonstop work vs intermittent work): Guyton & Hall, Textbook of Medical Physiology, chapters on cardiac and skeletal muscle (BUILD/Utsha to confirm edition + page before publish)"
+   "short": "Hinton 2024, Circ Res",
+   "full": "Hinton A Jr et al., Mitochondrial Structure and Function in Human Heart Failure, Circ Res 2024;135(2):372-396 (mitochondria make up one third of cardiomyocyte volume). PMID 38963864, https://doi.org/10.1161/CIRCRESAHA.124.323800"
+  },
+  {
+   "short": "Pollak 2014, Exp Physiol",
+   "full": "Pollak KA et al., Exogenously applied muscle metabolites synergistically evoke sensations of muscle fatigue and pain in human subjects, Exp Physiol 2014;99(2):368-80 (metabolites produced by exercise, in combination, signal fatigue and ache). PMID 24142455, https://doi.org/10.1113/expphysiol.2013.075812"
+  },
+  {
+   "short": "Karwi 2019, Biochem J",
+   "full": "Karwi QG, Jörg AR, Lopaschuk GD, Allosteric, transcriptional and post-translational control of mitochondrial energy metabolism, Biochem J 2019;476(12):1695-1712 (mitochondrial oxidative phosphorylation supplies about 95% of the heart's energy). PMID 31217327, https://doi.org/10.1042/BCJ20180617"
+  },
+  {
+   "short": "Friedberg 2006, Am J Cardiol",
+   "full": "Friedberg MK, Silverman NH, Cardiac ventricular diastolic and systolic duration in children with heart failure secondary to idiopathic dilated cardiomyopathy, Am J Cardiol 2006;97(1):101-5 (in the healthy controls systole took about 0.41-0.42 of the cardiac cycle, so diastole is the larger share). PMID 16377292, https://doi.org/10.1016/j.amjcard.2005.07.127"
   }
  ],
- "description": "Your heart works all day without a break, so why does flexing your bicep burn? Cyto breaks it down from the 6ix, riding the #BicepHeart trend.\n\nAccording to a 2024 review in Circulation Research, mitochondria (the cell's power plants) make up about one third of the volume of a heart muscle cell. The heart is built for nonstop work; your bicep is built for work in bursts. That is a design difference, not a fitness verdict.\n\nThe trend itself is just a pose: flex one arm and press the other hand on the inside of the bicep so it makes a heart shape. No health claim, just a good excuse to talk about muscle.\n\nNot medical advice. Chest pain or an unusual heartbeat? Talk to your doctor or call emergency services.",
+ "description": "Your heart works all day, so why does flexing your bicep burn? Cyto breaks it down from the 6ix, riding the #BicepHeart trend.\n\nThree reasons. One: according to a 2024 review in Circulation Research, mitochondria (the cell's power plants) make up about one third of a heart muscle cell, and the heart gets about 95% of its energy from them, using oxygen. Two: the heart does rest. It relaxes between every beat, and in healthy hearts that relaxed phase is the bigger share of each cycle. Three: your bicep is built for bursts. Hold a hard flex and metabolites from the working muscle build up; in a human study, a mix of those metabolites was enough to produce the feeling of fatigue and ache.\n\nThe trend itself is just a pose: flex one arm and press the other hand on the inside of the bicep so it makes a heart shape. No health claim, just a good excuse to talk about muscle.\n\nNot medical advice. Chest pain or an unusual heartbeat? Talk to your doctor or call emergency services.",
  "tags": [
   "why doesn't your heart get tired",
   "heart vs bicep",
@@ -246,15 +350,15 @@
   "toronto",
   "6ix seconds of science"
  ],
- "pinned_comment": "Who in your group chat does the #BicepHeart pose? Send them this 👇\n\nSource in the description: Hinton, Circ Res 2024 (mitochondria = one third of a heart cell). Not medical advice.",
+ "pinned_comment": "Who in your group chat does the #BicepHeart pose? Send them this 👇\n\nSources in the description: Hinton 2024 (Circ Res), Pollak 2014 (Exp Physiol), Karwi 2019 (Biochem J), Friedberg 2006 (Am J Cardiol). Not medical advice.",
  "related_video": "Ep 15: Exercise and cancer risk",
  "playlist": "6ix Seconds of Science",
  "outfit_note": "Toque + hoodie (Canon v2). Canon v2 paper coffee cup with steam in the mitten, whole cup in frame. Gym scene = Mito's turf; Mito may cameo in the gym backdrop but not speak. Plan: studio/episodes/ep18/plan.md",
- "intro_pattern": "stat stamp slams in first (ECG + 1/3 stamp at frame 1); loop: last scene = gym backdrop, same Cyto pose as scene 0",
- "catchphrase": "1.3 s stinger at the very end (shortened to 'Yo, it's ya boy Cyto')",
+ "intro_pattern": "hook question + ECG on screen at frame 1; loop: last scene = gym, same camera and Cyto pose as frame 0",
+ "catchphrase": "own beat: scene 5, streetcar backdrop, headline LIVE FROM THE 6IX, after the payoff",
  "voice": {
   "takes": 1,
   "lead": 0.12
  },
- "intro": "stat-stamp"
+ "intro": "cold-open-question"
 }

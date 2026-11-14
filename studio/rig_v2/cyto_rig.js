@@ -32,6 +32,8 @@ function state(t,tl){
   if(w>0){const tl0=Object.assign({},tl,{_noLoop:true}); tl0._sched=tl._sched0||(tl._sched0=schedule(tl)); const a=state(t,tl0),z=state(0,tl0),o={};
    for(const k of ['gx','gy','blink','brow','tilt','bob','cupDy','cupRot']) o[k]=a[k]+(z[k]-a[k])*w;
    o.expr=w<.5?a.expr:z.expr; o.mouth=w<.5?a.mouth:z.mouth; return o;}}
+ // rule 22b: with a loop, the idle bounce / sway / cup sway fade in over the first 0.6 s, so frame 0 is a true neutral pose (zero offset, zero speed)
+ // and the restart does not jerk. (The tail above eases the pose back to exactly this.)
  const sc=tl._sched||(tl._sched=schedule(tl)); const [bp,b0]=beatPair(tl,t); const b=b0||{emotion:'chill',t:0};
  const E=EMO[b.emotion]||EMO.chill, Ep=EMO[(bp||{}).emotion]||E;
  // pose BLENDS across a beat (0.28 s): tilt used to snap up to 9 deg in one frame, which read as a pop at every cut
@@ -53,8 +55,8 @@ function state(t,tl){
  // brow pops on reaction onset
  const since=t-(b.t||0); const pop=since<.25?Math.pow(Math.sin(since/.25*Math.PI),2)*.5:0;
  return {expr:u<.5?Ep.expr:E.expr,gx,gy,blink,brow:lerp(Ep.brow,E.brow)+pop,mouth:mouthAt(tl,t,u<.5?Ep.rest:E.rest),
-  tilt:lerp(Ep.tilt,E.tilt)+Math.sin(t*2*Math.PI*.45)*1.4, bob:Math.sin(t*2*Math.PI*.9)*6,
-  cupDy:Math.sin(t*2*Math.PI*.7+1)*5, cupRot:Math.sin(t*2*Math.PI*.55)*2.5};
+  tilt:lerp(Ep.tilt,E.tilt)+Math.sin(t*2*Math.PI*.45)*1.4*(tl.loop?ease(clamp(t/.6,0,1)):1), bob:Math.sin(t*2*Math.PI*.9)*6*(tl.loop?ease(clamp(t/.6,0,1)):1),
+  cupDy:Math.sin(t*2*Math.PI*.7+1)*5*(tl.loop?ease(clamp(t/.6,0,1)):1), cupRot:Math.sin(t*2*Math.PI*.55)*2.5*(tl.loop?ease(clamp(t/.6,0,1)):1)};
 }
 // SMIL clock for Cyto's own animations (steam, 2.4 s loop). With tl.loop it is warped over the last second so the steam is back at phase 0 on the last frame.
 function smilTime(t,tl){ if(!tl.loop) return t; const D=tl.duration,f=1/(tl.fps||30),P=2.4,end=Math.round((D-f)/P)*P,a=D-1;

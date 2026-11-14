@@ -233,10 +233,14 @@ const PROPS = {
     const dash = sweeping ? `stroke-dasharray="${(L * ph).toFixed(0)} ${(L * .12).toFixed(0)} ${L}"` : `stroke-dasharray="${L}" stroke-dashoffset="${(L * (1 - first)).toFixed(0)}"`;
     const beat = Math.floor(Math.max(0, a) / (period / 1)) , bp = ((Math.max(0, a) % period) / period), pulse = 1 + .28 * Math.pow(Math.max(0, Math.sin(bp * Math.PI)), 6);
     const events = []; for (let e = t0; e <= t0 + 9; e += period) events.push(+e.toFixed(2));
+    // `rest: true` (Ep 18 redo): shade the flat stretch after each spike = the pause between beats (diastole), one band per beat, popping in turn
+    const rest = !p.rest ? '' : Array.from({ length: beats }, (_, i) => { const x0 = 30 + i * bw + bw * .78, x1 = 30 + (i + 1) * bw + bw * .28, pp = backOut((a - 0.5 - i * 0.35) / 0.3); if (pp <= 0 || i === beats - 1) return '';
+      return `<g opacity="${Math.min(1, pp).toFixed(2)}"><rect x="${x0.toFixed(0)}" y="34" width="${(x1 - x0).toFixed(0)}" height="${H - 68}" rx="12" fill="${TEAL}" opacity="${(.3 + .12 * Math.sin(a * 5 + i)).toFixed(2)}"/>` +
+        `<g transform="translate(${((x0 + x1) / 2).toFixed(0)},${H - 62}) scale(${Math.max(.01, pp).toFixed(3)})"><rect x="-52" y="-22" width="104" height="40" rx="14" fill="${WHITE}" stroke="${INK}" stroke-width="6"/>${txt(0, 8, p.rest === true ? 'REST' : p.rest, 26, INK, 900, 'middle', 0)}</g></g>`; }).join('');
     return {
       svg: `<rect x="6" y="20" width="${W - 12}" height="${H - 40}" rx="26" fill="#0f2238" stroke="${INK}" stroke-width="9"/>` +
         [1, 2, 3].map(i => `<path d="M24 ${20 + i * (H - 40) / 4} H${W - 24}" stroke="#27496b" stroke-width="3"/>`).join('') + [1, 2, 3, 4, 5].map(i => `<path d="M${i * W / 6} 34 V${H - 34}" stroke="#27496b" stroke-width="3"/>`).join('') +
-        `<path d="${d}" fill="none" stroke="${col}" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" ${dash}/>` +
+        rest + `<path d="${d}" fill="none" stroke="${col}" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" ${dash}/>` +
         `<g transform="translate(${W - 74},66) scale(${(pulse * .2).toFixed(3)})">${O('M0 150 C-190 20 -150 -170 -45 -165 C-15 -160 0 -130 0 -110 C0 -130 15 -160 45 -165 C150 -170 190 20 0 150Z', col, 34)}</g>`,
       w: W, h: H, events
     };

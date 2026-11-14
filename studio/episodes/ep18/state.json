@@ -1,3 +1,5 @@
 {
- "approved_plan": true
+ "approved_plan": false,
+ "approved_final": false,
+ "redo": "Nov 14: script rewritten for HARD_RULES 22/23/23b; gate 1 reopened"
 }

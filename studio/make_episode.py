@@ -147,6 +147,30 @@ def catchphrase_start(E, tm):
             return W[j]["t0"]
     return None
 
+JOBS = dict(disclaimer=r"medical advice", ask=r"\bsend (this|it)\b|subscribe|\bfollow\b|hit like|like and", catchphrase=r"ya boy cyto")
+def line_jobs(say): return [k for k, rx in JOBS.items() if re.search(rx, say.lower())]
+def story_errors(E):
+    """HARD_RULES 22 (rewritten Nov 14), 23 and 23b at spec level. Script lines carry `role`: hook | explain | payoff | catchphrase | ask."""
+    errs = []; S = E["script"]; roles = [l.get("role") for l in S]
+    if any(r not in ("hook", "explain", "payoff", "catchphrase", "ask") for r in roles): return ["every script line needs 'role': hook | explain | payoff | catchphrase | ask (HARD_RULES 22)"]
+    if roles[0] != "hook": errs.append("script[0] must be the hook")
+    hook = " ".join(l["say"] for l in S if l["role"] == "hook")
+    if "?" in hook:   # hook answered: a later explain/payoff line is marked `answers_hook` and says how (mechanism)
+        ans = [l for l in S[1:] if l.get("answers_hook") and l["role"] in ("explain", "payoff")]
+        if not ans: errs.append("the hook asks a question and no later line has 'answers_hook' (HARD_RULES 22: answer the hook with a mechanism)")
+        elif not all(isinstance(l["answers_hook"], str) and len(l["answers_hook"].split()) >= 4 for l in ans): errs.append("'answers_hook' must state the mechanism in a few words (HARD_RULES 22)")
+    if roles.count("explain") < 3: errs.append(f"{roles.count('explain')} explaining line(s); minimum 3 between the hook and the payoff (HARD_RULES 22)")
+    for i, l in enumerate(S):
+        j = line_jobs(l["say"])
+        if len(j) > 1: errs.append(f"script[{i}] does {' + '.join(j)} in one line (HARD_RULES 23b: one line, one job)")
+    cp = [i for i, l in enumerate(S) if "ya boy cyto" in l["say"].lower()]
+    for i in cp:   # catchphrase: its own scene, after the payoff
+        if sum(1 for l in S if l.get("scene") == S[i].get("scene")) != 1: errs.append(f"script[{i}]: the catchphrase needs its own scene (HARD_RULES 23)")
+        if "payoff" in roles and i < max(k for k, r in enumerate(roles) if r == "payoff"): errs.append(f"script[{i}]: the catchphrase comes after the payoff (HARD_RULES 23)")
+        if not (E["scenes"][S[i]["scene"]].get("headline") or "").strip(): errs.append(f"script[{i}]: the catchphrase beat needs a visual (headline on its own backdrop, HARD_RULES 23)")
+    return errs
+RULE22B_FROM = 18
+
 def floater_errors(E):
     """HARD_RULES 21 at spec level: every prop shows something said in its scene; clean scenes have none."""
     errs = []; clean = clean_scenes(E)
@@ -224,7 +248,8 @@ def validate(E):
         if i and s.get("bg") == SC[i - 1].get("bg"): errs.append(f"scenes[{i}] reuses the previous backdrop '{s.get('bg')}' (HARD_RULES 6)")
     if E.get("ep", 0) >= RULE21_FROM: errs += floater_errors(E)
     if E.get("ep", 0) >= RULE22_FROM:   # HARD_RULES 22-24 at spec level
-        if est > 28: errs.append(f"~{est:.0f}s of speech (> 28 s, HARD_RULES 22: cut a beat)")
+        if est > 34: errs.append(f"~{est:.0f}s of speech (> 34 s, HARD_RULES 22: cut a beat)")
+        errs += story_errors(E)
         if SC[0].get("bg") != SC[-1].get("bg"): errs.append("last scene backdrop must equal scene 0's (HARD_RULES 22: the end loops into the start)")
         if not E.get("intro"): errs.append("missing 'intro' (opening pattern slug, logged as intro:<pattern>, HARD_RULES 23)")
         okk, note = send_ask_verdict(E)
@@ -295,7 +320,7 @@ def make_plan(ep, E, tm):
     S, SC = E["script"], E["scenes"]
     line_t = {}
     for w in tm["words"]: line_t.setdefault(w["line"], [w["t0"], w["t1"]])[1] = w["t1"]
-    total = round(tm["total"] + 0.5, 2)
+    total = round(tm["total"] + 0.5, 2)   # 0.5 s after the last word: the loop tail (rule 22c wants >= 0.25 s clean)
     start = {}
     for li, l in enumerate(S):
         if l["scene"] not in start: start[l["scene"]] = 0.0 if not start else line_t[li][0] - 0.1
@@ -339,8 +364,11 @@ def make_audio(ep, plan):
     v = np.frombuffer(sh_bytes(["ffmpeg", "-v", "error", "-i", ep.p("voice.wav"), "-ac", "1", "-ar", str(SR), "-f", "s16le", "-"]), np.int16).astype(np.float32) / 32768
     vv = np.zeros(n, np.float32); m = min(n, len(v)); vv[:m] = v[:m]; vr = np.sqrt(np.mean(vv[np.abs(vv) > 0.02] ** 2)) if (np.abs(vv) > 0.02).any() else .1
     t = np.arange(n) / SR; music = np.zeros(n, np.float32)
+    D_ = plan["duration"]; lp = bool(plan.get("loop"))
     for k, f in enumerate([110, 138.6, 164.8, 220]):  # soft minor pad
-        music += np.sin(2 * np.pi * f * t + k) * (0.6 + 0.4 * np.sin(2 * np.pi * (0.05 + 0.02 * k) * t))
+        lf = 0.05 + 0.02 * k
+        if lp: f = round(f * D_) / D_; lf = max(1, round(lf * D_)) / D_   # HARD_RULES 22c: whole cycles in the runtime, so the bed is continuous across the loop seam
+        music += np.sin(2 * np.pi * f * t + k) * (0.6 + 0.4 * np.sin(2 * np.pi * lf * t))
     env = np.convolve(np.abs(vv), np.ones(2205) / 2205, mode="same"); env /= env.max() + 1e-9
     music *= (1 - 0.5 * np.clip(env * 3, 0, 1)); music *= vr * 10 ** (-27 / 20) / (np.sqrt(np.mean(music ** 2)) + 1e-9)
     rng = np.random.default_rng(3); sfx = np.zeros(n, np.float32)
@@ -350,7 +378,12 @@ def make_audio(ep, plan):
     mix = music + sfx + vv; mix = np.tanh(mix / max(1.0, np.max(np.abs(mix)) * 0.9)) * 0.95
     mix = mix[:int(plan["duration"] * SR)]; raw = ep.p("mix_raw.wav")
     subprocess.run(["ffmpeg", "-y", "-v", "error", "-f", "s16le", "-ar", str(SR), "-ac", "1", "-i", "-", raw], input=(mix * 32767).astype(np.int16).tobytes(), check=True)
-    sh(["ffmpeg", "-y", "-v", "error", "-i", raw, "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", "48000", ep.p("audio.wav")])
+    if plan.get("loop"):   # one static gain to -14 LUFS (dynamic loudnorm rides the level differently at the two ends and breaks the seam)
+        import json as _j
+        o = subprocess.run(["ffmpeg", "-i", raw, "-af", "loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json", "-f", "null", "-"], capture_output=True, text=True).stderr
+        m_ = _j.loads(o[o.rindex("{"):o.rindex("}") + 1]); gain = min(-14 - float(m_["input_i"]), -1.5 - float(m_["input_tp"]))
+        sh(["ffmpeg", "-y", "-v", "error", "-i", raw, "-af", f"volume={gain:.2f}dB", "-ar", "48000", ep.p("audio.wav")])
+    else: sh(["ffmpeg", "-y", "-v", "error", "-i", raw, "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", "48000", ep.p("audio.wav")])
 def sh_bytes(cmd): return subprocess.run(cmd, check=True, capture_output=True).stdout
 
 def build(ep, E):
@@ -426,11 +459,14 @@ def checks(ep, E, plan):
     chk("no overlaps: props / headline / card / captions / Cyto face / cup", ok_ov, ov_note)
     try:
         import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
-        cuts_ = plan["scenes"][1:]; fig, axes = plt.subplots(1, len(cuts_), figsize=(2.6 * len(cuts_), 2.6), sharey=True)
+        cuts_ = plan["scenes"][1:]; seam_on = bool(plan.get("loop")); fig, axes = plt.subplots(1, len(cuts_) + seam_on, figsize=(2.6 * (len(cuts_) + seam_on), 2.6), sharey=True)
         for ax, scn in zip(np.atleast_1d(axes), cuts_):
             i0 = int(scn["start"] * FPS); w = dd[max(0, i0 - 6): i0 + int((scn.get("transitionDur", .42) + .3) * FPS)]
             ax.plot(np.arange(len(w)) / FPS, w, marker="o", ms=2.5); ax.axhline(0.5, color="r", ls=":", lw=.8)
             ax.set_title(f"{scn['id']} {scn.get('transition', 'whip')}", fontsize=8); ax.set_xlabel("s", fontsize=7); ax.tick_params(labelsize=6)
+        if seam_on:   # HARD_RULES 22: end -> start treated as a cut
+            ax = np.atleast_1d(axes)[-1]; w = np.concatenate([dd[-12:], [np.abs(g[-1] - g[0]).mean()], dd[:12]]); ax.plot((np.arange(len(w)) - 12) / FPS, w, marker="o", ms=2.5, color="C3"); ax.axvline(0, color="k", ls=":", lw=.8)
+            ax.axhline(0.5, color="r", ls=":", lw=.8); ax.set_title("SEAM end -> start", fontsize=8); ax.set_xlabel("s (0 = loop point)", fontsize=7); ax.tick_params(labelsize=6)
         np.atleast_1d(axes)[0].set_ylabel("frame diff", fontsize=7); fig.suptitle("transition frame-diff (0 = frozen frame)", fontsize=9)
         fig.tight_layout(); fig.savefig(ep.p("transition_plot.png"), dpi=110); plt.close(fig)
     except Exception as e: say("WARN  transition plot:", e)
@@ -457,7 +493,38 @@ def checks(ep, E, plan):
       chk("scene props rendered (HARD_RULES 5)", lay.get("props_rendered", 0) >= need and not thin,
         f"{lay.get('props_rendered', 0)}/{need} drawn; min concurrent per scene {json.dumps(conc)}" + (f"; THIN {thin}" if thin else ""))
     if E.get("ep", 0) >= RULE22_FROM:   # HARD_RULES 22-25
-        chk("duration 22-28 s target 24 (HARD_RULES 22)", dur <= 28.0, f"{dur:.1f}s" + ("" if dur >= 22 else " (under 22 s: fine for retention, noted)"))
+        TM = json.load(open(ep.p("timing.json"))); Wt = TM["words"]; S_ = E["script"]
+        body = [w for w in Wt if S_[w["line"]].get("role") in ("hook", "explain", "payoff")]; nar = (body[-1]["t1"] - body[0]["t0"]) if body else dur
+        chk("narration <= 34 s, target 24-32 (HARD_RULES 22)", dur <= 34.0, f"video {dur:.1f}s; hook-to-payoff narration {nar:.1f}s; outro (catchphrase + ask) {dur - nar:.1f}s")
+        se = story_errors(E)
+        chk("hook answered with a mechanism (HARD_RULES 22)", not any("hook" in e for e in se), next((l["answers_hook"] for l in S_ if l.get("answers_hook")), "hook is not a question"))
+        chk(">= 3 explaining lines (HARD_RULES 22)", sum(1 for l in S_ if l.get("role") == "explain") >= 3, f"{sum(1 for l in S_ if l.get('role') == 'explain')} explaining lines")
+        chk("one line, one job (HARD_RULES 23b)", not any("23b" in e for e in se), "; ".join(e for e in se if "23b" in e) or "no line mixes disclaimer / ask / catchphrase; disclaimer is on-screen text")
+        cps = [sc for sc in plan["scenes"] if sc.get("clean") and any("ya boy cyto" in l["say"].lower() and l["scene"] == int(sc["id"][1:]) for l in S_)]
+        chk("catchphrase has its own 1.5-2 s scene with a visual (HARD_RULES 23)", not any("catchphrase" in e for e in se) and all(1.4 <= sc["end"] - sc["start"] <= 2.3 for sc in cps),
+            "; ".join(f"{sc['id']} {sc['bg']} '{(sc.get('headline') or '').replace(chr(10), ' ')}' {sc['end'] - sc['start']:.2f}s" for sc in cps) or "no catchphrase in this episode")
+        # ---- loop seam (HARD_RULES 22 a-d): frame is checked below; motion, audio and sense here
+        seam = float(np.abs(g[-1] - g[0]).mean()); inner = float(np.median(dd)); last5 = [float(x) for x in dd[-5:]]; first5 = [float(x) for x in dd[:5]]
+        chk("loop motion: end -> start is not a jump and nothing is mid-arc at the seam (HARD_RULES 22b)", seam <= max(1.0, 1.5 * inner) and max(last5[-2:] + first5[:2]) <= max(1.5, 3 * inner),
+            f"seam frame-diff {seam:.2f} (median in-scene {inner:.2f}); last 2 diffs {last5[-2:][0]:.2f}, {last5[-1]:.2f}; first 2 {first5[0]:.2f}, {first5[1]:.2f}")
+        au = np.frombuffer(sh_bytes(["ffmpeg", "-v", "error", "-i", vid, "-ac", "1", "-ar", "48000", "-f", "s16le", "-"]), np.int16).astype(float) / 32768
+        tail_s = dur - Wt[-1]["t1"]; n50 = 2400; e0 = float(np.sqrt(np.mean(au[:n50] ** 2))); e1 = float(np.sqrt(np.mean(au[-n50:] ** 2))); rms = float(np.sqrt(np.mean(au ** 2)))
+        clickv = float(np.abs(au[-480:]).max()); jump = abs(float(au[-1]) - float(au[0]))
+        chk("loop audio: >= 0.25 s clean tail, no click, bed continuous across the seam (HARD_RULES 22c)", tail_s >= 0.25 and jump < 0.05 and max(e0, e1) < 0.35 * rms and abs(e0 - e1) < 0.05,
+            f"last word ends {tail_s:.2f}s before the end; first/last 50 ms RMS {e0:.3f}/{e1:.3f} (programme {rms:.3f}); sample step across the seam {jump:.3f}; tail peak {clickv:.3f}")
+        try:
+            import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
+            fig, ax = plt.subplots(1, 3, figsize=(13, 2.8)); n = 48000
+            ax[0].plot(np.arange(n) / 48000, au[:n], lw=.5); ax[0].set_title("audio: first 1.0 s", fontsize=9); ax[0].axvline(Wt[0]["t0"], color="r", ls=":", lw=.8)
+            ax[1].plot(dur - 1 + np.arange(n) / 48000, au[-n:], lw=.5); ax[1].set_title("audio: last 1.0 s (red = last word ends)", fontsize=9); ax[1].axvline(Wt[-1]["t1"], color="r", ls=":", lw=.8)
+            m = 9600; ax[2].plot(np.arange(-m, m) / 48000, np.concatenate([au[-m:], au[:m]]), lw=.6); ax[2].axvline(0, color="r", ls=":", lw=.8); ax[2].set_title("audio across the seam (end | start), 0.2 s each side", fontsize=9)
+            for a_ in ax: a_.set_ylim(-1, 1); a_.tick_params(labelsize=6)
+            fig.tight_layout(); fig.savefig(ep.p("seam_waveform.png"), dpi=110); plt.close(fig)
+            from PIL import Image as I2
+            sh(["ffmpeg", "-y", "-v", "error", "-i", vid, "-frames:v", "1", ep.p("first_frame.png")]); sh(["ffmpeg", "-y", "-v", "error", "-sseof", "-0.5", "-i", vid, "-update", "1", ep.p("last_frame.png")])
+            A_, B_ = I2.open(ep.p("first_frame.png")).convert("RGB"), I2.open(ep.p("last_frame.png")).convert("RGB"); sb = I2.new("RGB", (1080 * 2 + 30, 1920), "white"); sb.paste(A_, (0, 0)); sb.paste(B_, (1110, 0)); sb.resize((1095, 960)).save(ep.p("seam_frames.jpg"), quality=90)
+        except Exception as e_: say("WARN  seam evidence:", e_)
+        last_say = S_[-1]["say"]; chk("loop sense: the last line reads into the hook (HARD_RULES 22d)", S_[-1].get("role") in ("ask", "catchphrase") and len(line_jobs(last_say)) == 1, f"'{last_say}' -> '{S_[0]['say'][:40]}...'")
         f0 = np.asarray(Image.open(__import__("io").BytesIO(sh_bytes(["ffmpeg", "-v", "error", "-i", vid, "-frames:v", "1", "-f", "image2pipe", "-c:v", "png", "-"]))).convert("RGB")).astype(float)
         sh(["ffmpeg", "-y", "-v", "error", "-sseof", "-0.5", "-i", vid, "-update", "1", ep.p("last_frame.png")]); fl = np.asarray(Image.open(ep.p("last_frame.png")).convert("RGB")).astype(float)   # -update 1 keeps overwriting: the file ends as the true last frame
         dl = np.abs(f0 - fl); chk("loop: last frame matches the first (HARD_RULES 22)", bool(plan.get("loop")) and dl.mean() < 1.5 and (dl.max(axis=2) > 40).mean() < 0.004, f"mean abs diff {dl.mean():.2f}/255, {(dl.max(axis=2) > 40).mean() * 100:.2f}% of pixels differ")
@@ -515,6 +582,8 @@ def package(ep, E, plan):
     for t in E["thumbnails"]:
         for sz in ("1280x720", "1080x1920"): shutil.copy(ep.p("thumbs", f"thumb-{t['id']}-{sz}.jpg"), os.path.join(dst, f"thumb-ep{ep.n:02d}-{t['id']}-{sz}.jpg"))
     shutil.copy(ep.p("contact_sheet.jpg"), os.path.join(dst, "contact_sheet.jpg"))
+    for f_ in ("seam_frames.jpg", "seam_waveform.png", "transition_plot.png"):
+        if os.path.exists(ep.p(f_)): shutil.copy(ep.p(f_), os.path.join(dst, f_))
     return meta
 
 def schedule_request(ep, E):
