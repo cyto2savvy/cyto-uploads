@@ -142,3 +142,10 @@ BUILD tasks, starting Ep 18:
 IDEA chat: HARD_RULES 26 topic gate. "Why does your body do X" / "is X real" / "what happens to
 your body when X". No local-sports-only or "does this practice work" openers; Toronto is the
 flavour, not the reason to watch.
+
+## IDEA chat, Nov 14 (Eps 18-20 written, awaiting Utsha's OK)
+- Ep 18 "Why Your Heart Doesn't Tire Like Your Bicep" (#BicepHeart hook), Ep 19 "Is 'Hangry' Real?", Ep 20 "Why Do Freezing Fingers Suddenly Warm Up?" are in studio/episodes/ep18-20 (episode.json, claims.md, plan.md). All three validate with 0 errors once their new backdrop ids are registered (gym, chestcavity, foodcourt, kitchen, windowfrost, ttcshelter).
+- Slots written as Mon Nov 16 / Tue Nov 17 / Wed Nov 18, 6 PM ET (23:00Z). Utsha said "Sun Nov 16" but Nov 16, 2026 is a Monday: manager to confirm.
+- Each ep is 60-63 words (~22 s of speech, ~24-25 s with pauses), 1 voice take: 348 / 352 / 385 ElevenLabs credits (about 1,085 total). BUILD asks before spending.
+- Sources: Ep 18 has ONE PubMed source (Hinton Circ Res 2024: mitochondria = one third of cardiomyocyte volume); the heart-vs-bicep contrast is textbook and the page is unconfirmed. Ep 20 angle changed from rewarming pain to cold-induced vasodilation (no source for the pain mechanism).
+- check_make_episode gaps: BGS in make_episode.py has a fixed backdrop list, so new ids fail validation until registered. Intro patterns to log: `intro:stat-stamp` (18), `intro:wrong-answer-crossed-out` (19), `intro:pov-push-in` (20). Catchphrase: stinger at the end (18, 20), payoff beat ~15 s (19).

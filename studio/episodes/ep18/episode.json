@@ -1,0 +1,231 @@
+{
+ "ep": 18,
+ "slug": "heart-vs-bicep",
+ "series": "6ix Seconds of Science",
+ "title": "Why Your Heart Doesn't Tire Like Your Bicep",
+ "topic_words": [
+  "heart",
+  "bicep",
+  "tire"
+ ],
+ "health": true,
+ "fit": "hoodie",
+ "seed": 5,
+ "publish_at": "2026-11-16T23:00:00Z",
+ "keyword": "why doesn't your heart get tired",
+ "hashtags": [
+  "#bicepheart",
+  "#heart",
+  "#muscles"
+ ],
+ "script": [
+  {
+   "say": "Your heart works all day without a break. So why does flexing your bicep burn?",
+   "scene": 0,
+   "emotion": "shock",
+   "pause_after": 0.2,
+   "gaze": [
+    0,
+    0
+   ]
+  },
+  {
+   "say": "A third of each heart cell is mitochondria, tiny power plants running nonstop, fam.",
+   "scene": 1,
+   "emotion": "think",
+   "pause_after": 0.25
+  },
+  {
+   "say": "Your bicep isn't built for nonstop. Heart's the 504 streetcar, bicep's a weekend closure, styll.",
+   "scene": 2,
+   "emotion": "happy",
+   "pause_after": 0.25
+  },
+  {
+   "say": "Not medical advice. Send this to the one who does the bicep heart. Yo, it's ya boy Cyto!",
+   "scene": 3,
+   "emotion": "laugh",
+   "pause_after": 0.0,
+   "tts": "Not medical advice. Send this to the one who does the bicep heart. Yo, it's ya boy Cyto!"
+  }
+ ],
+ "scenes": [
+  {
+   "bg": "gym",
+   "transition": "zoom",
+   "headline": "HEART: NONSTOP\nBICEP: BURNS?",
+   "hot": [
+    "BURNS?"
+   ],
+   "card": "",
+   "instant": true,
+   "props": [
+    {
+     "t": "ecgLine",
+     "at": [
+      300,
+      0.28
+     ],
+     "fill": 0.4,
+     "anchor": "heart",
+     "shows": "the heart working all day without a break",
+     "lead": 0.3
+    },
+    {
+     "t": "bicepHeart",
+     "at": [
+      760,
+      0.62
+     ],
+     "fill": 0.78,
+     "anchor": "bicep",
+     "shows": "the #BicepHeart flex: arm bending into a heart shape",
+     "lead": 0.5
+    }
+   ]
+  },
+  {
+   "bg": "chestcavity",
+   "transition": "membrane",
+   "headline": "1/3 MITOCHONDRIA",
+   "hot": [
+    "1/3"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "cellSlice",
+     "at": [
+      540,
+      0.45
+     ],
+     "fill": 0.84,
+     "anchor": "third",
+     "shows": "a heart muscle cell with about one third of its volume filled by mitochondria",
+     "kind": "heartCell",
+     "fill_share": 0.33,
+     "label": "HEART CELL"
+    }
+   ]
+  },
+  {
+   "bg": "subway",
+   "transition": "whip",
+   "headline": "BICEP =\nWEEKEND CLOSURE",
+   "hot": [
+    "CLOSURE"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "fatigueMeter",
+     "at": [
+      540,
+      0.46
+     ],
+     "fill": 0.8,
+     "anchor": "bicep's",
+     "shows": "a bicep meter climbing to burn while the heart meter stays steady",
+     "labels": [
+      "HEART",
+      "BICEP"
+     ],
+     "values": [
+      20,
+      90
+     ],
+     "show_numbers": false,
+     "lead": 0.2
+    }
+   ]
+  },
+  {
+   "bg": "gym",
+   "transition": "doors",
+   "headline": "SEND IT TO THE\nHEART-POSE FRIEND",
+   "hot": [
+    "SEND"
+   ],
+   "card": "WHO'S YOURS?",
+   "props": []
+  }
+ ],
+ "keys": {
+  "fam": "#4de0c8",
+  "styll": "#4de0c8",
+  "504": "#ff5a5f",
+  "SEND": "#ffd23f"
+ },
+ "thumbnails": [
+  {
+   "id": "A",
+   "headline": [
+    "HEART VS",
+    "BICEP"
+   ],
+   "hot": [
+    "HEART"
+   ],
+   "hero": "heart",
+   "emotion": "shock",
+   "gaze": [
+    -0.5,
+    -0.4
+   ],
+   "scene": "hospital",
+   "sceneSeed": 6,
+   "bg_subject": "heart + Peter Munk Cardiac Centre",
+   "glow": "#ff5a4d"
+  },
+  {
+   "id": "B",
+   "headline": [
+    "HEART NEVER",
+    "BURNS?"
+   ],
+   "hot": [
+    "BURNS?"
+   ],
+   "hero": "heart",
+   "emotion": "think",
+   "gaze": [
+    -0.4,
+    -0.3
+   ],
+   "scene": "lab",
+   "sceneSeed": 9,
+   "bg_subject": "heart + University Ave hospital row",
+   "glow": "#ffc83a"
+  }
+ ],
+ "stronger": "B",
+ "sources": [
+  {
+   "short": "Hinton 2024, Circ Res · textbook (cardiac vs skeletal muscle)",
+   "full": "Hinton A Jr et al., Mitochondrial Structure and Function in Human Heart Failure, Circ Res 2024 (mitochondria comprise one third of cardiomyocyte volume), PMID 38963864, https://doi.org/10.1161/CIRCRESAHA.124.323800 | Textbook for the heart-vs-skeletal-muscle contrast (nonstop work vs intermittent work): Guyton & Hall, Textbook of Medical Physiology, chapters on cardiac and skeletal muscle (BUILD/Utsha to confirm edition + page before publish)"
+  }
+ ],
+ "description": "Your heart works all day without a break, so why does flexing your bicep burn? Cyto breaks it down from the 6ix, riding the #BicepHeart trend.\n\nAccording to a 2024 review in Circulation Research, mitochondria (the cell's power plants) make up about one third of the volume of a heart muscle cell. The heart is built for nonstop work; your bicep is built for work in bursts. That is a design difference, not a fitness verdict.\n\nThe #BicepHeart trend itself is just a pose: flex one arm and press the other hand on the inside of the bicep so it makes a heart shape. No health claim, just a good excuse to talk about muscle.\n\nNot medical advice. Chest pain or an unusual heartbeat? Talk to your doctor or call emergency services.",
+ "tags": [
+  "why doesn't your heart get tired",
+  "heart vs bicep",
+  "bicep heart trend",
+  "why do muscles burn",
+  "heart muscle",
+  "mitochondria",
+  "cardiac muscle",
+  "cyto the cell",
+  "the body is the 6ix",
+  "toronto",
+  "6ix seconds of science"
+ ],
+ "pinned_comment": "Who in your group chat does the #BicepHeart pose? Send them this 👇\n\nSource in the description: Hinton, Circ Res 2024 (mitochondria = one third of a heart cell). Not medical advice.",
+ "related_video": "Ep 15: Exercise and cancer risk",
+ "playlist": "6ix Seconds of Science",
+ "outfit_note": "Toque + hoodie (Canon v2). Canon v2 paper coffee cup with steam in the mitten, whole cup in frame. Gym scene = Mito's turf; Mito may cameo in the gym backdrop but not speak. Plan: studio/episodes/ep18/plan.md",
+ "intro_pattern": "stat stamp slams in first (ECG + 1/3 stamp at frame 1); loop: last scene = gym backdrop, same Cyto pose as scene 0",
+ "catchphrase": "1.3 s stinger at the very end (shortened to 'Yo, it's ya boy Cyto')",
+ "voice": {
+  "takes": 1
+ }
+}

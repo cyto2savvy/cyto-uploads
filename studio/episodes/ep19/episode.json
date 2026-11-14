@@ -1,0 +1,272 @@
+{
+ "ep": 19,
+ "slug": "is-hangry-real",
+ "series": "6ix Seconds of Science",
+ "title": "Is 'Hangry' Real? What Hunger Does to Your Mood",
+ "topic_words": [
+  "hangry",
+  "hunger",
+  "mood"
+ ],
+ "health": true,
+ "fit": "puffer",
+ "seed": 8,
+ "publish_at": "2026-11-17T23:00:00Z",
+ "keyword": "is hangry real",
+ "hashtags": [
+  "#hangry",
+  "#hunger",
+  "#mood"
+ ],
+ "script": [
+  {
+   "say": "Is hangry real, or just an excuse?",
+   "scene": 0,
+   "emotion": "think",
+   "pause_after": 0.2,
+   "gaze": [
+    0,
+    0
+   ]
+  },
+  {
+   "say": "64 people logged their mood 9,000 times. Hungrier meant angrier and more irritable.",
+   "scene": 1,
+   "emotion": "shock",
+   "pause_after": 0.25,
+   "tts": "Sixty-four people logged their mood nine thousand times. Hungrier meant angrier and more irritable."
+  },
+  {
+   "say": "In a trial, fasted women reported more anger and tension. That's a link, styll, not the full why.",
+   "scene": 2,
+   "emotion": "think",
+   "pause_after": 0.25
+  },
+  {
+   "say": "Yo, it's ya boy Cyto. Snack before you fight over the TTC, bro. Not medical advice. Send this to your hangriest friend.",
+   "scene": 3,
+   "emotion": "laugh",
+   "pause_after": 0.0
+  }
+ ],
+ "scenes": [
+  {
+   "bg": "foodcourt",
+   "transition": "zoom",
+   "headline": "JUST AN EXCUSE?\nREAL.",
+   "hot": [
+    "REAL."
+   ],
+   "card": "",
+   "instant": true,
+   "props": [
+    {
+     "t": "crossOut",
+     "at": [
+      540,
+      0.3
+     ],
+     "fill": 0.46,
+     "anchor": "excuse?",
+     "shows": "the wrong answer 'JUST AN EXCUSE' being crossed out",
+     "text": "JUST AN EXCUSE",
+     "lead": 0.5
+    },
+    {
+     "t": "angerFace",
+     "at": [
+      540,
+      0.82
+     ],
+     "fill": 0.3,
+     "anchor": "hangry",
+     "shows": "a face flipping from calm to hangry",
+     "lead": 0.0
+    }
+   ]
+  },
+  {
+   "bg": "kitchen",
+   "transition": "whip",
+   "headline": "64 PEOPLE\n9,000 CHECK-INS",
+   "hot": [
+    "9,000"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "moodDial",
+     "at": [
+      540,
+      0.3
+     ],
+     "fill": 0.5,
+     "anchor": "hungrier",
+     "shows": "mood dial moving from happy to irritable as hunger rises",
+     "labels": [
+      "FULL",
+      "HUNGRY"
+     ],
+     "lead": 0.1
+    },
+    {
+     "t": "peopleGrid",
+     "at": [
+      540,
+      0.8
+     ],
+     "fill": 0.34,
+     "anchor": "People",
+     "shows": "64 people in the experience-sampling study",
+     "n": 64,
+     "cols": 16,
+     "hi": 0,
+     "label": "64 PEOPLE",
+     "spread": 1.4,
+     "lead": 0.0
+    }
+   ]
+  },
+  {
+   "bg": "lab",
+   "transition": "membrane",
+   "headline": "FASTED = MORE\nANGER, TENSION",
+   "hot": [
+    "ANGER,"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "breakfastPlate",
+     "at": [
+      300,
+      0.46
+     ],
+     "fill": 0.62,
+     "anchor": "fasted",
+     "shows": "two plates: empty (fasted group) vs breakfast (fed group)",
+     "labels": [
+      "FASTED",
+      "ATE"
+     ],
+     "lead": 0.2
+    },
+    {
+     "t": "arrowStat",
+     "at": [
+      770,
+      0.4
+     ],
+     "fill": 0.58,
+     "anchor": "anger",
+     "shows": "fasted women reported MORE anger and tension (direction only, no number on screen)",
+     "dir": "up",
+     "label": "MORE\nANGER",
+     "lead": 0.0
+    },
+    {
+     "t": "stamp",
+     "at": [
+      540,
+      0.92
+     ],
+     "fill": 0.18,
+     "anchor": "link",
+     "shows": "a link is not proof of the full why",
+     "text": "LINK, NOT PROOF",
+     "rot": -3,
+     "plate": true
+    }
+   ]
+  },
+  {
+   "bg": "foodcourt",
+   "transition": "doors",
+   "headline": "SEND TO YOUR\nHANGRIEST FRIEND",
+   "hot": [
+    "SEND"
+   ],
+   "card": "WHO'S YOURS?",
+   "props": []
+  }
+ ],
+ "keys": {
+  "fam": "#4de0c8",
+  "styll": "#4de0c8",
+  "bro": "#4de0c8",
+  "9,000": "#ffd23f",
+  "REAL.": "#ffd23f",
+  "SEND": "#ffd23f"
+ },
+ "thumbnails": [
+  {
+   "id": "A",
+   "headline": [
+    "IS HANGRY",
+    "REAL?"
+   ],
+   "hot": [
+    "REAL?"
+   ],
+   "hero": "sugar",
+   "emotion": "shock",
+   "gaze": [
+    -0.5,
+    -0.4
+   ],
+   "scene": "streetcar",
+   "sceneSeed": 4,
+   "bg_subject": "hunger + Kensington Market food stalls",
+   "glow": "#ffc83a"
+  },
+  {
+   "id": "B",
+   "headline": [
+    "HUNGRY =",
+    "ANGRY?"
+   ],
+   "hot": [
+    "ANGRY?"
+   ],
+   "hero": "sugar",
+   "emotion": "think",
+   "gaze": [
+    -0.4,
+    -0.3
+   ],
+   "scene": "subway",
+   "sceneSeed": 12,
+   "bg_subject": "hungry mood + Bloor-Yonge subway platform",
+   "glow": "#ff5a4d"
+  }
+ ],
+ "stronger": "A",
+ "sources": [
+  {
+   "short": "Swami 2022, PLoS One · Ackermans 2021, Appetite",
+   "full": "Swami V et al., Hangry in the field: an experience sampling study on the impact of hunger on anger, irritability, and affect, PLoS One 2022 (64 participants, 9,142 responses over 21 days), PMID 35793289, https://doi.org/10.1371/journal.pone.0269629 | Ackermans MA et al., Hunger increases negative and decreases positive emotions in women with a healthy weight, Appetite 2021 (randomized: fasted vs ate breakfast), PMID 34637770, https://doi.org/10.1016/j.appet.2021.105746"
+  }
+ ],
+ "description": "Is hangry real, or just an excuse? Cyto breaks it down from the 6ix.\n\nIn a 2022 PLoS One study, 64 people reported their hunger and mood five times a day for 21 days (9,142 responses). Greater hunger went with more anger, more irritability and lower pleasure, even after accounting for age, sex, BMI, diet habits and trait anger. In a 2021 Appetite randomized trial, women who fasted before the lab session reported more tension, anger, fatigue and confusion and less vigour than women who ate breakfast.\n\nThe catch: the first study is observational (a link, not proof of cause), and neither study shows the mechanism. This is about everyday hunger, not a reason to skip meals.\n\nNot medical advice. If worries about food or eating are weighing on you, talk to your doctor.",
+ "tags": [
+  "is hangry real",
+  "hangry science",
+  "hunger and mood",
+  "why does hunger make you angry",
+  "hunger and anger",
+  "irritability",
+  "cyto the cell",
+  "the body is the 6ix",
+  "toronto",
+  "6ix seconds of science"
+ ],
+ "pinned_comment": "Who's your hangriest friend? Send them this 👇\n\nSources in the description: Swami, PLoS One 2022 and Ackermans, Appetite 2021. A link, not proof of why. Not medical advice.",
+ "related_video": "Ep 17: Why quitting smoking is so hard",
+ "playlist": "6ix Seconds of Science",
+ "outfit_note": "Toque + puffer (Canon v2). Canon v2 paper coffee cup with steam in the mitten, whole cup in frame. Not a diet video: nothing encourages skipping meals. Plan: studio/episodes/ep19/plan.md",
+ "intro_pattern": "a wrong answer crossed out ('JUST AN EXCUSE' struck through, 'REAL.' in gold); loop: last scene = foodcourt backdrop, same Cyto pose as scene 0",
+ "catchphrase": "payoff beat in scene 4 (about 14 s in), shortened to 'Yo, it's ya boy Cyto'",
+ "voice": {
+  "takes": 1
+ }
+}

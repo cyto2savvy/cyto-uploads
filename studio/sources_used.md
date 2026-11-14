@@ -17,3 +17,6 @@ Every Short must use NEW PubMed source(s) (ideally 2+, substantive: RCTs, cohort
 | 15 | Exercise and cancer risk | 10.1056/NEJMoa2502760; 10.1001/jamainternmed.2016.1548 (pinned-comment only: 10.1200/JCO-26-00765) |
 | 16 | No Nut November vs prostate | 10.1186/s12885-025-15410-3; 10.31557/APJCP.2025.26.9.3193 |
 | 17 | Why quitting smoking is so hard | 10.1016/j.jtho.2026.104071; 10.1007/s41030-026-00402-w |
+| 18 | Heart vs bicep (#BicepHeart) | 10.1161/CIRCRESAHA.124.323800 (+ textbook, unconfirmed page) |
+| 19 | Is hangry real | 10.1371/journal.pone.0269629; 10.1016/j.appet.2021.105746 |
+| 20 | Freezing fingers warm up (CIVD) | 10.1152/ajpregu.00176.2025; 10.1007/s00421-023-05304-2 |

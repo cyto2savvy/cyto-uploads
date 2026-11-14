@@ -1,0 +1,269 @@
+{
+ "ep": 20,
+ "slug": "freezing-fingers-warm-up",
+ "series": "What happens to your body when...",
+ "title": "Why Do Freezing Fingers Suddenly Warm Up?",
+ "topic_words": [
+  "fingers",
+  "freezing",
+  "cold"
+ ],
+ "health": true,
+ "fit": "puffer",
+ "seed": 11,
+ "publish_at": "2026-11-18T23:00:00Z",
+ "keyword": "why do cold fingers warm up",
+ "hashtags": [
+  "#coldweather",
+  "#hands",
+  "#winter"
+ ],
+ "script": [
+  {
+   "say": "Your fingers are freezing. So why do they start warming up?",
+   "scene": 0,
+   "emotion": "shock",
+   "pause_after": 0.2,
+   "gaze": [
+    0,
+    0
+   ]
+  },
+  {
+   "say": "Cold squeezes finger blood vessels, so skin chills and hands get clumsy. Then they reopen: cold-induced vasodilation, fam.",
+   "scene": 1,
+   "emotion": "think",
+   "pause_after": 0.25,
+   "tts": "Cold squeezes finger blood vessels, so skin chills and hands get clumsy. Then they reopen: cold-induced vaso-dye-LAY-shun, fam."
+  },
+  {
+   "say": "Ten people held a hand in ice-cold water. Fingers rebounded.",
+   "scene": 2,
+   "emotion": "happy",
+   "pause_after": 0.25
+  },
+  {
+   "say": "Still, gloves at the Bathurst stop beat hoping, styll.",
+   "scene": 3,
+   "emotion": "chill",
+   "pause_after": 0.25
+  },
+  {
+   "say": "Not medical advice. Send this to whoever won't wear gloves. Yo, it's ya boy Cyto!",
+   "scene": 4,
+   "emotion": "laugh",
+   "pause_after": 0.0
+  }
+ ],
+ "scenes": [
+  {
+   "bg": "windowfrost",
+   "transition": "zoom",
+   "headline": "FREEZING FINGERS\nWARM UP?",
+   "hot": [
+    "WARM"
+   ],
+   "card": "",
+   "instant": true,
+   "props": [
+    {
+     "t": "vesselHand",
+     "at": [
+      540,
+      0.46
+     ],
+     "fill": 0.84,
+     "anchor": "fingers",
+     "shows": "a fingertip cross-section: skin, then blood vessels, pushing in through the skin",
+     "lead": 0.3
+    }
+   ]
+  },
+  {
+   "bg": "ttcshelter",
+   "transition": "membrane",
+   "headline": "SQUEEZE, THEN\nREOPEN",
+   "hot": [
+    "REOPEN"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "vesselHand",
+     "at": [
+      300,
+      0.46
+     ],
+     "fill": 0.72,
+     "anchor": "squeezes",
+     "shows": "finger blood vessels narrowing in the cold, then opening back up",
+     "from_state": "narrow",
+     "to_state": "wide",
+     "morph_on": "reopen",
+     "label": "VESSELS",
+     "lead": 0.1
+    },
+    {
+     "t": "tempDial",
+     "at": [
+      780,
+      0.46
+     ],
+     "fill": 0.62,
+     "anchor": "chills",
+     "shows": "finger skin temperature falling with the cold, then rebounding (no numbers on screen)",
+     "show_numbers": false,
+     "shape": "dip-rebound",
+     "lead": 0.1
+    }
+   ]
+  },
+  {
+   "bg": "lab",
+   "transition": "doors",
+   "headline": "10 PEOPLE\nICE-COLD WATER",
+   "hot": [
+    "10"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "peopleGrid",
+     "at": [
+      540,
+      0.2
+     ],
+     "fill": 0.26,
+     "anchor": "ten",
+     "shows": "ten volunteers in the lab test",
+     "n": 10,
+     "cols": 10,
+     "hi": 10,
+     "label": "10 PEOPLE",
+     "spread": 0.9
+    },
+    {
+     "t": "tempCurve",
+     "at": [
+      540,
+      0.66
+     ],
+     "fill": 0.56,
+     "anchor": "rebounded",
+     "shows": "finger temperature dipping then rebounding during the cold-water hold (no numbers on screen)",
+     "show_numbers": false,
+     "lead": 0.2
+    }
+   ]
+  },
+  {
+   "bg": "subway",
+   "transition": "whip",
+   "headline": "GLOVES\nBEAT HOPING",
+   "hot": [
+    "GLOVES"
+   ],
+   "card": "",
+   "props": [
+    {
+     "t": "mitten",
+     "at": [
+      540,
+      0.46
+     ],
+     "fill": 0.72,
+     "anchor": "gloves",
+     "shows": "a glove: the simple thing that keeps fingers warm at the stop",
+     "lead": 0.1
+    }
+   ]
+  },
+  {
+   "bg": "windowfrost",
+   "transition": "membrane",
+   "headline": "SEND TO WHOEVER\nWON'T WEAR GLOVES",
+   "hot": [
+    "SEND"
+   ],
+   "card": "WHO'S YOURS?",
+   "props": []
+  }
+ ],
+ "keys": {
+  "fam": "#4de0c8",
+  "styll": "#4de0c8",
+  "10": "#ffd23f",
+  "SEND": "#ffd23f"
+ },
+ "thumbnails": [
+  {
+   "id": "A",
+   "headline": [
+    "FREEZING",
+    "FINGERS?"
+   ],
+   "hot": [
+    "FINGERS?"
+   ],
+   "hero": "snow",
+   "emotion": "shock",
+   "gaze": [
+    -0.5,
+    -0.4
+   ],
+   "scene": "snow",
+   "sceneSeed": 3,
+   "bg_subject": "fingers + St. Lawrence Market in winter",
+   "glow": "#7fd8ff"
+  },
+  {
+   "id": "B",
+   "headline": [
+    "COLD HANDS",
+    "WARM UP?!"
+   ],
+   "hot": [
+    "WARM"
+   ],
+   "hero": "snow",
+   "emotion": "think",
+   "gaze": [
+    -0.4,
+    -0.3
+   ],
+   "scene": "subway",
+   "sceneSeed": 14,
+   "bg_subject": "cold fingers + Bathurst subway stop",
+   "glow": "#ffc83a"
+  }
+ ],
+ "stronger": "A",
+ "sources": [
+  {
+   "short": "Seeley 2026, AJP Regul · Weller 2023, Eur J Appl Physiol",
+   "full": "Seeley AD et al., Single and repeat ischemic preconditioning unable to modify cold-induced vasodilation..., Am J Physiol Regul Integr Comp Physiol 2026 (cold-induced vasoconstriction reduces skin blood flow, skin temperature and manual dexterity), PMID 41870602, https://doi.org/10.1152/ajpregu.00176.2025 | Weller RS et al., Cold-induced vasodilation during sequential immersions of the hand, Eur J Appl Physiol 2023 (10 adults, two 30-min cold-water hand immersions), PMID 37864008, https://doi.org/10.1007/s00421-023-05304-2"
+  }
+ ],
+ "description": "Your fingers are freezing, so why do they start warming themselves? Cyto breaks it down from the 6ix as the first real cold hits.\n\nAccording to PubMed-indexed research: cold makes the blood vessels in your hands narrow (vasoconstriction), which cuts skin blood flow and skin temperature and makes your hands clumsier (Seeley 2026). Then, in the cold, vessels can open back up. That response is called cold-induced vasodilation or the hunting reaction (Weller 2023). In Weller 2023, 10 adults held a hand in about 4°C water for 30 minutes, twice, and finger temperature responses were measured.\n\nThe catch: these are small lab studies on healthy adults, mostly young men. The warm-up is not a reason to skip gloves.\n\nNot medical advice. Fingers that stay white, numb or painful after warming up? See your doctor.",
+ "tags": [
+  "why do cold fingers warm up",
+  "cold induced vasodilation",
+  "hunting reaction",
+  "cold hands science",
+  "why do my fingers hurt in the cold",
+  "winter body facts",
+  "cyto the cell",
+  "the body is the 6ix",
+  "toronto",
+  "6ix seconds of science"
+ ],
+ "pinned_comment": "Who leaves their gloves at home? Send them this 👇\n\nSources in the description: Seeley, AJP Regul 2026 and Weller, Eur J Appl Physiol 2023. Small lab studies. Not medical advice.",
+ "related_video": "Ep 18: Why your heart doesn't tire like your bicep",
+ "playlist": "What happens to your body when...",
+ "outfit_note": "Toque + puffer (Canon v2). Canon v2 paper coffee cup with steam in the mitten, whole cup in frame. Plan: studio/episodes/ep20/plan.md",
+ "intro_pattern": "POV push-in through the skin (vesselHand cross-section); loop: last scene = windowfrost backdrop, same Cyto pose as scene 0",
+ "catchphrase": "1.3 s stinger at the very end (shortened to 'Yo, it's ya boy Cyto')",
+ "voice": {
+  "takes": 1
+ }
+}
