@@ -52,8 +52,19 @@ long it is, so longer videos just score a worse retention percentage. Seeded epi
       not an episode. This floor beats the ceiling: if the idea needs 4 beats, take the seconds.
     - Narration 24-32 s. Over 34 s = FAIL. Budget it as: hook <= 2 s, 3-4 explaining beats,
       Toronto payoff, then the outro — and the outro's seconds are NOT part of the body budget.
-    - Still cut a beat rather than speeding the read, and still make the last frame match the
-      first so the loop is seamless (Ep 1 looped and held 28 s / 91%).
+    - Still cut a beat rather than speeding the read.
+    - **The loop is a cut like any other** (tightened Nov 14). Four things, all checked:
+      a) *Frame*: last frame matches frame 0 — same backdrop, same Cyto pose, same camera
+         position and zoom. Already enforced (mean abs diff < 1.5/255, < 0.4% of pixels).
+      b) *Motion*: nothing is mid-arc at the seam. Cyto's idle bounce and any camera push/zoom
+         sit at a neutral point at both ends, so the restart does not jerk or reverse.
+      c) *Audio*: the last word finishes with >= 0.25 s of clean tail, no click, no clipped
+         syllable, and room tone/bed is continuous across the seam. Check the waveform at both
+         ends, not just the picture.
+      d) *Sense*: the last line has to read into the hook. Ending on the catchphrase beat works
+         because "Yo, it's ya boy Cyto" into the hook is the natural order on a replay.
+      Run the frame-diff transition check across the seam too, treating end -> start as a cut.
+      Ep 1 looped and held 28 s / 91%, which is still the best retention we have ever had.
     - Why we are not Kurzgesagt-length yet: their Shorts run 71-79 s and hold it. We hold
       ~15-17 s. Earning second 15 is the goal; a short runtime is a stopgap, not a principle.
       Revisit the ceiling once avg seconds held clears ~20 s.

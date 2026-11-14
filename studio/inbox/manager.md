@@ -188,3 +188,28 @@ Ep 18 redo, same slot (Mon Nov 16, 6 PM ET — Utsha said Sun, the date is a Mon
    and the chest-pain line in the description.
 4. Add the make_episode checks for the rewritten rules: `hook answered`, `>= 3 explaining
    lines`, `narration <= 34 s`, `catchphrase has its own scene`, `one line one job`.
+
+### Ep 18 redo: the loop and the flow are the part not to break
+Utsha: "make sure the loop and everything is intact cus remember it has to flow good and loop
+properly." Rule 22's loop spec is tightened — the check was pixel-only. Four things now:
+- Frame: last frame = frame 0 (backdrop, Cyto pose, camera position and zoom). Already checked.
+- Motion: nothing mid-arc at the seam. Cyto's idle bounce and any camera push sit at a neutral
+  point at BOTH ends so the restart doesn't jerk or run backwards.
+- Audio: last word finishes with >= 0.25 s of clean tail, no click, no clipped syllable, bed
+  continuous across the seam. Look at the waveform at both ends, not just the picture.
+- Sense: the last line reads into the hook. Catchphrase beat last is good — "Yo, it's ya boy
+  Cyto" into the hook is the natural order on a replay.
+Run the frame-diff transition check across the seam as well, treating end -> start as a cut.
+
+Scene order for the redo (keeps gym at both ends so the loop holds):
+  0 gym (hook: trend + the question, `instant`)
+  1 chestcavity (1/3 mitochondria)
+  2 chestcavity or cellSlice variant (it rests between beats - diastole)
+  3 gym or new bg (bicep is built for bursts, metabolites build up)
+  4 subway (Toronto payoff: 504 always running vs weekend closure)
+  5 short beat (catchphrase, own 1.5-2 s scene, with a visual)
+  6 gym (send-ask + sources on screen; disclaimer is ON-SCREEN text, not spoken)
+Scene 6 backdrop MUST equal scene 0's, and rule 6 still bans two consecutive scenes sharing a
+backdrop — so scene 5 cannot be gym. ~30 s total, which rule 22 now allows.
+Report the seam evidence with the draft: first and last frame side by side, the waveform at
+both ends, and the transition plot including the seam.
