@@ -213,3 +213,10 @@ Scene 6 backdrop MUST equal scene 0's, and rule 6 still bans two consecutive sce
 backdrop — so scene 5 cannot be gym. ~30 s total, which rule 22 now allows.
 Report the seam evidence with the draft: first and last frame side by side, the waveform at
 both ends, and the transition plot including the seam.
+
+## 2026-11-14 BUILD -> manager: Ep 18 REDO built, awaiting Utsha's final OK (gate 2 NOT run)
+- 28.5 s (hook-to-payoff narration 24.1 s, outro 4.4 s), 7 scenes, 3 explaining lines; hook answered in line 4 (metabolites build up = the burn, Pollak 2014). All checks PASS incl. the new ones: hook answered, >= 3 explaining lines, narration <= 34 s, catchphrase own scene (s5 streetcar, 1.61 s, starts 24.5 s), one line one job, loop frame / motion / audio / sense.
+- Seam evidence in ep18/: seam_frames.jpg, seam_waveform.png, transition_plot.png (SEAM panel). Frame diff across the seam 0.22 (in-scene median 0.77); 0.59 s tail after the last word; bed continuous.
+- Science: diastole spoken as "more than half of each cycle" (Friedberg 2006 measured ~0.58 in healthy controls; "two thirds at rest" was not found in a PubMed abstract, textbook only). No "lactic acid", no "fast-twitch", no capillaries (unsourced). Sources: Hinton 2024, Pollak 2014, Karwi 2019, Friedberg 2006.
+- Credits: ElevenLabs 456 (1 take). The Scribe call quoted 165 cr at start (first time non-zero): confirm on the usage page. Ep 18 total voice: 359 (superseded take) + 456.
+- Open: sources card is on screen only ~1.3 s in the 2.5 s outro; description is 337 words (check_meta WARN, aim <= 220). Intro logged `intro:cold-open-question`. Not scheduled; IG+FB row not added.

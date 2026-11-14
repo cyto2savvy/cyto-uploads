@@ -30,8 +30,8 @@
   "icons:organ": "ep15",
   "icons:person": "ep17",
   "icons:shoe": "ep15",
+  "intro:cold-open-question": "ep18",
   "intro:pov-push-in": "ep20",
-  "intro:stat-stamp": "ep18",
   "intro:wrong-answer-crossed-out": "ep19",
   "kitchen": "ep19",
   "lab": "ep20",
@@ -44,14 +44,14 @@
   "organ:lungs": "ep17",
   "organ:prostate": "ep16",
   "peopleGrid": "ep20",
-  "plain": "ep16",
+  "plain": "ep18",
   "runner": "ep15",
   "shoe": "ep15",
   "skyline": "ep15",
   "snow": "ep16",
   "stamp": "ep19",
   "stopSign": "ep18",
-  "streetcar": "ep16",
+  "streetcar": "ep18",
   "subway": "ep20",
   "tempCurve": "ep20",
   "tempDial": "ep20",
@@ -60,7 +60,7 @@
   "vesselHand": "ep20",
   "whip": "ep20",
   "windowfrost": "ep20",
-  "zoom": "ep16"
+  "zoom": "ep18"
  },
  "episodes": {
   "ep15": {
@@ -203,13 +203,19 @@
    "backdrops": [
     "gym",
     "chestcavity",
+    "plain",
+    "gym",
     "subway",
+    "streetcar",
     "gym"
    ],
    "transitions": [
     "membrane",
+    "zoom",
     "whip",
-    "doors"
+    "doors",
+    "whip",
+    "zoom"
    ],
    "props": [
     "bicepHeart",
@@ -222,10 +228,13 @@
    "combos": [
     "gym|bicepHeart+ecgLine",
     "chestcavity|cellSlice:heartCell",
-    "subway|fatigueMeter+stamp+stopSign",
+    "plain|ecgLine",
+    "gym|fatigueMeter",
+    "subway|ecgLine+stamp+stopSign",
+    "streetcar|",
     "gym|"
    ],
-   "intro": "stat-stamp"
+   "intro": "cold-open-question"
   },
   "ep19": {
    "publish_at": "2026-11-17T23:00:00Z",
