@@ -17,4 +17,5 @@ HAVE ep14v3_raw.mp3
 HAVE ep15_raw.mp3
 HAVE ep17_raw.mp3
 HAVE ep16_raw.mp3
-OK ep18_raw.mp3
+HAVE ep18_raw.mp3
+OK ep18r_raw.mp3
